@@ -1411,6 +1411,10 @@ button.dash-stat{font:inherit;text-align:start;cursor:pointer;color:inherit;widt
 .ps-row input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;}
 .ps-head{font-size:.74rem;color:#8a6b73;}
 @media(max-width:560px){.ps-row{grid-template-columns:1fr 1fr 1fr;}.ps-row b{grid-column:1/-1;}}
+.treq{background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 16px;margin:0 0 16px;display:grid;gap:10px;}
+.treq-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border-radius:10px;padding:10px 12px;}
+.treq-row>span{flex:1;min-width:180px;}
+.treq-row small{display:block;color:var(--muted);font-size:.76rem;}
 .protect-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin:0 0 16px;}
 .protect-box>span{font-size:1.5rem;}
 .protect-box p{flex:1;min-width:220px;margin:0;font-size:.86rem;color:#5a4148;}
@@ -1447,7 +1451,7 @@ html[dir="rtl"] .af2{right:auto;left:10px;}
 .auth-tab{border:none !important;border-radius:11px !important;background:transparent !important;color:var(--muted) !important;}
 .auth-tab.active{background:#fff !important;color:var(--maroon-deep) !important;box-shadow:var(--shadow-sm);}
 .field-label{font-size:0.78rem;font-weight:600;color:var(--maroon-deep);margin-bottom:8px;}
-.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+.role-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
 .role-opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px;border-radius:14px;border:1.5px solid var(--soft-line);background:#FBF9F7;
   text-align:start;font:inherit;cursor:pointer;transition:border-color .2s,background .2s,transform .2s;}
 .role-opt span{font-size:1.5rem;margin-bottom:4px;}
@@ -1683,6 +1687,37 @@ html[dir="rtl"] .chat-send svg{transform:scaleX(-1);}
 
 /* ===== student learning path ===== */
 .path{display:flex;align-items:stretch;gap:0;margin:6px 0 30px;}
+#learnPath{display:block;}
+.path-now{display:flex;gap:16px;align-items:center;background:#fff;border:1.5px solid var(--maroon);border-radius:18px;padding:18px 20px;box-shadow:0 0 0 4px rgba(92,26,40,0.06),var(--shadow-sm);margin-bottom:16px;}
+.path-now>div{flex:1;min-width:0;}
+.path-now small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1d6b5b;}
+.path-now b{display:block;font-family:var(--serif);font-size:1.2rem;color:var(--maroon-deep);margin:2px 0 8px;}
+.path-now em{display:block;font-style:normal;font-size:.78rem;color:var(--muted);margin-top:6px;}
+.path-now .ps-bar{display:block;margin-top:0;max-width:420px;}
+.path-now .ps-badge{background:var(--grad-brand);}
+.path-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.stage{background:#fff;border:1px solid var(--soft-line);border-radius:16px;padding:14px;box-shadow:var(--shadow-sm);}
+.stage.here{border-color:var(--maroon);}
+.stage.done{background:#f3faf4;border-color:#cfe8d6;}
+.stage.locked{background:#F4F0EC;}
+.stage-head{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+.stage-head>span{width:34px;height:34px;border-radius:10px;background:var(--peach-soft);display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex:none;}
+.stage.done .stage-head>span{background:#2e7d32;color:#fff;font-weight:800;}
+.stage-head b{display:block;color:var(--maroon-deep);font-size:.92rem;}
+.stage-head small{font-size:.72rem;color:var(--muted);}
+.stage-levels{display:flex;flex-wrap:wrap;gap:6px;}
+.lv-chip{min-width:46px;padding:8px 10px;border-radius:10px;border:1.5px solid var(--soft-line);background:#fff;font:inherit;font-weight:700;font-size:.85rem;color:var(--maroon-deep);cursor:pointer;transition:all .2s;}
+.lv-chip:hover{border-color:var(--maroon);}
+.lv-chip.passed{background:#e6f4ea;border-color:#cfe8d6;color:#1e6b34;}
+.lv-chip.working{border-color:var(--maroon);box-shadow:0 0 0 3px rgba(92,26,40,.12);}
+.lv-chip.active{background:var(--maroon-deep);border-color:var(--maroon-deep);color:#fff;}
+.lv-chip.locked{color:#b9a2a8;cursor:not-allowed;background:transparent;}
+.lt-stage{display:flex;flex-direction:column;gap:4px;}
+.lt-stage small{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.lt-stage>div{display:flex;gap:6px;flex-wrap:wrap;}
+.level-tabs .level-tab{padding:7px 12px;}
+@media(max-width:860px){.path-stages{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.stage{padding:12px 10px;}.stage-head>span{display:none;}.lv-chip{min-width:38px;padding:7px 6px;font-size:.8rem;}}
 .path-link{flex:0 0 26px;align-self:center;height:3px;background:repeating-linear-gradient(90deg,rgba(92,26,40,0.25) 0 6px,transparent 6px 11px);}
 .path-step{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-align:start;padding:18px 18px 16px;
   background:#fff;border:1.5px solid var(--soft-line);border-radius:18px;box-shadow:var(--shadow-sm);cursor:pointer;position:relative;
@@ -2170,7 +2205,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         </div>
         <div class="how-text">
           <h4>Learn level by level</h4>
-          <p>Read your club's books at your level, from Beginner (A1-A2) up to Advanced (C1-C2).</p>
+          <p>Read your club's books at your level — 14 levels, from Beginner to Advanced.</p>
         </div>
       </div>
 
@@ -2307,7 +2342,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           <video id="wpVideo" controls playsinline preload="metadata"></video>
         </div>
         <div class="wp-meta">
-          <div class="wp-chips"><span class="wp-chip" id="wpTag">Vocabulary</span><span class="wp-chip alt" id="wpLevel">Beginner (A1-A2)</span></div>
+          <div class="wp-chips"><span class="wp-chip" id="wpTag">Vocabulary</span><span class="wp-chip alt" id="wpLevel">Level 1</span></div>
           <h3 id="wpTitle">Farm Animals</h3>
           <p class="wp-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none"/></svg><span>Tap a word to hear it</span></p>
           <div class="wp-words" id="wpWords" translate="no"></div>
@@ -2351,7 +2386,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <div id="ptDone" class="pt-pane" hidden>
         <div class="pt-result">
           <div class="pt-badge ok" id="ptCefr">A2</div>
-          <div><span class="pt-kick">Your estimated level</span><h3 id="ptLevel">Beginner (A1-A2)</h3><span class="pt-score" id="ptScore">0/12 correct</span></div>
+          <div><span class="pt-kick">Your estimated level</span><h3 id="ptLevel">Level 1</h3><span class="pt-score" id="ptScore">0/12 correct</span></div>
         </div>
         <div class="pt-scale" id="ptScale" aria-hidden="true"></div>
         <p id="ptMsg"></p>
@@ -2488,7 +2523,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <li><span>💬</span>Parents and teachers, one tap apart</li>
       </ul>
       <div class="auth-float af1"><b>🔥 12</b><span>day reading streak</span></div>
-      <div class="auth-float af2"><b>🎓</b><span>Beginner (A1–A2) passed</span></div>
+      <div class="auth-float af2"><b>🎓</b><span>Level 4 passed</span></div>
     </div>
 
     <div class="auth-brand-foot">Code Cademy · English Immersion Academy</div>
@@ -2508,6 +2543,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <form id="loginForm" class="auth-form">
         <label>Email<input type="email" id="loginEmail" required autocomplete="email"></label>
         <label>Password<input type="password" id="loginPassword" required autocomplete="current-password"></label>
+        <p class="auth-hint">Students, parents and teachers all sign in here.</p>
         <button type="submit" class="lib-submit">Sign in</button>
         <button type="button" class="auth-forgot" id="forgotLink">Forgot your password?</button>
         <p class="auth-error" id="loginError"></p>
@@ -2537,12 +2573,14 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div class="role-pick" role="radiogroup" aria-label="I am a…">
           <button type="button" class="role-opt active" data-role="student" role="radio" aria-checked="true"><span>🎒</span><b>Student</b><small>I want to learn</small></button>
           <button type="button" class="role-opt" data-role="parent" role="radio" aria-checked="false"><span>👨‍👩‍👧</span><b>Parent</b><small>I follow my child</small></button>
+          <button type="button" class="role-opt" data-role="teacher" role="radio" aria-checked="false"><span>🧑‍🏫</span><b>Teacher</b><small>I teach at the academy</small></button>
         </div>
         <select id="suRole" hidden>
           <option value="student">Student</option>
           <option value="parent">Parent / guardian</option>
+          <option value="teacher">Teacher</option>
         </select>
-        <p class="auth-hint">Teachers: your account is created by the academy admin.</p>
+        <p class="auth-hint" id="suTeacherHint" hidden>The academy admin approves teacher accounts. Create your account now — your teacher tools open as soon as you are approved.</p>
 
         <label id="suClubWrap">Club
           <select id="suClub">
@@ -2644,11 +2682,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           </div>
           <div>
             <label for="libLevel">Level</label>
-            <select id="libLevel" required>
-              <option value="Beginner (A1-A2)">Beginner (A1-A2)</option>
-              <option value="Intermediate (B1-B2)">Intermediate (B1-B2)</option>
-              <option value="Advanced (C1-C2)">Advanced (C1-C2)</option>
-            </select>
+            <select id="libLevel" data-levels required></select>
           </div>
           <div class="full">
             <label for="libTitle">Title</label>
@@ -2685,9 +2719,6 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div class="path" id="learnPath" hidden></div>
 
         <div class="level-tabs" id="levelTabs">
-          <button class="level-tab" data-level="Beginner (A1-A2)" type="button"><span class="lv-dot"></span>Beginner (A1-A2)</button>
-          <button class="level-tab" data-level="Intermediate (B1-B2)" type="button"><span class="lv-dot"></span>Intermediate (B1-B2)</button>
-          <button class="level-tab" data-level="Advanced (C1-C2)" type="button"><span class="lv-dot"></span>Advanced (C1-C2)</button>
         </div>
 
         <div class="shelf-head" id="shelfHead" hidden>
@@ -2837,11 +2868,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           </div>
           <div>
             <label for="vidLevel">Level</label>
-            <select id="vidLevel">
-              <option value="Beginner (A1-A2)">Beginner (A1-A2)</option>
-              <option value="Intermediate (B1-B2)">Intermediate (B1-B2)</option>
-              <option value="Advanced (C1-C2)">Advanced (C1-C2)</option>
-            </select>
+            <select id="vidLevel" data-levels></select>
           </div>
           <div class="full">
             <label for="vidWords">Words or phrases (separate with commas)</label>
@@ -3060,7 +3087,8 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
 
       <div class="dash-view" data-view="users" hidden>
         <h3>Users &amp; roles</h3>
-        <p class="dash-sub">Only you can make someone a teacher. New sign-ups are students or parents.</p>
+        <p class="dash-sub">Only you can make someone a teacher. Teachers who sign up wait here until you approve them.</p>
+        <div id="teacherRequests"></div>
         <div class="users-tools">
           <input type="search" id="usersSearch" class="lib-search" placeholder="Search by name or email…" aria-label="Search users">
           <div class="users-filter" id="usersFilter">
@@ -3252,12 +3280,12 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
 
 // video lessons — files live in the videos/ folder next to index.html
 window.LESSONS = [
-  {id:"farm-animals",title:"Farm Animals",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:16",words:["My uncle has a big farm", "The cows give fresh milk", "The sheep have soft wool"],src:"assets/video/farm-animals.mp4",poster:"assets/img/poster-farm-animals.jpg"},
-  {id:"zoo-animals",title:"Zoo Animals",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["elephant", "lion", "giraffe"],src:"assets/video/zoo-animals.mp4",poster:"assets/img/poster-zoo-animals.jpg"},
-  {id:"fruits-1",title:"Fruits",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["strawberry", "grapes", "blueberry"],src:"assets/video/fruits-1.mp4",poster:"assets/img/poster-fruits-1.jpg"},
-  {id:"fruits-2",title:"More Fruits",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["pear", "peach", "mango"],src:"assets/video/fruits-2.mp4",poster:"assets/img/poster-fruits-2.jpg"},
-  {id:"getting-around",title:"Getting Around",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["car", "bus", "bicycle"],src:"assets/video/getting-around.mp4",poster:"assets/img/poster-getting-around.jpg"},
-  {id:"saudi-national-day",title:"Saudi National Day",tag:"Culture",level:"Beginner (A1-A2)",dur:"0:08",words:["I love Saudi Arabia", "This is my country", "I am proud of my country", "Happy Saudi National Day"],src:"assets/video/saudi-national-day.mp4",poster:"assets/img/poster-saudi-national-day.jpg"}
+  {id:"farm-animals",title:"Farm Animals",tag:"Vocabulary",level:"Level 1",dur:"0:16",words:["My uncle has a big farm", "The cows give fresh milk", "The sheep have soft wool"],src:"assets/video/farm-animals.mp4",poster:"assets/img/poster-farm-animals.jpg"},
+  {id:"zoo-animals",title:"Zoo Animals",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["elephant", "lion", "giraffe"],src:"assets/video/zoo-animals.mp4",poster:"assets/img/poster-zoo-animals.jpg"},
+  {id:"fruits-1",title:"Fruits",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["strawberry", "grapes", "blueberry"],src:"assets/video/fruits-1.mp4",poster:"assets/img/poster-fruits-1.jpg"},
+  {id:"fruits-2",title:"More Fruits",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["pear", "peach", "mango"],src:"assets/video/fruits-2.mp4",poster:"assets/img/poster-fruits-2.jpg"},
+  {id:"getting-around",title:"Getting Around",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["car", "bus", "bicycle"],src:"assets/video/getting-around.mp4",poster:"assets/img/poster-getting-around.jpg"},
+  {id:"saudi-national-day",title:"Saudi National Day",tag:"Culture",level:"Level 1",dur:"0:08",words:["I love Saudi Arabia", "This is my country", "I am proud of my country", "Happy Saudi National Day"],src:"assets/video/saudi-national-day.mp4",poster:"assets/img/poster-saudi-national-day.jpg"}
 ];
 
 // ===== Video lessons: hero phone + Watch & Learn =====
@@ -3387,7 +3415,7 @@ window.LESSONS = [
     wv.src = lessonSrc(l);
     wTitle.textContent = l.title;
     wTag.textContent = l.tag;
-    wLevel.textContent = l.level;
+    wLevel.textContent = window.__levelLabel ? window.__levelLabel(l.level) : l.level;
     wWords.innerHTML = (l.words || []).map(function(w){ return '<button type="button">' + esc(w) + '</button>'; }).join('');
     wWords.hidden = !(l.words && l.words.length);
     let ig = document.getElementById('wpInsta');
@@ -3745,7 +3773,52 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   let materialsFilter = 'all';
   let wantDashboard = true; // remembers whether a signed-in visitor asked to "view website"
   let pendingClub = null; // a club clicked on the public page before signing in
-  const LEVELS = ['Beginner (A1-A2)', 'Intermediate (B1-B2)', 'Advanced (C1-C2)'];
+  // 14 levels in 6 stages; a student opens the next level by passing the exam of the one before
+  const STAGES = [
+    { en: 'Beginner',           ar: 'المبتدئ',        cefr: 'A1',  from: 1,  to: 4,  icon: '🌱' },
+    { en: 'Elementary',         ar: 'الأساسيات',      cefr: 'A2',  from: 5,  to: 6,  icon: '🌿' },
+    { en: 'Pre-Intermediate',   ar: 'ما قبل المتوسط', cefr: 'B1',  from: 7,  to: 8,  icon: '🍀' },
+    { en: 'Intermediate',       ar: 'المتوسط',        cefr: 'B1+\u200E', from: 9,  to: 10, icon: '🌳' },
+    { en: 'Upper-Intermediate', ar: 'فوق المتوسط',    cefr: 'B2',  from: 11, to: 12, icon: '⛰️' },
+    { en: 'Advanced',           ar: 'المتقدم',        cefr: 'C1',  from: 13, to: 14, icon: '🏆' }
+  ];
+  const LEVELS = [], LEVEL_INFO = {};
+  STAGES.forEach(function(s, si){
+    for(let n = s.from; n <= s.to; n++){
+      const key = 'Level ' + n;
+      LEVELS.push(key);
+      LEVEL_INFO[key] = { n: n, en: s.en, ar: s.ar, cefr: s.cefr, icon: s.icon, stage: si };
+    }
+  });
+  // names used before the 14 levels (old rows are moved by schema.sql; this keeps old links readable)
+  const OLD_LEVEL = { 'Beginner (A1-A2)': 'Level 1', 'Intermediate (B1-B2)': 'Level 9', 'Advanced (C1-C2)': 'Level 13' };
+  function levelName(l){
+    const i = LEVEL_INFO[OLD_LEVEL[l] || l];
+    return i ? t('Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')', 'المستوى ' + i.n + ' · ' + i.ar + ' (' + i.cefr + ')') : (l || '');
+  }
+  window.__levelLabel = levelName;
+  function levelNameEn(l){ const i = LEVEL_INFO[OLD_LEVEL[l] || l]; return i ? 'Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')' : (l || ''); } // certificates are printed in English
+  // every level picker (upload, videos) lists the 14 levels grouped by stage
+  function levelOptionsHtml(){
+    return STAGES.map(function(s){
+      let opts = '';
+      for(let n = s.from; n <= s.to; n++) opts += '<option value="Level ' + n + '">' + esc(t('Level ' + n, 'المستوى ' + n)) + '</option>';
+      return '<optgroup label="' + esc(t(s.en, s.ar) + ' · ' + s.cefr) + '">' + opts + '</optgroup>';
+    }).join('');
+  }
+  function fillLevelPickers(){
+    document.querySelectorAll('select[data-levels]').forEach(function(sel){
+      const v = sel.value;
+      sel.innerHTML = levelOptionsHtml();
+      if(v && LEVEL_INFO[v]) sel.value = v;
+    });
+    const tabs = document.getElementById('levelTabs');
+    if(tabs) tabs.innerHTML = STAGES.map(function(s){
+      let b = '';
+      for(let n = s.from; n <= s.to; n++) b += '<button class="level-tab" data-level="Level ' + n + '" type="button"><span class="lv-dot"></span>' + n + '</button>';
+      return '<div class="lt-stage"><small>' + esc(t(s.en, s.ar)) + ' · <bdi>' + s.cefr + '</bdi></small><div>' + b + '</div></div>';
+    }).join('');
+  }
   let currentLevel = LEVELS[0];
   let passedLevels = []; // levels the signed-in student has already passed, in their club
   let currentExamQuestions = [];
@@ -3772,7 +3845,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     authPageTitle.textContent = ({ login: t('Welcome back', 'مرحباً بعودتك'), signup: t('Create your account', 'أنشئ حسابك'),
       forgot: t('Reset your password', 'استعادة كلمة المرور'), reset: t('Choose a new password', 'اختر كلمة مرور جديدة') })[mode];
     authPageSub.textContent = ({ login: t('Sign in to reach your dashboard.', 'سجّل الدخول للوصول إلى لوحة التحكم.'),
-      signup: t('Join as a student or a parent — it takes a minute.', 'انضم كطالب أو ولي أمر — الأمر يستغرق دقيقة.'),
+      signup: t('Join as a student, a parent or a teacher — it takes a minute.', 'انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.'),
       forgot: t('We’ll email you a secure link.', 'سنرسل لك رابطاً آمناً على بريدك.'),
       reset: t('Almost done — pick a password you’ll remember.', 'خطوة أخيرة — اختر كلمة مرور تتذكرها.') })[mode];
   }
@@ -3801,6 +3874,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   suRole.addEventListener('change', ()=>{
     suClubWrap.hidden = suRole.value !== 'student';
+    document.getElementById('suTeacherHint').hidden = suRole.value !== 'teacher';
   });
   document.querySelectorAll('.role-opt').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -3924,14 +3998,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const full_name = document.getElementById('suName').value.trim();
     const email = document.getElementById('suEmail').value.trim();
     const password = document.getElementById('suPassword').value;
-    const role = suRole.value === 'parent' ? 'parent' : 'student';
-    const club = role === 'student' ? document.getElementById('suClub').value : null;
+    // a teacher signs up as an applicant: a student account with teacher_request until the admin approves
+    const asked = suRole.value === 'parent' ? 'parent' : suRole.value === 'teacher' ? 'teacher' : 'student';
+    const role = asked === 'parent' ? 'parent' : 'student';
+    const club = asked === 'student' ? document.getElementById('suClub').value : null;
     const errEl = document.getElementById('signupError');
     errEl.textContent = '';
 
     let signUpResult;
     try{
-      signUpResult = await sb.auth.signUp({ email, password, options: { data: { full_name: full_name, role: role, club: club }, emailRedirectTo: location.origin + location.pathname } });
+      signUpResult = await sb.auth.signUp({ email, password, options: { data: { full_name: full_name, role: asked, club: club }, emailRedirectTo: location.origin + location.pathname } });
     } catch(err){
       errEl.textContent = friendlyErrorMessage(err);
       return;
@@ -3944,7 +4020,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return;
     }
     // normally the database trigger has already created it; this only fills the gap on older setups
-    const { error: profErr } = await sb.from('profiles').upsert({ id: data.user.id, full_name, role, club }, { onConflict: 'id', ignoreDuplicates: true });
+    const prof = { id: data.user.id, full_name, role, club };
+    if(asked === 'teacher') prof.teacher_request = true;
+    const { error: profErr } = await sb.from('profiles').upsert(prof, { onConflict: 'id', ignoreDuplicates: true });
     if(profErr){ errEl.textContent = friendlyErrorMessage(profErr); return; }
     signupForm.reset();
     wantDashboard = true;
@@ -4060,7 +4138,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(md.full_name){
         await sb.from('profiles').upsert({
           id: session.user.id, full_name: md.full_name,
-          role: md.role === 'parent' ? 'parent' : 'student', club: md.role === 'parent' ? null : (md.club || null)
+          role: md.role === 'parent' ? 'parent' : 'student', club: md.role === 'student' ? (md.club || null) : null,
+          teacher_request: md.role === 'teacher'
         }, { onConflict: 'id', ignoreDuplicates: true });
         currentProfile = await loadProfile(session.user.id);
       }
@@ -4075,6 +4154,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ovName.textContent = (currentProfile.full_name || '').split(' ')[0];
     dashboardPage.dataset.role = role;
 
+    ['overview', 'messages', 'notifications', 'profile'].forEach(function(v){ document.querySelector('.dash-tab[data-view="' + v + '"]').hidden = false; }); // shown again after an applicant signs out
     tabStudents.hidden = !isTeacher();
     document.getElementById('tabCertDesign').hidden = !isTeacher();
     if(tabVideos) tabVideos.hidden = !isTeacher();
@@ -4115,6 +4195,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('profCode').value = currentProfile.link_code || '';
     document.getElementById('ovLinkCard').hidden = !(isStudent() && currentProfile.link_code);
     document.getElementById('ovLinkCode').textContent = currentProfile.link_code || '';
+
+    const applicant = isStudent() && currentProfile.teacher_request;
+    document.getElementById('dashboardPage').classList.toggle('applicant', !!applicant);
+    if(applicant){
+      // waiting for the admin to approve the teacher account: nothing to do yet but wait
+      profRole.value = t('Teacher (waiting for approval)', 'معلم (بانتظار الموافقة)');
+      dashRoleClub.textContent = profRole.value;
+      document.querySelectorAll('.dash-tab').forEach(function(tab){ tab.hidden = ['overview', 'profile'].indexOf(tab.dataset.view) === -1; });
+      ovSub.textContent = '';
+      ['ovStats', 'ovNextSession', 'ovChildren'].forEach(function(id){ document.getElementById(id).innerHTML = ''; });
+      document.getElementById('ovNext').hidden = true;
+      document.getElementById('ovLinkCard').hidden = true;
+      readingHub.hidden = true;
+      if(planBanner) planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">' + t('Teacher account', 'حساب معلم') + '</span><h4>' +
+        t('Waiting for the academy to approve you', 'بانتظار موافقة الأكاديمية') + '</h4><p>' +
+        t('The admin has your request. Once approved, sign in again and your teacher tools (books, classes, homework, students) will be here.',
+          'طلبك وصل للمدير. بعد الموافقة سجّل الدخول مرة أخرى وستجد أدوات المعلم هنا (الكتب، الحصص، الواجبات، الطلاب).') + '</p></div></div>';
+      if(wantDashboard) openDashboard();
+      return;
+    }
 
     if(isParent()){
       readingHub.hidden = true;
@@ -4173,7 +4273,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           tile(fmtMoney(s.revenue_month) + ' <small>SAR</small>', t('Plans activated this month', 'اشتراكات هذا الشهر'), 'enroll') +
           tile(s.classes_week, t('Classes in the next 7 days', 'حصص خلال ٧ أيام'), 'sessions') +
           tile(s.attendance_30d == null ? '—' : s.attendance_30d + '%', t('Attendance (30 days)', 'نسبة الحضور (٣٠ يوماً)'), 'sessions') +
-          tile(s.to_grade, t('Homework to grade', 'واجبات تنتظر التصحيح'), 'homework', s.to_grade > 0);
+          tile(s.to_grade, t('Homework to grade', 'واجبات تنتظر التصحيح'), 'homework', s.to_grade > 0) +
+          (isAdmin() && s.teacher_requests ? tile(s.teacher_requests, t('Teacher requests to approve', 'طلبات معلمين تنتظر الموافقة'), 'users', true) : '');
         const follow = (s.expiring || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + esc(planName(x.plan)) + ' · ' + t('ends ', 'تنتهي ') + esc(fmtDay(x.ends_at)) + '</li>'; })
           .concat((s.low_credit || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + (x.left === 0 ? t('no classes left', 'لا توجد حصص متبقية') : t('1 class left', 'باقي حصة واحدة')) + '</li>'; }));
         if(follow.length) ovStats.insertAdjacentHTML('beforeend', '<div class="follow-up"><b>' + t('Renewals to follow up', 'تجديدات تحتاج متابعة') + '</b><ul>' + follow.join('') + '</ul></div>');
@@ -4193,7 +4294,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       ovStats.innerHTML =
         '<div class="dash-stat"><b>📚 ' + readIds.size + '</b><span>' + t('Books read', 'كتب قرأتها') + '</span></div>' +
         '<div class="dash-stat"><b>🎓 ' + passedLevels.length + ' / ' + LEVELS.length + '</b><span>' + t('Levels passed', 'مستويات نجحت فيها') + '</span></div>' +
-        '<div class="dash-stat"><b>' + info.icon + ' ' + esc(t(info.en, info.ar)) + '</b><span>' + t('Current level', 'مستواك الحالي') + '</span></div>';
+        '<div class="dash-stat"><b>' + info.icon + ' ' + info.n + '</b><span>' + esc(t('Current level · ' + info.en + ' (' + info.cefr + ')', 'مستواك الحالي · ' + info.ar + ' (' + info.cefr + ')')) + '</span></div>';
     }
   }
 
@@ -4624,7 +4725,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const uploads = up.error ? [] : (up.data || []).map(function(r){
       return {
         id: 'r' + r.id, rid: r.id, remote: true, title: r.title, tag: r.tag,
-        level: r.level || 'Beginner (A1-A2)', dur: r.duration || '', words: r.words || [],
+        level: r.level || 'Level 1', dur: r.duration || '', words: r.words || [],
         src: sb.storage.from('materials').getPublicUrl(r.file_path).data.publicUrl, poster: ''
       };
     });
@@ -4644,7 +4745,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     vidList.innerHTML = (data && data.length) ? data.map(function(r){
       return '<div class="sess-card"><div class="sess-info"><h5>' + esc(r.title) + '</h5>' +
-        '<div class="meta">' + esc(r.tag) + (r.duration ? ' · ' + esc(r.duration) : '') + ' · ' + esc(r.level || '') + '</div>' +
+        '<div class="meta">' + esc(r.tag) + (r.duration ? ' · ' + esc(r.duration) : '') + ' · ' + esc(levelName(r.level)) + '</div>' +
         ((r.words && r.words.length) ? '<div class="sess-people">' + r.words.map(esc).join(', ') + '</div>' : '') + '</div>' +
         '<div class="sess-actions"><button class="sess-btn ghost" type="button" data-vdel="' + r.id + '" data-path="' + esc(r.file_path) + '">Delete</button></div></div>';
     }).join('') : '<div class="lib-empty">You have not added any videos yet.</div>';
@@ -5482,7 +5583,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         '<div><b>' + passedLevels.length + '</b><span>' + t('levels passed', 'مستويات ناجحة') + '</span></div>' +
       '</div>' +
       '<ul class="child-facts">' +
-        '<li><i>📝</i>' + (lastExam ? esc(lastExam.level) + ' — ' + lastExam.score + '% ' + (lastExam.passed ? '✅' : '') + ' <small>' + fmtWhen(lastExam.at) + '</small>'
+        '<li><i>📝</i>' + (lastExam ? esc(levelName(lastExam.level)) + ' — ' + lastExam.score + '% ' + (lastExam.passed ? '✅' : '') + ' <small>' + fmtWhen(lastExam.at) + '</small>'
                                     : t('No exams taken yet', 'لم يؤدِّ أي امتحان بعد')) + '</li>' +
         '<li><i>👩‍🏫</i>' + (lastNote ? '<b>' + esc(lastNote.status || '') + '</b> ' + esc(lastNote.note || '') + ' <small>' + fmtWhen(lastNote.at) + '</small>'
                                      : t('No teacher notes yet', 'لا توجد ملاحظات من المعلم بعد')) + '</li>' +
@@ -5745,7 +5846,29 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(error){ usersTable.innerHTML = '<div class="lib-empty">' + esc(friendlyErrorMessage(error)) + '</div>'; return; }
     usersCache = data || [];
     renderUsers();
+    renderTeacherRequests();
   }
+  // people who signed up as teachers and wait for the admin
+  const teacherRequests = document.getElementById('teacherRequests');
+  function renderTeacherRequests(){
+    const reqs = usersCache.filter(function(u){ return u.teacher_request && u.role === 'student'; });
+    teacherRequests.innerHTML = reqs.length ? '<div class="treq"><b>🧑‍🏫 ' + t('Teacher requests', 'طلبات المعلمين') + ' (' + reqs.length + ')</b>' +
+      reqs.map(function(u){
+        return '<div class="treq-row" data-uid="' + esc(u.id) + '"><span><b>' + esc(u.full_name || '—') + '</b><small>' + esc(u.email || '') + ' · ' + esc(fmtDay(u.created_at)) + '</small></span>' +
+          '<button class="sess-btn" type="button" data-treq="teacher">' + t('Approve as teacher', 'اعتماد كمعلم') + '</button>' +
+          '<button class="sess-btn ghost" type="button" data-treq="student">' + t('Decline', 'رفض') + '</button></div>';
+      }).join('') + '</div>' : '';
+  }
+  teacherRequests.addEventListener('click', async function(e){
+    const b = e.target.closest('[data-treq]');
+    if(!b) return;
+    const u = usersCache.find(function(x){ return x.id === b.closest('[data-uid]').dataset.uid; });
+    b.disabled = true;
+    const { error } = await sb.rpc('set_user_role', { p_user: u.id, p_role: b.dataset.treq });
+    if(error){ b.disabled = false; toast(t('Not saved', 'لم يُحفظ'), friendlyErrorMessage(error), true); return; }
+    toast('✅ ' + (b.dataset.treq === 'teacher' ? t('Teacher approved', 'تم اعتماد المعلم') : t('Request declined', 'تم رفض الطلب')), u.full_name || '');
+    await loadUsers();
+  });
   usersSearch.addEventListener('input', renderUsers);
   usersFilter.addEventListener('click', function(e){
     const b = e.target.closest('[data-role]');
@@ -5815,7 +5938,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     });
     certList.innerHTML = certData.length ? certData.map(function(r, i){
       return '<div class="sess-card cert-card"><div class="cert-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg></div>' +
-        '<div class="sess-info"><h5>' + esc(r.club) + ' — ' + esc(r.level) + '</h5><div class="meta">' + esc(fmtDay(r.created_at)) + ' · ' + esc(String(r.score)) + '%</div></div>' +
+        '<div class="sess-info"><h5>' + esc(r.club) + ' — ' + esc(levelName(r.level)) + '</h5><div class="meta">' + esc(fmtDay(r.created_at)) + ' · ' + esc(String(r.score)) + '%</div></div>' +
         '<div class="sess-actions"><button class="sess-btn" type="button" data-cert="' + i + '">Download certificate</button></div></div>';
     }).join('') : '<div class="lib-empty">Pass a level exam (70% or more) and your certificate appears here.</div>';
   }
@@ -5881,7 +6004,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     p = at('date'); x.fillText(new Date(r.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }), p[0], p[1]);
     // what was completed
     x.globalAlpha = 0.8; x.font = 'italic ' + (19 * k) + 'px ' + SER;
-    p = at('info'); x.fillText('Completed: ' + r.club + ' — ' + r.level + ' · ' + r.score + '%', p[0], p[1]);
+    p = at('info'); x.fillText('Completed: ' + r.club + ' — ' + levelNameEn(r.level) + ' · ' + r.score + '%', p[0], p[1]);
     // certificate id
     x.globalAlpha = 0.55; x.font = (13 * k) + 'px ' + SER;
     p = at('id'); x.fillText('Certificate ID: ' + String(r.id || '').replace(/[^a-z0-9]/gi, '').slice(0, 8).toUpperCase(), p[0], p[1]);
@@ -5955,7 +6078,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   async function cdRender(){
     try{
       const sample = { full_name: (currentProfile && currentProfile.full_name) || 'Student Name', club: cdClub.value === '*' ? 'Conversation Club' : cdClub.value,
-                       level: 'Beginner (A1-A2)', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
+                       level: 'Level 4', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
       const c = await drawCertificate(sample, { src: cdSrc, layout: cdLayout });
       cdCanvas.width = c.width; cdCanvas.height = c.height;
       cdCanvas.getContext('2d').drawImage(c, 0, 0);
@@ -6244,7 +6367,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   };
   const PT_BANDS = ['A1', 'A2', 'B1', 'B2', 'C1'];
   const PT_TOTAL = 12;
-  const PT_SITE_LEVEL = { A1: 'Beginner (A1-A2)', A2: 'Beginner (A1-A2)', B1: 'Intermediate (B1-B2)', B2: 'Intermediate (B1-B2)', C1: 'Advanced (C1-C2)' };
+  const PT_SITE_LEVEL = { A1: 'Level 1', A2: 'Level 5', B1: 'Level 7', B2: 'Level 11', C1: 'Level 13' };
   const ptStart = document.getElementById('ptStart'), ptRun = document.getElementById('ptRun'), ptDone = document.getElementById('ptDone');
   let pt = null; // { band, asked: [{band, q, opts, correct, chosen}], used: {band: [indexes]} }
   function ptShow(which){ ptStart.hidden = which !== 'start'; ptRun.hidden = which !== 'run'; ptDone.hidden = which !== 'done'; }
@@ -6302,7 +6425,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       C1: t('Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.', 'إنجليزية ممتازة. الدروس المتقدمة ستتحداك بالنقاش والدقة والتحدث بطلاقة.')
     };
     document.getElementById('ptCefr').textContent = cefr;
-    document.getElementById('ptLevel').textContent = level;
+    document.getElementById('ptLevel').textContent = levelName(level);
     document.getElementById('ptScore').textContent = t(right + '/' + PT_TOTAL + ' correct', right + '/' + PT_TOTAL + ' إجابة صحيحة');
     document.getElementById('ptMsg').textContent = MSG[cefr];
     document.getElementById('ptScale').innerHTML = PT_BANDS.map(function(b){ return '<i class="' + (b === cefr ? 'on' : '') + '">' + b + '</i>'; }).join('');
@@ -6335,6 +6458,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     setTimeout(function(){ if(pt.asked.length >= PT_TOTAL) ptFinish(); else ptNext(); }, 450);
   });
 
+  fillLevelPickers();
   loadPayLinks(); // public: so the checkout knows each plan's payment link
   loadPlanSettings();
 
@@ -6362,12 +6486,6 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   // ---------- student learning path: levels → books → exam ----------
   const learnPath = document.getElementById('learnPath');
   const shelfHead = document.getElementById('shelfHead');
-  const LEVEL_INFO = {
-    'Beginner (A1-A2)':     { n: 1, en: 'Beginner',     ar: 'مبتدئ', cefr: 'A1–A2', icon: '🌱' },
-    'Intermediate (B1-B2)': { n: 2, en: 'Intermediate', ar: 'متوسط', cefr: 'B1–B2', icon: '🌿' },
-    'Advanced (C1-C2)':     { n: 3, en: 'Advanced',     ar: 'متقدم', cefr: 'C1–C2', icon: '🌳' }
-  };
-  function levelName(l){ const i = LEVEL_INFO[l]; return i ? t(i.en, i.ar) + ' (' + i.cefr + ')' : l; }
   let clubBooks = []; // every material of the student's club, all levels
 
   async function loadClubBooks(){
@@ -6389,27 +6507,32 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!isStudent()){ learnPath.hidden = true; return; }
     learnPath.hidden = false;
     const working = currentStudentLevel();
-    learnPath.innerHTML = LEVELS.map(function(lv, i){
-      const info = LEVEL_INFO[lv];
-      const st = levelStats(lv);
-      const passed = isLevelPassed(lv), unlocked = isLevelUnlocked(lv);
-      const pct = st.total ? Math.round(st.read * 100 / st.total) : 0;
-      const state = passed ? 'passed' : !unlocked ? 'locked' : 'open';
-      const meta = passed ? '✓ ' + t('Exam passed', 'نجحت في الامتحان')
-        : !unlocked ? t('Pass Level ' + i + ' to unlock', 'انجح في المستوى ' + i + ' لفتحه')
-        : st.total ? t(st.read + ' of ' + st.total + ' books read', 'قرأت ' + st.read + ' من ' + st.total + ' كتب')
-        : t('Books coming soon', 'الكتب قريباً');
-      return '<button type="button" class="path-step ' + state + (lv === currentLevel ? ' active' : '') + (lv === working && !passed ? ' working' : '') + '" data-level="' + esc(lv) + '"' + (unlocked ? '' : ' aria-disabled="true"') + '>' +
-        '<span class="ps-badge">' + (passed ? '✓' : !unlocked ? '🔒' : info.icon) + '</span>' +
-        '<span class="ps-body"><small>' + t('Level', 'المستوى') + ' ' + info.n + (lv === working && !passed ? ' · ' + t('you are here', 'أنت هنا') : '') + '</small>' +
-          '<b>' + t(info.en, info.ar) + '</b><em>' + info.cefr + '</em></span>' +
-        '<span class="ps-bar"><i style="width:' + (passed ? 100 : pct) + '%"></i></span>' +
-        '<span class="ps-meta">' + esc(meta) + '</span>' +
-      '</button>';
-    }).join('<span class="path-link" aria-hidden="true"></span>');
+    const wi = LEVEL_INFO[working], ws = levelStats(working);
+    const wpct = ws.total ? Math.round(ws.read * 100 / ws.total) : 0;
+    const passedCount = LEVELS.filter(isLevelPassed).length;
+    const now = '<div class="path-now"><span class="ps-badge">' + wi.icon + '</span><div><small>' + t('You are here', 'أنت هنا') + ' · ' +
+        t(passedCount + ' of 14 levels passed', 'نجحت في ' + passedCount + ' من 14 مستوى') + '</small>' +
+        '<b>' + esc(levelName(working)) + '</b>' +
+        '<span class="ps-bar"><i style="width:' + wpct + '%"></i></span>' +
+        '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — then take the level exam', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — ثم ادخل امتحان المستوى')
+                              : t('Books for this level are coming soon', 'كتب هذا المستوى قريباً')) + '</em></div></div>';
+    const stages = STAGES.map(function(s, si){
+      const levels = LEVELS.filter(function(l){ return LEVEL_INFO[l].stage === si; });
+      const done = levels.every(isLevelPassed), here = levels.indexOf(working) !== -1;
+      const open = levels.some(isLevelUnlocked);
+      return '<div class="stage' + (done ? ' done' : here ? ' here' : !open ? ' locked' : '') + '">' +
+        '<div class="stage-head"><span>' + (done ? '✓' : s.icon) + '</span><div><b>' + esc(t(s.en, s.ar)) + '</b><small><bdi>' + s.cefr + '</bdi> · ' +
+          t('Levels ' + s.from + '–' + s.to, 'المستويات ' + s.from + '–' + s.to) + '</small></div></div>' +
+        '<div class="stage-levels">' + levels.map(function(l){
+          const passed = isLevelPassed(l), unlocked = isLevelUnlocked(l);
+          return '<button type="button" class="lv-chip' + (passed ? ' passed' : !unlocked ? ' locked' : '') + (l === currentLevel ? ' active' : '') + (l === working ? ' working' : '') +
+            '" data-level="' + l + '" title="' + esc(levelName(l)) + '"' + (unlocked ? '' : ' aria-disabled="true"') + '>' + (passed ? '✓ ' : !unlocked ? '🔒 ' : '') + LEVEL_INFO[l].n + '</button>';
+        }).join('') + '</div></div>';
+    }).join('');
+    learnPath.innerHTML = now + '<div class="path-stages">' + stages + '</div>';
   }
   learnPath.addEventListener('click', function(e){
-    const b = e.target.closest('.path-step');
+    const b = e.target.closest('[data-level]');
     if(!b) return;
     const lv = b.dataset.level;
     if(!isLevelUnlocked(lv)){
@@ -7358,6 +7481,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
     loadPlanSettings(); // the "12 live classes · 3 months" lines on the price cards
+    fillLevelPickers();
+    if(typeof updateLevelTabsUI === 'function') updateLevelTabsUI();
     if(!currentProfile) return;
     renderMaterials();
     showPickedFile();
@@ -7481,7 +7606,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Every club book, readable right here":"كل كتب النادي، تقرأها هنا مباشرة",
     "Level exams and printable certificates":"امتحانات مستويات وشهادات قابلة للطباعة",
     "Parents and teachers, one tap apart":"ولي الأمر والمعلم على بُعد ضغطة",
-    "Beginner (A1–A2) passed":"اجتاز المستوى المبتدئ (A1–A2)",
+    "Level 4 passed":"اجتاز المستوى 4",
     "I want to learn":"أريد أن أتعلّم",
     "I follow my child":"أتابع ابني",
     "Parent":"ولي أمر",
@@ -7541,7 +7666,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Teacher accounts are created by the academy. Teachers sign up normally and the admin gives them teacher access.":"حسابات المعلمين تُمنح من الأكاديمية. يسجّل المعلم بشكل عادي ثم تمنحه الإدارة صلاحية المعلم.",
     "Does it work on phones and in Arabic?":"هل يعمل على الموبايل وبالعربية؟",
     "Yes — the whole site, dashboard and chat work on any phone, tablet or computer, in both Arabic and English.":"نعم — الموقع ولوحة التحكم والدردشة تعمل على أي موبايل أو تابلت أو كمبيوتر، بالعربية والإنجليزية.",
-    "Join as a student or a parent — it takes a minute.":"انضم كطالب أو ولي أمر — الأمر يستغرق دقيقة.",
+    "Join as a student, a parent or a teacher — it takes a minute.":"انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.",
     "Drag a book here, or click to choose a file":"اسحب كتاباً هنا أو اضغط لاختيار ملف",
     "PDF, Word, EPUB, PowerPoint or image · up to 50 MB · Arabic file names are fine":"PDF أو Word أو EPUB أو PowerPoint أو صورة · حتى 50 ميجابايت · الأسماء العربية مقبولة",
     "day reading streak":"يوم متتالٍ من القراءة",
@@ -7607,7 +7732,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Phonics, Reading, Writing, Grammar, Speaking, Conversation or Cinema — seven clubs, one for every goal.":"الأصوات، القراءة، الكتابة، القواعد، التحدث، المحادثة أو السينما — سبعة نوادٍ، لكل هدف نادٍ.",
     "Choose a time your teacher has opened. Your Zoom Meeting link appears the moment you book.":"اختر موعداً فتحه معلمك. يظهر رابط زوم فور الحجز.",
     "Learn level by level":"تعلّم مستوىً بعد مستوى",
-    "Read your club's books at your level, from Beginner (A1-A2) up to Advanced (C1-C2).":"اقرأ كتب ناديك بمستواك، من المبتدئ (A1-A2) حتى المتقدم (C1-C2).",
+    "Read your club's books at your level — 14 levels, from Beginner to Advanced.":"اقرأ كتب ناديك بمستواك — 14 مستوى من المبتدئ حتى المتقدم.",
     "Pass and level up":"انجح وارتقِ",
     "Score 70% or more on the level exam and the next level unlocks.":"احصل على 70% أو أكثر في اختبار المستوى ليُفتح المستوى التالي.",
     "Zoom Meeting":"مباشر على زوم",
@@ -8067,6 +8192,10 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Plans: price, classes and validity":"الخطط: السعر وعدد الحصص والمدة",
     "What each plan includes. Students see these on the website, and every plan you switch on gets these classes and end date. Leave “classes” empty for unlimited.":"ما تشمله كل خطة. يراها الطلاب على الموقع، وكل خطة تفعّلها تأخذ هذا العدد من الحصص وتاريخ الانتهاء. اترك «عدد الحصص» فارغاً لعدد غير محدود.",
     "Save plans":"حفظ الخطط",
+    "Students, parents and teachers all sign in here.":"الطلاب وأولياء الأمور والمعلمون يسجّلون الدخول من هنا.",
+    "I teach at the academy":"أدرّس في الأكاديمية",
+    "The academy admin approves teacher accounts. Create your account now — your teacher tools open as soon as you are approved.":"مدير الأكاديمية يوافق على حسابات المعلمين. أنشئ حسابك الآن — وتُفتح أدوات المعلم بمجرد الموافقة.",
+    "Only you can make someone a teacher. Teachers who sign up wait here until you approve them.":"أنت فقط من يجعل شخصاً معلماً. المعلمون الذين يسجّلون ينتظرون هنا حتى توافق عليهم.",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
