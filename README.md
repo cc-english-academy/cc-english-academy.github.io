@@ -34,9 +34,9 @@ Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icon
 | أولياء الأمور | `parent_links` + `link_child(code)` + `student_report` — ولي الأمر يربط ابنه بكود من ٦ رموز |
 | الرسائل | `messages` + `chat_inbox` — محادثة لكل طالب (الطالب + ولي الأمر + المعلمين) مع رسائل خاصة لا يراها الطالب |
 | الشهادات | `my_certificates` + `certificate_templates` — شهادة لكل مستوى ناجح، والمعلم يرفع تصميمها ويحدد مكان الاسم والتاريخ (لكل النوادي أو لنادٍ معيّن) |
-| حصص Zoom | `sessions` + `session_links` + `bookings` + `book_session` — رابط Zoom يظهر فقط بعد الحجز، الحجز يتطلب خطة مفعّلة |
+| حصص Zoom | `sessions` + `session_links` + `bookings` + `book_session` — رابط Zoom يظهر فقط بعد الحجز، الحجز يتطلب خطة مفعّلة، لا حجزين في نفس الوقت، والإلغاء حتى ساعتين قبل الحصة. المعلم يقدر يفتح موعد أسبوعي متكرر مرة واحدة |
 | الخطط والدفع | `enrollments` + `payment_links` + `request_enrollment` — السعر يُحدَّد على السيرفر، والمعلم يفعّل بعد الدفع |
-| الواجبات | `assignments` + `submissions` — الطالب لا يستطيع وضع درجة لنفسه أو تعديل إجابة بعد تصحيحها |
+| الواجبات | `assignments` + `submissions` — المعلم والطالب يرفعوا صور/فيديو/تسجيل صوتي/PDF في bucket خاص اسمه `homework` (روابط مؤقتة، ولي الأمر يشوف ملفات ابنه فقط). الطالب لا يستطيع وضع درجة لنفسه أو تعديل إجابة بعد تصحيحها |
 | الفيديوهات | `lesson_videos` — تظهر للجميع في قسم Watch & Learn |
 | إنستجرام | `instagram_posts` + `app_secrets` + `set_instagram_token` — مزامنة كل ساعة عبر `.github/workflows/instagram-sync.yml` ([INSTAGRAM.md](INSTAGRAM.md)) |
 
@@ -57,4 +57,5 @@ and keeps the original name in `materials.file_name`, which is used as the downl
 - Search, "NEW" and "READ" badges, teacher delete
 - Reading streak 🔥 with a 7-day strip, and a weekly top-readers leaderboard per club
 - Live toasts when a teacher uploads a book or sends an announcement
+- Free placement test: adaptive, 86-question bank, different questions on every attempt
 - Exams graded on the server (falls back to the old in-browser grading until `schema.sql` is installed)

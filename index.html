@@ -864,6 +864,33 @@ html[dir="rtl"] .scene-svg{transform-origin:45% 60%;}
 .sess-info h5{margin:0 0 3px;font-family:var(--serif);font-size:1rem;color:var(--maroon-deep);}
 .sess-info .meta{font-size:.78rem;color:#8a6b73;}
 .sess-rel{color:var(--maroon);font-weight:600;}
+/* booking: day strip, time slots, confirmation, plan banner */
+.day-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin-bottom:6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.day-chip{flex:none;scroll-snap-align:start;width:68px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:9px 4px;text-align:center;cursor:pointer;font:inherit;color:var(--maroon-deep);transition:all .2s;}
+.day-chip small{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:#8a6b73;}
+.day-chip b{display:block;font-family:var(--serif);font-size:1.35rem;line-height:1.2;}
+.day-chip i{display:block;font-style:normal;font-size:.66rem;color:var(--maroon);font-weight:600;}
+.day-chip:hover:not(:disabled){border-color:var(--maroon);}
+.day-chip.on{background:var(--maroon-deep);border-color:var(--maroon-deep);color:var(--peach-soft);}
+.day-chip.on small,.day-chip.on i{color:var(--peach-soft);}
+.day-chip.empty{opacity:.45;cursor:default;}
+.slot-time{flex:none;min-width:86px;text-align:center;border-inline-end:1px solid var(--line);padding-inline-end:14px;}
+.slot-time b{display:block;font-family:var(--serif);font-size:1.25rem;color:var(--maroon-deep);white-space:nowrap;}
+.slot-time span{font-size:.72rem;color:#8a6b73;}
+.sess-confirm{width:100%;flex-basis:100%;background:#fdf6ee;border:1px solid #f1dcc4;border-radius:10px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.sess-confirm p{margin:0 0 4px;flex-basis:100%;font-size:.88rem;color:#4a343a;}
+.sess-confirm small{color:#8a6b73;}
+.sess-plan{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin-bottom:8px;}
+.sess-plan>span{font-size:1.6rem;}
+.sess-plan>div{flex:1;min-width:200px;}
+.sess-plan b{color:var(--maroon-deep);}
+.sess-plan p{margin:2px 0 0;font-size:.84rem;color:#6a5057;}
+.sess-plan.wait{background:#eef5fc;border-color:#cfe0f2;}
+.sess-note{display:block;margin-top:6px;font-size:.76rem;color:#a35a00;}
+.sess-btn.wait{cursor:default;opacity:.75;font-weight:500;}
+.sess-card.live{border-color:#1e8e4a;box-shadow:0 0 0 3px rgba(30,142,74,.12);}
+.live-dot{display:inline-block;vertical-align:middle;font-family:var(--sans,inherit);font-size:.68rem;font-weight:700;color:#fff;background:#1e8e4a;border-radius:20px;padding:3px 9px;margin-inline-start:6px;animation:recPulse 1.4s ease-in-out infinite;}
+@media(max-width:560px){.slot-time{min-width:70px;padding-inline-end:10px;}.slot .sess-actions{width:auto;}.sess-confirm .sess-btn{flex:1;text-align:center;}}
 .seat-bar{height:6px;background:#f0e3e5;border-radius:6px;overflow:hidden;margin-top:9px;max-width:220px;}
 .seat-bar i{display:block;height:100%;background:var(--maroon);border-radius:6px;}
 .sess-people{font-size:.76rem;color:#6b4f56;margin-top:6px;}
@@ -1228,6 +1255,42 @@ footer a:hover{color:#E3B34D;}
 .hw-grade input[type=number]{width:120px;}
 .hw-grade input{padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:.85rem;}
 .hw-grade input[type=text]{flex:1;min-width:160px;}
+/* homework attachments */
+.hw-att{margin:10px 0 4px;}
+.hw-att-list{display:flex;flex-wrap:wrap;gap:6px;}
+.hw-att-list:not(:empty){margin-bottom:8px;}
+.hw-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;background:#faf6f1;border:1px solid var(--line);border-radius:20px;padding:5px 6px 5px 12px;font-size:.8rem;}
+.hw-chip.new{border-style:dashed;border-color:var(--maroon);}
+.hw-chip b{font-weight:600;color:var(--maroon-deep);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px;}
+.hw-chip small{color:#8a6b73;}
+.hw-chip button{border:0;background:rgba(92,26,40,.08);color:var(--maroon-deep);width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:.95rem;line-height:1;}
+.hw-att-btns{display:flex;flex-wrap:wrap;gap:8px;}
+.hw-att-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--maroon-deep);border-radius:22px;padding:8px 14px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s;}
+.hw-att-btn:hover{background:rgba(92,26,40,.05);border-color:var(--maroon);}
+.hw-att-btn.rec{background:#c0392b;border-color:#c0392b;color:#fff;animation:recPulse 1.2s ease-in-out infinite;}
+@keyframes recPulse{50%{box-shadow:0 0 0 6px rgba(192,57,43,.18);}}
+.hw-att-hint{display:block;margin-top:6px;color:#8a6b73;font-size:.74rem;}
+.hw-files{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0;}
+.hw-file img{display:block;width:150px;height:110px;object-fit:cover;border-radius:10px;border:1px solid var(--line);}
+.hw-file video{display:block;width:280px;max-width:100%;border-radius:10px;background:#000;}
+.hw-file.video{flex-basis:280px;max-width:100%;}
+.hw-file audio{display:block;width:280px;max-width:100%;}
+.hw-file-doc{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;text-decoration:none;color:var(--maroon-deep);font-size:.84rem;max-width:100%;}
+.hw-file-doc b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px;}
+.hw-file-doc small{color:#8a6b73;}
+.hw-when{display:block;color:#8a6b73;font-size:.76rem;margin:0 0 6px;}
+.hw-when b{color:#c0392b;}
+.hw-status{display:inline-block;vertical-align:middle;font-family:var(--sans,inherit);font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-inline-start:6px;}
+.hw-status.todo{background:#fff1e0;color:#a35a00;}
+.hw-status.sent{background:#e8f1fb;color:#1f5f9e;}
+.hw-status.done{background:#e6f4ea;color:#1e6b34;}
+.hw-card.st-0{border-inline-start:4px solid #f0a040;}
+.hw-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.hw-summary span{flex:1;min-width:90px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:.8rem;color:#6a5057;}
+.hw-summary b{display:block;font-size:1.4rem;font-family:var(--serif);}
+.hw-summary .todo b{color:#a35a00;}.hw-summary .sent b{color:#1f5f9e;}.hw-summary .done b{color:#1e6b34;}
+.hw-fb{margin:6px 0 4px;font-size:.86rem;color:#1e6b34;background:#f1f9f3;border-radius:8px;padding:10px 12px;}
+@media(max-width:560px){.hw-file img{width:calc(50vw - 40px);height:auto;aspect-ratio:4/3;}.hw-chip b,.hw-file-doc b{max-width:140px;}}
 .cert-card{align-items:center;}
 .cert-ico{flex:none;width:46px;height:46px;border-radius:50%;background:#fbf1d6;color:#9a7416;display:grid;place-items:center;}
 .cert-ico svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
@@ -1789,6 +1852,26 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
 .ig-row input{flex:1;min-width:220px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;}
 .ig-row .lib-submit{width:auto;margin:0;padding:0 22px;}
 .ig-form a{color:var(--maroon);}
+/* ===== adaptive placement test ===== */
+.pt-lvl{font-size:.7rem;font-weight:800;letter-spacing:.06em;color:var(--maroon-deep);background:#F7E4D4;border-radius:10px;padding:3px 8px;}
+.pt-opts button.right{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;}
+.pt-opts button.wrong{border-color:#B4213D;background:#fdecee;color:#8e1a30;}
+.pt-opts button:disabled{cursor:default;transform:none;}
+.pt-result{display:flex;align-items:center;gap:16px;margin-bottom:12px;}
+.pt-result .pt-badge{margin:0;flex:none;}
+.pt-kick{display:block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8a6b73;}
+.pt-result h3{margin:2px 0 !important;}
+.pt-score{font-size:.82rem;color:#8a6b73;}
+.pt-scale{display:flex;gap:6px;margin:4px 0 14px;}
+.pt-scale i{flex:1;text-align:center;font-style:normal;font-size:.72rem;font-weight:700;padding:6px 0;border-radius:8px;background:#f4ecee;color:#a4838a;}
+.pt-scale i.on{background:var(--maroon-deep);color:#fff;}
+.pt-review{margin:0 0 16px;font-size:.86rem;}
+.pt-review summary{cursor:pointer;font-weight:700;color:var(--maroon-deep);}
+.pt-review ol{margin:10px 0 0;padding-inline-start:20px;max-height:200px;overflow:auto;display:grid;gap:8px;}
+.pt-review li span{display:block;color:var(--ink);}
+.pt-review li s{color:#B4213D;margin-inline-end:10px;}
+.pt-review li b{color:#2e7d32;}
+.ptest-card a.cta-ghost{display:inline-flex;align-items:center;text-decoration:none;}
 
 </style>
 </head>
@@ -2218,11 +2301,11 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
     <div class="ptest-copy reveal">
       <div class="kicker">Free level test</div>
       <h2>Not sure where to start? Find your level in 3 minutes.</h2>
-      <p>Twelve quick questions, from easy to challenging. You get your level straight away — and the plan that fits it.</p>
+      <p>Twelve questions that adapt to you: answer correctly and the next one is harder; miss one and it gets easier. You get your CEFR level straight away — and the plan that fits it.</p>
       <ul class="ptest-points">
         <li>No account needed — it is free.</li>
-        <li>Questions grow harder as you go.</li>
-        <li>Your result: Beginner, Intermediate or Advanced.</li>
+        <li>New questions every time, from a bank of 86.</li>
+        <li>Your result: A1 to C1, with your mistakes explained.</li>
       </ul>
     </div>
     <div class="ptest-card reveal" data-i="1" id="ptestCard">
@@ -2233,19 +2316,24 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <button class="cta-solid" id="ptBegin" type="button">Start the test</button>
       </div>
       <div id="ptRun" class="pt-pane" hidden>
-        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span></div>
+        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span><span class="pt-lvl" id="ptLvl" title="Current difficulty">A2</span></div>
         <div translate="no" class="pt-q">
           <p id="ptQ"></p>
           <div id="ptOpts" class="pt-opts"></div>
         </div>
       </div>
       <div id="ptDone" class="pt-pane" hidden>
-        <div class="pt-badge ok" id="ptScore">0/12</div>
-        <h3 id="ptLevel">Beginner (A1-A2)</h3>
+        <div class="pt-result">
+          <div class="pt-badge ok" id="ptCefr">A2</div>
+          <div><span class="pt-kick">Your estimated level</span><h3 id="ptLevel">Beginner (A1-A2)</h3><span class="pt-score" id="ptScore">0/12 correct</span></div>
+        </div>
+        <div class="pt-scale" id="ptScale" aria-hidden="true"></div>
         <p id="ptMsg"></p>
+        <details class="pt-review" id="ptReviewWrap"><summary id="ptReviewSum">Review your mistakes</summary><ol id="ptReview"></ol></details>
         <div class="pt-cta">
-          <a class="cta-solid" href="#plans" id="ptPlans">See plans for your level</a>
-          <button class="cta-ghost" id="ptRetry" type="button">Retake the test</button>
+          <button class="cta-solid" id="ptJoin" type="button">Start learning at this level</button>
+          <a class="cta-ghost" href="#plans" id="ptPlans">See plans</a>
+          <button class="cta-ghost" id="ptRetry" type="button">Retake</button>
         </div>
       </div>
     </div>
@@ -2674,16 +2762,28 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
             <input id="sessSeats" type="number" min="1" max="100" value="8" required>
           </div>
           <div>
+            <label for="sessRepeat">Repeat</label>
+            <select id="sessRepeat">
+              <option value="1">Just once</option>
+              <option value="2">Every week · 2 weeks</option>
+              <option value="4">Every week · 4 weeks</option>
+              <option value="8">Every week · 8 weeks</option>
+              <option value="12">Every week · 12 weeks</option>
+            </select>
+          </div>
+          <div class="full">
             <label for="sessZoom">Zoom Meeting link</label>
             <input id="sessZoom" type="url" placeholder="https://zoom.us/j/..." required>
           </div>
           <button type="submit" class="lib-submit">Open this time for booking</button>
-          <p class="lib-note">Students in that club see the time right away. Your Zoom Meeting link stays hidden until a student books a seat.</p>
+          <p class="lib-note">Students in that club see the time right away. Your Zoom Meeting link stays hidden until a student books a seat. Students can cancel up to 2 hours before the start.</p>
         </form>
 
         <p class="sess-notice auth-error" id="sessNotice"></p>
 
+        <div id="sessPlan"></div>
         <h4 class="sess-h" id="sessListHeading">Open times in your club</h4>
+        <div class="day-strip" id="sessDays" hidden></div>
         <div class="sess-list" id="sessList"></div>
         <h4 class="sess-h" id="myBookingsHeading">My bookings</h4>
         <div class="sess-list" id="myBookings"></div>
@@ -2776,6 +2876,10 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           <div class="full">
             <label for="hwText">Instructions</label>
             <textarea id="hwText" rows="3" placeholder="What should the student do?"></textarea>
+          </div>
+          <div class="full">
+            <label>Files for the students (optional)</label>
+            <div id="hwFormAtt"></div>
           </div>
           <button type="submit" class="lib-submit">Give homework</button>
         </form>
@@ -3657,6 +3761,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     if(/session is full/i.test(msg)){ return t('This session is full — pick another time.', 'هذه الحصة ممتلئة — اختر موعداً آخر.'); }
     if(/already started/i.test(msg)){ return t('This session has already started.', 'هذه الحصة بدأت بالفعل.'); }
+    if(/already have a class booked/i.test(msg)){ return t('You already have a class at this time — pick another time.', 'لديك حصة أخرى في نفس الوقت — اختر موعداً آخر.'); }
     if(/invalid login credentials/i.test(msg)){
       return t('Wrong email or password. Try again, or use “Forgot your password?”.', 'البريد أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».');
     }
@@ -3976,6 +4081,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const tzName = document.getElementById('tzName');
   const ovNextSession = document.getElementById('ovNextSession');
   const sessView = document.querySelector('.dash-view[data-view="sessions"]');
+  const sessPlan = document.getElementById('sessPlan');
+  const sessDays = document.getElementById('sessDays');
+  let sessDay = null; // the day picked in the student's day strip
 
   function esc(s){
     return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
@@ -4041,6 +4149,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     sessListHeading.textContent = teacher ? 'Your upcoming sessions' : 'Open times in your club';
     myBookingsHeading.hidden = teacher;
     myBookings.hidden = teacher;
+    if(teacher){ sessPlan.innerHTML = ''; sessDays.hidden = true; }
 
     // keep sessions that started within the last hour so people can still join a call in progress
     const cutoff = new Date(Date.now() - 60 * 60000).toISOString();
@@ -4105,33 +4214,81 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       myBookings.innerHTML = '';
     } else {
       const now = Date.now();
+      // plan status decides whether the Book button books or leads to the plans page
+      let planState = 'active';
+      const en = await sb.from('enrollments').select('status, ends_at').eq('student_id', currentProfile.id);
+      if(!en.error){
+        const rows = en.data || [];
+        planState = rows.some(function(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at).getTime() > now); })
+          ? 'active' : rows.some(function(e){ return e.status === 'pending'; }) ? 'pending' : 'none';
+      }
+      sessPlan.innerHTML = planState === 'none'
+        ? '<div class="sess-plan"><span>🎟️</span><div><b>' + t('Choose a plan to book live classes', 'اختر خطة لحجز الحصص المباشرة') + '</b><p>' +
+          t('You can look at the times now — booking opens as soon as your plan is active.', 'يمكنك رؤية المواعيد الآن — والحجز يُفتح بمجرد تفعيل خطتك.') + '</p></div>' +
+          '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Choose a plan', 'اختر خطة') + '</button></div>'
+        : planState === 'pending'
+        ? '<div class="sess-plan wait"><span>⏳</span><div><b>' + t('Your plan is waiting for activation', 'خطتك في انتظار التفعيل') + '</b><p>' +
+          t('You can book as soon as the academy confirms your payment.', 'يمكنك الحجز بمجرد أن تؤكد الأكاديمية الدفع.') + '</p></div></div>'
+        : '';
+
       const open = all.filter(function(s){ return !mine[s.id] && new Date(s.starts_at).getTime() > now; });
-      sessList.innerHTML = open.length ? open.map(function(s){
+      // a strip of days (today → the last day with an open time, at least a week, at most 30 days)
+      const dayKey = function(d){ d = new Date(d); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
+      const byDay = {};
+      open.forEach(function(s){ (byDay[dayKey(s.starts_at)] = byDay[dayKey(s.starts_at)] || []).push(s); });
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const last = open.length ? new Date(open[open.length - 1].starts_at) : today;
+      const nDays = Math.min(30, Math.max(7, Math.round((last - today) / 86400000) + 1));
+      const days = [];
+      for(let k = 0; k < nDays; k++){ const d = new Date(today); d.setDate(today.getDate() + k); days.push(d); }
+      if(!sessDay || !byDay[sessDay]){
+        const first = days.find(function(d){ return byDay[dayKey(d)]; });
+        sessDay = first ? dayKey(first) : dayKey(today);
+      }
+      sessDays.hidden = !open.length;
+      sessDays.innerHTML = days.map(function(d, k){
+        const key = dayKey(d), n = (byDay[key] || []).length;
+        return '<button type="button" class="day-chip' + (key === sessDay ? ' on' : '') + (n ? '' : ' empty') + '" data-day="' + key + '"' + (n ? '' : ' disabled') + '>' +
+          '<small>' + (k === 0 ? t('Today', 'اليوم') : esc(d.toLocaleDateString(uiLocale(), { weekday: 'short' }))) + '</small>' +
+          '<b>' + d.getDate() + '</b><i>' + (n ? n + ' ' + t(n === 1 ? 'time' : 'times', 'موعد') : '·') + '</i></button>';
+      }).join('');
+      const dayList = byDay[sessDay] || [];
+      sessList.innerHTML = dayList.length ? dayList.map(function(s){
         const left = s.capacity - s.booked;
-        return '<div class="sess-card">' + dateBlock(s.starts_at) +
+        const cancelBy = new Date(new Date(s.starts_at).getTime() - 2 * 3600000);
+        const action = left <= 0 ? '<span class="sess-badge">' + t('Full', 'ممتلئة') + '</span>'
+          : planState === 'none' ? '<button class="sess-btn ghost" type="button" data-goto-myplan="1">' + t('Choose a plan to book', 'اختر خطة للحجز') + '</button>'
+          : planState === 'pending' ? '<span class="sess-badge">' + t('Plan not active yet', 'الخطة لم تُفعّل بعد') + '</span>'
+          : '<button class="sess-btn" type="button" data-book="' + s.id + '">' + t('Book', 'احجز') + '</button>';
+        return '<div class="sess-card slot" data-slot="' + s.id + '"><div class="slot-time"><b>' + esc(fmtTime(s.starts_at)) + '</b><span>' + s.duration_min + ' ' + t('min', 'دقيقة') + '</span></div>' +
           '<div class="sess-info"><h5>' + esc(s.title) + '</h5>' +
-          '<div class="meta">' + esc(whenLine(s)) + '</div>' +
-          '<div class="meta">' + s.duration_min + ' <span>min</span> · <span class="sess-rel">' + esc(fmtRelative(s.starts_at)) + '</span></div>' +
-          seatsHtml(s) +
-          '<div class="meta">' + (left > 0 ? left + ' <span>seats left</span>' : '<span>Full</span>') + '</div></div>' +
-          '<div class="sess-actions">' +
-          (left > 0 ? '<button class="sess-btn" type="button" data-book="' + s.id + '">Book this seat</button>' : '<span class="sess-badge">Full</span>') +
-          '</div></div>';
-      }).join('') : '<div class="lib-empty">No open times yet — check back soon, or ask your teacher.</div>';
+          '<div class="meta"><span class="sess-rel">' + esc(fmtRelative(s.starts_at)) + '</span> · ' +
+          (left > 0 ? left + ' ' + t(left === 1 ? 'seat left' : 'seats left', 'مقعد متاح') : t('Full', 'ممتلئة')) + '</div>' + seatsHtml(s) + '</div>' +
+          '<div class="sess-actions">' + action + '</div>' +
+          '<div class="sess-confirm" hidden><p>' + t('Book', 'حجز') + ' <b>' + esc(s.title) + '</b> — ' + esc(whenLine(s)) + '?<br><small>' +
+          t('Free cancellation until ', 'إلغاء مجاني حتى ') + esc(cancelBy.toLocaleString(uiLocale(), { weekday: 'short', hour: 'numeric', minute: '2-digit' })) + '</small></p>' +
+          '<button class="sess-btn" type="button" data-confirm="' + s.id + '">' + t('Yes, book my seat', 'نعم، احجز مقعدي') + '</button>' +
+          '<button class="sess-btn ghost" type="button" data-unconfirm="1">' + t('Back', 'رجوع') + '</button></div></div>';
+      }).join('') : '<div class="lib-empty">' + t('No open times yet — your teacher will add new times soon. You can also ask in Messages.', 'لا توجد مواعيد متاحة الآن — سيضيف المعلم مواعيد جديدة قريباً. يمكنك أيضاً السؤال من الرسائل.') + '</div>';
 
       const booked = all.filter(function(s){ return mine[s.id]; });
       myBookings.innerHTML = booked.length ? booked.map(function(s){
         const z = links[s.id];
-        return '<div class="sess-card">' + dateBlock(s.starts_at) +
-          '<div class="sess-info"><h5>' + esc(s.title) + '</h5>' +
+        const st = new Date(s.starts_at).getTime(), end = st + s.duration_min * 60000;
+        const live = now >= st - 10 * 60000 && now < end;
+        const canCancel = st - now > 2 * 3600000;
+        return '<div class="sess-card' + (live ? ' live' : '') + '">' + dateBlock(s.starts_at) +
+          '<div class="sess-info"><h5>' + esc(s.title) + (live ? ' <span class="live-dot">' + t('Live now', 'مباشر الآن') + '</span>' : '') + '</h5>' +
           '<div class="meta">' + esc(whenLine(s)) + '</div>' +
-          '<div class="meta">' + metaHtml(s) + '</div></div>' +
+          '<div class="meta">' + metaHtml(s) + '</div>' +
+          (canCancel ? '' : '<small class="sess-note">' + t("Less than 2 hours to go — if you can't come, message your teacher.", 'باقي أقل من ساعتين — لو لن تحضر، راسل معلمك.') + '</small>') + '</div>' +
           '<div class="sess-actions">' +
-          (z ? '<a class="sess-btn" href="' + esc(safeUrl(z)) + '" target="_blank" rel="noopener">Join Zoom Meeting</a>' : '') +
-          '<a class="sess-btn ghost" href="' + esc(gcalLink(s, z)) + '" target="_blank" rel="noopener">Add to calendar</a>' +
-          '<button class="sess-btn ghost" type="button" data-cancel="' + mine[s.id] + '">Cancel booking</button>' +
+          (z ? (live ? '<a class="sess-btn" href="' + esc(safeUrl(z)) + '" target="_blank" rel="noopener">' + t('Join now', 'ادخل الآن') + '</a>'
+                     : '<span class="sess-btn ghost wait" title="' + t('The Join button opens 10 minutes before the class', 'زر الدخول يُفتح قبل الحصة بـ 10 دقائق') + '">🔒 ' + t('Join opens 10 min before', 'الدخول قبلها بـ 10 دقائق') + '</span>') : '') +
+          '<a class="sess-btn ghost" href="' + esc(gcalLink(s, z)) + '" target="_blank" rel="noopener">' + t('Add to calendar', 'أضف للتقويم') + '</a>' +
+          (canCancel ? '<button class="sess-btn ghost" type="button" data-cancel="' + mine[s.id] + '">' + t('Cancel', 'إلغاء') + '</button>' : '') +
           '</div></div>';
-      }).join('') : '<div class="lib-empty">No bookings yet.</div>';
+      }).join('') : '<div class="lib-empty">' + t('No bookings yet — pick a day above and book a time.', 'لا توجد حجوزات بعد — اختر يوماً من الأعلى واحجز موعداً.') + '</div>';
     }
 
     // overview card: the next session this person is attending (student) or hosting (teacher)
@@ -4142,9 +4299,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(upcoming.length){
       const s = upcoming[0];
       const z = links[s.id];
+      const live = Date.now() >= new Date(s.starts_at).getTime() - 10 * 60000;
       ovNextSession.innerHTML = '<div class="next-card"><div><span class="kick">Next Zoom Meeting</span>' +
         '<h4>' + esc(s.title) + '</h4><p>' + esc(s.club) + ' · ' + esc(whenLine(s)) + ' · ' + esc(fmtRelative(s.starts_at)) + '</p></div>' +
-        (z ? '<a class="sess-btn" href="' + esc(safeUrl(z)) + '" target="_blank" rel="noopener">' + (teacher ? 'Start Zoom Meeting' : 'Join Zoom Meeting') + '</a>' : '') +
+        (z && (teacher || live) ? '<a class="sess-btn" href="' + esc(safeUrl(z)) + '" target="_blank" rel="noopener">' + (teacher ? 'Start Zoom Meeting' : 'Join Zoom Meeting') + '</a>'
+          : '<a class="sess-btn" href="' + esc(gcalLink(s, z)) + '" target="_blank" rel="noopener">' + t('Add to calendar', 'أضف للتقويم') + '</a>') +
         '</div>';
     } else {
       ovNextSession.innerHTML = '<div class="next-card"><div><span class="kick">Zoom Meetings</span>' +
@@ -4156,20 +4315,43 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   if(sessView){
     sessView.addEventListener('click', async function(e){
       const bookBtn = e.target.closest('[data-book]');
+      const confirmBtn = e.target.closest('[data-confirm]');
       const cancelBtn = e.target.closest('[data-cancel]');
       const delBtn = e.target.closest('[data-del]');
-      if(bookBtn){
-        bookBtn.disabled = true;
+      const dayBtn = e.target.closest('[data-day]');
+      if(dayBtn){
+        sessDay = dayBtn.dataset.day;
+        loadSessions();
+      } else if(e.target.closest('[data-goto-myplan]')){
+        showDashView('myplan');
+      } else if(e.target.closest('[data-unconfirm]')){
+        const card = e.target.closest('.slot');
+        card.querySelector('.sess-confirm').hidden = true;
+        card.querySelector('.sess-actions').hidden = false;
+      } else if(bookBtn){
+        // one tap shows a short confirmation inside the card
+        sessList.querySelectorAll('.slot').forEach(function(c){ c.querySelector('.sess-confirm').hidden = true; c.querySelector('.sess-actions').hidden = false; });
+        const card = bookBtn.closest('.slot');
+        card.querySelector('.sess-actions').hidden = true;
+        card.querySelector('.sess-confirm').hidden = false;
+      } else if(confirmBtn){
+        confirmBtn.disabled = true;
         setNotice('');
-        const { error } = await sb.rpc('book_session', { p_session: bookBtn.dataset.book });
+        const { error } = await sb.rpc('book_session', { p_session: confirmBtn.dataset.confirm });
         if(error){ setNotice(sessionsFriendlyError(error)); }
-        else { setNotice('Seat booked — your Zoom Meeting link is under My bookings.', true); }
+        else {
+          setNotice(t('Seat booked ✓ — it is under My bookings. The Join button opens 10 minutes before the class.', 'تم الحجز ✓ — ستجده في حجوزاتي. زر الدخول يُفتح قبل الحصة بـ 10 دقائق.'), true);
+          toast('✅ ' + t('Seat booked', 'تم الحجز'), t('See you in class!', 'نراك في الحصة!'));
+        }
         await loadSessions();
+        if(!error && myBookingsHeading.scrollIntoView) myBookingsHeading.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else if(cancelBtn){
-        if(!confirm('Cancel this booking?')) return;
+        if(!confirm(t('Cancel this booking? Your seat goes back to other students.', 'إلغاء هذا الحجز؟ سيعود المقعد لطلاب آخرين.'))) return;
         cancelBtn.disabled = true;
-        const { error } = await sb.from('bookings').delete().eq('id', cancelBtn.dataset.cancel);
-        setNotice(error ? sessionsFriendlyError(error) : 'Booking cancelled.', !error);
+        const { data: gone, error } = await sb.from('bookings').delete().eq('id', cancelBtn.dataset.cancel).select('id');
+        setNotice(error ? sessionsFriendlyError(error)
+          : (gone && gone.length) ? t('Booking cancelled.', 'تم إلغاء الحجز.')
+          : t("Bookings can only be cancelled up to 2 hours before the class — message your teacher instead.", 'لا يمكن إلغاء الحجز قبل الحصة بأقل من ساعتين — راسل معلمك بدلاً من ذلك.'), !error && gone && gone.length);
         await loadSessions();
       } else if(delBtn){
         if(!confirm('Delete this session? Students who booked it will lose their seat.')) return;
@@ -4201,26 +4383,56 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         setNotice('Please paste the full Zoom Meeting link (it starts with https://).');
         return;
       }
-      const row = {
+      const weeks = parseInt(document.getElementById('sessRepeat').value, 10) || 1;
+      const base = {
         club: document.getElementById('sessClub').value,
         title: document.getElementById('sessTitle').value.trim(),
-        starts_at: start.toISOString(),
         duration_min: parseInt(document.getElementById('sessDuration').value, 10),
         capacity: parseInt(document.getElementById('sessSeats').value, 10)
       };
-      const { data: made, error } = await sb.from('sessions').insert(row).select().single();
-      if(error){ setNotice(sessionsFriendlyError(error)); return; }
-      const { error: linkErr } = await sb.from('session_links').insert({ session_id: made.id, zoom_url: zoom });
-      if(linkErr){
-        await sb.from('sessions').delete().eq('id', made.id); // don't leave a bookable session with no Zoom Meeting link
-        setNotice(sessionsFriendlyError(linkErr));
-        return;
+      const btn = sessForm.querySelector('[type=submit]');
+      btn.disabled = true;
+      let made = 0, failed = null;
+      for(let w = 0; w < weeks && !failed; w++){
+        const when = new Date(start); when.setDate(when.getDate() + 7 * w); // same local time each week, even across DST
+        const row = Object.assign({ starts_at: when.toISOString() }, base);
+        const { data: s, error } = await sb.from('sessions').insert(row).select().single();
+        if(error){ failed = error; break; }
+        const { error: linkErr } = await sb.from('session_links').insert({ session_id: s.id, zoom_url: zoom });
+        if(linkErr){
+          await sb.from('sessions').delete().eq('id', s.id); // don't leave a bookable session with no Zoom Meeting link
+          failed = linkErr;
+          break;
+        }
+        made++;
       }
+      btn.disabled = false;
+      if(failed && !made){ setNotice(sessionsFriendlyError(failed)); return; }
+      try{ localStorage.setItem('cc_zoom', zoom); }catch(err){}
       sessForm.reset();
-      setNotice('Time opened — students in that club can book it now.', true);
+      sessPrefill();
+      setNotice(failed
+        ? t(made + ' of ' + weeks + ' times opened — ', 'تم فتح ' + made + ' من ' + weeks + ' مواعيد — ') + sessionsFriendlyError(failed)
+        : made > 1 ? t(made + ' weekly times opened — students in that club can book them now.', 'تم فتح ' + made + ' مواعيد أسبوعية — يمكن لطلاب النادي حجزها الآن.')
+        : t('Time opened — students in that club can book it now.', 'تم فتح الموعد — يمكن لطلاب النادي حجزه الآن.'), !failed);
       await loadSessions();
     });
   }
+  // a sensible default: tomorrow at the next full hour, with the teacher's usual Zoom link
+  function sessPrefill(){
+    if(!sessForm) return;
+    const d = new Date(Date.now() + 86400000);
+    d.setMinutes(0, 0, 0); d.setHours(d.getHours() + 1);
+    sessStartInput.value = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    let z = '';
+    try{ z = localStorage.getItem('cc_zoom') || ''; }catch(err){}
+    if(z) document.getElementById('sessZoom').value = z;
+  }
+  sessPrefill();
+  // keep times, the Join button and the 2-hour rule current while the page stays open
+  setInterval(function(){
+    if(currentProfile && sessView && !sessView.hidden && !sessView.querySelector('.sess-confirm:not([hidden])')) loadSessions();
+  }, 60000);
 
   // ---------- video lessons: teachers upload, the public Watch & Learn section shows them ----------
   const vidForm = document.getElementById('vidForm');
@@ -4624,24 +4836,201 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const hwForm = document.getElementById('hwForm');
   const hwList = document.getElementById('hwList');
   const hwNotice = document.getElementById('hwNotice');
+  const hwView = document.querySelector('.dash-view[data-view="homework"]');
   function setHwNotice(msg, ok){ hwNotice.textContent = msg || ''; hwNotice.classList.toggle('ok', !!ok); }
   function hwError(err){
-    return /schema cache|does not exist|relation/i.test(err.message)
-      ? "Homework isn't set up in the database yet — run the new SQL block in Supabase." : friendlyErrorMessage(err);
+    return /schema cache|does not exist|relation|bucket not found|attachments/i.test(err.message || '')
+      ? t("Homework files aren't set up in the database yet — run supabase/schema.sql again in Supabase.", 'ملفات الواجبات غير مفعّلة في قاعدة البيانات بعد — شغّل ملف supabase/schema.sql مرة أخرى في Supabase.')
+      : friendlyErrorMessage(err);
   }
   function dueChip(a, submitted){
     if(!a.due_at) return '';
     const late = new Date(a.due_at).getTime() < Date.now();
-    return '<span class="sess-badge ' + (late && !submitted ? '' : 'ok') + '">' + (late && !submitted ? 'Past due' : 'Due') + ' ' + esc(fmtDay(a.due_at)) + '</span>';
+    return '<span class="sess-badge ' + (late && !submitted ? '' : 'ok') + '">' + (late && !submitted ? t('Past due', 'انتهى الموعد') : t('Due', 'التسليم')) + ' ' + esc(fmtDay(a.due_at)) + '</span>';
+  }
+
+  // files on homework (photos, videos, voice notes, documents) live in the private 'homework' bucket:
+  // teacher/...        files a teacher adds to an assignment or to feedback
+  // <student id>/...   files a student adds to an answer
+  const HW_MAX = 50 * 1024 * 1024;
+  const HW_ACCEPT = 'image/*,video/*,audio/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt';
+  const hwDrafts = {}; // composer key -> { orig: [saved], keep: [saved], add: [File] }
+  let hwRec = null;    // the voice note being recorded
+  let hwData = { as: [], subs: [] };
+
+  function hwKind(a){
+    const type = String(a.type || ''), ext = fileExt(a.name);
+    if(/^image\//.test(type) || ['png', 'jpg', 'jpeg', 'webp', 'gif'].indexOf(ext) !== -1) return 'image';
+    if(/^audio\//.test(type) || ['mp3', 'm4a', 'ogg', 'wav', 'aac'].indexOf(ext) !== -1) return 'audio';
+    if(/^video\//.test(type) || ['mp4', 'mov', 'webm', 'm4v'].indexOf(ext) !== -1) return 'video';
+    return 'doc';
+  }
+  function hwIcon(a){ const k = hwKind(a); return k === 'image' ? '🖼️' : k === 'audio' ? '🎤' : k === 'video' ? '🎬' : fileIcon(fileExt(a.name)); }
+  function hwAtt(list){ return Array.isArray(list) ? list : []; }
+
+  function hwComposer(key, saved){
+    hwDrafts[key] = { orig: hwAtt(saved).slice(), keep: hwAtt(saved).slice(), add: [] };
+    return '<div class="hw-att" data-att="' + key + '"><div class="hw-att-list"></div><div class="hw-att-btns">' +
+      '<label class="hw-att-btn"><input type="file" multiple accept="' + HW_ACCEPT + '" data-attin="' + key + '" hidden>📎 <span>' + t('Attach files', 'إرفاق ملفات') + '</span></label>' +
+      '<label class="hw-att-btn"><input type="file" accept="image/*" capture="environment" data-attin="' + key + '" hidden>📷 <span>' + t('Take a photo', 'التقاط صورة') + '</span></label>' +
+      (window.MediaRecorder && navigator.mediaDevices ? '<button type="button" class="hw-att-btn" data-rec="' + key + '">🎤 <span>' + t('Record voice', 'تسجيل صوتي') + '</span></button>' : '') +
+      '</div><small class="hw-att-hint">' + t('Photos, videos, voice notes, PDF or Word · up to 50 MB each', 'صور، فيديو، تسجيل صوتي، PDF أو Word · حتى 50 ميجا للملف') + '</small></div>';
+  }
+  function hwDrawComposer(key){
+    const box = document.querySelector('[data-att="' + key + '"] .hw-att-list'), d = hwDrafts[key];
+    if(!box || !d) return;
+    const items = d.keep.map(function(a, k){ return { a: a, rm: 'k' + k }; })
+      .concat(d.add.map(function(f, k){ return { a: f, rm: 'a' + k, isNew: true }; }));
+    box.innerHTML = items.map(function(it){
+      return '<span class="hw-chip' + (it.isNew ? ' new' : '') + '">' + hwIcon(it.a) + ' <b>' + esc(it.a.name) + '</b> <small>' + fmtSize(it.a.size) + '</small>' +
+        '<button type="button" data-attrm="' + key + '|' + it.rm + '" aria-label="' + t('Remove', 'إزالة') + '">×</button></span>';
+    }).join('');
+  }
+  function hwAddFiles(key, files){
+    const d = hwDrafts[key];
+    if(!d) return;
+    let skipped = 0;
+    Array.from(files || []).forEach(function(f){
+      if(f.size > HW_MAX){ skipped++; return; }
+      d.add.push(f);
+    });
+    setHwNotice(skipped ? t('A file bigger than 50 MB was skipped — try a shorter video.', 'تم تخطي ملف أكبر من 50 ميجا — جرّب فيديو أقصر.') : '');
+    hwDrawComposer(key);
+  }
+  function hwResetComposer(key){ if(hwDrafts[key]){ hwDrafts[key] = { orig: [], keep: [], add: [] }; hwDrawComposer(key); } }
+
+  async function hwToggleRec(btn){
+    if(hwRec){ hwRec.rec.stop(); return; }
+    const key = btn.dataset.rec;
+    let stream;
+    try{ stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch(e){ setHwNotice(t('Allow the microphone to record a voice note.', 'اسمح باستخدام الميكروفون لتسجيل رسالة صوتية.')); return; }
+    const type = ['audio/webm', 'audio/mp4', 'audio/ogg'].find(function(x){ return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(x); }) || '';
+    const rec = new MediaRecorder(stream, type ? { mimeType: type } : undefined);
+    const chunks = [], started = Date.now();
+    const label = function(){ return '🎤 <span>' + t('Record voice', 'تسجيل صوتي') + '</span>'; };
+    const tick = function(){
+      const s = Math.round((Date.now() - started) / 1000);
+      btn.innerHTML = '⏹ <span>' + t('Stop', 'إيقاف') + ' ' + Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0') + '</span>';
+      if(s >= 300 && rec.state === 'recording') rec.stop(); // 5 minutes is plenty
+    };
+    const timer = setInterval(tick, 500);
+    hwRec = { rec: rec };
+    rec.ondataavailable = function(e){ if(e.data && e.data.size) chunks.push(e.data); };
+    rec.onstop = function(){
+      clearInterval(timer);
+      stream.getTracks().forEach(function(tr){ tr.stop(); });
+      hwRec = null;
+      btn.classList.remove('rec');
+      btn.innerHTML = label();
+      if(!chunks.length) return;
+      const mime = rec.mimeType || type || 'audio/webm';
+      const ext = /mp4/.test(mime) ? 'm4a' : /ogg/.test(mime) ? 'ogg' : 'webm';
+      const secs = Math.max(1, Math.round((Date.now() - started) / 1000));
+      hwAddFiles(key, [new File(chunks, 'voice-note-' + secs + 's.' + ext, { type: mime })]);
+    };
+    rec.start(1000);
+    btn.classList.add('rec');
+    tick();
+  }
+
+  // phone photos are often 5–10 MB; a 1600px JPEG is plenty for homework and uploads fast
+  function hwShrinkImage(f){
+    if(!/^image\/(jpeg|png|webp)$/.test(f.type) || f.size < 1.5 * 1048576) return Promise.resolve(f);
+    return new Promise(function(resolve){
+      const img = new Image(), url = URL.createObjectURL(f);
+      img.onload = function(){
+        const scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+        ctx.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function(b){
+          resolve(b && b.size < f.size ? new File([b], f.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' }) : f);
+        }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); resolve(f); };
+      img.src = url;
+    });
+  }
+  // uploads the new files of a composer; returns the full attachment list to save
+  async function hwUpload(key, folder){
+    const d = hwDrafts[key] || { orig: [], keep: [], add: [] };
+    const out = d.keep.slice();
+    for(let k = 0; k < d.add.length; k++){
+      setHwNotice(t('Uploading file ' + (k + 1) + ' of ' + d.add.length + '…', 'جارٍ رفع الملف ' + (k + 1) + ' من ' + d.add.length + '…'), true);
+      const f = await hwShrinkImage(d.add[k]);
+      const m = String(f.name).match(/\.([A-Za-z0-9]{1,8})$/);
+      const path = folder + '/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8) + '_' +
+        storageSlug(m ? f.name.slice(0, -m[0].length) : f.name, 'file') + (m ? '.' + m[1].toLowerCase() : '');
+      const { error } = await sb.storage.from('homework').upload(path, f, { contentType: f.type || 'application/octet-stream' });
+      if(error) throw error;
+      out.push({ path: path, name: f.name, size: f.size, type: f.type || '' });
+    }
+    return out;
+  }
+  // files the user removed from a saved list are deleted from storage (best effort)
+  function hwDropRemoved(key){
+    const d = hwDrafts[key];
+    if(!d) return;
+    const kept = d.keep.map(function(a){ return a.path; });
+    const gone = d.orig.map(function(a){ return a.path; }).filter(function(p){ return kept.indexOf(p) === -1; });
+    if(gone.length) sb.storage.from('homework').remove(gone);
+  }
+  function hwHasContent(key){ const d = hwDrafts[key]; return !!d && (d.keep.length + d.add.length) > 0; }
+
+  function hwFileInner(name, size, kind, url){
+    if(!url) return '<span class="hw-file-doc">' + hwIcon({ name: name, type: kind + '/' }) + ' <b>' + esc(name) + '</b><small>' + fmtSize(size) + '</small></span>';
+    if(kind === 'image') return '<a href="' + esc(url) + '" target="_blank" rel="noopener"><img src="' + esc(url) + '" alt="' + esc(name) + '" loading="lazy"></a>';
+    if(kind === 'video') return '<video controls playsinline preload="metadata" src="' + esc(url) + '"></video>';
+    if(kind === 'audio') return '<audio controls preload="metadata" src="' + esc(url) + '"></audio>';
+    return '<a class="hw-file-doc" href="' + esc(url + '&download=' + encodeURIComponent(name)) + '" target="_blank" rel="noopener">' +
+      fileIcon(fileExt(name)) + ' <b>' + esc(name) + '</b><small>' + fmtSize(size) + ' · ' + t('Download', 'تحميل') + '</small></a>';
+  }
+  function hwFilesView(list){
+    list = hwAtt(list);
+    if(!list.length) return '';
+    return '<div class="hw-files">' + list.map(function(a){
+      const kind = hwKind(a);
+      return '<div class="hw-file ' + kind + '" data-sign="' + esc(a.path) + '" data-name="' + esc(a.name) + '" data-size="' + (a.size || 0) + '" data-kind="' + kind + '">' +
+        hwFileInner(a.name, a.size, kind, null) + '</div>';
+    }).join('') + '</div>';
+  }
+  // private files open through short-lived signed links (one request for the whole page)
+  async function hwSignAll(root){
+    const els = Array.from(root.querySelectorAll('[data-sign]'));
+    if(!els.length) return;
+    const paths = Array.from(new Set(els.map(function(el){ return el.dataset.sign; })));
+    const { data, error } = await sb.storage.from('homework').createSignedUrls(paths, 3600);
+    if(error || !data) return;
+    const urls = {};
+    data.forEach(function(r){ if(r && r.signedUrl) urls[r.path] = r.signedUrl; });
+    els.forEach(function(el){
+      const u = urls[el.dataset.sign];
+      if(u) el.innerHTML = hwFileInner(el.dataset.name, +el.dataset.size, el.dataset.kind, u);
+    });
+  }
+
+  function hwStatus(a, s){
+    if(s && s.grade != null) return { n: 2, html: '<span class="hw-status done">✓ ' + t('Graded', 'تم التصحيح') + '</span>' };
+    if(s) return { n: 1, html: '<span class="hw-status sent">' + t('Submitted', 'تم التسليم') + '</span>' };
+    return { n: 0, html: '<span class="hw-status todo">' + t('To do', 'مطلوب') + '</span>' };
+  }
+  function hwSentLine(a, s){
+    const late = a.due_at && new Date(s.created_at).getTime() > new Date(a.due_at).getTime();
+    return '<small class="hw-when">' + t('Sent', 'أُرسل') + ' ' + esc(fmtDay(s.updated_at || s.created_at)) + (late ? ' · <b>' + t('late', 'متأخر') + '</b>' : '') + '</small>';
   }
 
   async function loadHomework(){
     if(!currentProfile || !hwList) return;
     const teacher = isTeacher();
     hwForm.hidden = !teacher;
+    if(teacher && !hwDrafts.new) document.getElementById('hwFormAtt').innerHTML = hwComposer('new');
     document.getElementById('hwSub').textContent = teacher
-      ? 'Give homework to a club, then read and grade what students send back.'
-      : "Your teacher's assignments for your club.";
+      ? t('Give homework to a club with photos, videos or files, then grade answers with a note or a voice message.', 'أعطِ واجباً للنادي مع صور أو فيديو أو ملفات، ثم صحّح الإجابات بملاحظة أو رسالة صوتية.')
+      : t('Answer in writing, with a photo of your notebook, a video or a voice note.', 'أجب كتابةً، أو بصورة من كراستك، أو فيديو، أو تسجيل صوتي.');
     const { data: as, error } = await sb.from('assignments').select('*').order('created_at', { ascending: false });
     if(error){ hwList.innerHTML = '<div class="lib-empty">' + esc(hwError(error)) + '</div>'; return; }
     const list = as || [];
@@ -4651,6 +5040,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const { data: sd } = await sb.from('submissions').select('*').in('assignment_id', ids).order('created_at', { ascending: true });
       subs = sd || [];
     }
+    hwData = { as: list, subs: subs };
+    Object.keys(hwDrafts).forEach(function(k){ if(k !== 'new') delete hwDrafts[k]; });
     if(teacher){
       const sids = Array.from(new Set(subs.map(function(s){ return s.student_id; })));
       const names = {};
@@ -4660,56 +5051,103 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
       hwList.innerHTML = list.length ? list.map(function(a){
         const mine = subs.filter(function(s){ return s.assignment_id === a.id; });
+        const waiting = mine.filter(function(s){ return s.grade == null; }).length;
         return '<div class="sess-card hw-card"><div class="sess-info"><h5>' + esc(a.title) + '</h5>' +
           '<div class="meta">' + esc(a.club) + ' · ' + esc(fmtDay(a.created_at)) + '</div>' +
-          (a.instructions ? '<div class="hw-text">' + esc(a.instructions) + '</div>' : '') +
-          '<div class="meta"><b>' + mine.length + '</b> <span>submissions</span></div></div>' +
-          '<div class="sess-actions">' + dueChip(a, false) + '<button class="sess-btn ghost" type="button" data-hwdel="' + a.id + '">Delete</button></div>' +
+          (a.instructions ? '<div class="hw-text">' + esc(a.instructions) + '</div>' : '') + hwFilesView(a.attachments) +
+          '<div class="meta"><b>' + mine.length + '</b> ' + t('answers', 'إجابة') + (waiting ? ' · <b>' + waiting + '</b> ' + t('waiting for a grade', 'بانتظار التصحيح') : '') + '</div></div>' +
+          '<div class="sess-actions">' + dueChip(a, false) + '<button class="sess-btn ghost" type="button" data-hwdel="' + a.id + '">' + t('Delete', 'حذف') + '</button></div>' +
           (mine.length ? '<div class="hw-subs">' + mine.map(function(s){
             return '<div class="hw-sub"><div class="hw-sub-head"><b>' + esc(names[s.student_id] || '—') + '</b>' +
-              (s.grade != null ? '<span class="sess-badge ok">' + s.grade + ' / 100</span>' : '<span class="sess-badge">Not graded</span>') + '</div>' +
-              '<p class="hw-answer">' + esc(s.answer) + '</p>' +
-              '<div class="hw-grade"><input type="number" min="0" max="100" placeholder="Grade 0–100" value="' + (s.grade != null ? s.grade : '') + '" data-g="' + s.id + '">' +
-              '<input type="text" placeholder="Feedback for the student" value="' + esc(s.feedback || '') + '" data-f="' + s.id + '">' +
-              '<button class="sess-btn" type="button" data-grade="' + s.id + '">Save grade</button></div></div>';
+              (s.grade != null ? '<span class="sess-badge ok">' + s.grade + ' / 100</span>' : '<span class="sess-badge">' + t('Not graded', 'لم يُصحح') + '</span>') + '</div>' +
+              hwSentLine(a, s) +
+              (s.answer ? '<p class="hw-answer">' + esc(s.answer) + '</p>' : '') + hwFilesView(s.attachments) +
+              '<div class="hw-grade"><input type="number" min="0" max="100" placeholder="' + t('Grade 0–100', 'الدرجة 0–100') + '" value="' + (s.grade != null ? s.grade : '') + '" data-g="' + s.id + '">' +
+              '<input type="text" placeholder="' + t('Feedback for the student', 'ملاحظة للطالب') + '" value="' + esc(s.feedback || '') + '" data-f="' + s.id + '"></div>' +
+              hwComposer('fb-' + s.id, s.feedback_attachments) +
+              '<div class="hw-grade"><button class="sess-btn" type="button" data-grade="' + s.id + '">' + t('Save grade', 'حفظ الدرجة') + '</button></div></div>';
           }).join('') + '</div>' : '') + '</div>';
-      }).join('') : '<div class="lib-empty">No homework yet — give your first assignment above.</div>';
+      }).join('') : '<div class="lib-empty">' + t('No homework yet — give your first assignment above.', 'لا توجد واجبات بعد — أضف أول واجب من الأعلى.') + '</div>';
     } else {
-      hwList.innerHTML = list.length ? list.map(function(a){
+      const rows = list.map(function(a){
         const s = subs.find(function(x){ return x.assignment_id === a.id && x.student_id === currentProfile.id; });
+        return { a: a, s: s, st: hwStatus(a, s) };
+      }).sort(function(x, y){
+        if(x.st.n !== y.st.n) return x.st.n - y.st.n; // to do first, then submitted, then graded
+        const dx = x.a.due_at ? new Date(x.a.due_at).getTime() : Infinity, dy = y.a.due_at ? new Date(y.a.due_at).getTime() : Infinity;
+        return dx - dy;
+      });
+      const count = [0, 0, 0];
+      rows.forEach(function(r){ count[r.st.n]++; });
+      const summary = rows.length ? '<div class="hw-summary"><span class="todo"><b>' + count[0] + '</b> ' + t('to do', 'مطلوب') + '</span>' +
+        '<span class="sent"><b>' + count[1] + '</b> ' + t('submitted', 'تم تسليمه') + '</span><span class="done"><b>' + count[2] + '</b> ' + t('graded', 'تم تصحيحه') + '</span></div>' : '';
+      hwList.innerHTML = rows.length ? summary + rows.map(function(r){
+        const a = r.a, s = r.s;
         let body;
         if(s && s.grade != null){
-          body = '<div class="hw-sub"><div class="hw-sub-head"><b>Your answer</b><span class="sess-badge ok">' + s.grade + ' / 100</span></div>' +
-            '<p class="hw-answer">' + esc(s.answer) + '</p>' + (s.feedback ? '<p class="hw-fb"><b>Teacher:</b> ' + esc(s.feedback) + '</p>' : '') + '</div>';
+          body = '<div class="hw-sub"><div class="hw-sub-head"><b>' + t('Your answer', 'إجابتك') + '</b><span class="sess-badge ok">' + s.grade + ' / 100</span></div>' +
+            (s.answer ? '<p class="hw-answer">' + esc(s.answer) + '</p>' : '') + hwFilesView(s.attachments) +
+            ((s.feedback || hwAtt(s.feedback_attachments).length) ? '<div class="hw-fb"><b>' + t('Teacher', 'المعلم') + ':</b> ' + esc(s.feedback || '') + hwFilesView(s.feedback_attachments) + '</div>' : '') + '</div>';
         } else {
-          body = '<div class="hw-sub"><textarea rows="4" data-ans="' + a.id + '" placeholder="Write your answer here…">' + esc(s ? s.answer : '') + '</textarea>' +
-            '<div class="hw-grade"><button class="sess-btn" type="button" data-hwsend="' + a.id + '">' + (s ? 'Update answer' : 'Submit homework') + '</button>' +
-            (s ? '<span class="sess-badge ok">Submitted</span>' : '') + '</div></div>';
+          body = '<div class="hw-sub"><textarea rows="3" data-ans="' + a.id + '" placeholder="' + t('Write your answer here… or just attach a photo, video or voice note.', 'اكتب إجابتك هنا… أو أرفق صورة أو فيديو أو تسجيلاً صوتياً.') + '">' + esc(s ? (s.answer || '') : '') + '</textarea>' +
+            hwComposer('ans-' + a.id, s ? s.attachments : []) +
+            '<div class="hw-grade"><button class="sess-btn" type="button" data-hwsend="' + a.id + '">' + (s ? t('Update my answer', 'تحديث إجابتي') : t('Submit homework', 'تسليم الواجب')) + '</button>' +
+            (s ? hwSentLine(a, s) : '') + '</div></div>';
         }
-        return '<div class="sess-card hw-card"><div class="sess-info"><h5>' + esc(a.title) + '</h5>' +
+        return '<div class="sess-card hw-card st-' + r.st.n + '"><div class="sess-info"><h5>' + esc(a.title) + ' ' + r.st.html + '</h5>' +
           '<div class="meta">' + esc(fmtDay(a.created_at)) + '</div>' +
-          (a.instructions ? '<div class="hw-text">' + esc(a.instructions) + '</div>' : '') + '</div>' +
+          (a.instructions ? '<div class="hw-text">' + esc(a.instructions) + '</div>' : '') + hwFilesView(a.attachments) + '</div>' +
           '<div class="sess-actions">' + dueChip(a, !!s) + '</div>' + body + '</div>';
-      }).join('') : '<div class="lib-empty">No homework right now.</div>';
+      }).join('') : '<div class="lib-empty">' + t('No homework right now. 🎉', 'لا توجد واجبات الآن. 🎉') + '</div>';
     }
+    Object.keys(hwDrafts).forEach(hwDrawComposer);
+    hwSignAll(hwList);
   }
 
   if(hwForm){
     hwForm.addEventListener('submit', async function(e){
       e.preventDefault();
       setHwNotice('');
+      const btn = hwForm.querySelector('[type=submit]');
       const due = document.getElementById('hwDue').value;
-      const row = {
-        club: document.getElementById('hwClub').value,
-        title: document.getElementById('hwTitle').value.trim(),
-        instructions: document.getElementById('hwText').value.trim(),
-        due_at: due ? new Date(due + 'T23:59:00').toISOString() : null
-      };
-      const { error } = await sb.from('assignments').insert(row);
-      if(error){ setHwNotice(hwError(error)); return; }
-      hwForm.reset();
-      setHwNotice('Homework sent to the club.', true);
-      await loadHomework();
+      btn.disabled = true;
+      try{
+        const files = await hwUpload('new', 'teacher/assignments');
+        const row = {
+          club: document.getElementById('hwClub').value,
+          title: document.getElementById('hwTitle').value.trim(),
+          instructions: document.getElementById('hwText').value.trim(),
+          due_at: due ? new Date(due + 'T23:59:00').toISOString() : null
+        };
+        if(files.length) row.attachments = files;
+        const { error } = await sb.from('assignments').insert(row);
+        if(error) throw error;
+        hwForm.reset();
+        hwResetComposer('new');
+        setHwNotice(t('Homework sent to the club.', 'تم إرسال الواجب للنادي.'), true);
+        await loadHomework();
+      }catch(err){ setHwNotice(hwError(err)); }
+      btn.disabled = false;
+    });
+  }
+  if(hwView){
+    hwView.addEventListener('change', function(e){
+      const inp = e.target.closest('[data-attin]');
+      if(!inp) return;
+      hwAddFiles(inp.dataset.attin, inp.files);
+      inp.value = '';
+    });
+    hwView.addEventListener('click', function(e){
+      const rm = e.target.closest('[data-attrm]'), rec = e.target.closest('[data-rec]');
+      if(rm){
+        const parts = rm.dataset.attrm.split('|'), d = hwDrafts[parts[0]];
+        if(!d) return;
+        const which = parts[1].charAt(0), k = parseInt(parts[1].slice(1), 10);
+        (which === 'k' ? d.keep : d.add).splice(k, 1);
+        hwDrawComposer(parts[0]);
+      } else if(rec){
+        hwToggleRec(rec);
+      }
     });
   }
   if(hwList){
@@ -4718,33 +5156,51 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const grade = e.target.closest('[data-grade]');
       const del = e.target.closest('[data-hwdel]');
       if(send){
-        const id = send.dataset.hwsend;
-        const ta = hwList.querySelector('[data-ans="' + id + '"]');
-        const answer = ta.value.trim();
-        if(!answer){ setHwNotice('Please write your answer first.'); return; }
+        const id = send.dataset.hwsend, key = 'ans-' + id;
+        const answer = hwList.querySelector('[data-ans="' + id + '"]').value.trim();
+        if(!answer && !hwHasContent(key)){ setHwNotice(t('Write an answer or attach a photo, video or voice note first.', 'اكتب إجابة أو أرفق صورة أو فيديو أو تسجيلاً صوتياً أولاً.')); return; }
         send.disabled = true;
         setHwNotice('');
-        const existing = await sb.from('submissions').select('id').eq('assignment_id', id).eq('student_id', currentProfile.id).maybeSingle();
-        const res = (existing.data && existing.data.id)
-          ? await sb.from('submissions').update({ answer: answer }).eq('id', existing.data.id)
-          : await sb.from('submissions').insert({ assignment_id: id, student_id: currentProfile.id, answer: answer });
-        setHwNotice(res.error ? hwError(res.error) : 'Homework sent — your teacher will grade it soon.', !res.error);
-        await loadHomework();
+        try{
+          const files = await hwUpload(key, currentProfile.id + '/' + storageSlug(String(id), 'hw'));
+          const row = { answer: answer || null, attachments: files, updated_at: new Date().toISOString() };
+          const existing = hwData.subs.find(function(x){ return String(x.assignment_id) === String(id) && x.student_id === currentProfile.id; });
+          const res = existing
+            ? await sb.from('submissions').update(row).eq('id', existing.id)
+            : await sb.from('submissions').insert(Object.assign({ assignment_id: id, student_id: currentProfile.id }, row));
+          if(res.error) throw res.error;
+          hwDropRemoved(key);
+          setHwNotice(t('Homework sent — your teacher will grade it soon. ✓', 'تم تسليم الواجب — سيصححه معلمك قريباً. ✓'), true);
+          await loadHomework();
+        }catch(err){ setHwNotice(hwError(err)); send.disabled = false; }
       } else if(grade){
-        const id = grade.dataset.grade;
+        const id = grade.dataset.grade, key = 'fb-' + id;
         const g = hwList.querySelector('[data-g="' + id + '"]').value;
         const f = hwList.querySelector('[data-f="' + id + '"]').value.trim();
         const n = parseInt(g, 10);
-        if(isNaN(n) || n < 0 || n > 100){ setHwNotice('Enter a grade between 0 and 100.'); return; }
+        if(isNaN(n) || n < 0 || n > 100){ setHwNotice(t('Enter a grade between 0 and 100.', 'اكتب درجة من 0 إلى 100.')); return; }
         grade.disabled = true;
-        const { error } = await sb.from('submissions').update({ grade: n, feedback: f || null, graded_at: new Date().toISOString() }).eq('id', id);
-        setHwNotice(error ? hwError(error) : 'Grade saved.', !error);
-        await loadHomework();
+        try{
+          const s = hwData.subs.find(function(x){ return String(x.id) === String(id); });
+          const files = await hwUpload(key, 'teacher/feedback/' + storageSlug(String(s ? s.student_id : id), 'student'));
+          const { error } = await sb.from('submissions').update({ grade: n, feedback: f || null, feedback_attachments: files, graded_at: new Date().toISOString() }).eq('id', id);
+          if(error) throw error;
+          hwDropRemoved(key);
+          setHwNotice(t('Grade saved.', 'تم حفظ الدرجة.'), true);
+          await loadHomework();
+        }catch(err){ setHwNotice(hwError(err)); grade.disabled = false; }
       } else if(del){
-        if(!confirm('Delete this homework and all its answers?')) return;
+        if(!confirm(t('Delete this homework and all its answers?', 'حذف هذا الواجب وكل إجاباته؟'))) return;
         del.disabled = true;
-        const { error } = await sb.from('assignments').delete().eq('id', del.dataset.hwdel);
-        setHwNotice(error ? hwError(error) : 'Homework deleted.', !error);
+        const id = del.dataset.hwdel;
+        const a = hwData.as.find(function(x){ return String(x.id) === String(id); });
+        const paths = hwAtt(a && a.attachments).map(function(x){ return x.path; });
+        hwData.subs.filter(function(s){ return String(s.assignment_id) === String(id); }).forEach(function(s){
+          hwAtt(s.attachments).concat(hwAtt(s.feedback_attachments)).forEach(function(x){ paths.push(x.path); });
+        });
+        const { error } = await sb.from('assignments').delete().eq('id', id);
+        if(!error && paths.length) sb.storage.from('homework').remove(paths);
+        setHwNotice(error ? hwError(error) : t('Homework deleted.', 'تم حذف الواجب.'), !error);
         await loadHomework();
       }
     });
@@ -5449,50 +5905,197 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     });
   }
 
-  // ---------- free level test (public) ----------
-  const PT = [
-    { q: 'She ___ a student.', o: ['am', 'is', 'are', 'be'], a: 1 },
-    { q: 'I ___ breakfast at 7 every day.', o: ['has', 'am having', 'have', 'having'], a: 2 },
-    { q: 'Where ___ you from?', o: ['is', 'do', 'are', 'does'], a: 2 },
-    { q: 'Yesterday we ___ to the park.', o: ['went', 'go', 'goes', 'gone'], a: 0 },
-    { q: "There isn't ___ milk in the fridge.", o: ['some', 'a', 'many', 'any'], a: 3 },
-    { q: 'My brother is taller ___ me.', o: ['that', 'than', 'then', 'as'], a: 1 },
-    { q: 'If it rains tomorrow, we ___ at home.', o: ['stayed', 'would stay', 'will stay', 'staying'], a: 2 },
-    { q: 'I have lived here ___ 2019.', o: ['for', 'since', 'from', 'during'], a: 1 },
-    { q: 'She asked me where I ___.', o: ['live', 'am living', 'have lived', 'lived'], a: 3 },
-    { q: 'The report ___ by the time the manager arrived.', o: ['finished', 'was finishing', 'had been finished', 'has finished'], a: 2 },
-    { q: 'I wish I ___ more time to travel.', o: ['have', 'will have', 'would have', 'had'], a: 3 },
-    { q: 'Hardly ___ the door when the phone rang.', o: ['I had opened', 'did I open', 'I opened', 'had I opened'], a: 3 }
-  ];
+  // ---------- free level test (public): adaptive, new questions every time ----------
+  // The first option of each item is the correct one; options are shuffled when shown.
+  const PT_BANK = {
+    A1: [
+      { q: "She ___ a teacher.", o: ["is", "am", "are", "be"] },
+      { q: "I ___ two brothers.", o: ["have", "has", "am", "is"] },
+      { q: "___ you like pizza?", o: ["Do", "Does", "Are", "Is"] },
+      { q: "There ___ a cat on the sofa.", o: ["is", "are", "am", "be"] },
+      { q: "My birthday is ___ May.", o: ["in", "on", "at", "to"] },
+      { q: "They ___ football every Saturday.", o: ["play", "plays", "playing", "is play"] },
+      { q: "This is ___ apple.", o: ["an", "a", "two", "many"] },
+      { q: "He ___ like coffee.", o: ["doesn't", "don't", "isn't", "not"] },
+      { q: "What is the opposite of “hot”?", o: ["cold", "warm", "big", "fast"] },
+      { q: "I'm hungry. Can I have ___ sandwich?", o: ["a", "an", "any", "much"] },
+      { q: "We ___ at home now.", o: ["are", "is", "am", "be"] },
+      { q: "Where ___ your parents live?", o: ["do", "does", "are", "is"] },
+      { q: "Look! The children ___ in the garden.", o: ["are playing", "plays", "play", "is playing"] },
+      { q: "I ___ to school by bus yesterday.", o: ["went", "go", "goes", "going"] },
+      { q: "How ___ is this bag? It's 20 riyals.", o: ["much", "many", "old", "long"] },
+      { q: "Her name ___ Sara.", o: ["is", "are", "am", "be"] },
+      { q: "I get up ___ 7 o'clock.", o: ["at", "in", "on", "to"] },
+      { q: "Can you ___ English?", o: ["speak", "speaks", "speaking", "to speak"] },
+      { q: "Which word is a day?", o: ["Monday", "March", "Morning", "Summer"] },
+      { q: "My sister is ___ than me.", o: ["older", "old", "oldest", "more old"] },
+      { q: "___ is your teacher? Mr. Ali.", o: ["Who", "What", "Where", "When"] }
+    ],
+    A2: [
+      { q: "Yesterday we ___ to the beach.", o: ["went", "go", "goes", "gone"] },
+      { q: "She is ___ than her sister.", o: ["taller", "more tall", "tallest", "tall"] },
+      { q: "I ___ TV when you called.", o: ["was watching", "watched", "am watching", "watch"] },
+      { q: "There isn't ___ milk left.", o: ["any", "some", "many", "a"] },
+      { q: "How ___ apples do you need?", o: ["many", "much", "more", "lot"] },
+      { q: "I'm going ___ my grandmother this weekend.", o: ["to visit", "visit", "visiting", "visited"] },
+      { q: "You ___ wear a helmet on a bike — it's important.", o: ["should", "would", "might", "can't"] },
+      { q: "Did you ___ the email?", o: ["send", "sent", "sends", "sending"] },
+      { q: "This is the ___ film I have ever seen.", o: ["best", "better", "good", "most good"] },
+      { q: "We usually have lunch ___ 1 pm.", o: ["at", "in", "on", "by"] },
+      { q: "Choose the correct question.", o: ["Where did you go?", "Where you went?", "Where did you went?", "Where you go did?"] },
+      { q: "My phone is ___ the table, next to the keys.", o: ["on", "in", "at", "of"] },
+      { q: "I have never ___ to London.", o: ["been", "went", "go", "being"] },
+      { q: "She was cooking when the phone ___.", o: ["rang", "rings", "was ring", "ringed"] },
+      { q: "If it rains, we ___ at home.", o: ["will stay", "stayed", "would stay", "stay will"] },
+      { q: "He is good ___ maths.", o: ["at", "in", "on", "for"] },
+      { q: "I ___ my homework yet.", o: ["haven't finished", "didn't finish", "don't finish", "not finished"] },
+      { q: "This is the ___ film I have ever seen.", o: ["best", "better", "good", "most good"] },
+      { q: "We ___ go to school on Fridays.", o: ["don't have to", "mustn't to", "haven't", "not must"] },
+      { q: "Choose the correct question.", o: ["How long have you lived here?", "How long do you live here since?", "How long you have lived here?", "How long are you living here since?"] },
+      { q: "The film was so ___ that I fell asleep.", o: ["boring", "bored", "bore", "boringly"] },
+      { q: "I'll call you ___ I arrive.", o: ["when", "while", "during", "until that"] }
+    ],
+    B1: [
+      { q: "I have lived here ___ 2019.", o: ["since", "for", "from", "during"] },
+      { q: "If it rains tomorrow, we ___ at home.", o: ["will stay", "would stay", "stayed", "staying"] },
+      { q: "She asked me where I ___.", o: ["lived", "live", "am living", "have lived"] },
+      { q: "The book ___ by millions of people.", o: ["has been read", "has read", "is reading", "read"] },
+      { q: "I'm not used to ___ up so early.", o: ["getting", "get", "got", "have got"] },
+      { q: "You ___ finish it today — tomorrow is fine.", o: ["don't have to", "mustn't", "can't", "shouldn't to"] },
+      { q: "He's the man ___ car was stolen.", o: ["whose", "who", "which", "who's"] },
+      { q: "I wish I ___ more free time.", o: ["had", "have", "will have", "am having"] },
+      { q: "By the time we arrived, the film ___.", o: ["had started", "started", "has started", "starts"] },
+      { q: "Could you tell me what time ___?", o: ["the shop opens", "does the shop open", "opens the shop", "the shop does open"] },
+      { q: "Which phrasal verb means “postpone”?", o: ["put off", "put on", "put up", "put out"] },
+      { q: "She has been studying English ___ three years.", o: ["for", "since", "during", "from"] },
+      { q: "I wish I ___ more time to travel.", o: ["had", "have", "will have", "would had"] },
+      { q: "The meeting has been ___ until next week.", o: ["put off", "put out", "put up", "put on"] },
+      { q: "You ___ have told me! I would have helped.", o: ["should", "must", "can", "will"] },
+      { q: "He denied ___ the window.", o: ["breaking", "to break", "break", "broke"] },
+      { q: "By the time we arrived, the film ___.", o: ["had started", "has started", "started", "was start"] },
+      { q: "She is used to ___ early.", o: ["getting up", "get up", "got up", "gets up"] },
+      { q: "The man ___ car was stolen called the police.", o: ["whose", "who", "which", "that's"] }
+    ],
+    B2: [
+      { q: "If I had known, I ___ you.", o: ["would have told", "would tell", "will tell", "had told"] },
+      { q: "The report ___ by the time the manager arrived.", o: ["had been finished", "finished", "was finishing", "has finished"] },
+      { q: "It's high time we ___ home.", o: ["went", "go", "will go", "are going"] },
+      { q: "He denied ___ the window.", o: ["breaking", "to break", "break", "broken"] },
+      { q: "Not only ___ late, but he also forgot the tickets.", o: ["was he", "he was", "he is", "did he"] },
+      { q: "I'd rather you ___ smoke in here.", o: ["didn't", "don't", "won't", "not"] },
+      { q: "The meeting was called ___ because of the storm.", o: ["off", "out", "up", "over"] },
+      { q: "She always tells the truth — she's very ___.", o: ["honest", "honesty", "honestly", "dishonest"] },
+      { q: "You'd better ___ a doctor.", o: ["see", "to see", "seeing", "saw"] },
+      { q: "Despite ___ tired, she kept working.", o: ["being", "she was", "be", "to be"] },
+      { q: "Had I left earlier, I ___ the train.", o: ["would have caught", "would catch", "will catch", "caught"] },
+      { q: "The new rules will ___ next month.", o: ["come into effect", "come into affect", "come in effect", "take into effect"] }
+    ],
+    C1: [
+      { q: "Hardly ___ the door when the phone rang.", o: ["had I opened", "I had opened", "did I open", "I opened"] },
+      { q: "He is said ___ a fortune abroad.", o: ["to have made", "having made", "to make", "that he made"] },
+      { q: "Little ___ that he was being watched.", o: ["did he know", "he knew", "he did know", "knew he"] },
+      { q: "Choose the closest meaning of “meticulous”.", o: ["extremely careful", "very fast", "rather lazy", "quite loud"] },
+      { q: "Should you need any help, ___ hesitate to contact us.", o: ["don't", "not", "won't", "no"] },
+      { q: "The plan, ___ seemed simple, proved impossible.", o: ["which at first", "that at first", "what at first", "who at first"] },
+      { q: "She takes ___ her mother — they're very alike.", o: ["after", "over", "up", "in"] },
+      { q: "Had it not been for your help, I ___.", o: ["would have failed", "will fail", "would fail", "failed"] },
+      { q: "The results were ___, to say the least.", o: ["disappointing", "disappointed", "disappoint", "disappointment"] },
+      { q: "Choose the correct sentence.", o: ["Rarely have I seen such talent.", "Rarely I have seen such talent.", "Rarely seen I have such talent.", "Rarely have seen I such talent."] },
+      { q: "He was on the ___ of giving up when the call came.", o: ["verge", "edge", "side", "end"] },
+      { q: "Her argument doesn't hold ___.", o: ["water", "rain", "air", "ground"] }
+    ]
+  };
+  const PT_BANDS = ['A1', 'A2', 'B1', 'B2', 'C1'];
+  const PT_TOTAL = 12;
+  const PT_SITE_LEVEL = { A1: 'Beginner (A1-A2)', A2: 'Beginner (A1-A2)', B1: 'Intermediate (B1-B2)', B2: 'Intermediate (B1-B2)', C1: 'Advanced (C1-C2)' };
   const ptStart = document.getElementById('ptStart'), ptRun = document.getElementById('ptRun'), ptDone = document.getElementById('ptDone');
-  let ptI = 0, ptScore = 0;
+  let pt = null; // { band, asked: [{band, q, opts, correct, chosen}], used: {band: [indexes]} }
   function ptShow(which){ ptStart.hidden = which !== 'start'; ptRun.hidden = which !== 'run'; ptDone.hidden = which !== 'done'; }
-  function ptRender(){
-    const q = PT[ptI];
-    document.getElementById('ptCount').textContent = document.documentElement.lang === 'ar'
-      ? 'السؤال ' + (ptI + 1) + ' من ' + PT.length : 'Question ' + (ptI + 1) + ' of ' + PT.length;
-    document.getElementById('ptBar').style.width = Math.round(ptI / PT.length * 100) + '%';
-    document.getElementById('ptQ').textContent = q.q;
-    document.getElementById('ptOpts').innerHTML = q.o.map(function(t, i){ return '<button type="button" data-o="' + i + '">' + esc(t) + '</button>'; }).join('');
+  function ptPick(band){
+    const pool = PT_BANK[band], used = pt.used[band] = pt.used[band] || [];
+    const free = pool.map(function(_, k){ return k; }).filter(function(k){ return used.indexOf(k) === -1; });
+    // prefer questions this visitor has not seen in earlier attempts, so a retake feels new
+    const fresh = free.filter(function(k){ return pt.seen.indexOf(band + k) === -1; });
+    const from = fresh.length ? fresh : free;
+    const k = from[Math.floor(Math.random() * from.length)];
+    used.push(k);
+    pt.seen.push(band + k);
+    try{ localStorage.setItem('cc_pt_seen', JSON.stringify(pt.seen.slice(-50))); }catch(e){}
+    const item = pool[k];
+    const opts = shuffleArr(item.o.map(function(text, n){ return { text: text, ok: n === 0 }; }));
+    return { band: band, q: item.q, opts: opts };
+  }
+  function ptBegin(){
+    let seen = [];
+    try{ seen = JSON.parse(localStorage.getItem('cc_pt_seen') || '[]') || []; }catch(e){}
+    pt = { band: 1, asked: [], used: {}, seen: seen }; // start at A2
+    ptShow('run');
+    ptNext();
+  }
+  function ptNext(){
+    const cur = ptPick(PT_BANDS[pt.band]);
+    pt.current = cur;
+    const n = pt.asked.length + 1;
+    document.getElementById('ptCount').textContent = t('Question ' + n + ' of ' + PT_TOTAL, 'السؤال ' + n + ' من ' + PT_TOTAL);
+    document.getElementById('ptBar').style.width = Math.round((n - 1) / PT_TOTAL * 100) + '%';
+    document.getElementById('ptLvl').textContent = cur.band;
+    document.getElementById('ptQ').textContent = cur.q;
+    document.getElementById('ptOpts').innerHTML = cur.opts.map(function(o, k){ return '<button type="button" data-o="' + k + '">' + esc(o.text) + '</button>'; }).join('');
+  }
+  function ptEstimate(){
+    // highest level answered well (at least 2 questions, 60% or more right); otherwise A1
+    let best = 0;
+    PT_BANDS.forEach(function(b, k){
+      const a = pt.asked.filter(function(x){ return x.band === b; });
+      const ok = a.filter(function(x){ return x.right; }).length;
+      if(a.length >= 2 && ok / a.length >= 0.6) best = k;
+      else if(a.length === 1 && ok === 1 && k > best && k === PT_BANDS.length - 1) best = k; // got the single hardest one right
+    });
+    return PT_BANDS[best];
   }
   function ptFinish(){
-    const level = ptScore >= 10 ? 'Advanced (C1-C2)' : ptScore >= 6 ? 'Intermediate (B1-B2)' : 'Beginner (A1-A2)';
-    const msg = ptScore >= 10 ? 'Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.'
-      : ptScore >= 6 ? 'A solid base. Intermediate lessons will build your confidence and fluency in real conversations.'
-      : 'A perfect place to start. Beginner lessons build your vocabulary, sounds and first sentences step by step.';
-    document.getElementById('ptScore').textContent = ptScore + '/' + PT.length;
+    const cefr = ptEstimate();
+    const right = pt.asked.filter(function(x){ return x.right; }).length;
+    const level = PT_SITE_LEVEL[cefr];
+    const MSG = {
+      A1: t('A perfect place to start. You will build vocabulary, sounds and your first sentences step by step.', 'بداية ممتازة. ستبني المفردات والأصوات وجملك الأولى خطوة بخطوة.'),
+      A2: t('You know the basics. Beginner lessons will make everyday English feel easy and natural.', 'تعرف الأساسيات. دروس المستوى المبتدئ ستجعل الإنجليزية اليومية سهلة وطبيعية.'),
+      B1: t('A solid base. Intermediate lessons will build fluency and confidence in real conversations.', 'أساس قوي. دروس المستوى المتوسط ستبني الطلاقة والثقة في المحادثات الحقيقية.'),
+      B2: t('Strong English. Intermediate-to-advanced practice will polish accuracy and natural expressions.', 'إنجليزية قوية. التدريب المتوسط إلى المتقدم سيصقل الدقة والتعبيرات الطبيعية.'),
+      C1: t('Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.', 'إنجليزية ممتازة. الدروس المتقدمة ستتحداك بالنقاش والدقة والتحدث بطلاقة.')
+    };
+    document.getElementById('ptCefr').textContent = cefr;
     document.getElementById('ptLevel').textContent = level;
-    document.getElementById('ptMsg').textContent = msg;
+    document.getElementById('ptScore').textContent = t(right + '/' + PT_TOTAL + ' correct', right + '/' + PT_TOTAL + ' إجابة صحيحة');
+    document.getElementById('ptMsg').textContent = MSG[cefr];
+    document.getElementById('ptScale').innerHTML = PT_BANDS.map(function(b){ return '<i class="' + (b === cefr ? 'on' : '') + '">' + b + '</i>'; }).join('');
+    const wrong = pt.asked.filter(function(x){ return !x.right; });
+    document.getElementById('ptReviewWrap').hidden = !wrong.length;
+    document.getElementById('ptReviewSum').textContent = t('Review your mistakes (' + wrong.length + ')', 'راجع أخطاءك (' + wrong.length + ')');
+    document.getElementById('ptReview').innerHTML = wrong.map(function(x){
+      return '<li><span>' + esc(x.q) + '</span><s>' + esc(x.chosen) + '</s><b>✓ ' + esc(x.correct) + '</b></li>';
+    }).join('');
+    document.getElementById('ptBar').style.width = '100%';
+    try{ localStorage.setItem('cc_placement', JSON.stringify({ cefr: cefr, level: level, at: new Date().toISOString() })); }catch(e){}
     ptShow('done');
   }
-  document.getElementById('ptBegin').addEventListener('click', function(){ ptI = 0; ptScore = 0; ptShow('run'); ptRender(); });
-  document.getElementById('ptRetry').addEventListener('click', function(){ ptI = 0; ptScore = 0; ptShow('run'); ptRender(); });
+  document.getElementById('ptBegin').addEventListener('click', ptBegin);
+  document.getElementById('ptRetry').addEventListener('click', ptBegin);
+  document.getElementById('ptJoin').addEventListener('click', function(){
+    if(currentProfile){ openDashboard(); showDashView(isStudent() ? 'materials' : 'overview'); }
+    else openAuth('signup');
+  });
   document.getElementById('ptOpts').addEventListener('click', function(e){
     const b = e.target.closest('button[data-o]');
-    if(!b) return;
-    if(parseInt(b.dataset.o, 10) === PT[ptI].a) ptScore++;
-    ptI++;
-    if(ptI >= PT.length) ptFinish(); else ptRender();
+    if(!b || !pt || b.disabled) return;
+    const cur = pt.current, o = cur.opts[parseInt(b.dataset.o, 10)];
+    const correct = cur.opts.find(function(x){ return x.ok; }).text;
+    pt.asked.push({ band: cur.band, q: cur.q, right: o.ok, chosen: o.text, correct: correct });
+    // quick feedback, then move up or down a level
+    document.querySelectorAll('#ptOpts button').forEach(function(x){ x.disabled = true; });
+    b.classList.add(o.ok ? 'right' : 'wrong');
+    pt.band = o.ok ? Math.min(PT_BANDS.length - 1, pt.band + 1) : Math.max(0, pt.band - 1);
+    setTimeout(function(){ if(pt.asked.length >= PT_TOTAL) ptFinish(); else ptNext(); }, 450);
   });
 
   loadPayLinks(); // public: so the checkout knows each plan's payment link
@@ -6539,6 +7142,14 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Instagram access token":"رمز الوصول لإنستجرام",
     "Save token":"حفظ الرمز",
     "Checking…":"جارٍ التحقق…",
+    "Twelve questions that adapt to you: answer correctly and the next one is harder; miss one and it gets easier. You get your CEFR level straight away — and the plan that fits it.":"١٢ سؤالاً تتكيّف معك: أجب صح ويصعب السؤال التالي، وأخطئ فيسهل. تحصل على مستواك وفق الإطار الأوروبي فوراً — والخطة المناسبة له.",
+    "New questions every time, from a bank of 86.":"أسئلة جديدة في كل مرة من بنك يضم ٨٦ سؤالاً.",
+    "Your result: A1 to C1, with your mistakes explained.":"نتيجتك: من A1 إلى C1 مع شرح أخطائك.",
+    "Your estimated level":"مستواك التقديري",
+    "Start learning at this level":"ابدأ التعلّم من هذا المستوى",
+    "See plans":"شاهد الخطط",
+    "Retake":"أعد الاختبار",
+    "Review your mistakes":"راجع أخطاءك",
     "Certificate design":"تصميم الشهادة",
     "Upload your own certificate artwork, then drag the name and date onto the right places. Students get the new design automatically when they pass a level.":"ارفع تصميم الشهادة الخاص بك، ثم اسحب الاسم والتاريخ لأماكنهما. يحصل الطلاب على التصميم الجديد تلقائياً عند النجاح في أي مستوى.",
     "Use this design for":"استخدم هذا التصميم لـ",
@@ -6555,6 +7166,13 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Seat booked — your Zoom Meeting link is under My bookings.":"تم حجز مقعدك — رابط اجتماع Zoom موجود في «حجوزاتي».",
     "Booking cancelled.":"تم إلغاء الحجز.",
     "Session deleted.":"تم حذف الحصة.",
+    "Repeat":"التكرار",
+    "Just once":"مرة واحدة",
+    "Every week · 2 weeks":"كل أسبوع · أسبوعين",
+    "Every week · 4 weeks":"كل أسبوع · 4 أسابيع",
+    "Every week · 8 weeks":"كل أسبوع · 8 أسابيع",
+    "Every week · 12 weeks":"كل أسبوع · 12 أسبوعاً",
+    "Students in that club see the time right away. Your Zoom Meeting link stays hidden until a student books a seat. Students can cancel up to 2 hours before the start.":"يرى طلاب النادي الموعد فوراً. يبقى رابط Zoom مخفياً حتى يحجز الطالب مقعداً. يمكن للطالب الإلغاء حتى ساعتين قبل البداية.",
     "Time opened — students in that club can book it now.":"تم فتح الموعد — يمكن لطلاب النادي حجزه الآن.",
     "Please pick a time in the future.":"اختر موعداً في المستقبل.",
     "Video added — it is now on the website in Watch & Learn.":"تمت إضافة الفيديو — يظهر الآن في قسم «شاهد وتعلّم».",
@@ -7149,6 +7767,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Create your account first — then we'll take you straight to checkout.":"أنشئ حسابك أولاً — ثم ننقلك مباشرة إلى إتمام الدفع.",
     "You need an active plan to book a Zoom Meeting.":"تحتاج إلى باقة مفعّلة لحجز اجتماع زوم.",
     "Homework":"الواجبات",
+    "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
     "My Plan":"باقتي",
     "Enrollments":"الاشتراكات",
