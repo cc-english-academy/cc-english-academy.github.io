@@ -1,6 +1,10 @@
 # Code Cademy
 
-Single-page website (`index.html`) with a Supabase backend for accounts, club libraries, level exams, progress and announcements.
+Single-page website (`index.html`) with a Supabase backend for accounts, club libraries, level exams, live Zoom sessions, plans & payments, homework, video lessons, a parent portal and chat.
+
+**📘 Launch checklist (Arabic): [LAUNCH.md](LAUNCH.md)** — database setup, admin, email/SMTP, domain, backups, content and a pilot-test script.
+
+Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icons) · `supabase/schema.sql` (database) · `privacy.html`, `terms.html` (legal templates) · `manifest.webmanifest`.
 
 ## تشغيل الـ Backend (مرة واحدة فقط)
 
@@ -29,7 +33,11 @@ Single-page website (`index.html`) with a Supabase backend for accounts, club li
 | الأدوار | التسجيل للطلاب وأولياء الأمور فقط — المعلم والمدير بترقية من المدير (`set_user_role`) |
 | أولياء الأمور | `parent_links` + `link_child(code)` + `student_report` — ولي الأمر يربط ابنه بكود من ٦ رموز |
 | الرسائل | `messages` + `chat_inbox` — محادثة لكل طالب (الطالب + ولي الأمر + المعلمين) مع رسائل خاصة لا يراها الطالب |
-| الشهادات | `my_certificates` — شهادة لكل مستوى ناجح، جاهزة للطباعة PDF |
+| الشهادات | `my_certificates` + `certificate_templates` — شهادة لكل مستوى ناجح، والمعلم يرفع تصميمها ويحدد مكان الاسم والتاريخ (لكل النوادي أو لنادٍ معيّن) |
+| حصص Zoom | `sessions` + `session_links` + `bookings` + `book_session` — رابط Zoom يظهر فقط بعد الحجز، الحجز يتطلب خطة مفعّلة |
+| الخطط والدفع | `enrollments` + `payment_links` + `request_enrollment` — السعر يُحدَّد على السيرفر، والمعلم يفعّل بعد الدفع |
+| الواجبات | `assignments` + `submissions` — الطالب لا يستطيع وضع درجة لنفسه أو تعديل إجابة بعد تصحيحها |
+| الفيديوهات | `lesson_videos` — تظهر للجميع في قسم Watch & Learn |
 
 ## Upload "Invalid key" fix
 Supabase Storage keys must be plain ASCII. File names such as
