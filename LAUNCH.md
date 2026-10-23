@@ -87,6 +87,7 @@ Supabase ← **Authentication** ← **URL Configuration**:
 | ☐ | **روابط الدفع** (تمارا / فيزا) لكل خطة | Enrollments ← Payment links |
 | ☐ | فيديو أو اتنين لقسم «Watch & Learn» | Videos |
 | ☐ | إعلان ترحيب | Notifications ← All clubs |
+| ☐ | **ربط إنستجرام** (اختياري): فيديوهات إنستجرام تظهر على الموقع تلقائياً — اتبع [INSTAGRAM.md](INSTAGRAM.md) | Videos ← Instagram |
 | ☐ | **تصميم الشهادة** (اختياري): ارفعي صورة الشهادة واسحبي الاسم والتاريخ لأماكنهم | Certificate design |
 | ☐ | مراجعة **الأسعار** و**سياسة الاسترجاع** | `terms.html` (ابعتلي التعديلات وأنا أظبطها) |
 | ☐ | مراجعة **سياسة الخصوصية** مع مختص قانوني | `privacy.html` |

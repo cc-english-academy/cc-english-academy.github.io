@@ -314,6 +314,23 @@ create table if not exists public.certificate_templates (
   updated_at  timestamptz not null default now()
 );
 
+-- Instagram videos, copied every hour by the GitHub Action in .github/workflows/instagram-sync.yml
+create table if not exists public.instagram_posts (
+  id             text primary key,          -- Instagram media id
+  caption        text,
+  media_url      text,                      -- can be empty (e.g. Reels with copyrighted music)
+  thumbnail_url  text,
+  permalink      text,
+  posted_at      timestamptz,
+  synced_at      timestamptz not null default now()
+);
+-- private settings (the Instagram access token, sync status) — no policies: only the server can read them
+create table if not exists public.app_secrets (
+  key         text primary key,
+  value       text,
+  updated_at  timestamptz not null default now()
+);
+
 create index if not exists sessions_start_idx    on public.sessions (starts_at);
 create index if not exists bookings_student_idx  on public.bookings (student_id);
 create index if not exists enroll_student_idx    on public.enrollments (student_id, created_at desc);
@@ -420,7 +437,7 @@ begin
               'profiles','materials','exam_questions','exam_attempts','progress','notifications',
               'material_reads','parent_links','messages','chat_reads','sessions','session_links',
               'bookings','enrollments','payment_links','assignments','submissions','lesson_videos',
-              'certificate_templates')
+              'certificate_templates','instagram_posts','app_secrets')
   loop
     execute format('drop policy %I on public.%I', r.policyname, r.tablename);
   end loop;
@@ -445,6 +462,8 @@ alter table public.assignments    enable row level security;
 alter table public.submissions    enable row level security;
 alter table public.lesson_videos  enable row level security;
 alter table public.certificate_templates enable row level security;
+alter table public.instagram_posts enable row level security;
+alter table public.app_secrets     enable row level security;   -- deliberately no policies
 
 -- profiles
 drop policy if exists "profiles: read own or teacher" on public.profiles;
@@ -618,6 +637,9 @@ create policy "videos: owner delete" on public.lesson_videos
 create policy "cert designs: read" on public.certificate_templates for select using (true);
 create policy "cert designs: teacher write" on public.certificate_templates
   for all using (public.is_teacher()) with check (public.is_teacher());
+
+-- Instagram videos are public on the website; only the sync job (service key) writes them
+create policy "instagram: read" on public.instagram_posts for select using (true);
 
 -- keep sessions.booked in step with the bookings table
 create or replace function public.sync_session_booked()
@@ -876,6 +898,28 @@ begin
   end if;
 end $$;
 
+-- ----- Instagram: the admin saves the token from the dashboard and sees the sync status -----
+create or replace function public.set_instagram_token(p_token text)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if not public.is_admin() then raise exception 'Only an admin can connect Instagram'; end if;
+  if p_token is null or length(trim(p_token)) < 30 then raise exception 'This does not look like an Instagram access token'; end if;
+  insert into public.app_secrets (key, value, updated_at) values ('instagram_token', trim(p_token), now())
+  on conflict (key) do update set value = excluded.value, updated_at = now();
+  delete from public.app_secrets where key = 'instagram_status';
+end $$;
+
+create or replace function public.instagram_status()
+returns jsonb language sql stable security definer set search_path = public as $$
+  select case when not public.is_admin() then null else jsonb_build_object(
+    'connected',        exists (select 1 from public.app_secrets where key = 'instagram_token'),
+    'token_updated_at', (select updated_at from public.app_secrets where key = 'instagram_token'),
+    'status',           (select value::jsonb from public.app_secrets where key = 'instagram_status'),
+    'videos',           (select count(*) from public.instagram_posts)) end;
+$$;
+
+grant execute on function public.set_instagram_token(text)            to authenticated;
+grant execute on function public.instagram_status()                   to authenticated;
 grant execute on function public.book_session(text)                   to authenticated;
 grant execute on function public.request_enrollment(text, text)       to authenticated;
 grant execute on function public.admin_list_users()                   to authenticated;

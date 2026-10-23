@@ -38,6 +38,7 @@ Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icon
 | الخطط والدفع | `enrollments` + `payment_links` + `request_enrollment` — السعر يُحدَّد على السيرفر، والمعلم يفعّل بعد الدفع |
 | الواجبات | `assignments` + `submissions` — الطالب لا يستطيع وضع درجة لنفسه أو تعديل إجابة بعد تصحيحها |
 | الفيديوهات | `lesson_videos` — تظهر للجميع في قسم Watch & Learn |
+| إنستجرام | `instagram_posts` + `app_secrets` + `set_instagram_token` — مزامنة كل ساعة عبر `.github/workflows/instagram-sync.yml` ([INSTAGRAM.md](INSTAGRAM.md)) |
 
 ## Upload "Invalid key" fix
 Supabase Storage keys must be plain ASCII. File names such as
