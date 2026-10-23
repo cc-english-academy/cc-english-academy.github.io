@@ -33,7 +33,7 @@ Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icon
 | الأدوار | التسجيل للطلاب وأولياء الأمور فقط — المعلم والمدير بترقية من المدير (`set_user_role`) |
 | أولياء الأمور | `parent_links` + `link_child(code)` + `student_report` — ولي الأمر يربط ابنه بكود من ٦ رموز |
 | الرسائل | `messages` + `chat_inbox` — محادثة لكل طالب (الطالب + ولي الأمر + المعلمين) مع رسائل خاصة لا يراها الطالب |
-| الشهادات | `my_certificates` — شهادة لكل مستوى ناجح (صورة جاهزة للطباعة) |
+| الشهادات | `my_certificates` + `certificate_templates` — شهادة لكل مستوى ناجح، والمعلم يرفع تصميمها ويحدد مكان الاسم والتاريخ (لكل النوادي أو لنادٍ معيّن) |
 | حصص Zoom | `sessions` + `session_links` + `bookings` + `book_session` — رابط Zoom يظهر فقط بعد الحجز، الحجز يتطلب خطة مفعّلة |
 | الخطط والدفع | `enrollments` + `payment_links` + `request_enrollment` — السعر يُحدَّد على السيرفر، والمعلم يفعّل بعد الدفع |
 | الواجبات | `assignments` + `submissions` — الطالب لا يستطيع وضع درجة لنفسه أو تعديل إجابة بعد تصحيحها |

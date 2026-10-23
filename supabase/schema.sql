@@ -304,6 +304,16 @@ alter table public.submissions   alter column student_id set default auth.uid();
 alter table public.enrollments   alter column student_id set default auth.uid();
 update public.sessions set booked = 0 where booked is null;
 
+-- certificate artwork uploaded by teachers: one design per club, '*' = every club.
+-- layout = where the text goes, as fractions of the image: {"name":[x,y],"date":[x,y],"info":[x,y],"id":[x,y],"color":"#5C1A28"}
+create table if not exists public.certificate_templates (
+  club        text primary key,
+  file_path   text,                       -- null = the built-in artwork
+  layout      jsonb not null default '{}',
+  updated_by  uuid default auth.uid() references public.profiles(id) on delete set null,
+  updated_at  timestamptz not null default now()
+);
+
 create index if not exists sessions_start_idx    on public.sessions (starts_at);
 create index if not exists bookings_student_idx  on public.bookings (student_id);
 create index if not exists enroll_student_idx    on public.enrollments (student_id, created_at desc);
@@ -409,7 +419,8 @@ begin
             where schemaname = 'public' and tablename in (
               'profiles','materials','exam_questions','exam_attempts','progress','notifications',
               'material_reads','parent_links','messages','chat_reads','sessions','session_links',
-              'bookings','enrollments','payment_links','assignments','submissions','lesson_videos')
+              'bookings','enrollments','payment_links','assignments','submissions','lesson_videos',
+              'certificate_templates')
   loop
     execute format('drop policy %I on public.%I', r.policyname, r.tablename);
   end loop;
@@ -433,6 +444,7 @@ alter table public.payment_links  enable row level security;
 alter table public.assignments    enable row level security;
 alter table public.submissions    enable row level security;
 alter table public.lesson_videos  enable row level security;
+alter table public.certificate_templates enable row level security;
 
 -- profiles
 drop policy if exists "profiles: read own or teacher" on public.profiles;
@@ -601,6 +613,11 @@ create policy "videos: teacher insert" on public.lesson_videos
   for insert with check (public.is_teacher());
 create policy "videos: owner delete" on public.lesson_videos
   for delete using (created_by = auth.uid() or public.is_admin());
+
+-- certificate designs: everyone can read (students draw their own certificate), teachers change them
+create policy "cert designs: read" on public.certificate_templates for select using (true);
+create policy "cert designs: teacher write" on public.certificate_templates
+  for all using (public.is_teacher()) with check (public.is_teacher());
 
 -- keep sessions.booked in step with the bookings table
 create or replace function public.sync_session_booked()

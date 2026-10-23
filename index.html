@@ -1746,6 +1746,29 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
 .child-certs button{font-size:0.74rem;border:1px solid #e3cf8f;background:#FFF7E6;color:#7a5a12;border-radius:12px;padding:5px 10px;cursor:pointer;}
 .foot-bottom a{color:inherit;text-decoration:underline;opacity:.85;}
 
+/* ===== certificate designer ===== */
+.cd-tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;align-items:end;background:#fff;border:1px solid var(--soft-line);
+  border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-sm);}
+.cd-tools label{display:block;font-size:0.78rem;font-weight:600;color:var(--maroon-deep);margin-bottom:6px;}
+.cd-tools select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;}
+.cd-tools input[type=color]{width:56px;height:40px;border:1px solid var(--line);border-radius:10px;padding:3px;background:#fff;cursor:pointer;}
+.cd-pick{display:inline-flex !important;cursor:pointer;margin:0 !important;}
+.cd-hint{display:block;font-size:0.7rem;color:var(--muted);margin-top:6px;}
+.cd-help{font-size:0.86rem;color:#6b4f56;margin:0 0 10px;}
+.cd-stage{position:relative;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);background:#eee;user-select:none;touch-action:none;}
+.cd-stage canvas{display:block;width:100%;height:auto;}
+.cd-pin{position:absolute;width:18px;height:18px;padding:0;border-radius:50%;transform:translate(-50%,-50%);border:3px solid #fff;
+  background:var(--maroon-deep);cursor:grab;box-shadow:0 0 0 2px rgba(62,15,27,0.35),0 6px 14px -4px rgba(0,0,0,0.45);}
+.cd-pin span{position:absolute;left:50%;bottom:calc(100% + 26px);transform:translateX(-50%);padding:3px 10px;border-radius:12px;background:var(--maroon-deep);
+  color:#fff;font-size:0.72rem;font-weight:700;white-space:nowrap;opacity:.92;pointer-events:none;}
+.cd-pin span::after{content:'';position:absolute;left:50%;top:100%;width:2px;height:22px;background:var(--maroon-deep);transform:translateX(-50%);opacity:.6;}
+.cd-pin.small,.cd-pin.small span,.cd-pin.small span::after{background:#6b4f56;}
+.cd-pin.dragging{cursor:grabbing;background:var(--cyan-dim);}
+.cd-pin:focus-visible{outline:3px solid var(--cyan);outline-offset:2px;}
+.cd-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;}
+.cd-actions .lib-submit{width:auto;padding:12px 26px;margin:0;}
+.cd-msg{font-size:0.84rem;}
+
 </style>
 </head>
 <body>
@@ -2428,6 +2451,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <button class="dash-tab" data-view="enroll" type="button" id="tabEnroll" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M17 7.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2 2.6 5 3.3 5 1.4 5 3.5-2.2 3.2-5 3.2-5-1.2-5-3.2"/></svg><span>Enrollments</span></button>
       <button class="dash-tab" data-view="videos" type="button" id="tabVideos" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 9l5 3-5 3z"/></svg><span>Videos</span></button>
       <button class="dash-tab" data-view="progress" type="button" id="tabProgress"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg><span>My Progress</span></button>
+      <button class="dash-tab" data-view="certdesign" type="button" id="tabCertDesign" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5 4.5 2.5L15 13.5"/></svg><span>Certificate design</span></button>
       <button class="dash-tab" data-view="students" type="button" id="tabStudents" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg><span>Students</span></button>
       <button class="dash-tab" data-view="notifications" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span>Notifications</span></button>
       <button class="dash-tab" data-view="users" type="button" id="tabUsers" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M18.5 3.5l1 1 2-2"/></svg><span>Users & roles</span></button>
@@ -2789,6 +2813,48 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div id="progressList"></div>
         <h4 class="sess-h" id="certHeading">Certificates</h4>
         <div class="sess-list" id="certList"></div>
+      </div>
+
+      <div class="dash-view" data-view="certdesign" hidden>
+        <h3>Certificate design</h3>
+        <p class="dash-sub">Upload your own certificate artwork, then drag the name and date onto the right places. Students get the new design automatically when they pass a level.</p>
+        <div class="cd-tools">
+          <div>
+            <label for="cdClub">Use this design for</label>
+            <select id="cdClub">
+              <option value="*">All clubs</option>
+              <option value="Phonics Club">Phonics Club</option>
+              <option value="Reading Club">Reading Club</option>
+              <option value="Writing Club">Writing Club</option>
+              <option value="Grammar Club">Grammar Club</option>
+              <option value="Speaking Club">Speaking Club</option>
+              <option value="Conversation Club">Conversation Club</option>
+              <option value="Cinema Club">Cinema Club</option>
+            </select>
+          </div>
+          <div>
+            <label>Certificate image</label>
+            <label class="btn-ghost cd-pick">🖼️ <span>Choose image</span><input type="file" id="cdFile" accept="image/png,image/jpeg" hidden></label>
+            <small class="cd-hint">JPG or PNG, landscape, at least 1600 px wide</small>
+          </div>
+          <div>
+            <label for="cdColor">Text colour</label>
+            <input type="color" id="cdColor" value="#5C1A28">
+          </div>
+        </div>
+        <p class="cd-help">✋ Drag the labels on the preview — <b>Name</b>, <b>Date</b>, <b>Details</b> and <b>ID</b> — to where they should be printed.</p>
+        <div class="cd-stage" id="cdStage">
+          <canvas id="cdCanvas"></canvas>
+          <button type="button" class="cd-pin" data-pin="name" aria-label="Name"><span>Name</span></button>
+          <button type="button" class="cd-pin" data-pin="date" aria-label="Date"><span>Date</span></button>
+          <button type="button" class="cd-pin" data-pin="info" aria-label="Details"><span>Details</span></button>
+          <button type="button" class="cd-pin small" data-pin="id" aria-label="ID"><span>ID</span></button>
+        </div>
+        <div class="cd-actions">
+          <button class="lib-submit" id="cdSave" type="button">Save design</button>
+          <button class="btn-ghost" id="cdReset" type="button">Back to the default design</button>
+          <span class="cd-msg" id="cdMsg"></span>
+        </div>
       </div>
 
       <div class="dash-view" data-view="students" hidden>
@@ -3651,6 +3717,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(view === 'homework') loadHomework();
     if(view === 'messages') loadInbox();
     if(view === 'users') loadUsers();
+    if(view === 'certdesign') openCertDesigner();
     if(view === 'children') loadChildren();
     if(view === 'myplan') loadMyPlan();
     if(view === 'enroll') loadEnrollments();
@@ -3744,6 +3811,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     dashboardPage.dataset.role = role;
 
     tabStudents.hidden = !isTeacher();
+    document.getElementById('tabCertDesign').hidden = !isTeacher();
     if(tabVideos) tabVideos.hidden = !isTeacher();
     document.getElementById('tabMyPlan').hidden = !isStudent();
     document.getElementById('tabEnroll').hidden = !isTeacher();
@@ -4994,42 +5062,196 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
 
   const CERT_BG = 'assets/img/certificate-bg.jpg';
-  let certImg = null;
-  function loadCertImg(){
+  // where the text goes, as fractions of the artwork (the built-in design's layout)
+  const CERT_LAYOUT = { name: [0.389, 0.687], date: [0.748, 0.687], info: [0.389, 0.729], id: [0.5, 0.968], color: '#5C1A28' };
+  let certTemplates = null; // rows of certificate_templates, cached
+  const certImgCache = {};
+
+  async function loadCertTemplates(force){
+    if(certTemplates && !force) return certTemplates;
+    const { data, error } = await sb.from('certificate_templates').select('*');
+    certTemplates = error ? [] : (data || []);
+    return certTemplates;
+  }
+  function certTemplateFor(club){
+    const list = certTemplates || [];
+    return list.find(function(t){ return t.club === club; }) || list.find(function(t){ return t.club === '*'; }) || null;
+  }
+  function certSrc(tpl){
+    return tpl && tpl.file_path ? sb.storage.from('materials').getPublicUrl(tpl.file_path).data.publicUrl : CERT_BG;
+  }
+  function loadImg(src){
+    if(certImgCache[src]) return Promise.resolve(certImgCache[src]);
     return new Promise(function(res, rej){
-      if(certImg) return res(certImg);
       const i = new Image();
-      i.onload = function(){ certImg = i; res(i); };
-      i.onerror = rej;
-      i.src = CERT_BG;
+      if(/^https?:/.test(src)) i.crossOrigin = 'anonymous'; // so the canvas can still be saved as an image
+      i.onload = function(){ certImgCache[src] = i; res(i); };
+      i.onerror = function(){ rej(new Error(t('The certificate image could not be loaded.', 'تعذّر تحميل صورة الشهادة.'))); };
+      i.src = src;
     });
   }
-  async function drawCertificate(r){
+  // r = { full_name, club, level, score, created_at, id }; design = { src, layout } to preview a design that isn't saved yet
+  async function drawCertificate(r, design){
     try { await document.fonts.ready; } catch(e){}
-    const bg = await loadCertImg();
+    let src, layout;
+    if(design){ src = design.src; layout = design.layout; }
+    else {
+      await loadCertTemplates();
+      const tpl = certTemplateFor(r.club);
+      src = certSrc(tpl);
+      layout = Object.assign({}, CERT_LAYOUT, tpl && tpl.layout);
+    }
+    let bg;
+    try { bg = await loadImg(src); } catch(e){ bg = await loadImg(CERT_BG); layout = CERT_LAYOUT; }
     const W = bg.naturalWidth, H = bg.naturalHeight;
-    const k = W / 1280;                       // the artwork is laid out on a 1280-wide grid
+    const k = W / 1280;                       // text sizes follow the image width
     const c = document.createElement('canvas'); c.width = W; c.height = H;
     const x = c.getContext('2d');
     const SER = '"Fraunces", Georgia, "Times New Roman", serif';
+    const at = function(key){ return [layout[key][0] * W, layout[key][1] * H]; };
     x.drawImage(bg, 0, 0, W, H);
     x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-    // student's name on the Name line
-    const name = r.full_name || currentProfile.full_name || '';
+    x.fillStyle = layout.color || CERT_LAYOUT.color;
+    // student's name
+    const name = r.full_name || (currentProfile && currentProfile.full_name) || '';
     let size = 38 * k; x.font = 'italic 600 ' + size + 'px ' + SER;
     while(x.measureText(name).width > 410 * k && size > 16 * k){ size -= 2 * k; x.font = 'italic 600 ' + size + 'px ' + SER; }
-    x.fillStyle = '#5C1A28'; x.fillText(name, 498 * k, 586 * k);
-    // date on the Date line
+    let p = at('name'); x.fillText(name, p[0], p[1]);
+    // date
     x.font = 'italic 600 ' + (25 * k) + 'px ' + SER;
-    x.fillText(new Date(r.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }), 957 * k, 586 * k);
-    // what was completed, under the name line
-    x.fillStyle = '#6b4f56'; x.font = 'italic ' + (19 * k) + 'px ' + SER;
-    x.fillText('Completed: ' + r.club + ' — ' + r.level + ' · ' + r.score + '%', 498 * k, 622 * k);
-    // certificate id, bottom centre
-    x.fillStyle = 'rgba(92,26,40,.55)'; x.font = (13 * k) + 'px ' + SER;
-    x.fillText('Certificate ID: ' + String(r.id || '').replace(/[^a-z0-9]/gi, '').slice(0, 8).toUpperCase(), 640 * k, 826 * k);
+    p = at('date'); x.fillText(new Date(r.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }), p[0], p[1]);
+    // what was completed
+    x.globalAlpha = 0.8; x.font = 'italic ' + (19 * k) + 'px ' + SER;
+    p = at('info'); x.fillText('Completed: ' + r.club + ' — ' + r.level + ' · ' + r.score + '%', p[0], p[1]);
+    // certificate id
+    x.globalAlpha = 0.55; x.font = (13 * k) + 'px ' + SER;
+    p = at('id'); x.fillText('Certificate ID: ' + String(r.id || '').replace(/[^a-z0-9]/gi, '').slice(0, 8).toUpperCase(), p[0], p[1]);
+    x.globalAlpha = 1;
     return c;
   }
+
+  // ---------- certificate designer (teachers) ----------
+  const cdClub = document.getElementById('cdClub');
+  const cdFile = document.getElementById('cdFile');
+  const cdColor = document.getElementById('cdColor');
+  const cdStage = document.getElementById('cdStage');
+  const cdCanvas = document.getElementById('cdCanvas');
+  const cdMsg = document.getElementById('cdMsg');
+  let cdLayout = Object.assign({}, CERT_LAYOUT);
+  let cdSrc = CERT_BG;        // what the preview shows
+  let cdPath = null;          // stored file of the saved design (null = built-in artwork)
+  let cdNewFile = null;       // a picked file that isn't uploaded yet
+  let cdBusy = false;
+
+  function cdSetMsg(text, ok){ cdMsg.textContent = text || ''; cdMsg.style.color = ok ? '#2e7d32' : '#B4213D'; }
+  function cdPlacePins(){
+    cdStage.querySelectorAll('.cd-pin').forEach(function(pin){
+      const v = cdLayout[pin.dataset.pin];
+      pin.style.left = (v[0] * 100) + '%';
+      pin.style.top = (v[1] * 100) + '%';
+    });
+  }
+  async function cdRender(){
+    try{
+      const sample = { full_name: (currentProfile && currentProfile.full_name) || 'Student Name', club: cdClub.value === '*' ? 'Conversation Club' : cdClub.value,
+                       level: 'Beginner (A1-A2)', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
+      const c = await drawCertificate(sample, { src: cdSrc, layout: cdLayout });
+      cdCanvas.width = c.width; cdCanvas.height = c.height;
+      cdCanvas.getContext('2d').drawImage(c, 0, 0);
+      cdPlacePins();
+    } catch(err){ cdSetMsg(friendlyErrorMessage(err)); }
+  }
+  async function openCertDesigner(){
+    cdSetMsg('');
+    await loadCertTemplates(true);
+    const tpl = (certTemplates || []).find(function(t){ return t.club === cdClub.value; });
+    cdNewFile = null;
+    cdPath = tpl ? tpl.file_path : null;
+    cdSrc = certSrc(tpl);
+    cdLayout = Object.assign({}, CERT_LAYOUT, tpl && tpl.layout);
+    ['name', 'date', 'info', 'id'].forEach(function(k){ cdLayout[k] = cdLayout[k].slice(); });
+    cdColor.value = cdLayout.color || CERT_LAYOUT.color;
+    document.getElementById('cdReset').hidden = !tpl;
+    await cdRender();
+  }
+  cdClub.addEventListener('change', openCertDesigner);
+  cdColor.addEventListener('input', function(){ cdLayout.color = cdColor.value; cdRender(); });
+  cdFile.addEventListener('change', function(){
+    const f = cdFile.files[0];
+    cdFile.value = '';
+    if(!f) return;
+    if(!/^image\/(png|jpeg)$/.test(f.type)){ cdSetMsg(t('Please choose a JPG or PNG image.', 'اختر صورة JPG أو PNG.')); return; }
+    if(f.size > 8 * 1024 * 1024){ cdSetMsg(t('The image is over 8 MB — please use a smaller one.', 'الصورة أكبر من ٨ ميجابايت — استخدم صورة أصغر.')); return; }
+    cdNewFile = f;
+    cdSrc = URL.createObjectURL(f);
+    cdSetMsg(t('New image loaded — drag the labels into place, then press Save.', 'تم تحميل الصورة — اسحب العناوين لأماكنها ثم اضغط حفظ.'), true);
+    cdRender();
+  });
+  // drag the Name / Date / Details / ID labels
+  cdStage.querySelectorAll('.cd-pin').forEach(function(pin){
+    pin.addEventListener('pointerdown', function(e){
+      e.preventDefault();
+      pin.setPointerCapture(e.pointerId);
+      pin.classList.add('dragging');
+      const move = function(ev){
+        const r = cdStage.getBoundingClientRect();
+        const fx = Math.min(0.98, Math.max(0.02, (ev.clientX - r.left) / r.width));
+        const fy = Math.min(0.99, Math.max(0.03, (ev.clientY - r.top) / r.height));
+        cdLayout[pin.dataset.pin] = [Math.round(fx * 1000) / 1000, Math.round(fy * 1000) / 1000];
+        pin.style.left = (fx * 100) + '%'; pin.style.top = (fy * 100) + '%';
+      };
+      const up = function(){
+        pin.classList.remove('dragging');
+        pin.removeEventListener('pointermove', move);
+        pin.removeEventListener('pointerup', up);
+        cdRender();
+      };
+      pin.addEventListener('pointermove', move);
+      pin.addEventListener('pointerup', up);
+    });
+    // keyboard: arrow keys nudge the label
+    pin.addEventListener('keydown', function(e){
+      const step = e.shiftKey ? 0.02 : 0.005, v = cdLayout[pin.dataset.pin];
+      const d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
+      if(!d) return;
+      e.preventDefault();
+      cdLayout[pin.dataset.pin] = [Math.min(0.98, Math.max(0.02, v[0] + d[0])), Math.min(0.99, Math.max(0.03, v[1] + d[1]))];
+      cdRender();
+    });
+  });
+  document.getElementById('cdSave').addEventListener('click', async function(){
+    if(cdBusy) return;
+    cdBusy = true; this.disabled = true;
+    cdSetMsg(t('Saving…', 'جارٍ الحفظ…'), true);
+    try{
+      let path = cdPath;
+      if(cdNewFile){
+        const ext = cdNewFile.type === 'image/png' ? '.png' : '.jpg';
+        path = 'certificates/' + storageSlug(cdClub.value === '*' ? 'all-clubs' : cdClub.value, 'club') + '_' + Date.now() + ext;
+        const { error: upErr } = await sb.storage.from('materials').upload(path, cdNewFile, { contentType: cdNewFile.type, upsert: false });
+        if(upErr) throw upErr;
+      }
+      const { error } = await sb.from('certificate_templates').upsert({
+        club: cdClub.value, file_path: path, layout: cdLayout, updated_by: currentProfile.id, updated_at: new Date().toISOString()
+      }, { onConflict: 'club' });
+      if(error) throw error;
+      if(cdNewFile && cdPath && cdPath !== path) sb.storage.from('materials').remove([cdPath]); // tidy up the old artwork
+      cdPath = path; cdNewFile = null;
+      await loadCertTemplates(true);
+      document.getElementById('cdReset').hidden = false;
+      cdSetMsg(t('Saved — every new certificate uses this design now.', 'تم الحفظ — كل الشهادات الجديدة ستستخدم هذا التصميم.'), true);
+    } catch(err){
+      cdSetMsg(isMissing(err) ? t('Run the latest supabase/schema.sql to turn on certificate designs.', 'شغّل أحدث نسخة من supabase/schema.sql لتفعيل تصميم الشهادات.') : friendlyErrorMessage(err));
+    } finally { cdBusy = false; this.disabled = false; }
+  });
+  document.getElementById('cdReset').addEventListener('click', async function(){
+    if(!confirm(t('Go back to the default certificate design for this choice?', 'الرجوع للتصميم الافتراضي للشهادة لهذا الاختيار؟'))) return;
+    const { error } = await sb.from('certificate_templates').delete().eq('club', cdClub.value);
+    if(error){ cdSetMsg(friendlyErrorMessage(error)); return; }
+    if(cdPath) sb.storage.from('materials').remove([cdPath]);
+    await openCertDesigner();
+    cdSetMsg(t('Back to the default design.', 'تم الرجوع للتصميم الافتراضي.'), true);
+  });
   if(certList){
     certList.addEventListener('click', async function(e){
       const b = e.target.closest('[data-cert]');
@@ -6203,6 +6425,19 @@ revealEls.forEach(el=>revealObserver.observe(el));
 /* ===== Language switcher (EN / AR) ===== */
 (function(){
   const DICT = {
+    "Certificate design":"تصميم الشهادة",
+    "Upload your own certificate artwork, then drag the name and date onto the right places. Students get the new design automatically when they pass a level.":"ارفع تصميم الشهادة الخاص بك، ثم اسحب الاسم والتاريخ لأماكنهما. يحصل الطلاب على التصميم الجديد تلقائياً عند النجاح في أي مستوى.",
+    "Use this design for":"استخدم هذا التصميم لـ",
+    "Certificate image":"صورة الشهادة",
+    "Choose image":"اختر صورة",
+    "JPG or PNG, landscape, at least 1600 px wide":"JPG أو PNG، بالعرض، ١٦٠٠ بكسل على الأقل",
+    "Text colour":"لون الكتابة",
+    "Drag the labels on the preview —":"اسحب العناوين على المعاينة —",
+    "Name":"الاسم",
+    "Date":"التاريخ",
+    "Details":"التفاصيل",
+    "Save design":"حفظ التصميم",
+    "Back to the default design":"الرجوع للتصميم الافتراضي",
     "Seat booked — your Zoom Meeting link is under My bookings.":"تم حجز مقعدك — رابط اجتماع Zoom موجود في «حجوزاتي».",
     "Booking cancelled.":"تم إلغاء الحجز.",
     "Session deleted.":"تم حذف الحصة.",
