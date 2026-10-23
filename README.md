@@ -25,7 +25,7 @@ Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icon
 |---|---|
 | الجداول | `profiles`, `materials`, `exam_questions`, `exam_attempts`, `progress`, `notifications`, `material_reads` |
 | Row Level Security | الطالب يرى مواد ناديه فقط، والمعلم فقط يرفع/يحذف، ولا أحد يرقّي نفسه لمعلم |
-| Storage | bucket باسم `materials` (عام للقراءة، 50MB للملف، الرفع للمعلمين فقط) |
+| Storage | bucket `materials` (عام: المعاينات والفيديوهات والشهادات) + bucket `books` خاص للكتب الكاملة: تفتح للطالب اللي خطته مفعّلة (أو ولي أمره) والمعلمين، والباقي يقرأ أول 5 صفحات مجاناً |
 | `get_exam` / `submit_exam` | تصحيح الامتحان على السيرفر — الإجابة الصحيحة لا تصل للمتصفح أبداً |
 | `club_leaderboard` / `popular_materials` | لوحة أكثر الطلاب قراءة + أكثر الكتب فتحاً |
 | Trigger `on_auth_user_created` | ينشئ الملف الشخصي تلقائياً عند التسجيل |

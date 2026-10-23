@@ -1388,6 +1388,17 @@ header.nav .nav-inner{max-width:1480px;}
 .reader-body iframe{width:100%;height:100%;border:none;border-radius:8px;background:#fff;}
 .reader-body img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;}
 .reader-body video,.reader-body audio{max-width:100%;max-height:100%;}
+.reader-lock{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 18px 12px;padding:10px 16px;border-radius:10px;background:#FFF7E6;color:#5a3d0a;font-size:.88rem;text-align:center;}
+.reader-lock[hidden]{display:none;}
+.reader-btn.solid{background:var(--maroon-deep);color:#fff;border-color:var(--maroon-deep);}
+.reader-locked{font-size:1.1rem;}
+.book.locked .book-cover{filter:saturate(.75);}
+.bc-lock{position:absolute;top:58px;inset-inline-start:22px;font-size:.66rem;font-weight:700;background:rgba(255,255,255,.92);color:var(--maroon-deep);border-radius:8px;padding:4px 6px;text-align:center;}
+.lib-guard{font-size:.74rem;}
+.lib-guard .warn{color:#a35a00;font-weight:600;}
+.protect-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin:0 0 16px;}
+.protect-box>span{font-size:1.5rem;}
+.protect-box p{flex:1;min-width:220px;margin:0;font-size:.86rem;color:#5a4148;}
 .reader-body .reader-msg{color:#fff;text-align:center;font-size:0.95rem;line-height:1.6;}
 
 /* live toasts */
@@ -2644,6 +2655,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           <button type="submit" class="lib-submit" id="libSubmit">Upload to club</button>
           <p class="lib-note">Every student in that club sees it immediately — once they've unlocked this level.</p>
         </form>
+        <div class="protect-box" id="protectBox" hidden><span>🔒</span><p id="protectText"></p><button type="button" class="sess-btn" id="protectBtn">Protect books</button></div>
         <div class="lib-tabs" id="libTabs" hidden>
           <button class="lib-tab active" data-filter="all">All</button>
           <button class="lib-tab" data-filter="Phonics Club">Phonics</button>
@@ -3209,6 +3221,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <button id="readerClose" class="reader-btn" type="button" aria-label="Close">✕</button>
     </div>
   </div>
+  <div class="reader-lock" id="readerLock" hidden><span id="readerLockText"></span><button type="button" class="reader-btn solid" id="readerPlan">Choose a plan</button></div>
   <div class="reader-body" id="readerBody"></div>
 </div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
@@ -3551,6 +3564,78 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function downloadUrl(item){
     return sb.storage.from('materials').getPublicUrl(item.file_path, { download: item.file_name || true }).data.publicUrl;
   }
+  // Books: the full file sits in the private 'books' bucket (students with an active plan, and teachers);
+  // everyone in the club can read a free preview of the first pages. Older books still in the public
+  // 'materials' bucket stay open until a teacher protects them.
+  const PREVIEW_PAGES = 5;
+  let bookAccess = true;  // false for a student without an active plan
+  const bookUrls = {};    // file_path -> signed link to the full book
+  function isProtected(item){ return item.bucket === 'books'; }
+  function canReadFull(item){ return !isProtected(item) || bookAccess; }
+  function bookSrc(item){
+    if(!isProtected(item)) return publicUrl(item.file_path);
+    if(bookAccess) return bookUrls[item.file_path] || '';
+    return item.preview_path ? publicUrl(item.preview_path) : '';
+  }
+  function bookDownload(item){
+    if(!isProtected(item)) return downloadUrl(item);
+    const u = bookAccess && bookUrls[item.file_path];
+    return u ? u + '&download=' + encodeURIComponent(item.file_name || item.title) : '';
+  }
+  async function refreshBookAccess(items){
+    if(isTeacher()) bookAccess = true;
+    else {
+      const { data, error } = await sb.from('enrollments').select('status, ends_at').eq('student_id', currentProfile.id);
+      bookAccess = !error && (data || []).some(function(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at).getTime() > Date.now()); });
+    }
+    const paths = bookAccess ? items.filter(isProtected).map(function(m){ return m.file_path; }).filter(function(p){ return !bookUrls[p]; }) : [];
+    if(paths.length){
+      const { data } = await sb.storage.from('books').createSignedUrls(paths, 6 * 3600);
+      (data || []).forEach(function(r){ if(r && r.signedUrl) bookUrls[r.path] = r.signedUrl; });
+    }
+  }
+  // the first pages of a PDF as a new, small PDF (pdf-lib is loaded only when a teacher needs it)
+  let pdfLibLoading = null;
+  function loadPdfLib(){
+    if(window.PDFLib) return Promise.resolve(window.PDFLib);
+    if(!pdfLibLoading) pdfLibLoading = new Promise(function(resolve, reject){
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js';
+      s.onload = function(){ resolve(window.PDFLib); };
+      s.onerror = function(){ pdfLibLoading = null; reject(new Error('Could not load the PDF tool')); };
+      document.head.appendChild(s);
+    });
+    return pdfLibLoading;
+  }
+  async function makePdfPreview(blob){
+    try{
+      const PDFLib = await loadPdfLib();
+      const src = await PDFLib.PDFDocument.load(await blob.arrayBuffer(), { ignoreEncryption: true });
+      const total = src.getPageCount();
+      const out = await PDFLib.PDFDocument.create();
+      const n = Math.min(PREVIEW_PAGES, total);
+      const pages = await out.copyPages(src, Array.from({ length: n }, function(_, i){ return i; }));
+      pages.forEach(function(pg){ out.addPage(pg); });
+      return { blob: new Blob([await out.save()], { type: 'application/pdf' }), pages: total, previewPages: n };
+    }catch(e){ return null; } // not a readable PDF: the book is simply locked without a preview
+  }
+  // store a book: full file → private bucket, preview → public bucket
+  async function storeBook(path, file, name){
+    const { error } = await sb.storage.from('books').upload(path, file, {
+      contentType: file.type || 'application/octet-stream', cacheControl: '3600', upsert: true
+    });
+    if(error) throw error;
+    const out = { bucket: 'books', preview_path: null, pages: null, preview_pages: null };
+    if(fileExt(name) === 'pdf'){
+      const pv = await makePdfPreview(file);
+      if(pv){
+        const pvPath = 'previews/' + path;
+        const { error: pvErr } = await sb.storage.from('materials').upload(pvPath, pv.blob, { contentType: 'application/pdf', upsert: true });
+        if(!pvErr) Object.assign(out, { preview_path: pvPath, pages: pv.pages, preview_pages: pv.previewPages });
+      }
+    }
+    return out;
+  }
   // a database feature from supabase/schema.sql that hasn't been installed yet
   function isMissing(err){
     return !!err && (err.code === 'PGRST202' || err.code === 'PGRST205' || err.code === '42P01' || err.code === '42883' ||
@@ -3779,8 +3864,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
                'اسم الملف يحتوي على رموز لا يقبلها التخزين. حدّث الصفحة (Ctrl+F5) لتحميل أحدث نسخة من الموقع ثم حاول مرة أخرى.');
     }
     if(/bucket not found/i.test(msg)){
-      return t('The "materials" storage bucket doesn\'t exist yet — run supabase/schema.sql in the Supabase SQL editor.',
-               'مخزن الملفات "materials" غير موجود — شغّل ملف supabase/schema.sql في محرر SQL في Supabase.');
+      return t('A storage bucket is missing — run the latest supabase/schema.sql in the Supabase SQL editor.',
+               'أحد مخازن الملفات غير موجود — شغّل أحدث ملف supabase/schema.sql في محرر SQL في Supabase.');
     }
     if(/row-level security|violates.*policy|unauthorized|not allowed/i.test(msg)){
       return t('Your account isn\'t allowed to do this. Uploading needs a teacher account (and supabase/schema.sql installed).',
@@ -6312,8 +6397,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       libGrid.innerHTML = '<div class="lib-empty">' + esc(friendlyErrorMessage(error)) + '</div>';
     } else {
       materialsCache = data || [];
+      await refreshBookAccess(materialsCache);
       renderMaterials();
     }
+    if(isTeacher()) checkUnprotected();
 
     // exam call-to-action / admin, scoped to the level now showing
     const isLastLevel = LEVELS.indexOf(currentLevel) === LEVELS.length - 1;
@@ -6373,16 +6460,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const badges = (isNew ? '<span class="badge-new">' + t('NEW', 'جديد') + '</span>' : '') +
                      (isRead ? '<span class="badge-read">✓ ' + t('READ', 'قرأته') + '</span>' : '');
       if(isStudent()){
-        return '<div class="book' + (isRead ? ' is-read' : '') + '" style="--h:' + hueOf(item.title) + '">' +
+        const full = canReadFull(item), dl = bookDownload(item);
+        const readLabel = full ? (isRead ? t('Read again', 'اقرأ مرة أخرى') : t('Read', 'اقرأ'))
+          : item.preview_path ? t('Free preview', 'معاينة مجانية') : t('Unlock', 'افتح الكتاب');
+        return '<div class="book' + (isRead ? ' is-read' : '') + (full ? '' : ' locked') + '" style="--h:' + hueOf(item.title) + '">' +
           '<button class="book-cover" type="button" data-open="' + item.id + '" aria-label="' + esc(t('Read ', 'اقرأ ') + item.title) + '">' +
             '<span class="bc-spine"></span>' +
             '<span class="bc-icon">' + fileIcon(ext) + '</span>' +
             '<span class="bc-title">' + esc(item.title) + '</span>' +
+            (full ? '' : '<span class="bc-lock">🔒 ' + (item.preview_path ? t((item.preview_pages || PREVIEW_PAGES) + ' free pages', (item.preview_pages || PREVIEW_PAGES) + ' صفحات مجانية') : t('With a plan', 'مع الاشتراك')) + '</span>') +
             (isRead ? '<span class="bc-done">✓</span>' : isNew ? '<span class="bc-new">' + t('NEW', 'جديد') + '</span>' : '') +
           '</button>' +
           '<div class="book-actions">' +
-            '<button class="book-read" type="button" data-open="' + item.id + '">' + (isRead ? t('Read again', 'اقرأ مرة أخرى') : t('Read', 'اقرأ')) + '</button>' +
-            '<a class="book-dl" data-dl="' + item.id + '" href="' + esc(downloadUrl(item)) + '" target="_blank" rel="noopener" title="' + t('Download', 'تحميل') + '" aria-label="' + t('Download', 'تحميل') + '">⬇</a>' +
+            '<button class="book-read" type="button" data-open="' + item.id + '">' + readLabel + '</button>' +
+            (dl ? '<a class="book-dl" data-dl="' + item.id + '" href="' + esc(dl) + '" target="_blank" rel="noopener" title="' + t('Download', 'تحميل') + '" aria-label="' + t('Download', 'تحميل') + '">⬇</a>' : '') +
           '</div>' +
         '</div>';
       }
@@ -6393,9 +6484,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         '<h5>' + esc(item.title) + '</h5>' +
         '<div class="meta">' + esc(item.club) + ' · ' + esc(item.level) +
           (item.file_size ? ' · <span class="size">' + fmtSize(item.file_size) + '</span>' : '') + '</div>' +
+        '<div class="meta lib-guard">' + (isProtected(item)
+          ? '🔒 ' + (item.preview_path ? t('Protected · ' + (item.preview_pages || PREVIEW_PAGES) + '-page free preview', 'محمي · معاينة مجانية ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات') : t('Protected · plan only', 'محمي · بالاشتراك فقط'))
+          : '<span class="warn">⚠ ' + t('Open to everyone', 'مفتوح للجميع') + '</span>') + '</div>' +
         '<div class="lib-actions">' +
           '<button class="lib-read" type="button" data-open="' + item.id + '">' + t('Read', 'اقرأ') + '</button>' +
-          '<a class="lib-download" data-dl="' + item.id + '" href="' + esc(downloadUrl(item)) + '" target="_blank" rel="noopener">' + t('Download', 'تحميل') + '</a>' +
+          '<a class="lib-download" data-dl="' + item.id + '" href="' + esc(bookDownload(item)) + '" target="_blank" rel="noopener">' + t('Download', 'تحميل') + '</a>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -6413,7 +6507,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const dl = e.target.closest('[data-dl]');
     if(openBtn){ const m = findMaterial(openBtn.dataset.open); if(m) openReader(m); }
     else if(delBtn){ const m = findMaterial(delBtn.dataset.del); if(m) deleteMaterial(m); }
-    else if(dl){ const m = findMaterial(dl.dataset.dl); if(m) logRead(m); }
+    else if(dl){ const m = findMaterial(dl.dataset.dl); if(m && canReadFull(m)) logRead(m); }
   });
 
   async function deleteMaterial(item){
@@ -6423,11 +6517,48 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       toast(t('Couldn’t delete', 'تعذّر الحذف'), error ? friendlyErrorMessage(error) : t('You don’t have permission to delete this.', 'ليست لديك صلاحية حذف هذا الملف.'), true);
       return;
     }
-    await sb.storage.from('materials').remove([item.file_path]);
+    await sb.storage.from(isProtected(item) ? 'books' : 'materials').remove([item.file_path]);
+    if(item.preview_path) await sb.storage.from('materials').remove([item.preview_path]);
     toast(t('Deleted', 'تم الحذف'), item.title);
     await loadMaterials();
     await loadOverviewStats();
   }
+
+  // ---------- protect books uploaded before the preview system ----------
+  const protectBox = document.getElementById('protectBox');
+  let unprotected = [];
+  async function checkUnprotected(){
+    if(!protectBox) return;
+    const { data, error } = await sb.from('materials').select('id, title, file_path, file_name, mime_type').eq('bucket', 'materials');
+    unprotected = error ? [] : (data || []);
+    protectBox.hidden = !unprotected.length;
+    if(unprotected.length) document.getElementById('protectText').textContent = t(
+      unprotected.length + (unprotected.length === 1 ? ' book is' : ' books are') + ' still open to every student. Protect them so students read a ' + PREVIEW_PAGES + '-page preview and the whole book opens with a plan.',
+      unprotected.length + ' كتاب ما زال مفتوحاً لكل الطلاب. احمِها ليقرأ الطالب معاينة ' + PREVIEW_PAGES + ' صفحات ويُفتح الكتاب كاملاً مع الاشتراك.');
+  }
+  if(protectBox) document.getElementById('protectBtn').addEventListener('click', async function(){
+    const btn = this;
+    btn.disabled = true;
+    let done = 0, failed = 0;
+    for(const m of unprotected){
+      btn.textContent = t('Protecting ' + (done + failed + 1) + ' of ' + unprotected.length + '…', 'جارٍ حماية ' + (done + failed + 1) + ' من ' + unprotected.length + '…');
+      try{
+        const res = await fetch(publicUrl(m.file_path));
+        if(!res.ok) throw new Error('download ' + res.status);
+        const blob = await res.blob();
+        const file = new File([blob], m.file_name || m.file_path.split('/').pop(), { type: m.mime_type || blob.type || 'application/octet-stream' });
+        const stored = await storeBook(m.file_path, file, file.name);
+        const { error } = await sb.from('materials').update(stored).eq('id', m.id);
+        if(error) throw error;
+        await sb.storage.from('materials').remove([m.file_path]); // the open copy is gone; only the private one is left
+        done++;
+      }catch(err){ failed++; }
+    }
+    btn.disabled = false;
+    btn.textContent = t('Protect books', 'احمِ الكتب');
+    toast(t('Books protected', 'تمت حماية الكتب'), t(done + ' done' + (failed ? ', ' + failed + ' failed — try again' : ''), 'تم ' + done + (failed ? '، وفشل ' + failed + ' — حاول مرة أخرى' : '')), !!failed);
+    await loadMaterials();
+  });
 
   // ---------- in-site book reader ----------
   const reader = document.getElementById('reader');
@@ -6435,13 +6566,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const readerBody = document.getElementById('readerBody');
   const readerDownload = document.getElementById('readerDownload');
 
+  const readerLock = document.getElementById('readerLock');
   function openReader(item){
-    const ext = fileExt(item.file_name || item.file_path);
-    const url = publicUrl(item.file_path);
+    const full = canReadFull(item);
+    const ext = full ? fileExt(item.file_name || item.file_path) : (item.preview_path ? 'pdf' : '');
+    const url = bookSrc(item);
     readerTitle.textContent = item.title;
-    readerDownload.href = downloadUrl(item);
+    const dl = bookDownload(item);
+    readerDownload.hidden = !dl;
+    readerDownload.href = dl || '#';
+    readerLock.hidden = full;
+    if(!full){
+      document.getElementById('readerLockText').textContent = item.preview_path
+        ? t('Free preview: the first ' + (item.preview_pages || PREVIEW_PAGES) + (item.pages ? ' of ' + item.pages : '') + ' pages. Choose a plan to read the whole book.',
+            'معاينة مجانية: أول ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات' + (item.pages ? ' من ' + item.pages : '') + '. اختر خطة لقراءة الكتاب كاملاً.')
+        : t('This book opens with a plan. Choose a plan to read it.', 'هذا الكتاب متاح مع الاشتراك. اختر خطة لقراءته.');
+    }
     let html;
-    if(ext === 'pdf'){
+    if(!url){
+      html = '<div class="reader-msg reader-locked">🔒<br>' + esc(t('This book is part of the plans.', 'هذا الكتاب ضمن الاشتراك.')) + '</div>';
+    } else if(ext === 'pdf'){
       html = '<iframe src="' + esc(url) + '#view=FitH" title="' + esc(item.title) + '"></iframe>';
     } else if(['png','jpg','jpeg','webp','gif'].indexOf(ext) !== -1){
       html = '<img src="' + esc(url) + '" alt="' + esc(item.title) + '">';
@@ -6458,8 +6602,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     readerBody.innerHTML = html;
     reader.hidden = false;
     document.body.style.overflow = 'hidden';
-    logRead(item);
+    if(full) logRead(item); // the streak counts real reading, not previews
   }
+  document.getElementById('readerPlan').addEventListener('click', function(){
+    closeReader();
+    if(typeof showDashView === 'function') showDashView('myplan');
+  });
   function closeReader(){
     reader.hidden = true;
     readerBody.innerHTML = ''; // stops audio / video
@@ -6667,29 +6815,23 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     libSubmit.disabled = true;
     setUploadStatus('busy', t('Uploading “' + file.name + '”…', 'جارٍ رفع «' + file.name + '»…'));
     try{
-      const { error: upErr } = await sb.storage.from('materials').upload(path, file, {
-        contentType: file.type || 'application/octet-stream', cacheControl: '3600', upsert: false
-      });
-      if(upErr) throw upErr;
-
-      const row = { club: club, level: level, title: title, file_path: path, uploaded_by: currentProfile.id,
-                    file_name: file.name, file_size: file.size, mime_type: file.type || null };
+      const stored = await storeBook(path, file, file.name);
+      const row = Object.assign({ club: club, level: level, title: title, file_path: path, uploaded_by: currentProfile.id,
+                    file_name: file.name, file_size: file.size, mime_type: file.type || null }, stored);
       let { error: insErr } = await sb.from('materials').insert(row);
-      if(insErr && /file_name|file_size|mime_type/.test(insErr.message || '')){
-        // database from before schema.sql — save the essentials only
-        delete row.file_name; delete row.file_size; delete row.mime_type;
-        ({ error: insErr } = await sb.from('materials').insert(row));
-      }
       if(insErr){
-        await sb.storage.from('materials').remove([path]); // don't leave an orphan file behind
+        await sb.storage.from('books').remove([path]); // don't leave an orphan file behind
+        if(stored.preview_path) await sb.storage.from('materials').remove([stored.preview_path]);
         throw insErr;
       }
 
       libForm.reset();
       document.getElementById('libClub').value = club;
       showPickedFile();
-      setUploadStatus('ok', t('Uploaded! Everyone in ' + club + ' can see “' + title + '” now.',
-                              'تم الرفع! يمكن لكل طلاب ' + club + ' رؤية «' + title + '» الآن.'));
+      setUploadStatus('ok', stored.preview_path
+        ? t('Uploaded! Students in ' + club + ' can read the first ' + stored.preview_pages + ' pages free; the whole book opens with a plan.',
+            'تم الرفع! يقرأ طلاب ' + club + ' أول ' + stored.preview_pages + ' صفحات مجاناً، والكتاب كامل مع الاشتراك.')
+        : t('Uploaded! “' + title + '” opens for students in ' + club + ' who have a plan.', 'تم الرفع! «' + title + '» متاح لطلاب ' + club + ' المشتركين.'));
       // jump to where the new book lives so the teacher sees it straight away
       currentLevel = level;
       if(materialsFilter !== 'all' && materialsFilter !== club) applyClubFilter(club);
@@ -7782,6 +7924,8 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Your request is saved. We'll send your secure payment link on WhatsApp shortly — your plan is switched on as soon as payment is confirmed.":"تم حفظ طلبك. سنرسل لك رابط الدفع الآمن على واتساب قريباً — وتُفعَّل باقتك فور تأكيد الدفع.",
     "Create your account first — then we'll take you straight to checkout.":"أنشئ حسابك أولاً — ثم ننقلك مباشرة إلى إتمام الدفع.",
     "You need an active plan to book a Zoom Meeting.":"تحتاج إلى باقة مفعّلة لحجز اجتماع زوم.",
+    "Choose a plan":"اختر خطة",
+    "Protect books":"احمِ الكتب",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",

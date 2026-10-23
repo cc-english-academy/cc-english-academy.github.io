@@ -82,6 +82,11 @@ alter table public.materials      add column if not exists created_at  timestamp
 alter table public.materials      add column if not exists file_name   text;
 alter table public.materials      add column if not exists file_size   bigint;
 alter table public.materials      add column if not exists mime_type   text;
+-- full books live in the private 'books' bucket; a free preview (first pages) stays public
+alter table public.materials      add column if not exists bucket        text not null default 'materials';
+alter table public.materials      add column if not exists preview_path  text;
+alter table public.materials      add column if not exists pages         int;
+alter table public.materials      add column if not exists preview_pages int;
 
 alter table public.exam_questions add column if not exists club       text;
 alter table public.exam_questions add column if not exists level      text default 'Beginner (A1-A2)';
@@ -686,6 +691,51 @@ create policy "materials bucket: teacher update" on storage.objects
 drop policy if exists "materials bucket: teacher delete" on storage.objects;
 create policy "materials bucket: teacher delete" on storage.objects
   for delete to authenticated using (bucket_id = 'materials' and public.is_teacher());
+
+-- Private bucket for full books: open to teachers, and to students (or their parents)
+-- with an active plan, for their own club's books. Everyone else gets the free preview.
+insert into storage.buckets (id, name, public, file_size_limit)
+values ('books', 'books', false, 52428800)  -- 50 MB per file
+on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit;
+
+create or replace function public.has_active_plan(p_student uuid)
+returns boolean language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.enrollments e
+                  where e.student_id = p_student and e.status = 'active'
+                    and (e.ends_at is null or e.ends_at > now()));
+$$;
+revoke all on function public.has_active_plan(uuid) from public;
+grant execute on function public.has_active_plan(uuid) to authenticated;
+
+create or replace function public.book_file_access(p_name text)
+returns boolean language plpgsql stable security definer set search_path = public as $$
+declare v_club text;
+begin
+  if auth.uid() is null then return false; end if;
+  if public.is_teacher() then return true; end if;
+  select m.club into v_club from public.materials m where m.bucket = 'books' and m.file_path = p_name limit 1;
+  if v_club is null then return false; end if;
+  -- a student of that club with an active plan
+  if v_club = public.my_club() and public.has_active_plan(auth.uid()) then return true; end if;
+  -- a parent whose child in that club has an active plan
+  return exists (select 1 from public.parent_links l join public.profiles p on p.id = l.student_id
+                  where l.parent_id = auth.uid() and p.club = v_club and public.has_active_plan(l.student_id));
+end $$;
+revoke all on function public.book_file_access(text) from public;
+grant execute on function public.book_file_access(text) to authenticated;
+
+drop policy if exists "books bucket: read"   on storage.objects;
+create policy "books bucket: read" on storage.objects
+  for select to authenticated using (bucket_id = 'books' and public.book_file_access(name));
+drop policy if exists "books bucket: teacher upload" on storage.objects;
+create policy "books bucket: teacher upload" on storage.objects
+  for insert to authenticated with check (bucket_id = 'books' and public.is_teacher());
+drop policy if exists "books bucket: teacher update" on storage.objects;
+create policy "books bucket: teacher update" on storage.objects
+  for update to authenticated using (bucket_id = 'books' and public.is_teacher());
+drop policy if exists "books bucket: teacher delete" on storage.objects;
+create policy "books bucket: teacher delete" on storage.objects
+  for delete to authenticated using (bucket_id = 'books' and public.is_teacher());
 
 -- Private bucket for homework files (photos, videos, voice notes, documents).
 --   teacher/<anything>  : files a teacher attaches to an assignment or to feedback
