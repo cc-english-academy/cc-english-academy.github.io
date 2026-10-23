@@ -1388,6 +1388,36 @@ header.nav .nav-inner{max-width:1480px;}
 .reader-body iframe{width:100%;height:100%;border:none;border-radius:8px;background:#fff;}
 .reader-body img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;}
 .reader-body video,.reader-body audio{max-width:100%;max-height:100%;}
+.reader-lock{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 18px 12px;padding:10px 16px;border-radius:10px;background:#FFF7E6;color:#5a3d0a;font-size:.88rem;text-align:center;}
+.reader-lock[hidden]{display:none;}
+.reader-btn.solid{background:var(--maroon-deep);color:#fff;border-color:var(--maroon-deep);}
+.reader-locked{font-size:1.1rem;}
+.book.locked .book-cover{filter:saturate(.75);}
+.bc-lock{position:absolute;top:58px;inset-inline-start:22px;font-size:.66rem;font-weight:700;background:rgba(255,255,255,.92);color:var(--maroon-deep);border-radius:8px;padding:4px 6px;text-align:center;}
+.lib-guard{font-size:.74rem;}
+.lib-guard .warn{color:#a35a00;font-weight:600;}
+.pc-terms{font-size:.78rem;font-weight:600;color:var(--maroon);margin:-2px 0 8px;}
+.immersion .pc-terms{color:inherit;opacity:.85;}
+.credit-bar{height:6px;border-radius:6px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:8px;max-width:240px;}
+.credit-bar i{display:block;height:100%;background:#fff;border-radius:6px;}
+.sess-plan.ok{background:#eef8f1;border-color:#cfe8d6;}
+button.dash-stat{font:inherit;text-align:start;cursor:pointer;color:inherit;width:100%;}
+.dash-stat.warn b{color:#a35a00;}
+.dash-stat small{font-size:.6em;}
+.follow-up{grid-column:1/-1;background:#fff7ec;border:1px solid #f1dcc4;border-radius:12px;padding:12px 16px;font-size:.85rem;}
+.follow-up ul{margin:6px 0 0;padding-inline-start:18px;display:grid;gap:4px;}
+.ps-table{display:grid;gap:8px;}
+.ps-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:8px;align-items:center;}
+.ps-row input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;}
+.ps-head{font-size:.74rem;color:#8a6b73;}
+@media(max-width:560px){.ps-row{grid-template-columns:1fr 1fr 1fr;}.ps-row b{grid-column:1/-1;}}
+.treq{background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 16px;margin:0 0 16px;display:grid;gap:10px;}
+.treq-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border-radius:10px;padding:10px 12px;}
+.treq-row>span{flex:1;min-width:180px;}
+.treq-row small{display:block;color:var(--muted);font-size:.76rem;}
+.protect-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin:0 0 16px;}
+.protect-box>span{font-size:1.5rem;}
+.protect-box p{flex:1;min-width:220px;margin:0;font-size:.86rem;color:#5a4148;}
 .reader-body .reader-msg{color:#fff;text-align:center;font-size:0.95rem;line-height:1.6;}
 
 /* live toasts */
@@ -1421,7 +1451,7 @@ html[dir="rtl"] .af2{right:auto;left:10px;}
 .auth-tab{border:none !important;border-radius:11px !important;background:transparent !important;color:var(--muted) !important;}
 .auth-tab.active{background:#fff !important;color:var(--maroon-deep) !important;box-shadow:var(--shadow-sm);}
 .field-label{font-size:0.78rem;font-weight:600;color:var(--maroon-deep);margin-bottom:8px;}
-.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+.role-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px;}
 .role-opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px;border-radius:14px;border:1.5px solid var(--soft-line);background:#FBF9F7;
   text-align:start;font:inherit;cursor:pointer;transition:border-color .2s,background .2s,transform .2s;}
 .role-opt span{font-size:1.5rem;margin-bottom:4px;}
@@ -1657,6 +1687,37 @@ html[dir="rtl"] .chat-send svg{transform:scaleX(-1);}
 
 /* ===== student learning path ===== */
 .path{display:flex;align-items:stretch;gap:0;margin:6px 0 30px;}
+#learnPath{display:block;}
+.path-now{display:flex;gap:16px;align-items:center;background:#fff;border:1.5px solid var(--maroon);border-radius:18px;padding:18px 20px;box-shadow:0 0 0 4px rgba(92,26,40,0.06),var(--shadow-sm);margin-bottom:16px;}
+.path-now>div{flex:1;min-width:0;}
+.path-now small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1d6b5b;}
+.path-now b{display:block;font-family:var(--serif);font-size:1.2rem;color:var(--maroon-deep);margin:2px 0 8px;}
+.path-now em{display:block;font-style:normal;font-size:.78rem;color:var(--muted);margin-top:6px;}
+.path-now .ps-bar{display:block;margin-top:0;max-width:420px;}
+.path-now .ps-badge{background:var(--grad-brand);}
+.path-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.stage{background:#fff;border:1px solid var(--soft-line);border-radius:16px;padding:14px;box-shadow:var(--shadow-sm);}
+.stage.here{border-color:var(--maroon);}
+.stage.done{background:#f3faf4;border-color:#cfe8d6;}
+.stage.locked{background:#F4F0EC;}
+.stage-head{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+.stage-head>span{width:34px;height:34px;border-radius:10px;background:var(--peach-soft);display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex:none;}
+.stage.done .stage-head>span{background:#2e7d32;color:#fff;font-weight:800;}
+.stage-head b{display:block;color:var(--maroon-deep);font-size:.92rem;}
+.stage-head small{font-size:.72rem;color:var(--muted);}
+.stage-levels{display:flex;flex-wrap:wrap;gap:6px;}
+.lv-chip{min-width:46px;padding:8px 10px;border-radius:10px;border:1.5px solid var(--soft-line);background:#fff;font:inherit;font-weight:700;font-size:.85rem;color:var(--maroon-deep);cursor:pointer;transition:all .2s;}
+.lv-chip:hover{border-color:var(--maroon);}
+.lv-chip.passed{background:#e6f4ea;border-color:#cfe8d6;color:#1e6b34;}
+.lv-chip.working{border-color:var(--maroon);box-shadow:0 0 0 3px rgba(92,26,40,.12);}
+.lv-chip.active{background:var(--maroon-deep);border-color:var(--maroon-deep);color:#fff;}
+.lv-chip.locked{color:#b9a2a8;cursor:not-allowed;background:transparent;}
+.lt-stage{display:flex;flex-direction:column;gap:4px;}
+.lt-stage small{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.lt-stage>div{display:flex;gap:6px;flex-wrap:wrap;}
+.level-tabs .level-tab{padding:7px 12px;}
+@media(max-width:860px){.path-stages{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.stage{padding:12px 10px;}.stage-head>span{display:none;}.lv-chip{min-width:38px;padding:7px 6px;font-size:.8rem;}}
 .path-link{flex:0 0 26px;align-self:center;height:3px;background:repeating-linear-gradient(90deg,rgba(92,26,40,0.25) 0 6px,transparent 6px 11px);}
 .path-step{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-align:start;padding:18px 18px 16px;
   background:#fff;border:1.5px solid var(--soft-line);border-radius:18px;box-shadow:var(--shadow-sm);cursor:pointer;position:relative;
@@ -2144,7 +2205,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         </div>
         <div class="how-text">
           <h4>Learn level by level</h4>
-          <p>Read your club's books at your level, from Beginner (A1-A2) up to Advanced (C1-C2).</p>
+          <p>Read your club's books at your level — 14 levels, from Beginner to Advanced.</p>
         </div>
       </div>
 
@@ -2281,7 +2342,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           <video id="wpVideo" controls playsinline preload="metadata"></video>
         </div>
         <div class="wp-meta">
-          <div class="wp-chips"><span class="wp-chip" id="wpTag">Vocabulary</span><span class="wp-chip alt" id="wpLevel">Beginner (A1-A2)</span></div>
+          <div class="wp-chips"><span class="wp-chip" id="wpTag">Vocabulary</span><span class="wp-chip alt" id="wpLevel">Level 1</span></div>
           <h3 id="wpTitle">Farm Animals</h3>
           <p class="wp-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none"/></svg><span>Tap a word to hear it</span></p>
           <div class="wp-words" id="wpWords" translate="no"></div>
@@ -2301,10 +2362,10 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
     <div class="ptest-copy reveal">
       <div class="kicker">Free level test</div>
       <h2>Not sure where to start? Find your level in 3 minutes.</h2>
-      <p>Twelve questions that adapt to you: answer correctly and the next one is harder; miss one and it gets easier. You get your CEFR level straight away — and the plan that fits it.</p>
+      <p>12 short questions, about 5 minutes. You get your level straight away — and the plan that fits it.</p>
       <ul class="ptest-points">
         <li>No account needed — it is free.</li>
-        <li>New questions every time, from a bank of 86.</li>
+        <li>About 5 minutes.</li>
         <li>Your result: A1 to C1, with your mistakes explained.</li>
       </ul>
     </div>
@@ -2316,7 +2377,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <button class="cta-solid" id="ptBegin" type="button">Start the test</button>
       </div>
       <div id="ptRun" class="pt-pane" hidden>
-        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span><span class="pt-lvl" id="ptLvl" title="Current difficulty">A2</span></div>
+        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span><span class="pt-lvl" id="ptLvl" hidden>A2</span></div>
         <div translate="no" class="pt-q">
           <p id="ptQ"></p>
           <div id="ptOpts" class="pt-opts"></div>
@@ -2325,7 +2386,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <div id="ptDone" class="pt-pane" hidden>
         <div class="pt-result">
           <div class="pt-badge ok" id="ptCefr">A2</div>
-          <div><span class="pt-kick">Your estimated level</span><h3 id="ptLevel">Beginner (A1-A2)</h3><span class="pt-score" id="ptScore">0/12 correct</span></div>
+          <div><span class="pt-kick">Your estimated level</span><h3 id="ptLevel">Level 1</h3><span class="pt-score" id="ptScore">0/12 correct</span></div>
         </div>
         <div class="pt-scale" id="ptScale" aria-hidden="true"></div>
         <p id="ptMsg"></p>
@@ -2462,7 +2523,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <li><span>💬</span>Parents and teachers, one tap apart</li>
       </ul>
       <div class="auth-float af1"><b>🔥 12</b><span>day reading streak</span></div>
-      <div class="auth-float af2"><b>🎓</b><span>Beginner (A1–A2) passed</span></div>
+      <div class="auth-float af2"><b>🎓</b><span>Level 4 passed</span></div>
     </div>
 
     <div class="auth-brand-foot">Code Cademy · English Immersion Academy</div>
@@ -2482,6 +2543,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <form id="loginForm" class="auth-form">
         <label>Email<input type="email" id="loginEmail" required autocomplete="email"></label>
         <label>Password<input type="password" id="loginPassword" required autocomplete="current-password"></label>
+        <p class="auth-hint">Students, parents and teachers all sign in here.</p>
         <button type="submit" class="lib-submit">Sign in</button>
         <button type="button" class="auth-forgot" id="forgotLink">Forgot your password?</button>
         <p class="auth-error" id="loginError"></p>
@@ -2511,12 +2573,14 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div class="role-pick" role="radiogroup" aria-label="I am a…">
           <button type="button" class="role-opt active" data-role="student" role="radio" aria-checked="true"><span>🎒</span><b>Student</b><small>I want to learn</small></button>
           <button type="button" class="role-opt" data-role="parent" role="radio" aria-checked="false"><span>👨‍👩‍👧</span><b>Parent</b><small>I follow my child</small></button>
+          <button type="button" class="role-opt" data-role="teacher" role="radio" aria-checked="false"><span>🧑‍🏫</span><b>Teacher</b><small>I teach at the academy</small></button>
         </div>
         <select id="suRole" hidden>
           <option value="student">Student</option>
           <option value="parent">Parent / guardian</option>
+          <option value="teacher">Teacher</option>
         </select>
-        <p class="auth-hint">Teachers: your account is created by the academy admin.</p>
+        <p class="auth-hint" id="suTeacherHint" hidden>The academy admin approves teacher accounts. Create your account now — your teacher tools open as soon as you are approved.</p>
 
         <label id="suClubWrap">Club
           <select id="suClub">
@@ -2618,11 +2682,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           </div>
           <div>
             <label for="libLevel">Level</label>
-            <select id="libLevel" required>
-              <option value="Beginner (A1-A2)">Beginner (A1-A2)</option>
-              <option value="Intermediate (B1-B2)">Intermediate (B1-B2)</option>
-              <option value="Advanced (C1-C2)">Advanced (C1-C2)</option>
-            </select>
+            <select id="libLevel" data-levels required></select>
           </div>
           <div class="full">
             <label for="libTitle">Title</label>
@@ -2644,6 +2704,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           <button type="submit" class="lib-submit" id="libSubmit">Upload to club</button>
           <p class="lib-note">Every student in that club sees it immediately — once they've unlocked this level.</p>
         </form>
+        <div class="protect-box" id="protectBox" hidden><span>🔒</span><p id="protectText"></p><button type="button" class="sess-btn" id="protectBtn">Protect books</button></div>
         <div class="lib-tabs" id="libTabs" hidden>
           <button class="lib-tab active" data-filter="all">All</button>
           <button class="lib-tab" data-filter="Phonics Club">Phonics</button>
@@ -2658,9 +2719,6 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div class="path" id="learnPath" hidden></div>
 
         <div class="level-tabs" id="levelTabs">
-          <button class="level-tab" data-level="Beginner (A1-A2)" type="button"><span class="lv-dot"></span>Beginner (A1-A2)</button>
-          <button class="level-tab" data-level="Intermediate (B1-B2)" type="button"><span class="lv-dot"></span>Intermediate (B1-B2)</button>
-          <button class="level-tab" data-level="Advanced (C1-C2)" type="button"><span class="lv-dot"></span>Advanced (C1-C2)</button>
         </div>
 
         <div class="shelf-head" id="shelfHead" hidden>
@@ -2810,11 +2868,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           </div>
           <div>
             <label for="vidLevel">Level</label>
-            <select id="vidLevel">
-              <option value="Beginner (A1-A2)">Beginner (A1-A2)</option>
-              <option value="Intermediate (B1-B2)">Intermediate (B1-B2)</option>
-              <option value="Advanced (C1-C2)">Advanced (C1-C2)</option>
-            </select>
+            <select id="vidLevel" data-levels></select>
           </div>
           <div class="full">
             <label for="vidWords">Words or phrases (separate with commas)</label>
@@ -2941,6 +2995,12 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <p class="dash-sub">Switch a student's plan on once the payment arrives, or stop it at any time. Students need an active plan to book a Zoom Meeting.</p>
         <p class="sess-notice auth-error" id="enNotice"></p>
         <div class="sess-list" id="enList"></div>
+        <div id="psBox" hidden>
+          <h4 class="sess-h">Plans: price, classes and validity</h4>
+          <p class="dash-sub">What each plan includes. Students see these on the website, and every plan you switch on gets these classes and end date. Leave “classes” empty for unlimited.</p>
+          <form class="lib-form" id="psForm"><div class="full ps-table" id="psFields"></div>
+            <button type="submit" class="lib-submit">Save plans</button></form>
+        </div>
         <h4 class="sess-h">Payment links</h4>
         <p class="dash-sub">Paste the Tamara and Visa payment link for each plan. Students are sent there after choosing how to pay. Leave a link blank and students are asked to pay over WhatsApp instead.</p>
         <form class="lib-form" id="plForm">
@@ -3027,7 +3087,8 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
 
       <div class="dash-view" data-view="users" hidden>
         <h3>Users &amp; roles</h3>
-        <p class="dash-sub">Only you can make someone a teacher. New sign-ups are students or parents.</p>
+        <p class="dash-sub">Only you can make someone a teacher. Teachers who sign up wait here until you approve them.</p>
+        <div id="teacherRequests"></div>
         <div class="users-tools">
           <input type="search" id="usersSearch" class="lib-search" placeholder="Search by name or email…" aria-label="Search users">
           <div class="users-filter" id="usersFilter">
@@ -3209,6 +3270,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
       <button id="readerClose" class="reader-btn" type="button" aria-label="Close">✕</button>
     </div>
   </div>
+  <div class="reader-lock" id="readerLock" hidden><span id="readerLockText"></span><button type="button" class="reader-btn solid" id="readerPlan">Choose a plan</button></div>
   <div class="reader-body" id="readerBody"></div>
 </div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
@@ -3218,12 +3280,12 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
 
 // video lessons — files live in the videos/ folder next to index.html
 window.LESSONS = [
-  {id:"farm-animals",title:"Farm Animals",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:16",words:["My uncle has a big farm", "The cows give fresh milk", "The sheep have soft wool"],src:"assets/video/farm-animals.mp4",poster:"assets/img/poster-farm-animals.jpg"},
-  {id:"zoo-animals",title:"Zoo Animals",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["elephant", "lion", "giraffe"],src:"assets/video/zoo-animals.mp4",poster:"assets/img/poster-zoo-animals.jpg"},
-  {id:"fruits-1",title:"Fruits",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["strawberry", "grapes", "blueberry"],src:"assets/video/fruits-1.mp4",poster:"assets/img/poster-fruits-1.jpg"},
-  {id:"fruits-2",title:"More Fruits",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["pear", "peach", "mango"],src:"assets/video/fruits-2.mp4",poster:"assets/img/poster-fruits-2.jpg"},
-  {id:"getting-around",title:"Getting Around",tag:"Vocabulary",level:"Beginner (A1-A2)",dur:"0:08",words:["car", "bus", "bicycle"],src:"assets/video/getting-around.mp4",poster:"assets/img/poster-getting-around.jpg"},
-  {id:"saudi-national-day",title:"Saudi National Day",tag:"Culture",level:"Beginner (A1-A2)",dur:"0:08",words:["I love Saudi Arabia", "This is my country", "I am proud of my country", "Happy Saudi National Day"],src:"assets/video/saudi-national-day.mp4",poster:"assets/img/poster-saudi-national-day.jpg"}
+  {id:"farm-animals",title:"Farm Animals",tag:"Vocabulary",level:"Level 1",dur:"0:16",words:["My uncle has a big farm", "The cows give fresh milk", "The sheep have soft wool"],src:"assets/video/farm-animals.mp4",poster:"assets/img/poster-farm-animals.jpg"},
+  {id:"zoo-animals",title:"Zoo Animals",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["elephant", "lion", "giraffe"],src:"assets/video/zoo-animals.mp4",poster:"assets/img/poster-zoo-animals.jpg"},
+  {id:"fruits-1",title:"Fruits",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["strawberry", "grapes", "blueberry"],src:"assets/video/fruits-1.mp4",poster:"assets/img/poster-fruits-1.jpg"},
+  {id:"fruits-2",title:"More Fruits",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["pear", "peach", "mango"],src:"assets/video/fruits-2.mp4",poster:"assets/img/poster-fruits-2.jpg"},
+  {id:"getting-around",title:"Getting Around",tag:"Vocabulary",level:"Level 1",dur:"0:08",words:["car", "bus", "bicycle"],src:"assets/video/getting-around.mp4",poster:"assets/img/poster-getting-around.jpg"},
+  {id:"saudi-national-day",title:"Saudi National Day",tag:"Culture",level:"Level 1",dur:"0:08",words:["I love Saudi Arabia", "This is my country", "I am proud of my country", "Happy Saudi National Day"],src:"assets/video/saudi-national-day.mp4",poster:"assets/img/poster-saudi-national-day.jpg"}
 ];
 
 // ===== Video lessons: hero phone + Watch & Learn =====
@@ -3353,7 +3415,7 @@ window.LESSONS = [
     wv.src = lessonSrc(l);
     wTitle.textContent = l.title;
     wTag.textContent = l.tag;
-    wLevel.textContent = l.level;
+    wLevel.textContent = window.__levelLabel ? window.__levelLabel(l.level) : l.level;
     wWords.innerHTML = (l.words || []).map(function(w){ return '<button type="button">' + esc(w) + '</button>'; }).join('');
     wWords.hidden = !(l.words && l.words.length);
     let ig = document.getElementById('wpInsta');
@@ -3551,6 +3613,78 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function downloadUrl(item){
     return sb.storage.from('materials').getPublicUrl(item.file_path, { download: item.file_name || true }).data.publicUrl;
   }
+  // Books: the full file sits in the private 'books' bucket (students with an active plan, and teachers);
+  // everyone in the club can read a free preview of the first pages. Older books still in the public
+  // 'materials' bucket stay open until a teacher protects them.
+  const PREVIEW_PAGES = 5;
+  let bookAccess = true;  // false for a student without an active plan
+  const bookUrls = {};    // file_path -> signed link to the full book
+  function isProtected(item){ return item.bucket === 'books'; }
+  function canReadFull(item){ return !isProtected(item) || bookAccess; }
+  function bookSrc(item){
+    if(!isProtected(item)) return publicUrl(item.file_path);
+    if(bookAccess) return bookUrls[item.file_path] || '';
+    return item.preview_path ? publicUrl(item.preview_path) : '';
+  }
+  function bookDownload(item){
+    if(!isProtected(item)) return downloadUrl(item);
+    const u = bookAccess && bookUrls[item.file_path];
+    return u ? u + '&download=' + encodeURIComponent(item.file_name || item.title) : '';
+  }
+  async function refreshBookAccess(items){
+    if(isTeacher()) bookAccess = true;
+    else {
+      const { data, error } = await sb.from('enrollments').select('status, ends_at').eq('student_id', currentProfile.id);
+      bookAccess = !error && (data || []).some(function(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at).getTime() > Date.now()); });
+    }
+    const paths = bookAccess ? items.filter(isProtected).map(function(m){ return m.file_path; }).filter(function(p){ return !bookUrls[p]; }) : [];
+    if(paths.length){
+      const { data } = await sb.storage.from('books').createSignedUrls(paths, 6 * 3600);
+      (data || []).forEach(function(r){ if(r && r.signedUrl) bookUrls[r.path] = r.signedUrl; });
+    }
+  }
+  // the first pages of a PDF as a new, small PDF (pdf-lib is loaded only when a teacher needs it)
+  let pdfLibLoading = null;
+  function loadPdfLib(){
+    if(window.PDFLib) return Promise.resolve(window.PDFLib);
+    if(!pdfLibLoading) pdfLibLoading = new Promise(function(resolve, reject){
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js';
+      s.onload = function(){ resolve(window.PDFLib); };
+      s.onerror = function(){ pdfLibLoading = null; reject(new Error('Could not load the PDF tool')); };
+      document.head.appendChild(s);
+    });
+    return pdfLibLoading;
+  }
+  async function makePdfPreview(blob){
+    try{
+      const PDFLib = await loadPdfLib();
+      const src = await PDFLib.PDFDocument.load(await blob.arrayBuffer(), { ignoreEncryption: true });
+      const total = src.getPageCount();
+      const out = await PDFLib.PDFDocument.create();
+      const n = Math.min(PREVIEW_PAGES, total);
+      const pages = await out.copyPages(src, Array.from({ length: n }, function(_, i){ return i; }));
+      pages.forEach(function(pg){ out.addPage(pg); });
+      return { blob: new Blob([await out.save()], { type: 'application/pdf' }), pages: total, previewPages: n };
+    }catch(e){ return null; } // not a readable PDF: the book is simply locked without a preview
+  }
+  // store a book: full file → private bucket, preview → public bucket
+  async function storeBook(path, file, name){
+    const { error } = await sb.storage.from('books').upload(path, file, {
+      contentType: file.type || 'application/octet-stream', cacheControl: '3600', upsert: true
+    });
+    if(error) throw error;
+    const out = { bucket: 'books', preview_path: null, pages: null, preview_pages: null };
+    if(fileExt(name) === 'pdf'){
+      const pv = await makePdfPreview(file);
+      if(pv){
+        const pvPath = 'previews/' + path;
+        const { error: pvErr } = await sb.storage.from('materials').upload(pvPath, pv.blob, { contentType: 'application/pdf', upsert: true });
+        if(!pvErr) Object.assign(out, { preview_path: pvPath, pages: pv.pages, preview_pages: pv.previewPages });
+      }
+    }
+    return out;
+  }
   // a database feature from supabase/schema.sql that hasn't been installed yet
   function isMissing(err){
     return !!err && (err.code === 'PGRST202' || err.code === 'PGRST205' || err.code === '42P01' || err.code === '42883' ||
@@ -3639,7 +3773,52 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   let materialsFilter = 'all';
   let wantDashboard = true; // remembers whether a signed-in visitor asked to "view website"
   let pendingClub = null; // a club clicked on the public page before signing in
-  const LEVELS = ['Beginner (A1-A2)', 'Intermediate (B1-B2)', 'Advanced (C1-C2)'];
+  // 14 levels in 6 stages; a student opens the next level by passing the exam of the one before
+  const STAGES = [
+    { en: 'Beginner',           ar: 'المبتدئ',        cefr: 'A1',  from: 1,  to: 4,  icon: '🌱' },
+    { en: 'Elementary',         ar: 'الأساسيات',      cefr: 'A2',  from: 5,  to: 6,  icon: '🌿' },
+    { en: 'Pre-Intermediate',   ar: 'ما قبل المتوسط', cefr: 'B1',  from: 7,  to: 8,  icon: '🍀' },
+    { en: 'Intermediate',       ar: 'المتوسط',        cefr: 'B1+\u200E', from: 9,  to: 10, icon: '🌳' },
+    { en: 'Upper-Intermediate', ar: 'فوق المتوسط',    cefr: 'B2',  from: 11, to: 12, icon: '⛰️' },
+    { en: 'Advanced',           ar: 'المتقدم',        cefr: 'C1',  from: 13, to: 14, icon: '🏆' }
+  ];
+  const LEVELS = [], LEVEL_INFO = {};
+  STAGES.forEach(function(s, si){
+    for(let n = s.from; n <= s.to; n++){
+      const key = 'Level ' + n;
+      LEVELS.push(key);
+      LEVEL_INFO[key] = { n: n, en: s.en, ar: s.ar, cefr: s.cefr, icon: s.icon, stage: si };
+    }
+  });
+  // names used before the 14 levels (old rows are moved by schema.sql; this keeps old links readable)
+  const OLD_LEVEL = { 'Beginner (A1-A2)': 'Level 1', 'Intermediate (B1-B2)': 'Level 9', 'Advanced (C1-C2)': 'Level 13' };
+  function levelName(l){
+    const i = LEVEL_INFO[OLD_LEVEL[l] || l];
+    return i ? t('Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')', 'المستوى ' + i.n + ' · ' + i.ar + ' (' + i.cefr + ')') : (l || '');
+  }
+  window.__levelLabel = levelName;
+  function levelNameEn(l){ const i = LEVEL_INFO[OLD_LEVEL[l] || l]; return i ? 'Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')' : (l || ''); } // certificates are printed in English
+  // every level picker (upload, videos) lists the 14 levels grouped by stage
+  function levelOptionsHtml(){
+    return STAGES.map(function(s){
+      let opts = '';
+      for(let n = s.from; n <= s.to; n++) opts += '<option value="Level ' + n + '">' + esc(t('Level ' + n, 'المستوى ' + n)) + '</option>';
+      return '<optgroup label="' + esc(t(s.en, s.ar) + ' · ' + s.cefr) + '">' + opts + '</optgroup>';
+    }).join('');
+  }
+  function fillLevelPickers(){
+    document.querySelectorAll('select[data-levels]').forEach(function(sel){
+      const v = sel.value;
+      sel.innerHTML = levelOptionsHtml();
+      if(v && LEVEL_INFO[v]) sel.value = v;
+    });
+    const tabs = document.getElementById('levelTabs');
+    if(tabs) tabs.innerHTML = STAGES.map(function(s){
+      let b = '';
+      for(let n = s.from; n <= s.to; n++) b += '<button class="level-tab" data-level="Level ' + n + '" type="button"><span class="lv-dot"></span>' + n + '</button>';
+      return '<div class="lt-stage"><small>' + esc(t(s.en, s.ar)) + ' · <bdi>' + s.cefr + '</bdi></small><div>' + b + '</div></div>';
+    }).join('');
+  }
   let currentLevel = LEVELS[0];
   let passedLevels = []; // levels the signed-in student has already passed, in their club
   let currentExamQuestions = [];
@@ -3666,7 +3845,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     authPageTitle.textContent = ({ login: t('Welcome back', 'مرحباً بعودتك'), signup: t('Create your account', 'أنشئ حسابك'),
       forgot: t('Reset your password', 'استعادة كلمة المرور'), reset: t('Choose a new password', 'اختر كلمة مرور جديدة') })[mode];
     authPageSub.textContent = ({ login: t('Sign in to reach your dashboard.', 'سجّل الدخول للوصول إلى لوحة التحكم.'),
-      signup: t('Join as a student or a parent — it takes a minute.', 'انضم كطالب أو ولي أمر — الأمر يستغرق دقيقة.'),
+      signup: t('Join as a student, a parent or a teacher — it takes a minute.', 'انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.'),
       forgot: t('We’ll email you a secure link.', 'سنرسل لك رابطاً آمناً على بريدك.'),
       reset: t('Almost done — pick a password you’ll remember.', 'خطوة أخيرة — اختر كلمة مرور تتذكرها.') })[mode];
   }
@@ -3695,6 +3874,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   suRole.addEventListener('change', ()=>{
     suClubWrap.hidden = suRole.value !== 'student';
+    document.getElementById('suTeacherHint').hidden = suRole.value !== 'teacher';
   });
   document.querySelectorAll('.role-opt').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -3761,6 +3941,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     if(/session is full/i.test(msg)){ return t('This session is full — pick another time.', 'هذه الحصة ممتلئة — اختر موعداً آخر.'); }
     if(/already started/i.test(msg)){ return t('This session has already started.', 'هذه الحصة بدأت بالفعل.'); }
+    if(/no classes left/i.test(msg)){ return t('No classes left in your plan — renew your plan to book more.', 'لا توجد حصص متبقية في خطتك — جدّد خطتك لحجز المزيد.'); }
     if(/already have a class booked/i.test(msg)){ return t('You already have a class at this time — pick another time.', 'لديك حصة أخرى في نفس الوقت — اختر موعداً آخر.'); }
     if(/invalid login credentials/i.test(msg)){
       return t('Wrong email or password. Try again, or use “Forgot your password?”.', 'البريد أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».');
@@ -3779,8 +3960,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
                'اسم الملف يحتوي على رموز لا يقبلها التخزين. حدّث الصفحة (Ctrl+F5) لتحميل أحدث نسخة من الموقع ثم حاول مرة أخرى.');
     }
     if(/bucket not found/i.test(msg)){
-      return t('The "materials" storage bucket doesn\'t exist yet — run supabase/schema.sql in the Supabase SQL editor.',
-               'مخزن الملفات "materials" غير موجود — شغّل ملف supabase/schema.sql في محرر SQL في Supabase.');
+      return t('A storage bucket is missing — run the latest supabase/schema.sql in the Supabase SQL editor.',
+               'أحد مخازن الملفات غير موجود — شغّل أحدث ملف supabase/schema.sql في محرر SQL في Supabase.');
     }
     if(/row-level security|violates.*policy|unauthorized|not allowed/i.test(msg)){
       return t('Your account isn\'t allowed to do this. Uploading needs a teacher account (and supabase/schema.sql installed).',
@@ -3817,14 +3998,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const full_name = document.getElementById('suName').value.trim();
     const email = document.getElementById('suEmail').value.trim();
     const password = document.getElementById('suPassword').value;
-    const role = suRole.value === 'parent' ? 'parent' : 'student';
-    const club = role === 'student' ? document.getElementById('suClub').value : null;
+    // a teacher signs up as an applicant: a student account with teacher_request until the admin approves
+    const asked = suRole.value === 'parent' ? 'parent' : suRole.value === 'teacher' ? 'teacher' : 'student';
+    const role = asked === 'parent' ? 'parent' : 'student';
+    const club = asked === 'student' ? document.getElementById('suClub').value : null;
     const errEl = document.getElementById('signupError');
     errEl.textContent = '';
 
     let signUpResult;
     try{
-      signUpResult = await sb.auth.signUp({ email, password, options: { data: { full_name: full_name, role: role, club: club }, emailRedirectTo: location.origin + location.pathname } });
+      signUpResult = await sb.auth.signUp({ email, password, options: { data: { full_name: full_name, role: asked, club: club }, emailRedirectTo: location.origin + location.pathname } });
     } catch(err){
       errEl.textContent = friendlyErrorMessage(err);
       return;
@@ -3837,7 +4020,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return;
     }
     // normally the database trigger has already created it; this only fills the gap on older setups
-    const { error: profErr } = await sb.from('profiles').upsert({ id: data.user.id, full_name, role, club }, { onConflict: 'id', ignoreDuplicates: true });
+    const prof = { id: data.user.id, full_name, role, club };
+    if(asked === 'teacher') prof.teacher_request = true;
+    const { error: profErr } = await sb.from('profiles').upsert(prof, { onConflict: 'id', ignoreDuplicates: true });
     if(profErr){ errEl.textContent = friendlyErrorMessage(profErr); return; }
     signupForm.reset();
     wantDashboard = true;
@@ -3953,7 +4138,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(md.full_name){
         await sb.from('profiles').upsert({
           id: session.user.id, full_name: md.full_name,
-          role: md.role === 'parent' ? 'parent' : 'student', club: md.role === 'parent' ? null : (md.club || null)
+          role: md.role === 'parent' ? 'parent' : 'student', club: md.role === 'student' ? (md.club || null) : null,
+          teacher_request: md.role === 'teacher'
         }, { onConflict: 'id', ignoreDuplicates: true });
         currentProfile = await loadProfile(session.user.id);
       }
@@ -3968,6 +4154,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ovName.textContent = (currentProfile.full_name || '').split(' ')[0];
     dashboardPage.dataset.role = role;
 
+    ['overview', 'messages', 'notifications', 'profile'].forEach(function(v){ document.querySelector('.dash-tab[data-view="' + v + '"]').hidden = false; }); // shown again after an applicant signs out
     tabStudents.hidden = !isTeacher();
     document.getElementById('tabCertDesign').hidden = !isTeacher();
     if(tabVideos) tabVideos.hidden = !isTeacher();
@@ -4009,6 +4196,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('ovLinkCard').hidden = !(isStudent() && currentProfile.link_code);
     document.getElementById('ovLinkCode').textContent = currentProfile.link_code || '';
 
+    const applicant = isStudent() && currentProfile.teacher_request;
+    document.getElementById('dashboardPage').classList.toggle('applicant', !!applicant);
+    if(applicant){
+      // waiting for the admin to approve the teacher account: nothing to do yet but wait
+      profRole.value = t('Teacher (waiting for approval)', 'معلم (بانتظار الموافقة)');
+      dashRoleClub.textContent = profRole.value;
+      document.querySelectorAll('.dash-tab').forEach(function(tab){ tab.hidden = ['overview', 'profile'].indexOf(tab.dataset.view) === -1; });
+      ovSub.textContent = '';
+      ['ovStats', 'ovNextSession', 'ovChildren'].forEach(function(id){ document.getElementById(id).innerHTML = ''; });
+      document.getElementById('ovNext').hidden = true;
+      document.getElementById('ovLinkCard').hidden = true;
+      readingHub.hidden = true;
+      if(planBanner) planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">' + t('Teacher account', 'حساب معلم') + '</span><h4>' +
+        t('Waiting for the academy to approve you', 'بانتظار موافقة الأكاديمية') + '</h4><p>' +
+        t('The admin has your request. Once approved, sign in again and your teacher tools (books, classes, homework, students) will be here.',
+          'طلبك وصل للمدير. بعد الموافقة سجّل الدخول مرة أخرى وستجد أدوات المعلم هنا (الكتب، الحصص، الواجبات، الطلاب).') + '</p></div></div>';
+      if(wantDashboard) openDashboard();
+      return;
+    }
+
     if(isParent()){
       readingHub.hidden = true;
       if(planBanner) planBanner.innerHTML = '';
@@ -4046,12 +4253,33 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
   }
 
+  if(ovStats) ovStats.addEventListener('click', function(e){
+    const b = e.target.closest('[data-goto]');
+    if(b && document.querySelector('.dash-tab[data-view="' + b.dataset.goto + '"]:not([hidden])')) showDashView(b.dataset.goto);
+  });
   async function loadOverviewStats(){
     if(isParent()){
       ovStats.innerHTML = '';
       return;
     }
     if(isTeacher()){
+      const st = await sb.rpc('academy_stats');
+      if(!st.error && st.data){
+        const s = st.data;
+        const tile = function(v, label, view, warn){ return '<button type="button" class="dash-stat' + (warn ? ' warn' : '') + '"' + (view ? ' data-goto="' + view + '"' : '') + '><b>' + v + '</b><span>' + label + '</span></button>'; };
+        ovStats.innerHTML =
+          tile(s.active_students + ' / ' + s.students, t('Students with an active plan', 'طلاب بخطة مفعّلة'), 'students') +
+          tile(s.pending, t('Payments to confirm', 'مدفوعات تنتظر التأكيد'), 'enroll', s.pending > 0) +
+          tile(fmtMoney(s.revenue_month) + ' <small>SAR</small>', t('Plans activated this month', 'اشتراكات هذا الشهر'), 'enroll') +
+          tile(s.classes_week, t('Classes in the next 7 days', 'حصص خلال ٧ أيام'), 'sessions') +
+          tile(s.attendance_30d == null ? '—' : s.attendance_30d + '%', t('Attendance (30 days)', 'نسبة الحضور (٣٠ يوماً)'), 'sessions') +
+          tile(s.to_grade, t('Homework to grade', 'واجبات تنتظر التصحيح'), 'homework', s.to_grade > 0) +
+          (isAdmin() && s.teacher_requests ? tile(s.teacher_requests, t('Teacher requests to approve', 'طلبات معلمين تنتظر الموافقة'), 'users', true) : '');
+        const follow = (s.expiring || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + esc(planName(x.plan)) + ' · ' + t('ends ', 'تنتهي ') + esc(fmtDay(x.ends_at)) + '</li>'; })
+          .concat((s.low_credit || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + (x.left === 0 ? t('no classes left', 'لا توجد حصص متبقية') : t('1 class left', 'باقي حصة واحدة')) + '</li>'; }));
+        if(follow.length) ovStats.insertAdjacentHTML('beforeend', '<div class="follow-up"><b>' + t('Renewals to follow up', 'تجديدات تحتاج متابعة') + '</b><ul>' + follow.join('') + '</ul></div>');
+        return;
+      }
       const [{ count: studentCount }, { count: matCount }, { count: progCount }] = await Promise.all([
         sb.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'student'),
         sb.from('materials').select('id', { count: 'exact', head: true }),
@@ -4066,7 +4294,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       ovStats.innerHTML =
         '<div class="dash-stat"><b>📚 ' + readIds.size + '</b><span>' + t('Books read', 'كتب قرأتها') + '</span></div>' +
         '<div class="dash-stat"><b>🎓 ' + passedLevels.length + ' / ' + LEVELS.length + '</b><span>' + t('Levels passed', 'مستويات نجحت فيها') + '</span></div>' +
-        '<div class="dash-stat"><b>' + info.icon + ' ' + esc(t(info.en, info.ar)) + '</b><span>' + t('Current level', 'مستواك الحالي') + '</span></div>';
+        '<div class="dash-stat"><b>' + info.icon + ' ' + info.n + '</b><span>' + esc(t('Current level · ' + info.en + ' (' + info.cefr + ')', 'مستواك الحالي · ' + info.ar + ' (' + info.cefr + ')')) + '</span></div>';
     }
   }
 
@@ -4224,7 +4452,19 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         planState = rows.some(function(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at).getTime() > now); })
           ? 'active' : rows.some(function(e){ return e.status === 'pending'; }) ? 'pending' : 'none';
       }
-      sessPlan.innerHTML = planState === 'none'
+      let left = null;
+      if(planState === 'active'){
+        const r = await sb.rpc('plan_status');
+        if(!r.error && r.data && r.data.total != null) left = r.data.left;
+        if(left === 0) planState = 'empty';
+      }
+      sessPlan.innerHTML = planState === 'empty'
+        ? '<div class="sess-plan"><span>🎟️</span><div><b>' + t('No classes left in your plan', 'لا توجد حصص متبقية في خطتك') + '</b><p>' +
+          t('Renew your plan to keep booking live classes.', 'جدّد خطتك لتواصل حجز الحصص المباشرة.') + '</p></div>' +
+          '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Renew my plan', 'جدّد خطتي') + '</button></div>'
+        : planState === 'active' && left != null
+        ? '<div class="sess-plan ok"><span>🎟️</span><div><b>' + t(left + (left === 1 ? ' class left' : ' classes left') + ' in your plan', 'باقي ' + left + ' حصة في خطتك') + '</b></div></div>'
+        : planState === 'none'
         ? '<div class="sess-plan"><span>🎟️</span><div><b>' + t('Choose a plan to book live classes', 'اختر خطة لحجز الحصص المباشرة') + '</b><p>' +
           t('You can look at the times now — booking opens as soon as your plan is active.', 'يمكنك رؤية المواعيد الآن — والحجز يُفتح بمجرد تفعيل خطتك.') + '</p></div>' +
           '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Choose a plan', 'اختر خطة') + '</button></div>'
@@ -4260,6 +4500,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const cancelBy = new Date(new Date(s.starts_at).getTime() - 2 * 3600000);
         const action = left <= 0 ? '<span class="sess-badge">' + t('Full', 'ممتلئة') + '</span>'
           : planState === 'none' ? '<button class="sess-btn ghost" type="button" data-goto-myplan="1">' + t('Choose a plan to book', 'اختر خطة للحجز') + '</button>'
+          : planState === 'empty' ? '<button class="sess-btn ghost" type="button" data-goto-myplan="1">' + t('Renew to book', 'جدّد للحجز') + '</button>'
           : planState === 'pending' ? '<span class="sess-badge">' + t('Plan not active yet', 'الخطة لم تُفعّل بعد') + '</span>'
           : '<button class="sess-btn" type="button" data-book="' + s.id + '">' + t('Book', 'احجز') + '</button>';
         return '<div class="sess-card slot" data-slot="' + s.id + '"><div class="slot-time"><b>' + esc(fmtTime(s.starts_at)) + '</b><span>' + s.duration_min + ' ' + t('min', 'دقيقة') + '</span></div>' +
@@ -4484,7 +4725,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const uploads = up.error ? [] : (up.data || []).map(function(r){
       return {
         id: 'r' + r.id, rid: r.id, remote: true, title: r.title, tag: r.tag,
-        level: r.level || 'Beginner (A1-A2)', dur: r.duration || '', words: r.words || [],
+        level: r.level || 'Level 1', dur: r.duration || '', words: r.words || [],
         src: sb.storage.from('materials').getPublicUrl(r.file_path).data.publicUrl, poster: ''
       };
     });
@@ -4504,7 +4745,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     vidList.innerHTML = (data && data.length) ? data.map(function(r){
       return '<div class="sess-card"><div class="sess-info"><h5>' + esc(r.title) + '</h5>' +
-        '<div class="meta">' + esc(r.tag) + (r.duration ? ' · ' + esc(r.duration) : '') + ' · ' + esc(r.level || '') + '</div>' +
+        '<div class="meta">' + esc(r.tag) + (r.duration ? ' · ' + esc(r.duration) : '') + ' · ' + esc(levelName(r.level)) + '</div>' +
         ((r.words && r.words.length) ? '<div class="sess-people">' + r.words.map(esc).join(', ') + '</div>' : '') + '</div>' +
         '<div class="sess-actions"><button class="sess-btn ghost" type="button" data-vdel="' + r.id + '" data-path="' + esc(r.file_path) + '">Delete</button></div></div>';
     }).join('') : '<div class="lib-empty">You have not added any videos yet.</div>';
@@ -4592,6 +4833,50 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function fmtDay(iso){ return iso ? new Date(iso).toLocaleDateString(uiLocale(), { day: 'numeric', month: 'short', year: 'numeric' }) : ''; }
   function waLink(text){ return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text); }
   function isActiveEnrollment(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at) > new Date()); }
+
+  // prices, number of classes and validity come from plan_settings (the admin edits them)
+  let planSettings = {};
+  function planTerms(p){
+    const s = planSettings[p];
+    if(!s) return '';
+    const months = s.valid_days ? Math.round(s.valid_days / 30) : 0;
+    return (s.sessions ? t(s.sessions + (s.sessions === 1 ? ' live class' : ' live classes'), s.sessions + (s.sessions === 1 ? ' حصة مباشرة' : ' حصة مباشرة')) : t('Unlimited live classes', 'حصص مباشرة غير محدودة')) +
+      (s.valid_days ? ' · ' + (months >= 1 ? t(months + (months === 1 ? ' month' : ' months'), months + (months === 1 ? ' شهر' : ' شهور')) : t(s.valid_days + ' days', s.valid_days + ' يوماً')) : '');
+  }
+  async function loadPlanSettings(){
+    const { data, error } = await sb.from('plan_settings').select('*');
+    if(error || !data || !data.length) return;
+    planSettings = {};
+    data.forEach(function(r){
+      planSettings[r.plan] = r;
+      if(PLANS[r.plan]) PLANS[r.plan].amount = Number(r.price);
+    });
+    // keep the public price cards in step with the database
+    document.querySelectorAll('[data-plan]').forEach(function(btn){
+      const p = btn.dataset.plan, s = planSettings[p];
+      const card = btn.closest('.price-card, .immersion');
+      if(!s || !card) return;
+      const b = card.querySelector('.pc-price b');
+      if(b) b.textContent = fmtMoney(s.price);
+      let meta = card.querySelector('.pc-terms');
+      if(!meta){
+        meta = document.createElement('div');
+        meta.className = 'pc-terms';
+        const price = card.querySelector('.pc-price');
+        price.parentNode.insertBefore(meta, price.nextSibling);
+      }
+      meta.textContent = planTerms(p);
+      // "Save …" compared with buying single levels
+      const save = card.querySelector('.pc-save'), one = planSettings.level1;
+      const n = { level2: 2, level3: 3 }[p];
+      if(save && one && n){
+        const diff = n * Number(one.price) - Number(s.price);
+        save.hidden = diff <= 0;
+        save.textContent = t('Save ' + fmtMoney(diff) + ' SAR', 'وفّر ' + fmtMoney(diff) + ' ريال');
+      }
+    });
+  }
+  window.__refreshPlanTerms = loadPlanSettings;
 
   async function loadPayLinks(){
     const { data, error } = await sb.from('payment_links').select('*');
@@ -4690,10 +4975,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     myEnrollments = data || [];
     const active = myEnrollments.find(isActiveEnrollment);
     const pending = myEnrollments.find(function(e){ return e.status === 'pending'; });
+    let ps = null;
+    if(active){ const r = await sb.rpc('plan_status'); if(!r.error) ps = r.data; }
+    const leftTxt = ps && ps.total != null
+      ? t(ps.left + ' of ' + ps.total + ' classes left', 'باقي ' + ps.left + ' من ' + ps.total + ' حصة') : '';
     if(planBanner){
-      if(active){
+      if(active && ps && ps.left === 0){
+        planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">' + t('Your plan', 'خطتك') + '</span><h4>' + esc(planName(active.plan)) +
+          '</h4><p>' + t('You have used all your classes. Renew to keep booking.', 'استخدمت كل حصصك. جدّد خطتك لتواصل الحجز.') + '</p></div>' +
+          '<button class="sess-btn" type="button" data-browse-plans="1">' + t('Renew my plan', 'جدّد خطتي') + '</button></div>';
+      } else if(active){
+        const pct = ps && ps.total ? Math.round(ps.left / ps.total * 100) : 100;
         planBanner.innerHTML = '<div class="plan-banner ok"><div><span class="kick">Your plan</span><h4>' + esc(planName(active.plan)) +
-          '</h4><p>Active' + (active.ends_at ? ' · until ' + esc(fmtDay(active.ends_at)) : '') + '</p></div>' +
+          '</h4><p>' + (leftTxt ? '<b>' + esc(leftTxt) + '</b> · ' : '') + t('Active', 'مفعّلة') + (active.ends_at ? ' · ' + t('until ', 'حتى ') + esc(fmtDay(active.ends_at)) : '') + '</p>' +
+          (ps && ps.total ? '<div class="credit-bar"><i style="width:' + pct + '%"></i></div>' : '') + '</div>' +
           '<button class="sess-btn" type="button" data-goto-sessions="1">Book a Zoom Meeting</button></div>';
       } else if(pending){
         planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">Your plan</span><h4>' + esc(planName(pending.plan)) +
@@ -4709,7 +5004,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const text = 'Hello Code Cademy, about my request: ' + planName(e.plan) + ' (' + fmtMoney(e.amount) + ' SAR). Name: ' + (currentProfile.full_name || '');
         return '<div class="sess-card"><div class="sess-info"><h5>' + esc(planName(e.plan)) + '</h5>' +
           '<div class="meta">' + fmtMoney(e.amount) + ' <span>SAR</span> · ' + (e.method === 'tamara' ? 'Tamara' : e.method === 'visa' ? 'Visa' : 'WhatsApp') + ' · ' + esc(fmtDay(e.created_at)) + '</div>' +
-          (e.ends_at ? '<div class="meta"><span>Valid until</span> ' + esc(fmtDay(e.ends_at)) + '</div>' : '') + '</div>' +
+          (e.ends_at ? '<div class="meta"><span>Valid until</span> ' + esc(fmtDay(e.ends_at)) + '</div>' : '') +
+          (isActiveEnrollment(e) && leftTxt ? '<div class="meta"><b>' + esc(leftTxt) + '</b></div>' : !isActiveEnrollment(e) && planTerms(e.plan) ? '<div class="meta">' + esc(planTerms(e.plan)) + '</div>' : '') + '</div>' +
           '<div class="sess-actions"><span class="sess-badge ' + (e.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[e.status] || e.status) + '</span>' +
           (e.status === 'pending' && link ? '<a class="sess-btn" href="' + esc(safeUrl(link)) + '" target="_blank" rel="noopener">Open the payment page</a>' : '') +
           (e.status === 'pending' ? '<a class="sess-btn ghost" href="' + esc(waLink(text)) + '" target="_blank" rel="noopener">Message us on WhatsApp</a>' : '') +
@@ -4765,9 +5061,25 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
       return '<div class="sess-card"><div class="sess-info"><h5>' + esc(who.full_name || '—') + '</h5>' +
         '<div class="meta">' + esc(planName(r.plan)) + ' · ' + fmtMoney(r.amount) + ' <span>SAR</span> · ' + (r.method === 'tamara' ? 'Tamara' : r.method === 'visa' ? 'Visa' : 'WhatsApp') + '</div>' +
-        '<div class="meta">' + esc(who.club || '') + ' · ' + esc(fmtDay(r.created_at)) + (r.ends_at ? ' · <span>until</span> ' + esc(fmtDay(r.ends_at)) : '') + '</div></div>' +
+        '<div class="meta">' + esc(who.club || '') + ' · ' + esc(fmtDay(r.created_at)) + (r.ends_at ? ' · <span>until</span> ' + esc(fmtDay(r.ends_at)) : '') +
+          (r.status === 'active' && r.sessions_total ? ' · ' + r.sessions_total + ' ' + t('classes', 'حصة') : '') + '</div></div>' +
         '<div class="sess-actions"><span class="sess-badge ' + (r.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[r.status] || r.status) + '</span>' + act.join('') + '</div></div>';
     }).join('') : '<div class="lib-empty">No one has chosen a plan yet.</div>';
+
+    // plan settings (admin only)
+    const psBox = document.getElementById('psBox');
+    psBox.hidden = !isAdmin();
+    if(isAdmin()){
+      await loadPlanSettings();
+      document.getElementById('psFields').innerHTML = '<div class="ps-row ps-head"><b>' + t('Plan', 'الخطة') + '</b><span>' + t('Price (SAR)', 'السعر') + '</span><span>' + t('Classes', 'عدد الحصص') + '</span><span>' + t('Valid (days)', 'المدة (أيام)') + '</span></div>' +
+        PLAN_ORDER.map(function(p){
+          const s = planSettings[p] || {};
+          return '<div class="ps-row"><b>' + esc(PLANS[p].name) + '</b>' +
+            '<input type="number" min="0" step="1" data-ps="' + p + '|price" value="' + (s.price != null ? s.price : PLANS[p].amount) + '" required>' +
+            '<input type="number" min="1" step="1" data-ps="' + p + '|sessions" value="' + (s.sessions != null ? s.sessions : '') + '" placeholder="∞">' +
+            '<input type="number" min="1" step="1" data-ps="' + p + '|valid_days" value="' + (s.valid_days != null ? s.valid_days : '') + '" placeholder="∞"></div>';
+        }).join('');
+    }
 
     // payment link form
     const fields = document.getElementById('plFields');
@@ -4794,16 +5106,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       setEnNotice('');
       const st = b.dataset.en;
       const patch = { status: st };
-      if(st === 'active'){
-        patch.activated_at = new Date().toISOString();
-        const { data: cur } = await sb.from('enrollments').select('plan').eq('id', b.dataset.id).single();
-        if(cur && cur.plan === 'immersion'){
-          const d = new Date(); d.setMonth(d.getMonth() + 18); patch.ends_at = d.toISOString();
-        } else { patch.ends_at = null; }
-      }
+      // switching a plan on: the server fills in its classes and end date from the plan settings
       const { error } = await sb.from('enrollments').update(patch).eq('id', b.dataset.id);
       setEnNotice(error ? friendlyErrorMessage(error) : (st === 'active' ? 'Plan switched on.' : st === 'stopped' ? 'Plan stopped.' : 'Request rejected.'), !error);
       await loadEnrollments();
+    });
+  }
+  const psForm = document.getElementById('psForm');
+  if(psForm){
+    psForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      setEnNotice('');
+      const rows = {};
+      psForm.querySelectorAll('[data-ps]').forEach(function(inp){
+        const k = inp.dataset.ps.split('|');
+        rows[k[0]] = rows[k[0]] || { plan: k[0], updated_at: new Date().toISOString() };
+        rows[k[0]][k[1]] = inp.value === '' ? null : Number(inp.value);
+      });
+      const { error } = await sb.from('plan_settings').upsert(Object.values(rows));
+      setEnNotice(error ? friendlyErrorMessage(error) : t('Plans saved — the website shows the new prices now.', 'تم حفظ الخطط — الموقع يعرض الأسعار الجديدة الآن.'), !error);
+      if(!error) await loadPlanSettings();
     });
   }
   if(plForm){
@@ -5261,7 +5583,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         '<div><b>' + passedLevels.length + '</b><span>' + t('levels passed', 'مستويات ناجحة') + '</span></div>' +
       '</div>' +
       '<ul class="child-facts">' +
-        '<li><i>📝</i>' + (lastExam ? esc(lastExam.level) + ' — ' + lastExam.score + '% ' + (lastExam.passed ? '✅' : '') + ' <small>' + fmtWhen(lastExam.at) + '</small>'
+        '<li><i>📝</i>' + (lastExam ? esc(levelName(lastExam.level)) + ' — ' + lastExam.score + '% ' + (lastExam.passed ? '✅' : '') + ' <small>' + fmtWhen(lastExam.at) + '</small>'
                                     : t('No exams taken yet', 'لم يؤدِّ أي امتحان بعد')) + '</li>' +
         '<li><i>👩‍🏫</i>' + (lastNote ? '<b>' + esc(lastNote.status || '') + '</b> ' + esc(lastNote.note || '') + ' <small>' + fmtWhen(lastNote.at) + '</small>'
                                      : t('No teacher notes yet', 'لا توجد ملاحظات من المعلم بعد')) + '</li>' +
@@ -5524,7 +5846,29 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(error){ usersTable.innerHTML = '<div class="lib-empty">' + esc(friendlyErrorMessage(error)) + '</div>'; return; }
     usersCache = data || [];
     renderUsers();
+    renderTeacherRequests();
   }
+  // people who signed up as teachers and wait for the admin
+  const teacherRequests = document.getElementById('teacherRequests');
+  function renderTeacherRequests(){
+    const reqs = usersCache.filter(function(u){ return u.teacher_request && u.role === 'student'; });
+    teacherRequests.innerHTML = reqs.length ? '<div class="treq"><b>🧑‍🏫 ' + t('Teacher requests', 'طلبات المعلمين') + ' (' + reqs.length + ')</b>' +
+      reqs.map(function(u){
+        return '<div class="treq-row" data-uid="' + esc(u.id) + '"><span><b>' + esc(u.full_name || '—') + '</b><small>' + esc(u.email || '') + ' · ' + esc(fmtDay(u.created_at)) + '</small></span>' +
+          '<button class="sess-btn" type="button" data-treq="teacher">' + t('Approve as teacher', 'اعتماد كمعلم') + '</button>' +
+          '<button class="sess-btn ghost" type="button" data-treq="student">' + t('Decline', 'رفض') + '</button></div>';
+      }).join('') + '</div>' : '';
+  }
+  teacherRequests.addEventListener('click', async function(e){
+    const b = e.target.closest('[data-treq]');
+    if(!b) return;
+    const u = usersCache.find(function(x){ return x.id === b.closest('[data-uid]').dataset.uid; });
+    b.disabled = true;
+    const { error } = await sb.rpc('set_user_role', { p_user: u.id, p_role: b.dataset.treq });
+    if(error){ b.disabled = false; toast(t('Not saved', 'لم يُحفظ'), friendlyErrorMessage(error), true); return; }
+    toast('✅ ' + (b.dataset.treq === 'teacher' ? t('Teacher approved', 'تم اعتماد المعلم') : t('Request declined', 'تم رفض الطلب')), u.full_name || '');
+    await loadUsers();
+  });
   usersSearch.addEventListener('input', renderUsers);
   usersFilter.addEventListener('click', function(e){
     const b = e.target.closest('[data-role]');
@@ -5594,7 +5938,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     });
     certList.innerHTML = certData.length ? certData.map(function(r, i){
       return '<div class="sess-card cert-card"><div class="cert-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg></div>' +
-        '<div class="sess-info"><h5>' + esc(r.club) + ' — ' + esc(r.level) + '</h5><div class="meta">' + esc(fmtDay(r.created_at)) + ' · ' + esc(String(r.score)) + '%</div></div>' +
+        '<div class="sess-info"><h5>' + esc(r.club) + ' — ' + esc(levelName(r.level)) + '</h5><div class="meta">' + esc(fmtDay(r.created_at)) + ' · ' + esc(String(r.score)) + '%</div></div>' +
         '<div class="sess-actions"><button class="sess-btn" type="button" data-cert="' + i + '">Download certificate</button></div></div>';
     }).join('') : '<div class="lib-empty">Pass a level exam (70% or more) and your certificate appears here.</div>';
   }
@@ -5660,7 +6004,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     p = at('date'); x.fillText(new Date(r.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }), p[0], p[1]);
     // what was completed
     x.globalAlpha = 0.8; x.font = 'italic ' + (19 * k) + 'px ' + SER;
-    p = at('info'); x.fillText('Completed: ' + r.club + ' — ' + r.level + ' · ' + r.score + '%', p[0], p[1]);
+    p = at('info'); x.fillText('Completed: ' + r.club + ' — ' + levelNameEn(r.level) + ' · ' + r.score + '%', p[0], p[1]);
     // certificate id
     x.globalAlpha = 0.55; x.font = (13 * k) + 'px ' + SER;
     p = at('id'); x.fillText('Certificate ID: ' + String(r.id || '').replace(/[^a-z0-9]/gi, '').slice(0, 8).toUpperCase(), p[0], p[1]);
@@ -5734,7 +6078,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   async function cdRender(){
     try{
       const sample = { full_name: (currentProfile && currentProfile.full_name) || 'Student Name', club: cdClub.value === '*' ? 'Conversation Club' : cdClub.value,
-                       level: 'Beginner (A1-A2)', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
+                       level: 'Level 4', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
       const c = await drawCertificate(sample, { src: cdSrc, layout: cdLayout });
       cdCanvas.width = c.width; cdCanvas.height = c.height;
       cdCanvas.getContext('2d').drawImage(c, 0, 0);
@@ -6023,7 +6367,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   };
   const PT_BANDS = ['A1', 'A2', 'B1', 'B2', 'C1'];
   const PT_TOTAL = 12;
-  const PT_SITE_LEVEL = { A1: 'Beginner (A1-A2)', A2: 'Beginner (A1-A2)', B1: 'Intermediate (B1-B2)', B2: 'Intermediate (B1-B2)', C1: 'Advanced (C1-C2)' };
+  const PT_SITE_LEVEL = { A1: 'Level 1', A2: 'Level 5', B1: 'Level 7', B2: 'Level 11', C1: 'Level 13' };
   const ptStart = document.getElementById('ptStart'), ptRun = document.getElementById('ptRun'), ptDone = document.getElementById('ptDone');
   let pt = null; // { band, asked: [{band, q, opts, correct, chosen}], used: {band: [indexes]} }
   function ptShow(which){ ptStart.hidden = which !== 'start'; ptRun.hidden = which !== 'run'; ptDone.hidden = which !== 'done'; }
@@ -6081,7 +6425,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       C1: t('Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.', 'إنجليزية ممتازة. الدروس المتقدمة ستتحداك بالنقاش والدقة والتحدث بطلاقة.')
     };
     document.getElementById('ptCefr').textContent = cefr;
-    document.getElementById('ptLevel').textContent = level;
+    document.getElementById('ptLevel').textContent = levelName(level);
     document.getElementById('ptScore').textContent = t(right + '/' + PT_TOTAL + ' correct', right + '/' + PT_TOTAL + ' إجابة صحيحة');
     document.getElementById('ptMsg').textContent = MSG[cefr];
     document.getElementById('ptScale').innerHTML = PT_BANDS.map(function(b){ return '<i class="' + (b === cefr ? 'on' : '') + '">' + b + '</i>'; }).join('');
@@ -6114,7 +6458,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     setTimeout(function(){ if(pt.asked.length >= PT_TOTAL) ptFinish(); else ptNext(); }, 450);
   });
 
+  fillLevelPickers();
   loadPayLinks(); // public: so the checkout knows each plan's payment link
+  loadPlanSettings();
 
   // ---------- level ladder: Beginner → Intermediate → Advanced, gated by exam ----------
   function isLevelUnlocked(level){
@@ -6140,12 +6486,6 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   // ---------- student learning path: levels → books → exam ----------
   const learnPath = document.getElementById('learnPath');
   const shelfHead = document.getElementById('shelfHead');
-  const LEVEL_INFO = {
-    'Beginner (A1-A2)':     { n: 1, en: 'Beginner',     ar: 'مبتدئ', cefr: 'A1–A2', icon: '🌱' },
-    'Intermediate (B1-B2)': { n: 2, en: 'Intermediate', ar: 'متوسط', cefr: 'B1–B2', icon: '🌿' },
-    'Advanced (C1-C2)':     { n: 3, en: 'Advanced',     ar: 'متقدم', cefr: 'C1–C2', icon: '🌳' }
-  };
-  function levelName(l){ const i = LEVEL_INFO[l]; return i ? t(i.en, i.ar) + ' (' + i.cefr + ')' : l; }
   let clubBooks = []; // every material of the student's club, all levels
 
   async function loadClubBooks(){
@@ -6167,27 +6507,32 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!isStudent()){ learnPath.hidden = true; return; }
     learnPath.hidden = false;
     const working = currentStudentLevel();
-    learnPath.innerHTML = LEVELS.map(function(lv, i){
-      const info = LEVEL_INFO[lv];
-      const st = levelStats(lv);
-      const passed = isLevelPassed(lv), unlocked = isLevelUnlocked(lv);
-      const pct = st.total ? Math.round(st.read * 100 / st.total) : 0;
-      const state = passed ? 'passed' : !unlocked ? 'locked' : 'open';
-      const meta = passed ? '✓ ' + t('Exam passed', 'نجحت في الامتحان')
-        : !unlocked ? t('Pass Level ' + i + ' to unlock', 'انجح في المستوى ' + i + ' لفتحه')
-        : st.total ? t(st.read + ' of ' + st.total + ' books read', 'قرأت ' + st.read + ' من ' + st.total + ' كتب')
-        : t('Books coming soon', 'الكتب قريباً');
-      return '<button type="button" class="path-step ' + state + (lv === currentLevel ? ' active' : '') + (lv === working && !passed ? ' working' : '') + '" data-level="' + esc(lv) + '"' + (unlocked ? '' : ' aria-disabled="true"') + '>' +
-        '<span class="ps-badge">' + (passed ? '✓' : !unlocked ? '🔒' : info.icon) + '</span>' +
-        '<span class="ps-body"><small>' + t('Level', 'المستوى') + ' ' + info.n + (lv === working && !passed ? ' · ' + t('you are here', 'أنت هنا') : '') + '</small>' +
-          '<b>' + t(info.en, info.ar) + '</b><em>' + info.cefr + '</em></span>' +
-        '<span class="ps-bar"><i style="width:' + (passed ? 100 : pct) + '%"></i></span>' +
-        '<span class="ps-meta">' + esc(meta) + '</span>' +
-      '</button>';
-    }).join('<span class="path-link" aria-hidden="true"></span>');
+    const wi = LEVEL_INFO[working], ws = levelStats(working);
+    const wpct = ws.total ? Math.round(ws.read * 100 / ws.total) : 0;
+    const passedCount = LEVELS.filter(isLevelPassed).length;
+    const now = '<div class="path-now"><span class="ps-badge">' + wi.icon + '</span><div><small>' + t('You are here', 'أنت هنا') + ' · ' +
+        t(passedCount + ' of 14 levels passed', 'نجحت في ' + passedCount + ' من 14 مستوى') + '</small>' +
+        '<b>' + esc(levelName(working)) + '</b>' +
+        '<span class="ps-bar"><i style="width:' + wpct + '%"></i></span>' +
+        '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — then take the level exam', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — ثم ادخل امتحان المستوى')
+                              : t('Books for this level are coming soon', 'كتب هذا المستوى قريباً')) + '</em></div></div>';
+    const stages = STAGES.map(function(s, si){
+      const levels = LEVELS.filter(function(l){ return LEVEL_INFO[l].stage === si; });
+      const done = levels.every(isLevelPassed), here = levels.indexOf(working) !== -1;
+      const open = levels.some(isLevelUnlocked);
+      return '<div class="stage' + (done ? ' done' : here ? ' here' : !open ? ' locked' : '') + '">' +
+        '<div class="stage-head"><span>' + (done ? '✓' : s.icon) + '</span><div><b>' + esc(t(s.en, s.ar)) + '</b><small><bdi>' + s.cefr + '</bdi> · ' +
+          t('Levels ' + s.from + '–' + s.to, 'المستويات ' + s.from + '–' + s.to) + '</small></div></div>' +
+        '<div class="stage-levels">' + levels.map(function(l){
+          const passed = isLevelPassed(l), unlocked = isLevelUnlocked(l);
+          return '<button type="button" class="lv-chip' + (passed ? ' passed' : !unlocked ? ' locked' : '') + (l === currentLevel ? ' active' : '') + (l === working ? ' working' : '') +
+            '" data-level="' + l + '" title="' + esc(levelName(l)) + '"' + (unlocked ? '' : ' aria-disabled="true"') + '>' + (passed ? '✓ ' : !unlocked ? '🔒 ' : '') + LEVEL_INFO[l].n + '</button>';
+        }).join('') + '</div></div>';
+    }).join('');
+    learnPath.innerHTML = now + '<div class="path-stages">' + stages + '</div>';
   }
   learnPath.addEventListener('click', function(e){
-    const b = e.target.closest('.path-step');
+    const b = e.target.closest('[data-level]');
     if(!b) return;
     const lv = b.dataset.level;
     if(!isLevelUnlocked(lv)){
@@ -6312,8 +6657,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       libGrid.innerHTML = '<div class="lib-empty">' + esc(friendlyErrorMessage(error)) + '</div>';
     } else {
       materialsCache = data || [];
+      await refreshBookAccess(materialsCache);
       renderMaterials();
     }
+    if(isTeacher()) checkUnprotected();
 
     // exam call-to-action / admin, scoped to the level now showing
     const isLastLevel = LEVELS.indexOf(currentLevel) === LEVELS.length - 1;
@@ -6373,16 +6720,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const badges = (isNew ? '<span class="badge-new">' + t('NEW', 'جديد') + '</span>' : '') +
                      (isRead ? '<span class="badge-read">✓ ' + t('READ', 'قرأته') + '</span>' : '');
       if(isStudent()){
-        return '<div class="book' + (isRead ? ' is-read' : '') + '" style="--h:' + hueOf(item.title) + '">' +
+        const full = canReadFull(item), dl = bookDownload(item);
+        const readLabel = full ? (isRead ? t('Read again', 'اقرأ مرة أخرى') : t('Read', 'اقرأ'))
+          : item.preview_path ? t('Free preview', 'معاينة مجانية') : t('Unlock', 'افتح الكتاب');
+        return '<div class="book' + (isRead ? ' is-read' : '') + (full ? '' : ' locked') + '" style="--h:' + hueOf(item.title) + '">' +
           '<button class="book-cover" type="button" data-open="' + item.id + '" aria-label="' + esc(t('Read ', 'اقرأ ') + item.title) + '">' +
             '<span class="bc-spine"></span>' +
             '<span class="bc-icon">' + fileIcon(ext) + '</span>' +
             '<span class="bc-title">' + esc(item.title) + '</span>' +
+            (full ? '' : '<span class="bc-lock">🔒 ' + (item.preview_path ? t((item.preview_pages || PREVIEW_PAGES) + ' free pages', (item.preview_pages || PREVIEW_PAGES) + ' صفحات مجانية') : t('With a plan', 'مع الاشتراك')) + '</span>') +
             (isRead ? '<span class="bc-done">✓</span>' : isNew ? '<span class="bc-new">' + t('NEW', 'جديد') + '</span>' : '') +
           '</button>' +
           '<div class="book-actions">' +
-            '<button class="book-read" type="button" data-open="' + item.id + '">' + (isRead ? t('Read again', 'اقرأ مرة أخرى') : t('Read', 'اقرأ')) + '</button>' +
-            '<a class="book-dl" data-dl="' + item.id + '" href="' + esc(downloadUrl(item)) + '" target="_blank" rel="noopener" title="' + t('Download', 'تحميل') + '" aria-label="' + t('Download', 'تحميل') + '">⬇</a>' +
+            '<button class="book-read" type="button" data-open="' + item.id + '">' + readLabel + '</button>' +
+            (dl ? '<a class="book-dl" data-dl="' + item.id + '" href="' + esc(dl) + '" target="_blank" rel="noopener" title="' + t('Download', 'تحميل') + '" aria-label="' + t('Download', 'تحميل') + '">⬇</a>' : '') +
           '</div>' +
         '</div>';
       }
@@ -6393,9 +6744,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         '<h5>' + esc(item.title) + '</h5>' +
         '<div class="meta">' + esc(item.club) + ' · ' + esc(item.level) +
           (item.file_size ? ' · <span class="size">' + fmtSize(item.file_size) + '</span>' : '') + '</div>' +
+        '<div class="meta lib-guard">' + (isProtected(item)
+          ? '🔒 ' + (item.preview_path ? t('Protected · ' + (item.preview_pages || PREVIEW_PAGES) + '-page free preview', 'محمي · معاينة مجانية ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات') : t('Protected · plan only', 'محمي · بالاشتراك فقط'))
+          : '<span class="warn">⚠ ' + t('Open to everyone', 'مفتوح للجميع') + '</span>') + '</div>' +
         '<div class="lib-actions">' +
           '<button class="lib-read" type="button" data-open="' + item.id + '">' + t('Read', 'اقرأ') + '</button>' +
-          '<a class="lib-download" data-dl="' + item.id + '" href="' + esc(downloadUrl(item)) + '" target="_blank" rel="noopener">' + t('Download', 'تحميل') + '</a>' +
+          '<a class="lib-download" data-dl="' + item.id + '" href="' + esc(bookDownload(item)) + '" target="_blank" rel="noopener">' + t('Download', 'تحميل') + '</a>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -6413,7 +6767,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const dl = e.target.closest('[data-dl]');
     if(openBtn){ const m = findMaterial(openBtn.dataset.open); if(m) openReader(m); }
     else if(delBtn){ const m = findMaterial(delBtn.dataset.del); if(m) deleteMaterial(m); }
-    else if(dl){ const m = findMaterial(dl.dataset.dl); if(m) logRead(m); }
+    else if(dl){ const m = findMaterial(dl.dataset.dl); if(m && canReadFull(m)) logRead(m); }
   });
 
   async function deleteMaterial(item){
@@ -6423,11 +6777,48 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       toast(t('Couldn’t delete', 'تعذّر الحذف'), error ? friendlyErrorMessage(error) : t('You don’t have permission to delete this.', 'ليست لديك صلاحية حذف هذا الملف.'), true);
       return;
     }
-    await sb.storage.from('materials').remove([item.file_path]);
+    await sb.storage.from(isProtected(item) ? 'books' : 'materials').remove([item.file_path]);
+    if(item.preview_path) await sb.storage.from('materials').remove([item.preview_path]);
     toast(t('Deleted', 'تم الحذف'), item.title);
     await loadMaterials();
     await loadOverviewStats();
   }
+
+  // ---------- protect books uploaded before the preview system ----------
+  const protectBox = document.getElementById('protectBox');
+  let unprotected = [];
+  async function checkUnprotected(){
+    if(!protectBox) return;
+    const { data, error } = await sb.from('materials').select('id, title, file_path, file_name, mime_type').eq('bucket', 'materials');
+    unprotected = error ? [] : (data || []);
+    protectBox.hidden = !unprotected.length;
+    if(unprotected.length) document.getElementById('protectText').textContent = t(
+      unprotected.length + (unprotected.length === 1 ? ' book is' : ' books are') + ' still open to every student. Protect them so students read a ' + PREVIEW_PAGES + '-page preview and the whole book opens with a plan.',
+      unprotected.length + ' كتاب ما زال مفتوحاً لكل الطلاب. احمِها ليقرأ الطالب معاينة ' + PREVIEW_PAGES + ' صفحات ويُفتح الكتاب كاملاً مع الاشتراك.');
+  }
+  if(protectBox) document.getElementById('protectBtn').addEventListener('click', async function(){
+    const btn = this;
+    btn.disabled = true;
+    let done = 0, failed = 0;
+    for(const m of unprotected){
+      btn.textContent = t('Protecting ' + (done + failed + 1) + ' of ' + unprotected.length + '…', 'جارٍ حماية ' + (done + failed + 1) + ' من ' + unprotected.length + '…');
+      try{
+        const res = await fetch(publicUrl(m.file_path));
+        if(!res.ok) throw new Error('download ' + res.status);
+        const blob = await res.blob();
+        const file = new File([blob], m.file_name || m.file_path.split('/').pop(), { type: m.mime_type || blob.type || 'application/octet-stream' });
+        const stored = await storeBook(m.file_path, file, file.name);
+        const { error } = await sb.from('materials').update(stored).eq('id', m.id);
+        if(error) throw error;
+        await sb.storage.from('materials').remove([m.file_path]); // the open copy is gone; only the private one is left
+        done++;
+      }catch(err){ failed++; }
+    }
+    btn.disabled = false;
+    btn.textContent = t('Protect books', 'احمِ الكتب');
+    toast(t('Books protected', 'تمت حماية الكتب'), t(done + ' done' + (failed ? ', ' + failed + ' failed — try again' : ''), 'تم ' + done + (failed ? '، وفشل ' + failed + ' — حاول مرة أخرى' : '')), !!failed);
+    await loadMaterials();
+  });
 
   // ---------- in-site book reader ----------
   const reader = document.getElementById('reader');
@@ -6435,13 +6826,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const readerBody = document.getElementById('readerBody');
   const readerDownload = document.getElementById('readerDownload');
 
+  const readerLock = document.getElementById('readerLock');
   function openReader(item){
-    const ext = fileExt(item.file_name || item.file_path);
-    const url = publicUrl(item.file_path);
+    const full = canReadFull(item);
+    const ext = full ? fileExt(item.file_name || item.file_path) : (item.preview_path ? 'pdf' : '');
+    const url = bookSrc(item);
     readerTitle.textContent = item.title;
-    readerDownload.href = downloadUrl(item);
+    const dl = bookDownload(item);
+    readerDownload.hidden = !dl;
+    readerDownload.href = dl || '#';
+    readerLock.hidden = full;
+    if(!full){
+      document.getElementById('readerLockText').textContent = item.preview_path
+        ? t('Free preview: the first ' + (item.preview_pages || PREVIEW_PAGES) + (item.pages ? ' of ' + item.pages : '') + ' pages. Choose a plan to read the whole book.',
+            'معاينة مجانية: أول ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات' + (item.pages ? ' من ' + item.pages : '') + '. اختر خطة لقراءة الكتاب كاملاً.')
+        : t('This book opens with a plan. Choose a plan to read it.', 'هذا الكتاب متاح مع الاشتراك. اختر خطة لقراءته.');
+    }
     let html;
-    if(ext === 'pdf'){
+    if(!url){
+      html = '<div class="reader-msg reader-locked">🔒<br>' + esc(t('This book is part of the plans.', 'هذا الكتاب ضمن الاشتراك.')) + '</div>';
+    } else if(ext === 'pdf'){
       html = '<iframe src="' + esc(url) + '#view=FitH" title="' + esc(item.title) + '"></iframe>';
     } else if(['png','jpg','jpeg','webp','gif'].indexOf(ext) !== -1){
       html = '<img src="' + esc(url) + '" alt="' + esc(item.title) + '">';
@@ -6458,8 +6862,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     readerBody.innerHTML = html;
     reader.hidden = false;
     document.body.style.overflow = 'hidden';
-    logRead(item);
+    if(full) logRead(item); // the streak counts real reading, not previews
   }
+  document.getElementById('readerPlan').addEventListener('click', function(){
+    closeReader();
+    if(typeof showDashView === 'function') showDashView('myplan');
+  });
   function closeReader(){
     reader.hidden = true;
     readerBody.innerHTML = ''; // stops audio / video
@@ -6667,29 +7075,23 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     libSubmit.disabled = true;
     setUploadStatus('busy', t('Uploading “' + file.name + '”…', 'جارٍ رفع «' + file.name + '»…'));
     try{
-      const { error: upErr } = await sb.storage.from('materials').upload(path, file, {
-        contentType: file.type || 'application/octet-stream', cacheControl: '3600', upsert: false
-      });
-      if(upErr) throw upErr;
-
-      const row = { club: club, level: level, title: title, file_path: path, uploaded_by: currentProfile.id,
-                    file_name: file.name, file_size: file.size, mime_type: file.type || null };
+      const stored = await storeBook(path, file, file.name);
+      const row = Object.assign({ club: club, level: level, title: title, file_path: path, uploaded_by: currentProfile.id,
+                    file_name: file.name, file_size: file.size, mime_type: file.type || null }, stored);
       let { error: insErr } = await sb.from('materials').insert(row);
-      if(insErr && /file_name|file_size|mime_type/.test(insErr.message || '')){
-        // database from before schema.sql — save the essentials only
-        delete row.file_name; delete row.file_size; delete row.mime_type;
-        ({ error: insErr } = await sb.from('materials').insert(row));
-      }
       if(insErr){
-        await sb.storage.from('materials').remove([path]); // don't leave an orphan file behind
+        await sb.storage.from('books').remove([path]); // don't leave an orphan file behind
+        if(stored.preview_path) await sb.storage.from('materials').remove([stored.preview_path]);
         throw insErr;
       }
 
       libForm.reset();
       document.getElementById('libClub').value = club;
       showPickedFile();
-      setUploadStatus('ok', t('Uploaded! Everyone in ' + club + ' can see “' + title + '” now.',
-                              'تم الرفع! يمكن لكل طلاب ' + club + ' رؤية «' + title + '» الآن.'));
+      setUploadStatus('ok', stored.preview_path
+        ? t('Uploaded! Students in ' + club + ' can read the first ' + stored.preview_pages + ' pages free; the whole book opens with a plan.',
+            'تم الرفع! يقرأ طلاب ' + club + ' أول ' + stored.preview_pages + ' صفحات مجاناً، والكتاب كامل مع الاشتراك.')
+        : t('Uploaded! “' + title + '” opens for students in ' + club + ' who have a plan.', 'تم الرفع! «' + title + '» متاح لطلاب ' + club + ' المشتركين.'));
       // jump to where the new book lives so the teacher sees it straight away
       currentLevel = level;
       if(materialsFilter !== 'all' && materialsFilter !== club) applyClubFilter(club);
@@ -7037,7 +7439,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(!items || items.length === 0){ target.innerHTML = '<div class="lib-empty">' + empty + '</div>'; return; }
       target.innerHTML = items.map(function(n){
         return '<div class="notif-item"><b>' + esc(n.title) + '</b><p>' + esc(n.body) + '</p><span>' +
-          esc(n.club || 'All clubs') + ' · ' + new Date(n.created_at).toLocaleDateString() + '</span></div>';
+          esc(n.user_id ? t('For you', 'لك') : (n.club || 'All clubs')) + ' · ' + new Date(n.created_at).toLocaleDateString() + '</span></div>';
       }).join('');
     };
     render(notifList, data, 'No notifications yet.');
@@ -7078,6 +7480,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
+    loadPlanSettings(); // the "12 live classes · 3 months" lines on the price cards
+    fillLevelPickers();
+    if(typeof updateLevelTabsUI === 'function') updateLevelTabsUI();
     if(!currentProfile) return;
     renderMaterials();
     showPickedFile();
@@ -7158,8 +7563,8 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Instagram access token":"رمز الوصول لإنستجرام",
     "Save token":"حفظ الرمز",
     "Checking…":"جارٍ التحقق…",
-    "Twelve questions that adapt to you: answer correctly and the next one is harder; miss one and it gets easier. You get your CEFR level straight away — and the plan that fits it.":"١٢ سؤالاً تتكيّف معك: أجب صح ويصعب السؤال التالي، وأخطئ فيسهل. تحصل على مستواك وفق الإطار الأوروبي فوراً — والخطة المناسبة له.",
-    "New questions every time, from a bank of 86.":"أسئلة جديدة في كل مرة من بنك يضم ٨٦ سؤالاً.",
+    "12 short questions, about 5 minutes. You get your level straight away — and the plan that fits it.":"١٢ سؤالاً قصيراً في حوالي ٥ دقائق. تعرف مستواك فوراً — والخطة المناسبة له.",
+    "About 5 minutes.":"حوالي ٥ دقائق.",
     "Your result: A1 to C1, with your mistakes explained.":"نتيجتك: من A1 إلى C1 مع شرح أخطائك.",
     "Your estimated level":"مستواك التقديري",
     "Start learning at this level":"ابدأ التعلّم من هذا المستوى",
@@ -7201,7 +7606,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Every club book, readable right here":"كل كتب النادي، تقرأها هنا مباشرة",
     "Level exams and printable certificates":"امتحانات مستويات وشهادات قابلة للطباعة",
     "Parents and teachers, one tap apart":"ولي الأمر والمعلم على بُعد ضغطة",
-    "Beginner (A1–A2) passed":"اجتاز المستوى المبتدئ (A1–A2)",
+    "Level 4 passed":"اجتاز المستوى 4",
     "I want to learn":"أريد أن أتعلّم",
     "I follow my child":"أتابع ابني",
     "Parent":"ولي أمر",
@@ -7261,7 +7666,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Teacher accounts are created by the academy. Teachers sign up normally and the admin gives them teacher access.":"حسابات المعلمين تُمنح من الأكاديمية. يسجّل المعلم بشكل عادي ثم تمنحه الإدارة صلاحية المعلم.",
     "Does it work on phones and in Arabic?":"هل يعمل على الموبايل وبالعربية؟",
     "Yes — the whole site, dashboard and chat work on any phone, tablet or computer, in both Arabic and English.":"نعم — الموقع ولوحة التحكم والدردشة تعمل على أي موبايل أو تابلت أو كمبيوتر، بالعربية والإنجليزية.",
-    "Join as a student or a parent — it takes a minute.":"انضم كطالب أو ولي أمر — الأمر يستغرق دقيقة.",
+    "Join as a student, a parent or a teacher — it takes a minute.":"انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.",
     "Drag a book here, or click to choose a file":"اسحب كتاباً هنا أو اضغط لاختيار ملف",
     "PDF, Word, EPUB, PowerPoint or image · up to 50 MB · Arabic file names are fine":"PDF أو Word أو EPUB أو PowerPoint أو صورة · حتى 50 ميجابايت · الأسماء العربية مقبولة",
     "day reading streak":"يوم متتالٍ من القراءة",
@@ -7327,7 +7732,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Phonics, Reading, Writing, Grammar, Speaking, Conversation or Cinema — seven clubs, one for every goal.":"الأصوات، القراءة، الكتابة، القواعد، التحدث، المحادثة أو السينما — سبعة نوادٍ، لكل هدف نادٍ.",
     "Choose a time your teacher has opened. Your Zoom Meeting link appears the moment you book.":"اختر موعداً فتحه معلمك. يظهر رابط زوم فور الحجز.",
     "Learn level by level":"تعلّم مستوىً بعد مستوى",
-    "Read your club's books at your level, from Beginner (A1-A2) up to Advanced (C1-C2).":"اقرأ كتب ناديك بمستواك، من المبتدئ (A1-A2) حتى المتقدم (C1-C2).",
+    "Read your club's books at your level — 14 levels, from Beginner to Advanced.":"اقرأ كتب ناديك بمستواك — 14 مستوى من المبتدئ حتى المتقدم.",
     "Pass and level up":"انجح وارتقِ",
     "Score 70% or more on the level exam and the next level unlocks.":"احصل على 70% أو أكثر في اختبار المستوى ليُفتح المستوى التالي.",
     "Zoom Meeting":"مباشر على زوم",
@@ -7782,6 +8187,15 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Your request is saved. We'll send your secure payment link on WhatsApp shortly — your plan is switched on as soon as payment is confirmed.":"تم حفظ طلبك. سنرسل لك رابط الدفع الآمن على واتساب قريباً — وتُفعَّل باقتك فور تأكيد الدفع.",
     "Create your account first — then we'll take you straight to checkout.":"أنشئ حسابك أولاً — ثم ننقلك مباشرة إلى إتمام الدفع.",
     "You need an active plan to book a Zoom Meeting.":"تحتاج إلى باقة مفعّلة لحجز اجتماع زوم.",
+    "Choose a plan":"اختر خطة",
+    "Protect books":"احمِ الكتب",
+    "Plans: price, classes and validity":"الخطط: السعر وعدد الحصص والمدة",
+    "What each plan includes. Students see these on the website, and every plan you switch on gets these classes and end date. Leave “classes” empty for unlimited.":"ما تشمله كل خطة. يراها الطلاب على الموقع، وكل خطة تفعّلها تأخذ هذا العدد من الحصص وتاريخ الانتهاء. اترك «عدد الحصص» فارغاً لعدد غير محدود.",
+    "Save plans":"حفظ الخطط",
+    "Students, parents and teachers all sign in here.":"الطلاب وأولياء الأمور والمعلمون يسجّلون الدخول من هنا.",
+    "I teach at the academy":"أدرّس في الأكاديمية",
+    "The academy admin approves teacher accounts. Create your account now — your teacher tools open as soon as you are approved.":"مدير الأكاديمية يوافق على حسابات المعلمين. أنشئ حسابك الآن — وتُفتح أدوات المعلم بمجرد الموافقة.",
+    "Only you can make someone a teacher. Teachers who sign up wait here until you approve them.":"أنت فقط من يجعل شخصاً معلماً. المعلمون الذين يسجّلون ينتظرون هنا حتى توافق عليهم.",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
