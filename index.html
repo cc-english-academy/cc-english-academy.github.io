@@ -3938,12 +3938,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       dashboardPage.hidden = true;
       setAuthLabels(false);
       stopRealtime();
+      resetChat(); // never leave the last account's conversation on screen for the next person
       return;
     }
     if(recoveryMode) return; // finish choosing the new password first
 
     currentEmail = session.user.email || '';
     setAuthLabels(true);
+    if(currentProfile && currentProfile.id !== session.user.id) resetChat(); // switched accounts
     currentProfile = await loadProfile(session.user.id);
     if(!currentProfile){
       // e.g. "confirm email" was on: build the profile from the sign-up details
@@ -5386,6 +5388,19 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!document.querySelector('.dash-view[data-view="messages"]').hidden) renderInbox();
   }
 
+  // students never see private parent–teacher messages (the database already hides them; this is a second guard)
+  function canSee(m){ return !(m.private && isStudent()); }
+  function resetChat(){
+    inboxCache = [];
+    openStudent = null;
+    chatAvailable = true;
+    chatMsgs.innerHTML = '';
+    chatInbox.innerHTML = '';
+    chatEl.classList.remove('open');
+    chatPrivate.checked = false;
+    msgBadge.hidden = true;
+  }
+
   function bubble(m){
     const mine = m.sender_id === currentProfile.id;
     return '<div class="msg' + (mine ? ' mine' : '') + (m.private ? ' private' : '') + '">' +
@@ -5419,7 +5434,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const { data, error } = await sb.from('messages').select('*').eq('student_id', studentId).order('created_at', { ascending: true }).limit(300);
     if(openStudent !== studentId) return;
     if(error){ chatMsgs.innerHTML = '<div class="lib-empty">' + esc(friendlyErrorMessage(error)) + '</div>'; return; }
-    chatMsgs.innerHTML = (data && data.length) ? data.map(bubble).join('')
+    const shown = (data || []).filter(canSee);
+    chatMsgs.innerHTML = shown.length ? shown.map(bubble).join('')
       : '<div class="chat-empty">👋<span>' + esc(t('Say hello — this is the start of the conversation.', 'ابدأ المحادثة بتحية!')) + '</span></div>';
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
     markRead(studentId);
@@ -5465,7 +5481,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
 
   function onNewMessage(m){
-    if(!currentProfile || !m.id) return;
+    if(!currentProfile || !m.id || !canSee(m)) return;
     const viewing = openStudent === m.student_id && !document.querySelector('.dash-view[data-view="messages"]').hidden;
     if(viewing){ appendMessage(m); markRead(m.student_id); }
     else if(m.sender_id !== currentProfile.id){
