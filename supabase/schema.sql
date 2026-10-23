@@ -292,11 +292,17 @@ create table if not exists public.plan_settings (
 );
 insert into public.plan_settings (plan, price, sessions, valid_days) values
   ('lesson',     25,  1,   30),
-  ('level1',    300, 12,   90),
-  ('level2',    500, 24,  180),
-  ('level3',    800, 36,  270),
-  ('immersion',1500, 72,  548)
+  ('level1',    300, null,  90),
+  ('level2',    500, null, 180),
+  ('level3',    800, null, 270),
+  ('immersion',1500, null, 548)
 on conflict (plan) do nothing;
+-- the academy does not limit classes in the level plans: clear the first suggested limits
+-- (12 / 24 / 36 / 72) and the same limits on plans already switched on; other numbers the admin sets stay
+update public.plan_settings set sessions = null
+ where (plan, sessions) in (('level1', 12), ('level2', 24), ('level3', 36), ('immersion', 72));
+update public.enrollments set sessions_total = null
+ where (plan, sessions_total) in (('level1', 12), ('level2', 24), ('level3', 36), ('immersion', 72));
 
 alter table public.materials      alter column level set default 'Level 1';
 alter table public.exam_questions alter column level set default 'Level 1';
@@ -1090,6 +1096,18 @@ begin
     'left',  case when v_unlimited then null else greatest(v_total - v_used, 0) end);
 end $$;
 
+-- the next open live classes for the home page: topic, club, time and seats only — never the Zoom link
+create or replace function public.public_open_sessions(p_limit int default 3)
+returns table (club text, title text, starts_at timestamptz, duration_min int, seats_left int)
+language sql stable security definer set search_path = public as $$
+  select s.club, s.title, s.starts_at, s.duration_min,
+         greatest(s.capacity - (select count(*) from public.bookings b where b.session_id = s.id), 0)::int
+    from public.sessions s
+   where s.starts_at > now() and s.starts_at < now() + interval '14 days'
+   order by s.starts_at
+   limit least(greatest(coalesce(p_limit, 3), 1), 6);
+$$;
+
 -- numbers for the admin / teacher overview
 create or replace function public.academy_stats()
 returns jsonb language plpgsql stable security definer set search_path = public as $$
@@ -1168,6 +1186,7 @@ grant execute on function public.student_report(uuid)                 to authent
 grant execute on function public.chat_inbox()                         to authenticated;
 grant execute on function public.plan_status(uuid)                    to authenticated;
 grant execute on function public.academy_stats()                      to authenticated;
+grant execute on function public.public_open_sessions(int)            to anon, authenticated;
 grant execute on function public.my_certificates(uuid)                to authenticated;
 grant execute on function public.get_exam(text, text)                to authenticated;
 grant execute on function public.submit_exam(text, text, jsonb)      to authenticated;

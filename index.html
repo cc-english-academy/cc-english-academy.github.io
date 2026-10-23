@@ -844,6 +844,9 @@ html[dir="rtl"] .scene-svg{transform-origin:45% 60%;}
 .mock-slot .mi{flex:1;min-width:0;}
 .mock-slot .mi b{font-size:.9rem;color:var(--maroon-deep);display:block;}
 .mock-slot .mi span{font-size:.76rem;color:#8a6b73;}
+.sess-mock-head span.live{background:#e6f4ea;color:#1e6b34;}
+.sess-mock-head span.live::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#1e8e4a;margin-inline-end:6px;vertical-align:middle;}
+button.mb{border:0;cursor:pointer;font-family:inherit;}
 .mock-slot .mb{flex:none;font-size:.78rem;font-weight:600;padding:8px 14px;border-radius:8px;background:var(--maroon-deep);color:var(--peach-soft);}
 .mock-slot.booked .mb{background:#e6f4ea;color:#1e6b34;}
 @media(max-width:900px){.sessions-grid{grid-template-columns:1fr;gap:40px;}.sess-mock{transform:none;}.sessions{padding:70px 0;}}
@@ -1179,6 +1182,14 @@ footer a:hover{color:#E3B34D;}
 .ps-pill{display:flex;flex-direction:column;padding:8px 16px;border-radius:10px;background:var(--peach-soft);border:1px solid rgba(92,26,40,.15);line-height:1.2;}
 .ps-pill b{color:var(--maroon-deep);font-size:.95rem;}
 .ps-pill i{font-style:normal;font-size:.72rem;color:#8a6b73;}
+.ps-pill{flex-direction:row !important;align-items:center;gap:10px;}
+.ps-pill>span:last-child{display:flex;flex-direction:column;}
+.pm-ico{flex:none;width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;}
+.pm-ico svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.pm-ico circle{fill:#fff;stroke:none;}
+.pm-ico.inst{background:linear-gradient(135deg,#f3a6b9,#b98cf0);}
+.pm-ico.card{background:linear-gradient(135deg,#1a1f71,#2f5bd3);}
+.co-opt .pm-ico{margin-top:-2px;}
 .pay-strip p{margin:0;font-size:.8rem;color:#6b4f56;flex:1;min-width:220px;}
 
 /* modals */
@@ -1415,6 +1426,19 @@ button.dash-stat{font:inherit;text-align:start;cursor:pointer;color:inherit;widt
 .treq-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border-radius:10px;padding:10px 12px;}
 .treq-row>span{flex:1;min-width:180px;}
 .treq-row small{display:block;color:var(--muted);font-size:.76rem;}
+.levels-home{padding:80px 0;}
+.lv-ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.lv-stage{background:#fff;border:1px solid var(--soft-line);border-radius:18px;padding:18px 16px;box-shadow:var(--shadow-sm);position:relative;transition:transform .25s,box-shadow .25s;}
+.lv-stage:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.lv-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.lv-ico{width:40px;height:40px;border-radius:12px;background:var(--peach-soft);display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.lv-cefr{font-size:.72rem;font-weight:800;color:#fff;background:var(--maroon-deep);border-radius:20px;padding:4px 10px;}
+.lv-stage b{display:block;font-family:var(--serif);font-size:1.05rem;color:var(--maroon-deep);}
+.lv-stage small{font-size:.76rem;color:var(--muted);}
+.lv-nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.lv-nums span{min-width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;background:rgba(92,26,40,.07);color:var(--maroon-deep);}
+@media(max-width:1100px){.lv-ladder{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:560px){.lv-ladder{grid-template-columns:1fr 1fr;gap:10px;}.levels-home{padding:56px 0;}}
 .protect-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin:0 0 16px;}
 .protect-box>span{font-size:1.5rem;}
 .protect-box p{flex:1;min-width:220px;margin:0;font-size:.86rem;color:#5a4148;}
@@ -2136,8 +2160,8 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
     </div>
     <div class="stat-strip">
       <div class="stat"><b class="count" data-target="7">0</b><span>English clubs</span></div>
-      <div class="stat"><b class="count" data-target="3">0</b><span>levels</span></div>
-      <div class="stat"><b>A1–C2</b><span>full CEFR range</span></div>
+      <div class="stat"><b class="count" data-target="14">0</b><span>levels</span></div>
+      <div class="stat"><b>A1–C1</b><span>6 stages</span></div>
     </div>
    </div>
     <div class="hero-phone">
@@ -2225,6 +2249,16 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
   </div>
 </section>
 
+<section class="levels-home" id="levels">
+  <div class="wrap">
+    <div class="how-head reveal">
+      <div class="kicker">Our levels</div>
+      <h2>14 levels, one clear path.</h2>
+      <p>Every student moves from Level 1 to Level 14 in six stages. Each level has its own books, and its exam opens the next one.</p>
+    </div>
+    <div class="lv-ladder" id="homeLevels"></div>
+  </div>
+</section>
 
 <section class="clubs flow-bg" id="english-immersion">
   <div class="wrap">
@@ -2457,7 +2491,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
           <div class="pc-tag">Best value</div>
           <div class="pc-name">3 Levels</div>
           <div class="pc-price"><b>800</b><span>SAR</span></div>
-          <div class="pc-sub">All three levels, Beginner to Advanced</div>
+          <div class="pc-sub">Three levels of the program</div>
           <div class="pc-save">Save 100 SAR</div>
           <button class="pc-btn solid" type="button" data-plan="level3">Choose</button>
         </div>
@@ -2487,8 +2521,8 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
     <div class="pay-strip reveal">
       <div class="ps-title"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</div>
       <div class="ps-methods">
-        <span class="ps-pill"><b>Tamara</b><i>Pay in installments</i></span>
-        <span class="ps-pill"><b>Visa</b><i>Pay by card</i></span>
+        <span class="ps-pill"><span class="pm-ico inst" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1.3"/><circle cx="12" cy="15" r="1.3"/><circle cx="16" cy="15" r="1.3"/></svg></span><span><b>Tamara</b><i>Pay in installments</i></span></span>
+        <span class="ps-pill"><span class="pm-ico card" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6 15h4"/></svg></span><span><b>Visa</b><i>Pay by card</i></span></span>
       </div>
       <p>You pay on the payment provider's own secure page — card details are never typed into this website.</p>
     </div>
@@ -3161,9 +3195,9 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div class="co-price"><b id="coAmount"></b><span>SAR</span></div>
       </div>
       <p class="co-label">How would you like to pay?</p>
-      <label class="co-opt"><input type="radio" name="coMethod" value="tamara" checked>
+      <label class="co-opt"><input type="radio" name="coMethod" value="tamara" checked><span class="pm-ico inst" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1.3"/><circle cx="12" cy="15" r="1.3"/><circle cx="16" cy="15" r="1.3"/></svg></span>
         <span><b>Tamara</b><i>Split the payment into installments (subject to Tamara's approval)</i></span></label>
-      <label class="co-opt"><input type="radio" name="coMethod" value="visa">
+      <label class="co-opt"><input type="radio" name="coMethod" value="visa"><span class="pm-ico card" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6 15h4"/></svg></span>
         <span><b>Visa</b><i>Pay by card on a secure payment page</i></span></label>
       <label class="auth-consent co-consent"><input type="checkbox" id="coAgree"> <span>I agree to the <a href="terms.html#refunds" target="_blank" rel="noopener">Terms &amp; refund policy</a>.</span></label>
       <p class="auth-error" id="coError"></p>
@@ -3212,9 +3246,10 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <button class="cta-ghost" id="sessSignupBtn" type="button">Create an account</button>
       </div>
     </div>
-    <div class="sess-mock reveal" data-i="1" aria-hidden="true">
+    <div class="sess-mock reveal" data-i="1" id="sessMock" aria-hidden="true">
       <div class="sess-mock-head"><b>Conversation Club</b><span>Preview</span></div>
       <p class="sess-mock-sub">This week · example times</p>
+      <div id="sessMockDemo">
       <div class="mock-slot">
         <div class="md"><b>Sun</b><span>7:00 PM</span></div>
         <div class="mi"><b>Ordering food — speaking practice</b><span>45 min · 3 seats left</span></div>
@@ -3229,6 +3264,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <div class="md"><b>Thu</b><span>8:00 PM</span></div>
         <div class="mi"><b>Movie night: talking about films</b><span>60 min · 5 seats left</span></div>
         <div class="mb">Book</div>
+      </div>
       </div>
     </div>
   </div>
@@ -3812,6 +3848,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       sel.innerHTML = levelOptionsHtml();
       if(v && LEVEL_INFO[v]) sel.value = v;
     });
+    const home = document.getElementById('homeLevels');
+    if(home) home.innerHTML = STAGES.map(function(s){
+      let chips = '';
+      for(let n = s.from; n <= s.to; n++) chips += '<span>' + n + '</span>';
+      return '<div class="lv-stage"><div class="lv-top"><span class="lv-ico">' + s.icon + '</span><bdi class="lv-cefr">' + s.cefr + '</bdi></div>' +
+        '<b>' + esc(t(s.en, s.ar)) + '</b><small>' + esc(t('Levels ' + s.from + '–' + s.to, 'المستويات ' + s.from + '–' + s.to)) + '</small>' +
+        '<div class="lv-nums">' + chips + '</div></div>';
+    }).join('');
     const tabs = document.getElementById('levelTabs');
     if(tabs) tabs.innerHTML = STAGES.map(function(s){
       let b = '';
@@ -4815,7 +4859,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     lesson:    { name: 'Single lesson', amount: 25,   desc: 'One live lesson with a teacher' },
     level1:    { name: '1 Level',       amount: 300,  desc: 'One full level of the program' },
     level2:    { name: '2 Levels',      amount: 500,  desc: 'Two levels' },
-    level3:    { name: '3 Levels',      amount: 800,  desc: 'All three levels, Beginner to Advanced' },
+    level3:    { name: '3 Levels',      amount: 800,  desc: 'Three levels of the program' },
     immersion: { name: 'Language Immersion Program', amount: 1500, desc: '18 months of learning English by living it' }
   };
   const PLAN_ORDER = ['lesson', 'level1', 'level2', 'level3', 'immersion'];
@@ -4833,6 +4877,38 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function fmtDay(iso){ return iso ? new Date(iso).toLocaleDateString(uiLocale(), { day: 'numeric', month: 'short', year: 'numeric' }) : ''; }
   function waLink(text){ return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text); }
   function isActiveEnrollment(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at) > new Date()); }
+
+  // home page Zoom card: the real open times (no links) when teachers have opened any; the example stays otherwise
+  let publicSessions = [];
+  async function loadPublicSessions(){
+    const { data, error } = await sb.rpc('public_open_sessions', { p_limit: 3 });
+    if(!error) publicSessions = data || [];
+    renderPublicSessions();
+  }
+  function renderPublicSessions(){
+    const box = document.getElementById('sessMock');
+    if(!box) return;
+    let live = box.querySelector('.mock-live');
+    if(!publicSessions.length){ if(live) live.remove(); document.getElementById('sessMockDemo').hidden = false; return; }
+    document.getElementById('sessMockDemo').hidden = true;
+    box.removeAttribute('aria-hidden');
+    box.querySelector('.sess-mock-head b').textContent = t('Next open times', 'أقرب المواعيد المتاحة');
+    box.querySelector('.sess-mock-head span').textContent = t('Live', 'مباشر');
+    box.querySelector('.sess-mock-head span').classList.add('live');
+    box.querySelector('.sess-mock-sub').textContent = t('Real times your teachers opened · in your time zone', 'مواعيد حقيقية فتحها المعلمون · بتوقيتك المحلي');
+    if(!live){ live = document.createElement('div'); live.className = 'mock-live'; box.appendChild(live); }
+    live.innerHTML = publicSessions.map(function(s){
+      const d = new Date(s.starts_at), left = Number(s.seats_left);
+      return '<div class="mock-slot' + (left <= 0 ? ' booked' : '') + '"><div class="md"><b>' + esc(d.toLocaleDateString(uiLocale(), { weekday: 'short' })) + '</b><span>' + esc(fmtTime(s.starts_at)) + '</span></div>' +
+        '<div class="mi"><b>' + esc(s.title) + '</b><span>' + esc(s.club) + ' · ' + s.duration_min + ' ' + t('min', 'دقيقة') + ' · ' +
+          (left > 0 ? left + ' ' + t(left === 1 ? 'seat left' : 'seats left', 'مقعد متاح') : t('Full', 'ممتلئة')) + '</span></div>' +
+        (left > 0 ? '<button type="button" class="mb" data-mock-book="1">' + t('Book', 'احجز') + '</button>' : '<div class="mb">' + t('Full', 'ممتلئة') + '</div>') + '</div>';
+    }).join('');
+  }
+  document.getElementById('sessMock') && document.getElementById('sessMock').addEventListener('click', function(e){
+    if(!e.target.closest('[data-mock-book]')) return;
+    if(currentProfile){ openDashboard(); showDashView('sessions'); } else openAuth('login');
+  });
 
   // prices, number of classes and validity come from plan_settings (the admin edits them)
   let planSettings = {};
@@ -4858,14 +4934,6 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(!s || !card) return;
       const b = card.querySelector('.pc-price b');
       if(b) b.textContent = fmtMoney(s.price);
-      let meta = card.querySelector('.pc-terms');
-      if(!meta){
-        meta = document.createElement('div');
-        meta.className = 'pc-terms';
-        const price = card.querySelector('.pc-price');
-        price.parentNode.insertBefore(meta, price.nextSibling);
-      }
-      meta.textContent = planTerms(p);
       // "Save …" compared with buying single levels
       const save = card.querySelector('.pc-save'), one = planSettings.level1;
       const n = { level2: 2, level3: 3 }[p];
@@ -6459,6 +6527,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   });
 
   fillLevelPickers();
+  loadPublicSessions();
   loadPayLinks(); // public: so the checkout knows each plan's payment link
   loadPlanSettings();
 
@@ -7480,7 +7549,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
-    loadPlanSettings(); // the "12 live classes · 3 months" lines on the price cards
+    loadPlanSettings(); // prices and savings on the price cards
+    renderPublicSessions();
     fillLevelPickers();
     if(typeof updateLevelTabsUI === 'function') updateLevelTabsUI();
     if(!currentProfile) return;
@@ -8150,7 +8220,6 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "2 Levels":"مستويان",
     "Two levels":"مستويان",
     "3 Levels":"ثلاثة مستويات",
-    "All three levels, Beginner to Advanced":"المستويات الثلاثة، من المبتدئ إلى المتقدم",
     "Save 100 SAR":"وفّر 100 ريال",
     "Best value":"الأفضل قيمة",
     "SAR":"ريال",
@@ -8196,6 +8265,11 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "I teach at the academy":"أدرّس في الأكاديمية",
     "The academy admin approves teacher accounts. Create your account now — your teacher tools open as soon as you are approved.":"مدير الأكاديمية يوافق على حسابات المعلمين. أنشئ حسابك الآن — وتُفتح أدوات المعلم بمجرد الموافقة.",
     "Only you can make someone a teacher. Teachers who sign up wait here until you approve them.":"أنت فقط من يجعل شخصاً معلماً. المعلمون الذين يسجّلون ينتظرون هنا حتى توافق عليهم.",
+    "Our levels":"مستوياتنا",
+    "14 levels, one clear path.":"14 مستوى، ومسار واحد واضح.",
+    "Every student moves from Level 1 to Level 14 in six stages. Each level has its own books, and its exam opens the next one.":"يتقدّم كل طالب من المستوى 1 حتى المستوى 14 عبر ست مراحل. لكل مستوى كتبه، وامتحانه يفتح المستوى التالي.",
+    "Three levels of the program":"ثلاثة مستويات من البرنامج",
+    "6 stages":"6 مراحل",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
