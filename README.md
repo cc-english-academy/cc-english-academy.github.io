@@ -35,7 +35,9 @@ Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icon
 | الرسائل | `messages` + `chat_inbox` — محادثة لكل طالب (الطالب + ولي الأمر + المعلمين) مع رسائل خاصة لا يراها الطالب |
 | الشهادات | `my_certificates` + `certificate_templates` — شهادة لكل مستوى ناجح، والمعلم يرفع تصميمها ويحدد مكان الاسم والتاريخ (لكل النوادي أو لنادٍ معيّن) |
 | حصص Zoom | `sessions` + `session_links` + `bookings` + `book_session` — رابط Zoom يظهر فقط بعد الحجز، الحجز يتطلب خطة مفعّلة، لا حجزين في نفس الوقت، والإلغاء حتى ساعتين قبل الحصة. المعلم يقدر يفتح موعد أسبوعي متكرر مرة واحدة |
-| الخطط والدفع | `enrollments` + `payment_links` + `request_enrollment` — السعر يُحدَّد على السيرفر، والمعلم يفعّل بعد الدفع |
+| الخطط والدفع | `plan_settings` (السعر وعدد الحصص والمدة — المدير يعدّلها من Enrollments) + `enrollments` + `payment_links` + `request_enrollment` — السعر يُحدَّد على السيرفر، والمعلم يفعّل بعد الدفع، وكل حجز يخصم حصة من الرصيد (`plan_status`) |
+| التذكيرات | `scripts/reminders.mjs` كل ساعة من GitHub Actions: قبل الحصة بـ 3 ساعات (الطالب وولي الأمر والمعلم)، الواجب قبل موعده بيوم، والخطة قبل انتهائها بـ 3 أيام — إشعار داخل الموقع، وإيميل لو `RESEND_API_KEY` موجود |
+| لوحة المدير | `academy_stats` — الطلاب المشتركين، المدفوعات المنتظرة، اشتراكات الشهر، نسبة الحضور، الواجبات المنتظرة، وتجديدات تحتاج متابعة |
 | الواجبات | `assignments` + `submissions` — المعلم والطالب يرفعوا صور/فيديو/تسجيل صوتي/PDF في bucket خاص اسمه `homework` (روابط مؤقتة، ولي الأمر يشوف ملفات ابنه فقط). الطالب لا يستطيع وضع درجة لنفسه أو تعديل إجابة بعد تصحيحها |
 | الفيديوهات | `lesson_videos` — تظهر للجميع في قسم Watch & Learn |
 | إنستجرام | `instagram_posts` + `app_secrets` + `set_instagram_token` — مزامنة كل ساعة عبر `.github/workflows/instagram-sync.yml` ([INSTAGRAM.md](INSTAGRAM.md)) |

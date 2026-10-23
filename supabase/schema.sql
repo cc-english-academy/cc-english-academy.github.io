@@ -279,6 +279,33 @@ alter table public.enrollments add column if not exists status       text not nu
 alter table public.enrollments add column if not exists activated_at timestamptz;
 alter table public.enrollments add column if not exists ends_at      timestamptz;
 alter table public.enrollments add column if not exists created_at   timestamptz not null default now();
+alter table public.enrollments add column if not exists sessions_total int; -- live classes included (null = unlimited)
+
+-- price, number of live classes and validity of every plan — the admin edits these from the dashboard
+create table if not exists public.plan_settings (
+  plan        text primary key,
+  price       numeric not null,
+  sessions    int,          -- null = unlimited
+  valid_days  int,          -- null = never expires
+  updated_at  timestamptz not null default now()
+);
+insert into public.plan_settings (plan, price, sessions, valid_days) values
+  ('lesson',     25,  1,   30),
+  ('level1',    300, 12,   90),
+  ('level2',    500, 24,  180),
+  ('level3',    800, 36,  270),
+  ('immersion',1500, 72,  548)
+on conflict (plan) do nothing;
+
+-- personal notifications (class / homework reminders) and a log so each reminder goes out once
+alter table public.notifications add column if not exists user_id uuid references public.profiles(id) on delete cascade;
+create table if not exists public.reminders_sent (
+  kind     text not null,
+  ref      text not null,
+  user_id  uuid not null,
+  sent_at  timestamptz not null default now(),
+  primary key (kind, ref, user_id)
+);
 
 create table if not exists public.payment_links (
   plan    text not null,
@@ -456,6 +483,8 @@ end $$;
 
 alter table public.profiles       enable row level security;
 alter table public.materials      enable row level security;
+alter table public.plan_settings  enable row level security;
+alter table public.reminders_sent enable row level security; -- no policies: only the reminder job (service role) uses it
 alter table public.exam_questions enable row level security;
 alter table public.exam_attempts  enable row level security;
 alter table public.progress       enable row level security;
@@ -525,8 +554,13 @@ create policy "progress: teacher insert" on public.progress
 -- notifications
 drop policy if exists "notif: read" on public.notifications;
 create policy "notif: read" on public.notifications
-  for select using (public.is_teacher() or club is null or club = public.my_club()
-                    or club in (select public.my_children_clubs()));
+  for select using (user_id = auth.uid() or (user_id is null and (public.is_teacher() or club is null or club = public.my_club()
+                    or club in (select public.my_children_clubs()))));
+drop policy if exists "plans: read" on public.plan_settings;
+create policy "plans: read" on public.plan_settings for select using (true);
+drop policy if exists "plans: admin write" on public.plan_settings;
+create policy "plans: admin write" on public.plan_settings
+  for all using (public.is_admin()) with check (public.is_admin());
 drop policy if exists "notif: teacher insert" on public.notifications;
 create policy "notif: teacher insert" on public.notifications
   for insert with check (public.is_teacher());
@@ -967,6 +1001,9 @@ begin
                    and (e.ends_at is null or e.ends_at > now())) then
     raise exception 'You need an active plan to book a seat — choose a plan first';
   end if;
+  if (public.plan_status(auth.uid())->>'left')::int <= 0 then
+    raise exception 'No classes left in your plan — renew your plan to book more';
+  end if;
   if (select count(*) from public.bookings where session_id = s.id) >= s.capacity then
     raise exception 'This session is full';
   end if;
@@ -980,11 +1017,85 @@ begin
 end $$;
 
 -- ----- plans: the price always comes from here, never from the browser -----
+drop function if exists public.plan_price(text);
 create or replace function public.plan_price(p_plan text)
-returns numeric language sql immutable as $$
-  select case p_plan when 'lesson' then 25 when 'level1' then 300 when 'level2' then 500
-                     when 'level3' then 800 when 'immersion' then 1500 end::numeric;
+returns numeric language sql stable security definer set search_path = public as $$
+  select price from public.plan_settings where plan = p_plan;
 $$;
+
+-- when a plan is switched on, the server fills in its classes and end date from plan_settings
+create or replace function public.enrollment_on_activate()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare s public.plan_settings%rowtype;
+begin
+  if new.status = 'active' and (tg_op = 'INSERT' or old.status is distinct from 'active') then
+    select * into s from public.plan_settings where plan = new.plan;
+    new.activated_at   := now();
+    new.sessions_total := s.sessions;
+    new.ends_at        := case when s.valid_days is null then null else now() + make_interval(days => s.valid_days) end;
+  end if;
+  return new;
+end $$;
+drop trigger if exists enrollment_on_activate on public.enrollments;
+create trigger enrollment_on_activate before insert or update on public.enrollments
+  for each row execute function public.enrollment_on_activate();
+
+-- plans switched on before class limits existed get their limits once
+update public.enrollments e set sessions_total = s.sessions,
+       ends_at = coalesce(e.ends_at, case when s.valid_days is null then null else coalesce(e.activated_at, e.created_at) + make_interval(days => s.valid_days) end)
+  from public.plan_settings s
+ where s.plan = e.plan and e.status = 'active' and e.sessions_total is null and s.sessions is not null;
+
+-- classes left on a student's active plans (null total = unlimited)
+create or replace function public.plan_status(p_student uuid default null)
+returns jsonb language plpgsql stable security definer set search_path = public as $$
+declare
+  v_student uuid := coalesce(p_student, auth.uid());
+  v_total int; v_unlimited boolean; v_since timestamptz; v_used int; v_ends timestamptz; v_plan text;
+begin
+  if not (v_student = auth.uid() or public.is_teacher() or public.is_parent_of(v_student)) then
+    raise exception 'Not allowed';
+  end if;
+  select bool_or(e.sessions_total is null), sum(e.sessions_total), min(coalesce(e.activated_at, e.created_at)), max(e.ends_at),
+         (array_agg(e.plan order by e.activated_at desc nulls last))[1]
+    into v_unlimited, v_total, v_since, v_ends, v_plan
+    from public.enrollments e
+   where e.student_id = v_student and e.status = 'active' and (e.ends_at is null or e.ends_at > now());
+  if v_since is null then return jsonb_build_object('active', false); end if;
+  select count(*) into v_used from public.bookings b where b.student_id = v_student and b.created_at >= v_since;
+  return jsonb_build_object('active', true, 'plan', v_plan, 'ends_at', v_ends, 'used', v_used,
+    'total', case when v_unlimited then null else v_total end,
+    'left',  case when v_unlimited then null else greatest(v_total - v_used, 0) end);
+end $$;
+
+-- numbers for the admin / teacher overview
+create or replace function public.academy_stats()
+returns jsonb language plpgsql stable security definer set search_path = public as $$
+declare v jsonb;
+begin
+  if not public.is_teacher() then raise exception 'Not allowed'; end if;
+  select jsonb_build_object(
+    'students',        (select count(*) from public.profiles where role = 'student'),
+    'active_students', (select count(distinct student_id) from public.enrollments where status = 'active' and (ends_at is null or ends_at > now())),
+    'pending',         (select count(*) from public.enrollments where status = 'pending'),
+    'revenue_month',   (select coalesce(sum(amount), 0) from public.enrollments where status in ('active','stopped') and activated_at >= date_trunc('month', now())),
+    'classes_week',    (select count(*) from public.sessions where starts_at >= now() and starts_at < now() + interval '7 days'),
+    'attendance_30d',  (select case when count(*) filter (where b.attendance is not null) = 0 then null
+                               else round(100.0 * count(*) filter (where b.attendance = 'present') / count(*) filter (where b.attendance is not null)) end
+                          from public.bookings b join public.sessions s on s.id = b.session_id
+                         where s.starts_at > now() - interval '30 days' and s.starts_at < now()),
+    'to_grade',        (select count(*) from public.submissions where grade is null),
+    'expiring', coalesce((select jsonb_agg(x order by x->>'ends_at') from (
+        select jsonb_build_object('name', p.full_name, 'club', p.club, 'plan', e.plan, 'ends_at', e.ends_at) x
+          from public.enrollments e join public.profiles p on p.id = e.student_id
+         where e.status = 'active' and e.ends_at between now() and now() + interval '10 days' limit 20) q), '[]'::jsonb),
+    'low_credit', coalesce((select jsonb_agg(x) from (
+        select jsonb_build_object('name', p.full_name, 'club', p.club, 'left', (public.plan_status(p.id)->>'left')::int) x
+          from public.profiles p
+         where p.role = 'student' and (public.plan_status(p.id)->>'left')::int <= 1 limit 20) q), '[]'::jsonb)
+  ) into v;
+  return v;
+end $$;
 
 create or replace function public.request_enrollment(p_plan text, p_method text)
 returns void language plpgsql security definer set search_path = public as $$
@@ -1032,6 +1143,8 @@ grant execute on function public.set_user_role(uuid, text, text)      to authent
 grant execute on function public.link_child(text)                     to authenticated;
 grant execute on function public.student_report(uuid)                 to authenticated;
 grant execute on function public.chat_inbox()                         to authenticated;
+grant execute on function public.plan_status(uuid)                    to authenticated;
+grant execute on function public.academy_stats()                      to authenticated;
 grant execute on function public.my_certificates(uuid)                to authenticated;
 grant execute on function public.get_exam(text, text)                to authenticated;
 grant execute on function public.submit_exam(text, text, jsonb)      to authenticated;

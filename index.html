@@ -1396,6 +1396,21 @@ header.nav .nav-inner{max-width:1480px;}
 .bc-lock{position:absolute;top:58px;inset-inline-start:22px;font-size:.66rem;font-weight:700;background:rgba(255,255,255,.92);color:var(--maroon-deep);border-radius:8px;padding:4px 6px;text-align:center;}
 .lib-guard{font-size:.74rem;}
 .lib-guard .warn{color:#a35a00;font-weight:600;}
+.pc-terms{font-size:.78rem;font-weight:600;color:var(--maroon);margin:-2px 0 8px;}
+.immersion .pc-terms{color:inherit;opacity:.85;}
+.credit-bar{height:6px;border-radius:6px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:8px;max-width:240px;}
+.credit-bar i{display:block;height:100%;background:#fff;border-radius:6px;}
+.sess-plan.ok{background:#eef8f1;border-color:#cfe8d6;}
+button.dash-stat{font:inherit;text-align:start;cursor:pointer;color:inherit;width:100%;}
+.dash-stat.warn b{color:#a35a00;}
+.dash-stat small{font-size:.6em;}
+.follow-up{grid-column:1/-1;background:#fff7ec;border:1px solid #f1dcc4;border-radius:12px;padding:12px 16px;font-size:.85rem;}
+.follow-up ul{margin:6px 0 0;padding-inline-start:18px;display:grid;gap:4px;}
+.ps-table{display:grid;gap:8px;}
+.ps-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:8px;align-items:center;}
+.ps-row input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;}
+.ps-head{font-size:.74rem;color:#8a6b73;}
+@media(max-width:560px){.ps-row{grid-template-columns:1fr 1fr 1fr;}.ps-row b{grid-column:1/-1;}}
 .protect-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin:0 0 16px;}
 .protect-box>span{font-size:1.5rem;}
 .protect-box p{flex:1;min-width:220px;margin:0;font-size:.86rem;color:#5a4148;}
@@ -2312,10 +2327,10 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
     <div class="ptest-copy reveal">
       <div class="kicker">Free level test</div>
       <h2>Not sure where to start? Find your level in 3 minutes.</h2>
-      <p>Twelve questions that adapt to you: answer correctly and the next one is harder; miss one and it gets easier. You get your CEFR level straight away — and the plan that fits it.</p>
+      <p>12 short questions, about 5 minutes. You get your level straight away — and the plan that fits it.</p>
       <ul class="ptest-points">
         <li>No account needed — it is free.</li>
-        <li>New questions every time, from a bank of 86.</li>
+        <li>About 5 minutes.</li>
         <li>Your result: A1 to C1, with your mistakes explained.</li>
       </ul>
     </div>
@@ -2327,7 +2342,7 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <button class="cta-solid" id="ptBegin" type="button">Start the test</button>
       </div>
       <div id="ptRun" class="pt-pane" hidden>
-        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span><span class="pt-lvl" id="ptLvl" title="Current difficulty">A2</span></div>
+        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span><span class="pt-lvl" id="ptLvl" hidden>A2</span></div>
         <div translate="no" class="pt-q">
           <p id="ptQ"></p>
           <div id="ptOpts" class="pt-opts"></div>
@@ -2953,6 +2968,12 @@ html[dir="rtl"] .next-step::before{inset:0 0 0 auto;}
         <p class="dash-sub">Switch a student's plan on once the payment arrives, or stop it at any time. Students need an active plan to book a Zoom Meeting.</p>
         <p class="sess-notice auth-error" id="enNotice"></p>
         <div class="sess-list" id="enList"></div>
+        <div id="psBox" hidden>
+          <h4 class="sess-h">Plans: price, classes and validity</h4>
+          <p class="dash-sub">What each plan includes. Students see these on the website, and every plan you switch on gets these classes and end date. Leave “classes” empty for unlimited.</p>
+          <form class="lib-form" id="psForm"><div class="full ps-table" id="psFields"></div>
+            <button type="submit" class="lib-submit">Save plans</button></form>
+        </div>
         <h4 class="sess-h">Payment links</h4>
         <p class="dash-sub">Paste the Tamara and Visa payment link for each plan. Students are sent there after choosing how to pay. Leave a link blank and students are asked to pay over WhatsApp instead.</p>
         <form class="lib-form" id="plForm">
@@ -3846,6 +3867,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     if(/session is full/i.test(msg)){ return t('This session is full — pick another time.', 'هذه الحصة ممتلئة — اختر موعداً آخر.'); }
     if(/already started/i.test(msg)){ return t('This session has already started.', 'هذه الحصة بدأت بالفعل.'); }
+    if(/no classes left/i.test(msg)){ return t('No classes left in your plan — renew your plan to book more.', 'لا توجد حصص متبقية في خطتك — جدّد خطتك لحجز المزيد.'); }
     if(/already have a class booked/i.test(msg)){ return t('You already have a class at this time — pick another time.', 'لديك حصة أخرى في نفس الوقت — اختر موعداً آخر.'); }
     if(/invalid login credentials/i.test(msg)){
       return t('Wrong email or password. Try again, or use “Forgot your password?”.', 'البريد أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».');
@@ -4131,12 +4153,32 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
   }
 
+  if(ovStats) ovStats.addEventListener('click', function(e){
+    const b = e.target.closest('[data-goto]');
+    if(b && document.querySelector('.dash-tab[data-view="' + b.dataset.goto + '"]:not([hidden])')) showDashView(b.dataset.goto);
+  });
   async function loadOverviewStats(){
     if(isParent()){
       ovStats.innerHTML = '';
       return;
     }
     if(isTeacher()){
+      const st = await sb.rpc('academy_stats');
+      if(!st.error && st.data){
+        const s = st.data;
+        const tile = function(v, label, view, warn){ return '<button type="button" class="dash-stat' + (warn ? ' warn' : '') + '"' + (view ? ' data-goto="' + view + '"' : '') + '><b>' + v + '</b><span>' + label + '</span></button>'; };
+        ovStats.innerHTML =
+          tile(s.active_students + ' / ' + s.students, t('Students with an active plan', 'طلاب بخطة مفعّلة'), 'students') +
+          tile(s.pending, t('Payments to confirm', 'مدفوعات تنتظر التأكيد'), 'enroll', s.pending > 0) +
+          tile(fmtMoney(s.revenue_month) + ' <small>SAR</small>', t('Plans activated this month', 'اشتراكات هذا الشهر'), 'enroll') +
+          tile(s.classes_week, t('Classes in the next 7 days', 'حصص خلال ٧ أيام'), 'sessions') +
+          tile(s.attendance_30d == null ? '—' : s.attendance_30d + '%', t('Attendance (30 days)', 'نسبة الحضور (٣٠ يوماً)'), 'sessions') +
+          tile(s.to_grade, t('Homework to grade', 'واجبات تنتظر التصحيح'), 'homework', s.to_grade > 0);
+        const follow = (s.expiring || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + esc(planName(x.plan)) + ' · ' + t('ends ', 'تنتهي ') + esc(fmtDay(x.ends_at)) + '</li>'; })
+          .concat((s.low_credit || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + (x.left === 0 ? t('no classes left', 'لا توجد حصص متبقية') : t('1 class left', 'باقي حصة واحدة')) + '</li>'; }));
+        if(follow.length) ovStats.insertAdjacentHTML('beforeend', '<div class="follow-up"><b>' + t('Renewals to follow up', 'تجديدات تحتاج متابعة') + '</b><ul>' + follow.join('') + '</ul></div>');
+        return;
+      }
       const [{ count: studentCount }, { count: matCount }, { count: progCount }] = await Promise.all([
         sb.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'student'),
         sb.from('materials').select('id', { count: 'exact', head: true }),
@@ -4309,7 +4351,19 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         planState = rows.some(function(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at).getTime() > now); })
           ? 'active' : rows.some(function(e){ return e.status === 'pending'; }) ? 'pending' : 'none';
       }
-      sessPlan.innerHTML = planState === 'none'
+      let left = null;
+      if(planState === 'active'){
+        const r = await sb.rpc('plan_status');
+        if(!r.error && r.data && r.data.total != null) left = r.data.left;
+        if(left === 0) planState = 'empty';
+      }
+      sessPlan.innerHTML = planState === 'empty'
+        ? '<div class="sess-plan"><span>🎟️</span><div><b>' + t('No classes left in your plan', 'لا توجد حصص متبقية في خطتك') + '</b><p>' +
+          t('Renew your plan to keep booking live classes.', 'جدّد خطتك لتواصل حجز الحصص المباشرة.') + '</p></div>' +
+          '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Renew my plan', 'جدّد خطتي') + '</button></div>'
+        : planState === 'active' && left != null
+        ? '<div class="sess-plan ok"><span>🎟️</span><div><b>' + t(left + (left === 1 ? ' class left' : ' classes left') + ' in your plan', 'باقي ' + left + ' حصة في خطتك') + '</b></div></div>'
+        : planState === 'none'
         ? '<div class="sess-plan"><span>🎟️</span><div><b>' + t('Choose a plan to book live classes', 'اختر خطة لحجز الحصص المباشرة') + '</b><p>' +
           t('You can look at the times now — booking opens as soon as your plan is active.', 'يمكنك رؤية المواعيد الآن — والحجز يُفتح بمجرد تفعيل خطتك.') + '</p></div>' +
           '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Choose a plan', 'اختر خطة') + '</button></div>'
@@ -4345,6 +4399,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const cancelBy = new Date(new Date(s.starts_at).getTime() - 2 * 3600000);
         const action = left <= 0 ? '<span class="sess-badge">' + t('Full', 'ممتلئة') + '</span>'
           : planState === 'none' ? '<button class="sess-btn ghost" type="button" data-goto-myplan="1">' + t('Choose a plan to book', 'اختر خطة للحجز') + '</button>'
+          : planState === 'empty' ? '<button class="sess-btn ghost" type="button" data-goto-myplan="1">' + t('Renew to book', 'جدّد للحجز') + '</button>'
           : planState === 'pending' ? '<span class="sess-badge">' + t('Plan not active yet', 'الخطة لم تُفعّل بعد') + '</span>'
           : '<button class="sess-btn" type="button" data-book="' + s.id + '">' + t('Book', 'احجز') + '</button>';
         return '<div class="sess-card slot" data-slot="' + s.id + '"><div class="slot-time"><b>' + esc(fmtTime(s.starts_at)) + '</b><span>' + s.duration_min + ' ' + t('min', 'دقيقة') + '</span></div>' +
@@ -4678,6 +4733,50 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function waLink(text){ return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text); }
   function isActiveEnrollment(e){ return e.status === 'active' && (!e.ends_at || new Date(e.ends_at) > new Date()); }
 
+  // prices, number of classes and validity come from plan_settings (the admin edits them)
+  let planSettings = {};
+  function planTerms(p){
+    const s = planSettings[p];
+    if(!s) return '';
+    const months = s.valid_days ? Math.round(s.valid_days / 30) : 0;
+    return (s.sessions ? t(s.sessions + (s.sessions === 1 ? ' live class' : ' live classes'), s.sessions + (s.sessions === 1 ? ' حصة مباشرة' : ' حصة مباشرة')) : t('Unlimited live classes', 'حصص مباشرة غير محدودة')) +
+      (s.valid_days ? ' · ' + (months >= 1 ? t(months + (months === 1 ? ' month' : ' months'), months + (months === 1 ? ' شهر' : ' شهور')) : t(s.valid_days + ' days', s.valid_days + ' يوماً')) : '');
+  }
+  async function loadPlanSettings(){
+    const { data, error } = await sb.from('plan_settings').select('*');
+    if(error || !data || !data.length) return;
+    planSettings = {};
+    data.forEach(function(r){
+      planSettings[r.plan] = r;
+      if(PLANS[r.plan]) PLANS[r.plan].amount = Number(r.price);
+    });
+    // keep the public price cards in step with the database
+    document.querySelectorAll('[data-plan]').forEach(function(btn){
+      const p = btn.dataset.plan, s = planSettings[p];
+      const card = btn.closest('.price-card, .immersion');
+      if(!s || !card) return;
+      const b = card.querySelector('.pc-price b');
+      if(b) b.textContent = fmtMoney(s.price);
+      let meta = card.querySelector('.pc-terms');
+      if(!meta){
+        meta = document.createElement('div');
+        meta.className = 'pc-terms';
+        const price = card.querySelector('.pc-price');
+        price.parentNode.insertBefore(meta, price.nextSibling);
+      }
+      meta.textContent = planTerms(p);
+      // "Save …" compared with buying single levels
+      const save = card.querySelector('.pc-save'), one = planSettings.level1;
+      const n = { level2: 2, level3: 3 }[p];
+      if(save && one && n){
+        const diff = n * Number(one.price) - Number(s.price);
+        save.hidden = diff <= 0;
+        save.textContent = t('Save ' + fmtMoney(diff) + ' SAR', 'وفّر ' + fmtMoney(diff) + ' ريال');
+      }
+    });
+  }
+  window.__refreshPlanTerms = loadPlanSettings;
+
   async function loadPayLinks(){
     const { data, error } = await sb.from('payment_links').select('*');
     if(error || !data) return;
@@ -4775,10 +4874,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     myEnrollments = data || [];
     const active = myEnrollments.find(isActiveEnrollment);
     const pending = myEnrollments.find(function(e){ return e.status === 'pending'; });
+    let ps = null;
+    if(active){ const r = await sb.rpc('plan_status'); if(!r.error) ps = r.data; }
+    const leftTxt = ps && ps.total != null
+      ? t(ps.left + ' of ' + ps.total + ' classes left', 'باقي ' + ps.left + ' من ' + ps.total + ' حصة') : '';
     if(planBanner){
-      if(active){
+      if(active && ps && ps.left === 0){
+        planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">' + t('Your plan', 'خطتك') + '</span><h4>' + esc(planName(active.plan)) +
+          '</h4><p>' + t('You have used all your classes. Renew to keep booking.', 'استخدمت كل حصصك. جدّد خطتك لتواصل الحجز.') + '</p></div>' +
+          '<button class="sess-btn" type="button" data-browse-plans="1">' + t('Renew my plan', 'جدّد خطتي') + '</button></div>';
+      } else if(active){
+        const pct = ps && ps.total ? Math.round(ps.left / ps.total * 100) : 100;
         planBanner.innerHTML = '<div class="plan-banner ok"><div><span class="kick">Your plan</span><h4>' + esc(planName(active.plan)) +
-          '</h4><p>Active' + (active.ends_at ? ' · until ' + esc(fmtDay(active.ends_at)) : '') + '</p></div>' +
+          '</h4><p>' + (leftTxt ? '<b>' + esc(leftTxt) + '</b> · ' : '') + t('Active', 'مفعّلة') + (active.ends_at ? ' · ' + t('until ', 'حتى ') + esc(fmtDay(active.ends_at)) : '') + '</p>' +
+          (ps && ps.total ? '<div class="credit-bar"><i style="width:' + pct + '%"></i></div>' : '') + '</div>' +
           '<button class="sess-btn" type="button" data-goto-sessions="1">Book a Zoom Meeting</button></div>';
       } else if(pending){
         planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">Your plan</span><h4>' + esc(planName(pending.plan)) +
@@ -4794,7 +4903,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const text = 'Hello Code Cademy, about my request: ' + planName(e.plan) + ' (' + fmtMoney(e.amount) + ' SAR). Name: ' + (currentProfile.full_name || '');
         return '<div class="sess-card"><div class="sess-info"><h5>' + esc(planName(e.plan)) + '</h5>' +
           '<div class="meta">' + fmtMoney(e.amount) + ' <span>SAR</span> · ' + (e.method === 'tamara' ? 'Tamara' : e.method === 'visa' ? 'Visa' : 'WhatsApp') + ' · ' + esc(fmtDay(e.created_at)) + '</div>' +
-          (e.ends_at ? '<div class="meta"><span>Valid until</span> ' + esc(fmtDay(e.ends_at)) + '</div>' : '') + '</div>' +
+          (e.ends_at ? '<div class="meta"><span>Valid until</span> ' + esc(fmtDay(e.ends_at)) + '</div>' : '') +
+          (isActiveEnrollment(e) && leftTxt ? '<div class="meta"><b>' + esc(leftTxt) + '</b></div>' : !isActiveEnrollment(e) && planTerms(e.plan) ? '<div class="meta">' + esc(planTerms(e.plan)) + '</div>' : '') + '</div>' +
           '<div class="sess-actions"><span class="sess-badge ' + (e.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[e.status] || e.status) + '</span>' +
           (e.status === 'pending' && link ? '<a class="sess-btn" href="' + esc(safeUrl(link)) + '" target="_blank" rel="noopener">Open the payment page</a>' : '') +
           (e.status === 'pending' ? '<a class="sess-btn ghost" href="' + esc(waLink(text)) + '" target="_blank" rel="noopener">Message us on WhatsApp</a>' : '') +
@@ -4850,9 +4960,25 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
       return '<div class="sess-card"><div class="sess-info"><h5>' + esc(who.full_name || '—') + '</h5>' +
         '<div class="meta">' + esc(planName(r.plan)) + ' · ' + fmtMoney(r.amount) + ' <span>SAR</span> · ' + (r.method === 'tamara' ? 'Tamara' : r.method === 'visa' ? 'Visa' : 'WhatsApp') + '</div>' +
-        '<div class="meta">' + esc(who.club || '') + ' · ' + esc(fmtDay(r.created_at)) + (r.ends_at ? ' · <span>until</span> ' + esc(fmtDay(r.ends_at)) : '') + '</div></div>' +
+        '<div class="meta">' + esc(who.club || '') + ' · ' + esc(fmtDay(r.created_at)) + (r.ends_at ? ' · <span>until</span> ' + esc(fmtDay(r.ends_at)) : '') +
+          (r.status === 'active' && r.sessions_total ? ' · ' + r.sessions_total + ' ' + t('classes', 'حصة') : '') + '</div></div>' +
         '<div class="sess-actions"><span class="sess-badge ' + (r.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[r.status] || r.status) + '</span>' + act.join('') + '</div></div>';
     }).join('') : '<div class="lib-empty">No one has chosen a plan yet.</div>';
+
+    // plan settings (admin only)
+    const psBox = document.getElementById('psBox');
+    psBox.hidden = !isAdmin();
+    if(isAdmin()){
+      await loadPlanSettings();
+      document.getElementById('psFields').innerHTML = '<div class="ps-row ps-head"><b>' + t('Plan', 'الخطة') + '</b><span>' + t('Price (SAR)', 'السعر') + '</span><span>' + t('Classes', 'عدد الحصص') + '</span><span>' + t('Valid (days)', 'المدة (أيام)') + '</span></div>' +
+        PLAN_ORDER.map(function(p){
+          const s = planSettings[p] || {};
+          return '<div class="ps-row"><b>' + esc(PLANS[p].name) + '</b>' +
+            '<input type="number" min="0" step="1" data-ps="' + p + '|price" value="' + (s.price != null ? s.price : PLANS[p].amount) + '" required>' +
+            '<input type="number" min="1" step="1" data-ps="' + p + '|sessions" value="' + (s.sessions != null ? s.sessions : '') + '" placeholder="∞">' +
+            '<input type="number" min="1" step="1" data-ps="' + p + '|valid_days" value="' + (s.valid_days != null ? s.valid_days : '') + '" placeholder="∞"></div>';
+        }).join('');
+    }
 
     // payment link form
     const fields = document.getElementById('plFields');
@@ -4879,16 +5005,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       setEnNotice('');
       const st = b.dataset.en;
       const patch = { status: st };
-      if(st === 'active'){
-        patch.activated_at = new Date().toISOString();
-        const { data: cur } = await sb.from('enrollments').select('plan').eq('id', b.dataset.id).single();
-        if(cur && cur.plan === 'immersion'){
-          const d = new Date(); d.setMonth(d.getMonth() + 18); patch.ends_at = d.toISOString();
-        } else { patch.ends_at = null; }
-      }
+      // switching a plan on: the server fills in its classes and end date from the plan settings
       const { error } = await sb.from('enrollments').update(patch).eq('id', b.dataset.id);
       setEnNotice(error ? friendlyErrorMessage(error) : (st === 'active' ? 'Plan switched on.' : st === 'stopped' ? 'Plan stopped.' : 'Request rejected.'), !error);
       await loadEnrollments();
+    });
+  }
+  const psForm = document.getElementById('psForm');
+  if(psForm){
+    psForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      setEnNotice('');
+      const rows = {};
+      psForm.querySelectorAll('[data-ps]').forEach(function(inp){
+        const k = inp.dataset.ps.split('|');
+        rows[k[0]] = rows[k[0]] || { plan: k[0], updated_at: new Date().toISOString() };
+        rows[k[0]][k[1]] = inp.value === '' ? null : Number(inp.value);
+      });
+      const { error } = await sb.from('plan_settings').upsert(Object.values(rows));
+      setEnNotice(error ? friendlyErrorMessage(error) : t('Plans saved — the website shows the new prices now.', 'تم حفظ الخطط — الموقع يعرض الأسعار الجديدة الآن.'), !error);
+      if(!error) await loadPlanSettings();
     });
   }
   if(plForm){
@@ -6200,6 +6336,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   });
 
   loadPayLinks(); // public: so the checkout knows each plan's payment link
+  loadPlanSettings();
 
   // ---------- level ladder: Beginner → Intermediate → Advanced, gated by exam ----------
   function isLevelUnlocked(level){
@@ -7179,7 +7316,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(!items || items.length === 0){ target.innerHTML = '<div class="lib-empty">' + empty + '</div>'; return; }
       target.innerHTML = items.map(function(n){
         return '<div class="notif-item"><b>' + esc(n.title) + '</b><p>' + esc(n.body) + '</p><span>' +
-          esc(n.club || 'All clubs') + ' · ' + new Date(n.created_at).toLocaleDateString() + '</span></div>';
+          esc(n.user_id ? t('For you', 'لك') : (n.club || 'All clubs')) + ' · ' + new Date(n.created_at).toLocaleDateString() + '</span></div>';
       }).join('');
     };
     render(notifList, data, 'No notifications yet.');
@@ -7220,6 +7357,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
+    loadPlanSettings(); // the "12 live classes · 3 months" lines on the price cards
     if(!currentProfile) return;
     renderMaterials();
     showPickedFile();
@@ -7300,8 +7438,8 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Instagram access token":"رمز الوصول لإنستجرام",
     "Save token":"حفظ الرمز",
     "Checking…":"جارٍ التحقق…",
-    "Twelve questions that adapt to you: answer correctly and the next one is harder; miss one and it gets easier. You get your CEFR level straight away — and the plan that fits it.":"١٢ سؤالاً تتكيّف معك: أجب صح ويصعب السؤال التالي، وأخطئ فيسهل. تحصل على مستواك وفق الإطار الأوروبي فوراً — والخطة المناسبة له.",
-    "New questions every time, from a bank of 86.":"أسئلة جديدة في كل مرة من بنك يضم ٨٦ سؤالاً.",
+    "12 short questions, about 5 minutes. You get your level straight away — and the plan that fits it.":"١٢ سؤالاً قصيراً في حوالي ٥ دقائق. تعرف مستواك فوراً — والخطة المناسبة له.",
+    "About 5 minutes.":"حوالي ٥ دقائق.",
     "Your result: A1 to C1, with your mistakes explained.":"نتيجتك: من A1 إلى C1 مع شرح أخطائك.",
     "Your estimated level":"مستواك التقديري",
     "Start learning at this level":"ابدأ التعلّم من هذا المستوى",
@@ -7926,6 +8064,9 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "You need an active plan to book a Zoom Meeting.":"تحتاج إلى باقة مفعّلة لحجز اجتماع زوم.",
     "Choose a plan":"اختر خطة",
     "Protect books":"احمِ الكتب",
+    "Plans: price, classes and validity":"الخطط: السعر وعدد الحصص والمدة",
+    "What each plan includes. Students see these on the website, and every plan you switch on gets these classes and end date. Leave “classes” empty for unlimited.":"ما تشمله كل خطة. يراها الطلاب على الموقع، وكل خطة تفعّلها تأخذ هذا العدد من الحصص وتاريخ الانتهاء. اترك «عدد الحصص» فارغاً لعدد غير محدود.",
+    "Save plans":"حفظ الخطط",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
