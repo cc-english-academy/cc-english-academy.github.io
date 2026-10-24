@@ -12,7 +12,11 @@ const GRAPH = (process.env.GRAPH_URL || 'https://graph.instagram.com').replace(/
 const REFRESH_AFTER_DAYS = 7; // tokens last 60 days; renew them well before that
 
 if (!KEY) {
-  console.error('Missing the SUPABASE_SERVICE_ROLE_KEY secret — see INSTAGRAM.md.');
+  // not set up yet: hourly runs skip quietly instead of failing (and e-mailing) every hour;
+  // a run started by hand still fails so the missing secret is obvious
+  const text = 'Missing the SUPABASE_SERVICE_ROLE_KEY secret (GitHub → Settings → Secrets and variables → Actions) — see INSTAGRAM.md';
+  if (process.env.GITHUB_EVENT_NAME === 'schedule') { console.log('::warning::' + text + ' — skipped.'); process.exit(0); }
+  console.error(text);
   process.exit(1);
 }
 
