@@ -1,4 +1,4 @@
-// Coco — the academy's AI conversation tutor (Supabase Edge Function).
+// Coco — the academy's AI English teacher (Supabase Edge Function): conversation, role-play and step-by-step lessons.
 // The website sends the student's message; this function checks who is asking, takes one message
 // from their daily allowance (ai_take_turn in schema.sql), asks Claude, and returns a short reply
 // with a gentle correction and new words. The Anthropic key lives only here, never in the website.
@@ -76,7 +76,94 @@ const SCHEMA = {
   additionalProperties: false,
 };
 
+// ----- lessons: Coco teaches a topic in four short whiteboard steps -----
+const LESSON_SYSTEM = `You are Coco, a patient, cheerful robot English teacher at Code Cademy. Your students are mostly Arabic speakers (children, teens and adults). You teach one topic as a short lesson of four steps, one step per request:
+1. What it is and when we use it.
+2. How to form it: the rule, with clear examples.
+3. The mistakes Arabic speakers often make with it, and how to avoid them.
+4. Using it in real life: a tiny everyday dialogue, then a short recap of the whole lesson.
+
+For each step:
+- explain_en: teach this step in simple, friendly English that fits the student's level — at most 4 short sentences. Speak to the student directly.
+- explain_ar: the same explanation in clear, simple Arabic.
+- board: the key rule or pattern for this step, as it would appear on a whiteboard — at most 2 short lines (e.g. "I / You / We / They + played" or "have / has + past participle").
+- examples: 2 or 3 short example sentences that fit the student's level, each with its Arabic meaning.
+- check: one multiple-choice question that checks this step only, with exactly 3 options, the index (0, 1 or 2) of the right option in answer_index, and a one-sentence explanation in Arabic in why_ar. Vary which position holds the right answer.
+- recap_en: only on step 4, a two-sentence summary of the whole lesson; otherwise an empty string.
+
+If the student got the previous step's question wrong, start this step by re-explaining that point more simply, then continue. Keep everything accurate, school-appropriate and encouraging. If the topic is not about learning English, teach a related, useful English topic instead and say so kindly.`;
+
+const LESSON_SCHEMA = {
+  type: "object",
+  properties: {
+    step_title: { type: "string" },
+    explain_en: { type: "string" },
+    explain_ar: { type: "string" },
+    board: { type: "string" },
+    examples: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: { en: { type: "string" }, ar: { type: "string" } },
+        required: ["en", "ar"],
+        additionalProperties: false,
+      },
+    },
+    check: {
+      type: "object",
+      properties: {
+        question: { type: "string" },
+        options: { type: "array", items: { type: "string" } },
+        answer_index: { type: "integer" },
+        why_ar: { type: "string" },
+      },
+      required: ["question", "options", "answer_index", "why_ar"],
+      additionalProperties: false,
+    },
+    recap_en: { type: "string" },
+  },
+  required: ["step_title", "explain_en", "explain_ar", "board", "examples", "check", "recap_en"],
+  additionalProperties: false,
+};
+
 type Turn = { role: "user" | "assistant"; text: string };
+
+async function lesson(supabase: any, body: any) {
+  const topic = String(body.topic || "").trim().slice(0, 140);
+  const step = Math.round(Number(body.step));
+  if (!topic || !(step >= 1 && step <= 4)) return json({ error: "bad_request" }, 400);
+  const history = (Array.isArray(body.history) ? body.history : []).slice(0, 3)
+    .map((h: any, i: number) => `Step ${i + 1} "${String(h?.title || "").slice(0, 80)}": the student answered ${h?.correct ? "correctly" : "wrongly"}.`);
+
+  const { data: left, error: quotaErr } = await supabase.rpc("ai_take_turn");
+  if (quotaErr) return json({ error: "setup", detail: quotaErr.message }, 500);
+  if (left === -1) return json({ error: "limit" }, 429);
+
+  const level = String(body.level || "Level 1").slice(0, 60);
+  const ask = `Student's level: ${level}.\nLesson topic: ${topic}\nWrite step ${step} of 4.` + (history.length ? "\nSo far:\n" + history.join("\n") : "");
+  try {
+    const response = await anthropic.beta.messages.create({
+      model: MODEL,
+      max_tokens: 6000,
+      system: LESSON_SYSTEM,
+      messages: [{ role: "user", content: ask }],
+      output_config: { effort: "low", format: { type: "json_schema", schema: LESSON_SCHEMA } },
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+    } as any);
+    if (response.stop_reason === "refusal") return json({ error: "topic" }, 422);
+    const text = response.content.filter((b: any) => b.type === "text").map((b: any) => b.text).join("");
+    const out = JSON.parse(text);
+    if (!out.check || !Array.isArray(out.check.options) || out.check.options.length < 2) return json({ error: "ai" }, 502);
+    out.check.answer_index = Math.min(Math.max(0, out.check.answer_index | 0), out.check.options.length - 1);
+    return json({ ...out, step, left });
+  } catch (err) {
+    if (err instanceof Anthropic.RateLimitError) return json({ error: "busy" }, 503);
+    if (err instanceof Anthropic.AuthenticationError) return json({ error: "setup", detail: "ANTHROPIC_API_KEY is missing or wrong" }, 500);
+    if (err instanceof Anthropic.APIError) return json({ error: "ai", detail: `${err.status}` }, 502);
+    return json({ error: "ai", detail: String((err as Error)?.message || err).slice(0, 200) }, 502);
+  }
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
@@ -90,8 +177,9 @@ Deno.serve(async (req) => {
   const { data: userData } = await supabase.auth.getUser();
   if (!userData?.user) return json({ error: "signin" }, 401);
 
-  let body: { level?: string; mode?: string; scene?: string; turns?: Turn[] };
+  let body: { level?: string; mode?: string; scene?: string; turns?: Turn[]; topic?: string; step?: number; history?: { title: string; correct: boolean }[] };
   try { body = await req.json(); } catch { return json({ error: "bad_request" }, 400); }
+  if (body.mode === "lesson") return lesson(supabase, body);
   const turns = (Array.isArray(body.turns) ? body.turns : [])
     .filter((t) => t && (t.role === "user" || t.role === "assistant") && typeof t.text === "string" && t.text.trim())
     .slice(-12)
