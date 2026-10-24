@@ -2042,6 +2042,49 @@ body:has(#dashboardPage:not([hidden])) .coco-hint{display:none;}
 .cscore em{font-style:normal;font-weight:600;color:var(--maroon-deep);}
 .coco-form{display:flex;gap:8px;align-items:flex-end;padding:10px 12px 14px;border-top:1px solid rgba(92,26,40,.08);background:#fff;}
 .coco.say-mode .coco-form{display:none;}
+.coco.lesson-active .coco-form{display:none;}
+.ctopics{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
+.ctopics button{text-align:start;border:1.5px solid rgba(92,26,40,.12);background:#fffaf5;border-radius:14px;padding:10px 12px;font:600 .84rem inherit;color:var(--maroon-deep);cursor:pointer;transition:transform .2s,border-color .2s;}
+.ctopics button:hover{transform:translateX(3px);border-color:var(--maroon);}
+html[dir="rtl"] .ctopics button:hover{transform:translateX(-3px);}
+.ctopics button.done{background:#f1f9f3;border-color:#cfe8d6;color:#1e6b34;}
+.cmsg.board{max-width:100%;width:100%;padding:0;background:none;border:0;box-shadow:none;}
+.cboard{position:relative;background:linear-gradient(160deg,#1f4a42,#163832);color:#f4f1e8;border-radius:18px;padding:14px 16px 16px;border:6px solid #8a5a3b;box-shadow:inset 0 0 40px rgba(0,0,0,.35),0 12px 24px -16px rgba(0,0,0,.6);}
+.cb-top{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#bfe7dc;}
+.cb-top i{display:flex;gap:5px;}
+.cb-top i b{width:22px;height:5px;border-radius:3px;background:rgba(255,255,255,.2);}
+.cb-top i b.done{background:#7ff3e6;}
+.cb-top i b.now{background:#ffd76a;}
+.cboard h4{font-family:var(--serif);font-size:1.15rem;color:#ffd76a;margin:8px 0 6px;}
+.cb-explain{margin:0;line-height:1.6;font-size:.92rem;}
+.cboard .cmsg-tools button{background:rgba(255,255,255,.12);color:#fff;}
+.cboard .cmsg-ar{color:#d9efe9;}
+.cb-rule{margin:12px 0 6px;border:2px dashed rgba(255,215,106,.7);border-radius:12px;padding:10px 12px;font:700 1rem/1.5 ui-monospace,Menlo,Consolas,monospace;color:#fff;text-align:center;background:rgba(0,0,0,.15);}
+.cb-ex{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:7px;}
+.cb-ex li{display:flex;gap:8px;align-items:flex-start;}
+.cb-ex button{flex:none;border:0;background:rgba(255,255,255,.14);border-radius:8px;width:28px;height:28px;cursor:pointer;}
+.cb-ex b{display:block;font-weight:600;}
+.cb-ex small{color:#bfe7dc;font-size:.78rem;}
+.cquiz{margin-top:10px;background:#fff;border:1px solid rgba(92,26,40,.1);border-radius:16px;padding:12px 14px;}
+.cquiz>b{font-size:.76rem;color:var(--maroon);}
+.cquiz>p{margin:4px 0 8px;font-weight:600;color:#2b1d21;}
+.copts{display:grid;gap:7px;}
+.copts button{text-align:left;border:1.5px solid rgba(92,26,40,.15);background:#fffaf5;border-radius:12px;padding:10px 12px;font:600 .88rem inherit;color:#2b1d21;cursor:pointer;}
+.copts button:hover:not(:disabled){border-color:var(--maroon);}
+.copts button.right{background:#e6f4ea;border-color:#2e7d32;color:#1b5e20;}
+.copts button.wrong{background:#fdecee;border-color:#B4213D;color:#8e1a30;}
+.copts button:disabled{cursor:default;}
+.cwhy{margin-top:10px;display:grid;gap:8px;}
+.cwhy p{margin:0;font-size:.86rem;}
+.cwhy span{display:block;color:#6a5057;margin-top:3px;}
+.cdone{text-align:center;display:grid;gap:4px;justify-items:center;}
+.cdone>span{font-size:2.2rem;animation:cocoBob 1.6s ease-in-out infinite;}
+.cdone b{font-family:var(--serif);font-size:1.25rem;color:var(--maroon-deep);}
+.cdone bdi{font-size:.85rem;color:#6a5057;}
+.cdone em{font-style:normal;color:#d49b00;font-weight:800;letter-spacing:.06em;}
+.cdone p{margin:6px 0 0;font-size:.86rem;}
+.coco-tabs button span{white-space:nowrap;}
+@media(max-width:420px){.coco-tabs{gap:4px;padding:4px 10px 10px}.coco-tabs button{font-size:.74rem;padding:8px 2px}}
 .coco-form textarea{flex:1;resize:none;border:1.5px solid rgba(92,26,40,.15);border-radius:16px;padding:11px 14px;font:inherit;font-size:.92rem;max-height:110px;background:#fffaf5;}
 .coco-form textarea:focus{outline:none;border-color:var(--maroon);}
 .coco-mic,.coco-send{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;font-size:1.05rem;flex:none;}
@@ -3429,7 +3472,7 @@ body:has(#dashboardPage:not([hidden])) .coco-hint{display:none;}
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
 <!-- Coco, the robot English buddy -->
-<button type="button" class="coco-launcher" id="cocoLauncher" aria-label="Talk with Coco, your English buddy">
+<button type="button" class="coco-launcher" id="cocoLauncher" aria-label="Coco, your AI English teacher">
   <svg class="coco-mini" viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="12" x2="60" y2="27" stroke="#F3C9A8" stroke-width="4" stroke-linecap="round"/>
       <circle class="c-bulb" cx="60" cy="10" r="6" fill="#58e1d4"/>
       <rect class="c-ear" x="5" y="52" width="13" height="26" rx="6" fill="#F3C9A8"/>
@@ -3445,14 +3488,14 @@ body:has(#dashboardPage:not([hidden])) .coco-hint{display:none;}
       <path class="c-smile" d="M50 74 Q60 83 70 74" stroke="#7ff3e6" stroke-width="3.5" fill="none" stroke-linecap="round"/>
       <path class="c-flat" d="M52 77 L68 77" stroke="#7ff3e6" stroke-width="3.5" stroke-linecap="round"/>
       <ellipse class="c-open" cx="60" cy="77" rx="6" ry="5" fill="#7ff3e6"/></svg>
-  <span class="coco-hint">Hi! Let’s talk in English</span>
+  <span class="coco-hint">Hi! I’m Coco — want a lesson?</span>
 </button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="cocoHead" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8A2E43"/><stop offset="1" stop-color="#3E0F1B"/></linearGradient>
   </defs>
 </svg>
-<section class="coco" id="coco" hidden role="dialog" aria-label="Coco, your English buddy">
+<section class="coco" id="coco" hidden role="dialog" aria-label="Coco, your AI English teacher">
   <header class="coco-head">
     <div class="coco-bot" id="cocoBot" data-mood="happy">
       <span class="coco-ring"></span>
@@ -3475,7 +3518,7 @@ body:has(#dashboardPage:not([hidden])) .coco-hint{display:none;}
     </div>
     <div class="coco-id">
       <b>Coco</b>
-      <span>Your English buddy · <em id="cocoLevel" dir="ltr">Level 1</em></span>
+      <span>Your English teacher · <em><bdi id="cocoLevel" dir="ltr">Level 1</bdi></em></span>
       <span class="coco-meta"><i id="cocoStars">⭐ 0</i><button type="button" id="cocoJar" title="My word jar">🫙 <i id="cocoJarN">0</i></button><i id="cocoLeft"></i></span>
     </div>
     <div class="coco-actions">
@@ -3484,7 +3527,8 @@ body:has(#dashboardPage:not([hidden])) .coco-hint{display:none;}
     </div>
   </header>
   <nav class="coco-tabs">
-    <button type="button" data-coco-mode="talk" class="on">💬 <span>Talk</span></button>
+    <button type="button" data-coco-mode="learn" class="on">🧑‍🏫 <span>Lesson</span></button>
+    <button type="button" data-coco-mode="talk">💬 <span>Talk</span></button>
     <button type="button" data-coco-mode="play">🎭 <span>Role-play</span></button>
     <button type="button" data-coco-mode="say">🎤 <span>Say it</span></button>
   </nav>
@@ -7796,7 +7840,17 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ['Had I known about the traffic, I would have left earlier.', 'The meeting has been postponed until further notice.', 'Not only is she talented, but she is also hard-working.', 'I can hardly believe how quickly the year has gone by.', 'It is worth considering every option before deciding.', 'He denied having taken the money.'],
     ['Rarely have I seen such a remarkable performance.', 'The proposal was met with considerable scepticism.', 'She is on the verge of a major breakthrough.', 'Whatever the outcome, we should be proud of our effort.', 'His argument, though persuasive, does not hold water.', 'The novel explores the subtle tension between duty and desire.']
   ];
-  let cocoMode = 'talk', cocoScene = null, cocoTurns = [], cocoBusy = false, cocoSpeak = true, cocoSayIdx = 0, cocoRec = null;
+  // lesson topics for each stage; the student can also type any topic
+  const COCO_TOPICS = [
+    ['The verb to be: am / is / are', 'Present simple: I play / she plays', 'a / an / the', 'Plurals: cat → cats, child → children', 'There is / There are', 'Can / can’t'],
+    ['Past simple: played, went, saw', 'Present continuous: I am playing', 'Comparing: bigger / more beautiful', 'much / many / a lot of', 'Going to: future plans', 'in / on / at for time'],
+    ['Present perfect: I have been', 'First conditional: If it rains, …', 'Past continuous: I was reading', 'will or going to?', 'should / must / have to', 'who / which / that'],
+    ['Second conditional: If I were…', 'The passive: It was made…', 'Reported speech: She said that…', 'used to / be used to', 'Gerund or infinitive: enjoy doing / want to do', 'Phrasal verbs for everyday life'],
+    ['Third conditional: If I had known…', 'Past perfect: I had already eaten', 'I wish / If only', 'however / although / despite', 'must have / can’t have', 'make or do?'],
+    ['Inversion: Never have I…', 'Cleft sentences: What I need is…', 'Mixed conditionals', 'Discourse markers for essays', 'Idioms in context', 'Formal and informal English']
+  ];
+  let cocoLesson = null; // { topic, step, history: [{title, correct}], data }
+  let cocoMode = 'learn', cocoScene = null, cocoTurns = [], cocoBusy = false, cocoSpeak = true, cocoSayIdx = 0, cocoRec = null;
 
   function cocoStore(key, fallback){
     try{ const v = JSON.parse(localStorage.getItem('coco_' + key + '_' + (currentProfile ? currentProfile.id : 'guest')) || 'null'); return v == null ? fallback : v; }catch(e){ return fallback; }
@@ -7895,6 +7949,132 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   function cocoJarCount(){ document.getElementById('cocoJarN').textContent = cocoStore('jar', []).length; }
 
+  // ---- calling the tutor function; returns { data } or { err } ----
+  async function cocoCall(body){
+    try{
+      const res = await sb.functions.invoke('tutor', { body: body });
+      if(!res.error) return { data: res.data };
+      // 404 = the "tutor" function isn't deployed yet; no response at all = can't reach it
+      const ctx = res.error.context;
+      let code = ctx && ctx.status === 404 ? 'setup' : 'ai';
+      if(code === 'ai'){
+        try{ const b = await ctx.json(); code = b.error || code; }catch(e){ if(!ctx || !ctx.status) code = 'setup'; }
+      }
+      return { err: code };
+    }catch(e){ return { err: 'setup' }; }
+  }
+  function cocoErrText(err){
+    return err === 'limit' ? t("That's all for today — you used today's messages. Come back tomorrow! You can still practise in “Say it”.", 'خلصت رسائل النهارده — ارجع بكرة! وتقدر تتدرب على النطق في «قلها».')
+      : err === 'signin' ? t('Please sign in again.', 'من فضلك سجّل الدخول مرة أخرى.')
+      : err === 'busy' ? t('Coco is very busy right now. Try again in a minute.', 'كوكو مشغول جداً الآن. حاول بعد دقيقة.')
+      : err === 'topic' ? t('Coco can only teach English topics — try another one!', 'كوكو بيشرح مواضيع الإنجليزي بس — جرّب موضوع تاني!')
+      : err === 'setup' ? t('Coco is still being set up by the academy. Try “Say it” for now!', 'الأكاديمية لسه بتجهّز كوكو. جرّب «قلها» دلوقتي!') +
+          (isAdmin() ? ' — ' + t('Admin: see AI-TUTOR.md to switch Coco on.', 'للمدير: افتح ملف AI-TUTOR.md لتفعيل كوكو.') : '')
+      : t('Oops, Coco lost the thread. Please try again.', 'حصل خطأ بسيط، حاول مرة أخرى.');
+  }
+  function cocoShowLeft(left){
+    if(typeof left === 'number') document.getElementById('cocoLeft').textContent = t(left + ' left today', 'متبقٍ ' + left + ' اليوم');
+  }
+
+  // ---- lessons: Coco explains a topic in four whiteboard steps ----
+  function cocoLessonHome(){
+    cocoLesson = null;
+    coco.classList.remove('lesson-active');
+    cocoLog.innerHTML = '';
+    const topics = COCO_TOPICS[cocoStage()] || COCO_TOPICS[0];
+    const done = cocoStore('lessons', []);
+    cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level — or type anything you want me to explain.', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك — أو اكتب أي حاجة عايزني أشرحها.')) + '</p>' +
+      '<div class="ctopics">' + topics.map(function(tp){
+        const seen = done.indexOf(tp) !== -1;
+        return '<button type="button" data-coco-topic="' + esc(tp) + '"' + (seen ? ' class="done"' : '') + '><bdi>' + esc(tp) + '</bdi>' + (seen ? ' ✓' : '') + '</button>';
+      }).join('') + '</div>');
+    cocoMood('happy');
+  }
+  function cocoStartLesson(topic){
+    topic = (topic || '').trim();
+    if(!topic) return;
+    if(!currentProfile){ cocoSignin(); return; }
+    cocoInput.value = '';
+    cocoLesson = { topic: topic, step: 0, history: [] };
+    coco.classList.add('lesson-active');
+    cocoLog.innerHTML = '';
+    cocoBubble('scene', '🧑‍🏫 <bdi>' + esc(topic) + '</bdi>');
+    cocoLessonStep();
+  }
+  async function cocoLessonStep(){
+    if(!cocoLesson || cocoBusy) return;
+    cocoLesson.step++;
+    cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
+    const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
+    const out = await cocoCall({ mode: 'lesson', level: cocoLevel(), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
+    wait.remove();
+    cocoBusy = false; cocoState('busy', false);
+    const d = out.data;
+    if(out.err || !d || !d.check){
+      cocoLesson.step--;
+      cocoMood('encouraging');
+      cocoBubble('bot err', '<p>' + esc(cocoErrText(out.err)) + '</p>' +
+        (out.err === 'limit' || out.err === 'setup' ? '' : '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-retry>' + t('Try again', 'حاول مرة أخرى') + '</button></div>'));
+      return;
+    }
+    cocoLesson.data = d;
+    cocoShowLeft(d.left);
+    const n = cocoLesson.step;
+    const card = cocoBubble('bot board', '<div class="cboard">' +
+      '<div class="cb-top"><span>' + t('Step', 'الخطوة') + ' <bdi dir="ltr">' + n + ' / 4</bdi></span><i>' + [1, 2, 3, 4].map(function(k){ return '<b class="' + (k < n ? 'done' : k === n ? 'now' : '') + '"></b>'; }).join('') + '</i></div>' +
+      '<h4 dir="ltr">' + esc(d.step_title) + '</h4>' +
+      '<p dir="ltr" class="cb-explain">' + esc(d.explain_en) + '</p>' +
+      '<div class="cmsg-tools"><button type="button" data-coco-play="' + esc(d.explain_en) + '" data-force="1">🔊 ' + t('Listen', 'استمع') + '</button>' +
+        '<button type="button" data-coco-ar>' + t('Arabic', 'عربي') + '</button></div>' +
+      '<p class="cmsg-ar" hidden>' + esc(d.explain_ar) + '</p>' +
+      (d.board ? '<div class="cb-rule" dir="ltr">' + esc(d.board).replace(/\n/g, '<br>') + '</div>' : '') +
+      (d.examples && d.examples.length ? '<ul class="cb-ex">' + d.examples.map(function(x){
+        return '<li><button type="button" data-coco-play="' + esc(x.en) + '" data-force="1" aria-label="' + t('Listen', 'استمع') + '">🔊</button><span><b dir="ltr">' + esc(x.en) + '</b><small>' + esc(x.ar) + '</small></span></li>';
+      }).join('') + '</ul>' : '') +
+      '</div>' +
+      '<div class="cquiz"><b>✋ ' + t('Quick check', 'سؤال سريع') + '</b><p dir="ltr">' + esc(d.check.question) + '</p>' +
+      '<div class="copts">' + d.check.options.map(function(o, k){ return '<button type="button" dir="ltr" data-coco-opt="' + k + '">' + esc(o) + '</button>'; }).join('') + '</div>' +
+      '<div class="cwhy" hidden></div></div>');
+    card.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    cocoMood('happy');
+    cocoSay(d.explain_en);
+  }
+  function cocoAnswer(btn){
+    const quiz = btn.closest('.cquiz'), d = cocoLesson && cocoLesson.data;
+    if(!d || quiz.dataset.answered) return;
+    quiz.dataset.answered = '1';
+    const k = parseInt(btn.dataset.cocoOpt, 10), right = k === d.check.answer_index;
+    quiz.querySelectorAll('[data-coco-opt]').forEach(function(b){
+      b.disabled = true;
+      if(parseInt(b.dataset.cocoOpt, 10) === d.check.answer_index) b.classList.add('right');
+    });
+    if(!right) btn.classList.add('wrong');
+    cocoLesson.history.push({ title: d.step_title, correct: right });
+    const last = cocoLesson.step >= 4;
+    const why = quiz.querySelector('.cwhy');
+    why.hidden = false;
+    why.innerHTML = '<p>' + (right ? '✅ ' + esc(t('Correct!', 'صح!')) : '💡 ' + esc(t('Not quite.', 'مش بالظبط.'))) + ' <span>' + esc(d.check.why_ar) + '</span></p>' +
+      '<button type="button" class="cbtn" data-coco-' + (last ? 'finish' : 'nextstep') + '>' + (last ? t('Finish the lesson 🎓', 'إنهاء الدرس 🎓') : t('Next step →', 'الخطوة التالية ←')) + '</button>';
+    cocoMood(right ? 'proud' : 'encouraging');
+    if(right) cocoStars(1);
+    cocoSay(right ? 'Correct! Well done.' : "Not quite. Let's look at it again.");
+  }
+  function cocoFinishLesson(){
+    const L = cocoLesson, d = L.data;
+    const score = L.history.filter(function(x){ return x.correct; }).length;
+    const done = cocoStore('lessons', []);
+    if(done.indexOf(L.topic) === -1){ done.push(L.topic); cocoSave('lessons', done); }
+    if(score === 4) cocoStars(2);
+    cocoBubble('bot done', '<div class="cdone"><span>🎓</span><b>' + esc(t('Lesson complete!', 'خلصت الدرس!')) + '</b><bdi>' + esc(L.topic) + '</bdi>' +
+      '<em dir="ltr">' + '★'.repeat(score) + '☆'.repeat(4 - score) + ' ' + score + ' / 4</em>' +
+      (d.recap_en ? '<p dir="ltr">' + esc(d.recap_en) + '</p>' : '') + '</div>' +
+      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-practise>💬 ' + t('Practise it with Coco', 'اتمرّن عليه مع كوكو') + '</button>' +
+      '<button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Another lesson', 'درس تاني') + '</button></div>');
+    coco.classList.remove('lesson-active');
+    cocoMood(score >= 3 ? 'proud' : 'encouraging');
+    cocoSay(score >= 3 ? 'Amazing work! Lesson complete.' : 'Lesson complete! Practice makes perfect.');
+  }
+
   // ---- talking to Coco (AI) ----
   async function cocoSend(text){
     text = (text || '').trim();
@@ -7905,44 +8085,27 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoTurns.push({ role: 'user', text: text });
     cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
     const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
-    let r = null, err = null;
-    try{
-      const res = await sb.functions.invoke('tutor', { body: { level: cocoLevel(), mode: cocoMode === 'play' ? 'roleplay' : 'talk', scene: cocoScene, turns: cocoTurns } });
-      if(res.error){
-        // 404 = the "tutor" function isn't deployed yet; no response at all = can't reach it
-        const ctx = res.error.context;
-        let code = ctx && ctx.status === 404 ? 'setup' : 'ai';
-        if(code === 'ai'){
-          try{ const b = await ctx.json(); code = b.error || code; }catch(e){ if(!ctx || !ctx.status) code = 'setup'; }
-        }
-        err = code;
-      } else r = res.data;
-    }catch(e){ err = 'setup'; }
+    const out = await cocoCall({ level: cocoLevel(), mode: cocoMode === 'play' ? 'roleplay' : 'talk', scene: cocoScene, turns: cocoTurns });
+    const r = out.data, err = out.err;
     wait.remove();
     cocoBusy = false; cocoState('busy', false);
     if(err || !r || !r.reply){
       cocoTurns.pop();
       cocoMood('encouraging');
-      const msg = err === 'limit' ? t("That's all for today — you used today's messages. Come back tomorrow! You can still practise in “Say it”.", 'خلصت رسائل النهارده — ارجع بكرة! وتقدر تتدرب على النطق في «قلها».')
-        : err === 'signin' ? t('Please sign in again.', 'من فضلك سجّل الدخول مرة أخرى.')
-        : err === 'busy' ? t('Coco is very busy right now. Try again in a minute.', 'كوكو مشغول جداً الآن. حاول بعد دقيقة.')
-        : err === 'setup' ? t('Coco is still being set up by the academy. Try “Say it” for now!', 'الأكاديمية لسه بتجهّز كوكو. جرّب «قلها» دلوقتي!') +
-            (isAdmin() ? ' — ' + t('Admin: see AI-TUTOR.md to switch Coco on.', 'للمدير: افتح ملف AI-TUTOR.md لتفعيل كوكو.') : '')
-        : t('Oops, Coco lost the thread. Please try again.', 'حصل خطأ بسيط، حاول مرة أخرى.');
-      cocoBubble('bot err', '<p>' + esc(msg) + '</p>');
+      cocoBubble('bot err', '<p>' + esc(cocoErrText(err)) + '</p>');
       return;
     }
     cocoTurns.push({ role: 'assistant', text: r.reply });
     cocoMood(r.mood || 'happy');
     cocoBubble('bot', cocoReplyHtml(r));
-    if(typeof r.left === 'number') document.getElementById('cocoLeft').textContent = t(r.left + ' left today', 'متبقٍ ' + r.left + ' اليوم');
+    cocoShowLeft(r.left);
     if(r.correction && !r.correction.has_mistake) cocoStars(1);
     cocoSay(r.reply);
   }
   function cocoSignin(){
     cocoLog.innerHTML = '';
-    cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 Sign in and I’ll chat with you in English, play real-life scenes and fix your mistakes kindly. You can try “Say it” right now — no account needed!',
-      'أهلاً! أنا كوكو 🤖 سجّل الدخول وهتكلم معاك بالإنجليزي، ونمثّل مواقف حقيقية، وأصحح أخطاءك بلطف. وتقدر تجرب «قلها» دلوقتي من غير حساب!')) + '</p>' +
+    cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 your English teacher. Sign in and I’ll explain any lesson step by step, chat with you, play real-life scenes and fix your mistakes kindly. You can try “Say it” right now — no account needed!',
+      'أهلاً! أنا كوكو 🤖 مدرّس الإنجليزي بتاعك. سجّل الدخول وأشرحلك أي درس خطوة بخطوة، ونتكلم، ونمثّل مواقف حقيقية، وأصحح أخطاءك بلطف. وتقدر تجرب «قلها» دلوقتي من غير حساب!')) + '</p>' +
       '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-login>' + t('Sign in', 'تسجيل الدخول') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Try “Say it”', 'جرّب «قلها»') + '</button></div>');
   }
 
@@ -7952,19 +8115,23 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(cocoRec) cocoRec.stop();
     coco.querySelectorAll('[data-coco-mode]').forEach(function(b){ if(b.closest('.coco-tabs')) b.classList.toggle('on', b.dataset.cocoMode === m); });
     coco.classList.toggle('say-mode', m === 'say');
+    coco.classList.remove('lesson-active');
+    cocoLesson = null;
     cocoLog.innerHTML = '';
     cocoTurns = []; cocoScene = null;
     cocoMood('happy');
     if(m === 'say'){ cocoRenderSay(); return; }
     if(!currentProfile){ cocoSignin(); return; }
+    cocoInput.placeholder = m === 'learn' ? t('Type a topic… e.g. past simple', 'اكتب موضوع… مثلاً past simple') : t('Write or speak in English…', 'اكتب أو اتكلم بالإنجليزي…');
+    if(m === 'learn'){ cocoLessonHome(); return; }
     if(m === 'play'){
       cocoBubble('bot', '<p>' + esc(t('Pick a scene and we’ll act it out together!', 'اختار موقف ونمثّله سوا!')) + '</p><div class="cscenes">' +
         COCO_SCENES.map(function(s){ return '<button type="button" data-coco-scene="' + s.id + '"><span>' + s.icon + '</span>' + esc(t(s.en, s.ar)) + '</button>'; }).join('') + '</div>');
       return;
     }
     const first = (currentProfile.full_name || '').split(' ')[0];
-    const hello = 'Hi' + (first ? ' ' + first : '') + "! I'm Coco, your English buddy. What did you do today?";
-    cocoBubble('bot', cocoReplyHtml({ reply: hello, reply_ar: 'أهلاً! أنا كوكو، صاحبك في الإنجليزي. عملت إيه النهارده؟' }));
+    const hello = 'Hi' + (first ? ' ' + first : '') + "! I'm Coco, your English teacher. Let's chat! What did you do today?";
+    cocoBubble('bot', cocoReplyHtml({ reply: hello, reply_ar: 'أهلاً! أنا كوكو، مدرّس الإنجليزي بتاعك. يلا نتكلم! عملت إيه النهارده؟' }));
     cocoTurns.push({ role: 'assistant', text: hello });
     cocoSay(hello);
   }
@@ -8008,7 +8175,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('cocoLevel').textContent = cocoLevel().replace(/ \(.*\)/, '');
     document.getElementById('cocoLeft').textContent = '';
     cocoJarCount();
-    if(!cocoLog.children.length) cocoSetMode(currentProfile ? 'talk' : 'say');
+    if(!cocoLog.children.length) cocoSetMode(currentProfile ? 'learn' : 'say');
     setTimeout(function(){ if(cocoMode !== 'say') cocoInput.focus(); }, 50);
   }
   function cocoClose(){
@@ -8024,9 +8191,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     this.textContent = cocoSpeak ? '🔊' : '🔇';
     if(!cocoSpeak && window.speechSynthesis) speechSynthesis.cancel();
   });
-  document.getElementById('cocoForm').addEventListener('submit', function(e){ e.preventDefault(); cocoSend(cocoInput.value); });
-  cocoInput.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); cocoSend(cocoInput.value); } });
-  cocoMic.addEventListener('click', function(){ cocoListen(function(txt){ cocoSend(txt); }); });
+  function cocoSubmit(text){ if(cocoMode === 'learn') cocoStartLesson(text); else cocoSend(text); }
+  document.getElementById('cocoForm').addEventListener('submit', function(e){ e.preventDefault(); cocoSubmit(cocoInput.value); });
+  cocoInput.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); cocoSubmit(cocoInput.value); } });
+  cocoMic.addEventListener('click', function(){ cocoListen(cocoSubmit); });
   if(!SpeechRec) cocoMic.hidden = true;
   document.getElementById('cocoJar').addEventListener('click', function(){
     const jar = cocoStore('jar', []);
@@ -8058,10 +8226,24 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     else if(b.hasAttribute('data-coco-sayrec')){ cocoListen(cocoScoreSay); }
     else if(b.hasAttribute('data-coco-next')){ cocoSayIdx++; cocoRenderSay(); cocoMood('happy'); }
     else if(b.hasAttribute('data-coco-login')){ cocoClose(); openAuth('login'); }
+    else if(b.dataset.cocoTopic){ cocoStartLesson(b.dataset.cocoTopic); }
+    else if(b.hasAttribute('data-coco-opt')){ cocoAnswer(b); }
+    else if(b.hasAttribute('data-coco-nextstep')){ b.disabled = true; cocoLessonStep(); }
+    else if(b.hasAttribute('data-coco-retry')){ b.closest('.cmsg').remove(); cocoLessonStep(); }
+    else if(b.hasAttribute('data-coco-finish')){ b.disabled = true; cocoFinishLesson(); }
+    else if(b.hasAttribute('data-coco-practise')){
+      const topic = cocoLesson ? cocoLesson.topic : '';
+      cocoSetMode('talk');
+      cocoLog.innerHTML = ''; cocoTurns = [];
+      const hello = "Let's practise " + topic.replace(/:.*$/, '') + "! Tell me something about your week and try to use it.";
+      cocoBubble('bot', cocoReplyHtml({ reply: hello }));
+      cocoTurns.push({ role: 'assistant', text: hello });
+      cocoSay(hello);
+    }
   });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !coco.hidden) cocoClose(); });
   // a new person signs in or out: start Coco fresh
-  window.__cocoReset = function(){ cocoLog.innerHTML = ''; cocoTurns = []; if(!coco.hidden) cocoSetMode(currentProfile ? 'talk' : 'say'); };
+  window.__cocoReset = function(){ cocoLog.innerHTML = ''; cocoTurns = []; cocoLesson = null; if(!coco.hidden) cocoSetMode(currentProfile ? 'learn' : 'say'); };
 
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
@@ -8786,8 +8968,8 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Every student moves from Level 1 to Level 14 in six stages. Each level has its own books, and its exam opens the next one.":"يتقدّم كل طالب من المستوى 1 حتى المستوى 14 عبر ست مراحل. لكل مستوى كتبه، وامتحانه يفتح المستوى التالي.",
     "Three levels of the program":"ثلاثة مستويات من البرنامج",
     "6 stages":"6 مراحل",
-    "Hi! Let’s talk in English":"أهلاً! يلا نتكلم إنجليزي",
-    "Your English buddy ·":"صاحبك في الإنجليزي ·",
+    "Hi! I’m Coco — want a lesson?":"أهلاً! أنا كوكو — تحب ناخد درس؟",
+    "Your English teacher ·":"مدرّس الإنجليزي بتاعك ·",
     "Talk":"كلام",
     "Role-play":"تمثيل مواقف",
     "Say it":"قلها",
@@ -8798,6 +8980,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "(25 SAR)":"(25 ريال)","(300 SAR)":"(300 ريال)","(500 SAR)":"(500 ريال)","(800 SAR)":"(800 ريال)","(1,500 SAR)":"(1,500 ريال)",
     "Save $27":"وفّر 27$",
     "about $22 a month":"حوالي 22$ في الشهر",
+    "Lesson":"درس",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
