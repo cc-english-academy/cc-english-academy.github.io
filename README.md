@@ -2,7 +2,7 @@
 
 Single-page website (`index.html`) with a Supabase backend for accounts, club libraries, level exams, live Zoom sessions, plans & payments, homework, video lessons, a parent portal and chat.
 
-**📘 Launch checklist (Arabic): [LAUNCH.md](LAUNCH.md)** — database setup, admin, email/SMTP, domain, backups, content and a pilot-test script.
+**📘 Launch checklist (Arabic): [LAUNCH.md](LAUNCH.md)** · **🤖 AI tutor setup (Arabic): [AI-TUTOR.md](AI-TUTOR.md)** — database setup, admin, email/SMTP, domain, backups, content and a pilot-test script.
 
 Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icons) · `supabase/schema.sql` (database) · `privacy.html`, `terms.html` (legal templates) · `manifest.webmanifest`.
 
@@ -60,5 +60,8 @@ and keeps the original name in `materials.file_name`, which is used as the downl
 - Search, "NEW" and "READ" badges, teacher delete
 - Reading streak 🔥 with a 7-day strip, and a weekly top-readers leaderboard per club
 - Live toasts when a teacher uploads a book or sends an announcement
+- Coco, the robot English buddy: talk and role-play with Claude through the `tutor` Edge Function (`supabase/functions/tutor`), gentle corrections in Arabic, new-word jar, browser voice in and out; pronunciation practice ("Say it") works with no AI and no account
+- Sign in with email or phone number (the password is checked in the database before the account's email is used)
+- Prices shown in US dollars with riyals in brackets (payment amounts stay in riyals)
 - Free placement test: adaptive, 86-question bank, different questions on every attempt
 - Exams graded on the server (falls back to the old in-browser grading until `schema.sql` is installed)

@@ -119,6 +119,8 @@ alter table public.notifications  add column if not exists created_at timestampt
 alter table public.profiles add column if not exists link_code text;   -- students share it with their parents
 alter table public.profiles add column if not exists avatar_color text;
 create unique index if not exists profiles_link_code_idx on public.profiles (link_code);
+alter table public.profiles add column if not exists phone text; -- digits only, e.g. 966512345678; used to sign in by phone
+create unique index if not exists profiles_phone_key on public.profiles (phone) where phone is not null and phone <> '';
 alter table public.profiles add column if not exists teacher_request boolean not null default false; -- signed up as a teacher, waiting for the admin
 alter table public.profiles drop constraint if exists profiles_role_check;
 alter table public.profiles add constraint profiles_role_check
@@ -479,6 +481,12 @@ begin
   on conflict (id) do nothing;
   if new.raw_user_meta_data->>'role' = 'teacher' then
     update public.profiles set teacher_request = true where id = new.id;
+  end if;
+  if coalesce(new.raw_user_meta_data->>'phone', '') <> '' then
+    begin
+      update public.profiles set phone = regexp_replace(new.raw_user_meta_data->>'phone', '\D', '', 'g') where id = new.id;
+    exception when unique_violation then null; -- the number already belongs to another account
+    end;
   end if;
   return new;
 end $$;
@@ -1107,6 +1115,67 @@ language sql stable security definer set search_path = public as $$
    order by s.starts_at
    limit least(greatest(coalesce(p_limit, 3), 1), 6);
 $$;
+
+-- ----- sign in with a phone number -----
+-- The password is checked here first, so the account's email is only returned to someone who
+-- already knows the password (a phone number alone never reveals an email). Attempts per number
+-- are limited to slow down guessing.
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
+create table if not exists public.phone_login_attempts (
+  phone   text not null,
+  at      timestamptz not null default now()
+);
+create index if not exists phone_login_attempts_idx on public.phone_login_attempts (phone, at desc);
+alter table public.phone_login_attempts enable row level security; -- no policies: only the function below uses it
+
+create or replace function public.phone_login_email(p_phone text, p_password text)
+returns text language plpgsql security definer set search_path = public, extensions as $$
+declare
+  v_phone text := regexp_replace(coalesce(p_phone, ''), '\D', '', 'g');
+  v_email text; v_hash text;
+begin
+  if length(v_phone) < 7 or coalesce(p_password, '') = '' then return null; end if;
+  if (select count(*) from public.phone_login_attempts where phone = v_phone and at > now() - interval '15 minutes') >= 8 then
+    raise exception 'Too many attempts — please wait a few minutes and try again';
+  end if;
+  insert into public.phone_login_attempts (phone) values (v_phone);
+  delete from public.phone_login_attempts where at < now() - interval '1 day';
+  select u.email, u.encrypted_password into v_email, v_hash
+    from public.profiles p join auth.users u on u.id = p.id
+   where p.phone = v_phone limit 1;
+  if v_hash is null or extensions.crypt(p_password, v_hash) <> v_hash then return null; end if;
+  return v_email;
+end $$;
+revoke all on function public.phone_login_email(text, text) from public;
+grant execute on function public.phone_login_email(text, text) to anon, authenticated;
+
+-- ----- AI tutor: a daily message allowance per person -----
+create table if not exists public.ai_usage (
+  user_id  uuid not null references public.profiles(id) on delete cascade,
+  day      date not null default current_date,
+  count    int  not null default 0,
+  primary key (user_id, day)
+);
+alter table public.ai_usage enable row level security;
+drop policy if exists "ai_usage: own" on public.ai_usage;
+create policy "ai_usage: own" on public.ai_usage for select using (user_id = auth.uid());
+
+-- uses one message from today's allowance and returns how many are left (-1 = none left)
+create or replace function public.ai_take_turn()
+returns int language plpgsql security definer set search_path = public as $$
+declare v_limit int; v_count int;
+begin
+  if auth.uid() is null then raise exception 'Please sign in first'; end if;
+  v_limit := case when public.is_teacher() then 200 when public.has_active_plan(auth.uid()) then 40 else 8 end;
+  insert into public.ai_usage (user_id, day, count) values (auth.uid(), current_date, 0)
+  on conflict (user_id, day) do nothing;
+  select count into v_count from public.ai_usage where user_id = auth.uid() and day = current_date for update;
+  if v_count >= v_limit then return -1; end if;
+  update public.ai_usage set count = count + 1 where user_id = auth.uid() and day = current_date;
+  return v_limit - v_count - 1;
+end $$;
+grant execute on function public.ai_take_turn() to authenticated;
 
 -- numbers for the admin / teacher overview
 create or replace function public.academy_stats()
