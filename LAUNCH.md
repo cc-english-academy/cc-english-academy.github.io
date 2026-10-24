@@ -24,8 +24,8 @@ Supabase ← **Authentication** ← **URL Configuration**:
 
 | الحقل | القيمة |
 |---|---|
-| **Site URL** | `https://engalaasabry40-maker.github.io/code-cademy/` (أو الدومين الخاص لما تشتريه) |
-| **Redirect URLs** | نفس الرابط، وكمان `https://engalaasabry40-maker.github.io/code-cademy/*` |
+| **Site URL** | `https://codecademy-academy.github.io/` (أو الدومين الخاص لما تشتريه) |
+| **Redirect URLs** | نفس الرابط، وكمان `https://codecademy-academy.github.io/*` |
 
 لو الخطوة دي اتنسيت، رابط استعادة كلمة المرور هيفتح صفحة غلط.
 
@@ -67,7 +67,7 @@ Supabase ← **Authentication** ← **URL Configuration**:
    - ⚠️ اسم **Codecademy** علامة تجارية لشركة أمريكية مشهورة. يُفضّل تتأكد إن اسم «Code Cademy» مش هيعمل مشكلة، أو تختار دومين مميز زي اسم الأكاديمية بالعربي.
 2. عند شركة الدومين، أضف السجلات دي:
    - 4 سجلات **A** على `185.199.108.153` و`185.199.109.153` و`185.199.110.153` و`185.199.111.153`.
-   - سجل **CNAME** لـ `www` يشاور على `engalaasabry40-maker.github.io`.
+   - سجل **CNAME** لـ `www` يشاور على `codecademy-academy.github.io`.
 3. GitHub ← المستودع ← **Settings** ← **Pages** ← **Custom domain**: اكتب الدومين، وبعدين فعّل **Enforce HTTPS**.
 4. ابعتلي الدومين، وأنا أغيّر الروابط في `index.html` (`canonical` و`og:url` و`og:image`).
 5. حدّث **Site URL** في المرحلة ٢ بالدومين الجديد.
