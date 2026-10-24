@@ -15,27 +15,41 @@
 
 ## الخطوة ١: مفتاح Claude (من Anthropic)
 1. ادخلي [console.anthropic.com](https://console.anthropic.com) واعملي حساب.
-2. من **Billing** اشحني رصيد. ٥ أو ١٠ دولار كفاية للتجربة.
-3. من **API Keys** ← **Create Key**، سمّيه `code-cademy-tutor` وانسخيه. بيبدأ بـ `sk-ant-`.
+2. من **Settings** ← **Billing** ← **Buy credits** اشحني رصيد. ٥ أو ١٠ دولار كفاية للتجربة.
+3. من **API Keys** ← **Create Key**، سمّيه `code-cademy-tutor` وانسخيه فوراً. بيبدأ بـ `sk-ant-`، وبيظهر مرة واحدة بس.
 
-> ⚠️ المفتاح ده سري. متبعتيهوش لحد ولا تحطيه في الموقع. مكانه الوحيد في Supabase (الخطوة ٢).
+## الخطوة ٢: مفتاح Supabase للنشر
+1. افتحي [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens).
+2. اضغطي **Generate new token**، وسمّيه `github-deploy-coco`، وانسخيه. بيبدأ بـ `sbp_`.
 
-## الخطوة ٢: حطي المفتاح في Supabase
-Supabase ← مشروعك ← **Edge Functions** ← **Secrets** ← **Add new secret**:
-- **Name:** `ANTHROPIC_API_KEY`
-- **Value:** المفتاح اللي نسختيه، وبعدين **Save**.
+## الخطوة ٣: حطي المفتاحين في GitHub
+GitHub ← المستودع ← **Settings** ← **Secrets and variables** ← **Actions** ← **New repository secret**، مرتين:
 
-## الخطوة ٣: انشري «عقل» كوكو (Edge Function)
-1. Supabase ← **Edge Functions** ← **Deploy a new function** ← **Via Editor**.
-2. **اسم الدالة لازم يكون بالظبط:** `tutor`
-3. امسحي الكود اللي في المحرر، والصقي محتوى الملف `supabase/functions/tutor/index.ts` من المستودع على GitHub كله.
-4. اضغطي **Deploy**، واستني لحد ما يظهر إنه اتنشر.
+| Name (اكتبيه بالظبط) | Secret |
+|---|---|
+| `ANTHROPIC_API_KEY` | مفتاح `sk-ant-` من الخطوة ١ |
+| `SUPABASE_ACCESS_TOKEN` | مفتاح `sbp_` من الخطوة ٢ |
 
-## الخطوة ٤: قاعدة البيانات
+## الخطوة ٤: شغّلي النشر
+GitHub ← **Actions** ← **Deploy Coco** ← **Run workflow** ← **Run workflow**.
+
+بعد دقيقة أو اتنين لازم تظهر ✅ خضرا. GitHub بيحط مفتاح Claude في Supabase، وبينشر «عقل» كوكو لوحده. ومن هنا ورايح، أي تحديث لكوكو بيتنشر أوتوماتيك.
+
+> ⚠️ المفتاحين دول سريين. مكانهم GitHub Secrets بس، ومحدش يقدر يشوفهم من هناك. متبعتيهومش في رسائل ولا تحطيهم في الموقع.
+
+## الخطوة ٥: قاعدة البيانات
 شغّلي `supabase/schema.sql` كله في **SQL Editor** لو لسه ما شغلتيهوش بعد آخر تحديث. ده بيضيف عدّاد الرسائل اليومي.
 
-## الخطوة ٥: جربي
-افتحي الموقع وسجّلي دخول، واضغطي على الروبوت في الزاوية ← **درس** ← اختاري أي درس. المفروض تظهر السبورة بالشرح. وجربي كمان **كلام** ← اكتبي `I go to park yesterday`، والمفروض كوكو يرد ويصحح الجملة.
+## الخطوة ٦: جربي
+افتحي الموقع واعملي **Ctrl + F5** وسجّلي دخول، واضغطي على الروبوت في الزاوية ← **درس** ← اختاري أي درس. المفروض تظهر السبورة بالشرح. وجربي كمان **كلام** ← اكتبي `I go to park yesterday`، والمفروض كوكو يرد ويصحح الجملة.
+
+<details>
+<summary>طريقة يدوية بديلة (من غير GitHub)</summary>
+
+1. Supabase ← **Edge Functions** ← **Secrets**: أضيفي `ANTHROPIC_API_KEY` = مفتاح Claude.
+2. Supabase ← **Edge Functions** ← **Deploy a new function** ← **Via Editor**: الاسم `tutor`، والصقي محتوى `supabase/functions/tutor/index.ts`، وبعدين **Deploy**.
+3. كرّري الخطوة ٢ دي يدوياً مع كل تحديث لكوكو.
+</details>
 
 ---
 
@@ -53,7 +67,8 @@ Supabase ← مشروعك ← **Edge Functions** ← **Secrets** ← **Add new s
 ## أسئلة
 | الموقف | الحل |
 |---|---|
-| كوكو بيقول «الأكاديمية لسه بتجهّز كوكو» | الدالة `tutor` مش منشورة، أو اسمها مختلف. راجعي الخطوة ٣ |
+| كوكو بيقول «الأكاديمية لسه بتجهّز كوكو» | كوكو لسه متنشرش. راجعي الخطوة ٤، واتأكدي إن **Deploy Coco** طلعت ✅ |
+| **Deploy Coco** طلعت ❌ | ابعتي صورة السجل لمطوّر الموقع. غالباً المفتاح `SUPABASE_ACCESS_TOKEN` اتنسخ ناقص |
 | بيقول «حصل خطأ بسيط» على طول | غالباً المفتاح غلط أو الرصيد خلص. راجعي الخطوة ١ و٢ |
 | الطالب مش قادر يتكلم بالمايك | الصوت شغال على Chrome وEdge وSafari، ولازم الطالب يسمح للموقع باستخدام الميكروفون. ويقدر دايماً يكتب بدل ما يتكلم |
 | صوت كوكو مش طالع | زرار 🔊 فوق في نافذة كوكو بيشغّل الصوت ويقفله |
