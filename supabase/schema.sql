@@ -82,6 +82,7 @@ alter table public.materials      add column if not exists created_at  timestamp
 alter table public.materials      add column if not exists file_name   text;
 alter table public.materials      add column if not exists file_size   bigint;
 alter table public.materials      add column if not exists mime_type   text;
+alter table public.materials      add column if not exists guide       jsonb; -- Coco's explanation of the book, written by a teacher
 -- full books live in the private 'books' bucket; a free preview (first pages) stays public
 alter table public.materials      add column if not exists bucket        text not null default 'materials';
 alter table public.materials      add column if not exists preview_path  text;
