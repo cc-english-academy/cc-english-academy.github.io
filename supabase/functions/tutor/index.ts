@@ -9,7 +9,10 @@ import Anthropic from "npm:@anthropic-ai/sdk@1.3.0";
 import { betaTool } from "npm:@anthropic-ai/sdk@1.3.0/helpers/beta/json-schema";
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
 
-const MODEL = Deno.env.get("TUTOR_MODEL") || "claude-opus-5-5";
+// Haiku: fast and low-cost (about 40 times cheaper than Opus). Set the TUTOR_MODEL secret to "claude-opus-5-5" for richer answers.
+const MODEL = Deno.env.get("TUTOR_MODEL") || "claude-haiku-5-5";
+// Opus can fall back to another model when it is busy; Haiku has no server-side fallback and rejects the setting
+const FALLBACK = MODEL.startsWith("claude-haiku") ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" };
 const anthropic = new Anthropic(); // reads ANTHROPIC_API_KEY
 
 const CORS = {
@@ -150,8 +153,7 @@ async function lesson(supabase: any, body: any) {
       system: LESSON_SYSTEM,
       messages: [{ role: "user", content: ask }],
       output_config: { effort: "low", format: { type: "json_schema", schema: LESSON_SCHEMA } },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      ...FALLBACK,
     } as any);
     if (response.stop_reason === "refusal") return json({ error: "topic" }, 422);
     const text = response.content.filter((b: any) => b.type === "text").map((b: any) => b.text).join("");
@@ -474,8 +476,7 @@ async function assistant(supabase: any, userId: string, body: any) {
       tools: assistantTools(c),
       messages: turns,
       output_config: { effort: "low" },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      ...FALLBACK,
     } as any);
     const text = final.stop_reason === "refusal"
       ? "Sorry, I can't help with that one. Ask me anything about English or the academy! 🙂"
@@ -527,8 +528,7 @@ Deno.serve(async (req) => {
       system: SYSTEM + "\n\n" + context,
       messages: turns.map((t) => ({ role: t.role, content: t.text })),
       output_config: { effort: "low", format: { type: "json_schema", schema: SCHEMA } },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      ...FALLBACK,
     } as any);
 
     if (response.stop_reason === "refusal") {
