@@ -1,0 +1,662 @@
+{
+ "Third conditional: If I had known…": [
+  {
+   "step_title": "Imagining a different past",
+   "explain_en": "We use the third conditional to imagine a different past — things that did not happen — and their imaginary results: “If I had left earlier, I would have caught the train.”",
+   "explain_ar": "بنستخدم الشرط التالت عشان نتخيل ماضي مختلف (حاجات ما حصلتش) ونتيجتها الخيالية: “If I had left earlier, I would have caught the train.”",
+   "board": "past that didn’t happen → imaginary past result",
+   "examples": [
+    {
+     "en": "If you had told me, I would have helped.",
+     "ar": "لو كنت قلتلي كنت ساعدتك."
+    },
+    {
+     "en": "We would have won if we had played better.",
+     "ar": "كنا كسبنا لو كنا لعبنا أحسن."
+    }
+   ],
+   "check": {
+    "question": "Which sentence talks about an imaginary past?",
+    "options": [
+     "If I study, I’ll pass.",
+     "If I had studied, I would have passed.",
+     "If I studied, I would pass."
+    ],
+    "answer_index": 1,
+    "why_ar": "had studied … would have passed = ماضي ما حصلش."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "The form",
+   "explain_en": "Use if + past perfect (had + past participle), then would have + past participle.",
+   "explain_ar": "if + ماضي تام (had + تصريف تالت)، وبعدين would have + تصريف تالت.",
+   "board": "If + had done, … would have done",
+   "examples": [
+    {
+     "en": "If she had seen the sign, she would have stopped.",
+     "ar": "لو كانت شافت الإشارة كانت وقفت."
+    },
+    {
+     "en": "I would have called you if I had had your number.",
+     "ar": "كنت كلمتك لو كان معايا رقمك."
+    }
+   ],
+   "check": {
+    "question": "If they ___ the bus, they wouldn’t have been late.",
+    "options": [
+     "caught",
+     "had caught",
+     "would catch"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد if في الشرط التالت: had + caught."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Regrets and criticism",
+   "explain_en": "We often use it to talk about regrets: “If I hadn’t eaten so much, I wouldn’t have felt sick.” Short forms are common in speech: I’d have, she wouldn’t have.",
+   "explain_ar": "بنستخدمه كتير للندم: “If I hadn’t eaten so much, I wouldn’t have felt sick.” وفي الكلام بنختصر: I’d have.",
+   "board": "If I hadn’t …, I wouldn’t have …",
+   "examples": [
+    {
+     "en": "If I hadn’t missed the alarm, I’d have arrived on time.",
+     "ar": "لو ما كانش المنبه فاتني كنت وصلت في معادي."
+    },
+    {
+     "en": "He wouldn’t have failed if he’d revised.",
+     "ar": "ماكانش هيسقط لو كان راجع."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "If I would have known, I would have come.",
+     "If I had known, I would have come.",
+     "If I knew, I would have came."
+    ],
+    "answer_index": 1,
+    "why_ar": "ماينفعش would بعد if، والصح had known."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "could have and might have",
+   "explain_en": "Instead of would have, use “could have” for possibility or ability and “might have” for something less certain: “If we had taken a taxi, we might have arrived sooner.”",
+   "explain_ar": "بدل would have ممكن could have (كان ممكن/كان هيقدر) أو might have (يمكن كان): “… we might have arrived sooner.”",
+   "board": "could have / might have + past participle",
+   "examples": [
+    {
+     "en": "If you had asked, I could have lent you money.",
+     "ar": "لو كنت طلبت كنت قدرت أسلفك."
+    },
+    {
+     "en": "If it hadn’t rained, the match might have been better.",
+     "ar": "لو ما كانتش مطرت يمكن الماتش كان أحسن."
+    }
+   ],
+   "check": {
+    "question": "If I had trained harder, I ___ the race.",
+    "options": [
+     "could have won",
+     "could win",
+     "can have won"
+    ],
+    "answer_index": 0,
+    "why_ar": "نتيجة ممكنة في ماضي خيالي → could have won."
+   },
+   "recap_en": "Use if + had + past participle with would, could or might have + past participle to imagine a different past, often to express regret."
+  }
+ ],
+ "Past perfect: I had already eaten": [
+  {
+   "step_title": "The earlier past",
+   "explain_en": "We use the past perfect to show that one past action happened before another past action: “When I arrived, the film had started.”",
+   "explain_ar": "بنستخدم الماضي التام عشان نوضح إن حاجة حصلت قبل حاجة تانية في الماضي: “When I arrived, the film had started.”",
+   "board": "earlier past → had done · later past → did",
+   "examples": [
+    {
+     "en": "When we got to the station, the train had left.",
+     "ar": "لما وصلنا المحطة كان القطر مشي."
+    },
+    {
+     "en": "She was tired because she had worked all day.",
+     "ar": "كانت تعبانة لأنها اشتغلت طول اليوم."
+    }
+   ],
+   "check": {
+    "question": "Which action happened first? “When I got home, my family had eaten.”",
+    "options": [
+     "I got home",
+     "My family ate",
+     "Both at the same time"
+    ],
+    "answer_index": 1,
+    "why_ar": "had eaten هو اللي حصل الأول."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "had + past participle",
+   "explain_en": "Make it with “had” (for everyone) + the past participle: had gone, had seen, had finished.",
+   "explain_ar": "had مع كل الضماير + التصريف التالت: had gone وhad seen وhad finished.",
+   "board": "had + past participle",
+   "examples": [
+    {
+     "en": "I had never seen the sea before that trip.",
+     "ar": "عمري ما كنت شفت البحر قبل الرحلة دي."
+    },
+    {
+     "en": "They had already eaten when we arrived.",
+     "ar": "كانوا أكلوا خلاص لما وصلنا."
+    }
+   ],
+   "check": {
+    "question": "By 9 pm, she ___ her homework.",
+    "options": [
+     "has finished",
+     "had finished",
+     "finished had"
+    ],
+    "answer_index": 1,
+    "why_ar": "حاجة خلصت قبل وقت في الماضي → had finished."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Making the order clear",
+   "explain_en": "Compare: “When I arrived, the meeting started” (I arrived, then it started) and “When I arrived, the meeting had started” (it started before I arrived).",
+   "explain_ar": "قارن: “the meeting started” = الاجتماع بدأ بعد ما وصلت. و“the meeting had started” = كان بدأ قبل ما أوصل.",
+   "board": "started (after) ≠ had started (before)",
+   "examples": [
+    {
+     "en": "When the police came, the thief had escaped.",
+     "ar": "لما البوليس جه كان الحرامي هرب."
+    },
+    {
+     "en": "After I had finished, I went out.",
+     "ar": "بعد ما خلصت خرجت."
+    }
+   ],
+   "check": {
+    "question": "“When I opened the fridge, the milk ___ bad.” (It was already bad.)",
+    "options": [
+     "went",
+     "had gone",
+     "has gone"
+    ],
+    "answer_index": 1,
+    "why_ar": "كان باظ قبل ما أفتح → had gone."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Stories with already, just, by the time",
+   "explain_en": "The past perfect makes stories clearer with words like already, just, never, before and by the time: “By the time the guests arrived, we had cooked everything.”",
+   "explain_ar": "الماضي التام بيوضح الحكايات مع already وjust وnever وby the time: “By the time the guests arrived, we had cooked everything.”",
+   "board": "by the time + past simple, … had done",
+   "examples": [
+    {
+     "en": "I had just sat down when the phone rang.",
+     "ar": "لسه كنت قاعد لما التليفون رن."
+    },
+    {
+     "en": "By the time I woke up, everyone had left.",
+     "ar": "لما صحيت كان الكل مشي."
+    }
+   ],
+   "check": {
+    "question": "By the time we arrived, the shop ___.",
+    "options": [
+     "closed already",
+     "had already closed",
+     "has already closed"
+    ],
+    "answer_index": 1,
+    "why_ar": "المحل قفل قبل وصولنا → had already closed."
+   },
+   "recap_en": "Use had + past participle for the earlier of two past actions. It makes the order of events clear, especially with already, just and by the time."
+  }
+ ],
+ "I wish / If only": [
+  {
+   "step_title": "Wishes about now",
+   "explain_en": "Use “I wish” + past simple for things you want to be different now: “I wish I had a bigger room.” (But I don’t.)",
+   "explain_ar": "I wish + ماضي بسيط لحاجات نفسك تبقى مختلفة دلوقتي: “I wish I had a bigger room.” (بس معنديش).",
+   "board": "I wish + past simple = نفسي (دلوقتي)",
+   "examples": [
+    {
+     "en": "I wish I lived near the beach.",
+     "ar": "نفسي أسكن جنب البحر."
+    },
+    {
+     "en": "I wish I were taller.",
+     "ar": "نفسي أبقى أطول."
+    }
+   ],
+   "check": {
+    "question": "“I don’t speak Chinese.” → “I wish I ___ Chinese.”",
+    "options": [
+     "speak",
+     "spoke",
+     "will speak"
+    ],
+    "answer_index": 1,
+    "why_ar": "أمنية عن الحاضر → ماضي بسيط spoke."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Wishes about the past",
+   "explain_en": "Use “I wish” + past perfect for regrets about the past: “I wish I had studied harder.” (But I didn’t.)",
+   "explain_ar": "I wish + ماضي تام للندم على الماضي: “I wish I had studied harder.” (بس ما ذاكرتش).",
+   "board": "I wish + had done = ياريتني كنت",
+   "examples": [
+    {
+     "en": "I wish I hadn’t said that.",
+     "ar": "ياريتني ما كنت قلت كده."
+    },
+    {
+     "en": "She wishes she had gone to the party.",
+     "ar": "نفسها لو كانت راحت الحفلة."
+    }
+   ],
+   "check": {
+    "question": "“I didn’t bring my umbrella.” → “I wish I ___ my umbrella.”",
+    "options": [
+     "brought",
+     "had brought",
+     "bring"
+    ],
+    "answer_index": 1,
+    "why_ar": "ندم على الماضي → had brought."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "wish + would",
+   "explain_en": "Use “wish + would” to complain about someone else’s annoying behaviour or to want a change: “I wish you would stop talking!” Not for yourself: “I wish I would…” is wrong.",
+   "explain_ar": "wish + would للشكوى من تصرف حد تاني أو لما عايزه يتغير: “I wish you would stop talking!” ومش بنقول “I wish I would”.",
+   "board": "I wish you / he / it would …",
+   "examples": [
+    {
+     "en": "I wish it would stop raining.",
+     "ar": "ياريت المطر يبطل."
+    },
+    {
+     "en": "I wish my brother would tidy his room.",
+     "ar": "ياريت أخويا يروّق أوضته."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "I wish I would be rich.",
+     "I wish I were rich.",
+     "I wish I am rich."
+    ],
+    "answer_index": 1,
+    "why_ar": "لنفسك في الحاضر → were، مش would."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "If only",
+   "explain_en": "“If only” is a stronger, more emotional way to say “I wish”: “If only I had more time!” “If only I hadn’t lost my phone!”",
+   "explain_ar": "If only طريقة أقوى وأكتر إحساس من I wish: “If only I had more time!”",
+   "board": "If only + past (now) / had done (past)",
+   "examples": [
+    {
+     "en": "If only I knew the answer!",
+     "ar": "ياريتني كنت عارف الإجابة!"
+    },
+    {
+     "en": "If only we had left earlier!",
+     "ar": "ياريتنا كنا مشينا بدري!"
+    }
+   ],
+   "check": {
+    "question": "“If only I ___ to her before she left.” (I didn’t.)",
+    "options": [
+     "spoke",
+     "had spoken",
+     "speak"
+    ],
+    "answer_index": 1,
+    "why_ar": "ندم على الماضي → had spoken."
+   },
+   "recap_en": "Use wish or if only + past simple for wishes about now, + past perfect for regrets about the past, and + would to want someone else to change."
+  }
+ ],
+ "however / although / despite": [
+  {
+   "step_title": "Showing contrast",
+   "explain_en": "These words show a contrast between two ideas: “It was cold. However, we went swimming.” They help your speaking and writing sound connected and clear.",
+   "explain_ar": "الكلمات دي بتوضح تناقض بين فكرتين: “It was cold. However, we went swimming.” وبتخلي كلامك وكتابتك مترابطة.",
+   "board": "idea A — but — idea B",
+   "examples": [
+    {
+     "en": "The test was hard. However, I passed.",
+     "ar": "الامتحان كان صعب، ومع ذلك نجحت."
+    },
+    {
+     "en": "Although it was late, we kept working.",
+     "ar": "رغم إن الوقت كان متأخر كملنا شغل."
+    }
+   ],
+   "check": {
+    "question": "Which word shows contrast?",
+    "options": [
+     "because",
+     "however",
+     "so"
+    ],
+    "answer_index": 1,
+    "why_ar": "however بتبين تناقض (ومع ذلك)."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "although + a sentence",
+   "explain_en": "“Although” (or “even though”) is followed by a full sentence with a subject and verb: “Although it rained, the match continued.”",
+   "explain_ar": "although أو even though بييجي بعدها جملة كاملة فيها فاعل وفعل: “Although it rained, the match continued.”",
+   "board": "although + subject + verb",
+   "examples": [
+    {
+     "en": "Although he is rich, he lives simply.",
+     "ar": "رغم إنه غني بيعيش ببساطة."
+    },
+    {
+     "en": "I enjoyed the film even though it was long.",
+     "ar": "الفيلم عجبني رغم إنه كان طويل."
+    }
+   ],
+   "check": {
+    "question": "___ she was tired, she finished the report.",
+    "options": [
+     "Despite",
+     "Although",
+     "However"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعدها جملة كاملة (she was tired) → Although."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "despite + noun or -ing",
+   "explain_en": "“Despite” and “in spite of” are followed by a noun or -ing, not a full sentence: “Despite the rain…”, “Despite feeling ill, she came.”",
+   "explain_ar": "despite وin spite of بييجي بعدهم اسم أو ing، مش جملة كاملة: “Despite the rain” و“Despite feeling ill”.",
+   "board": "despite + noun / -ing",
+   "examples": [
+    {
+     "en": "Despite the traffic, we arrived on time.",
+     "ar": "رغم الزحمة وصلنا في المعاد."
+    },
+    {
+     "en": "In spite of losing, they smiled.",
+     "ar": "رغم إنهم خسروا ابتسموا."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "Despite it was cold, we went out.",
+     "Despite the cold, we went out.",
+     "Despite of the cold, we went out."
+    ],
+    "answer_index": 1,
+    "why_ar": "despite + اسم (the cold)، ومن غير of."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "however and punctuation",
+   "explain_en": "“However” usually starts a new sentence and is followed by a comma: “The hotel was expensive. However, it was very clean.” Don’t join two sentences with just a comma and however.",
+   "explain_ar": "however غالباً بتبدأ جملة جديدة وبعدها فاصلة: “… expensive. However, it was very clean.”",
+   "board": "Sentence. However, sentence.",
+   "examples": [
+    {
+     "en": "I wanted to go. However, I was too busy.",
+     "ar": "كنت عايز أروح، لكن كنت مشغول جداً."
+    },
+    {
+     "en": "The plan is good. However, it is expensive.",
+     "ar": "الخطة كويسة، لكنها غالية."
+    }
+   ],
+   "check": {
+    "question": "Best punctuation:",
+    "options": [
+     "It was cheap, however it broke.",
+     "It was cheap. However, it broke.",
+     "It was cheap however, it broke."
+    ],
+    "answer_index": 1,
+    "why_ar": "however في أول جملة جديدة وبعدها فاصلة."
+   },
+   "recap_en": "Use although + a sentence, despite + a noun or -ing, and however at the start of a new sentence with a comma to show contrast."
+  }
+ ],
+ "must have / can’t have": [
+  {
+   "step_title": "Guessing about the past",
+   "explain_en": "We use must have, can’t have and might have to make guesses (deductions) about the past based on evidence: “The streets are wet. It must have rained.”",
+   "explain_ar": "بنستخدم must have وcan’t have وmight have عشان نستنتج حاجة حصلت في الماضي من دليل: “The streets are wet. It must have rained.”",
+   "board": "modal + have + past participle",
+   "examples": [
+    {
+     "en": "She’s smiling — she must have passed.",
+     "ar": "هي مبتسمة — أكيد نجحت."
+    },
+    {
+     "en": "He can’t have seen us; he didn’t wave.",
+     "ar": "مستحيل يكون شافنا، ما شاورش."
+    }
+   ],
+   "check": {
+    "question": "“The ground is wet.” Best guess:",
+    "options": [
+     "It must rain.",
+     "It must have rained.",
+     "It must rained."
+    ],
+    "answer_index": 1,
+    "why_ar": "استنتاج عن الماضي → must have + rained."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "must have: almost sure",
+   "explain_en": "“Must have + past participle” means you are almost sure something happened: “You must have been tired after the trip.”",
+   "explain_ar": "must have + تصريف تالت = متأكد تقريباً إنها حصلت: “You must have been tired after the trip.”",
+   "board": "must have done = أكيد حصل",
+   "examples": [
+    {
+     "en": "They must have left already — the lights are off.",
+     "ar": "أكيد مشيوا — النور مطفي."
+    },
+    {
+     "en": "You must have worked hard.",
+     "ar": "أكيد اشتغلت جامد."
+    }
+   ],
+   "check": {
+    "question": "“Sara got 100%.” — “She ___ very hard.”",
+    "options": [
+     "must study",
+     "must have studied",
+     "can’t have studied"
+    ],
+    "answer_index": 1,
+    "why_ar": "متأكدين إنها ذاكرت → must have studied."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "can’t have: almost impossible",
+   "explain_en": "“Can’t have” (or couldn’t have) means you are almost sure something did NOT happen. Don’t use “mustn’t have” for this meaning.",
+   "explain_ar": "can’t have أو couldn’t have = متأكد إنها ما حصلتش. وماينفعش mustn’t have بالمعنى ده.",
+   "board": "can’t have done = مستحيل يكون حصل",
+   "examples": [
+    {
+     "en": "He can’t have finished already — he started five minutes ago.",
+     "ar": "مستحيل يكون خلص — لسه بادئ من خمس دقايق."
+    },
+    {
+     "en": "She couldn’t have known about the party.",
+     "ar": "ماكانتش ممكن تعرف عن الحفلة."
+    }
+   ],
+   "check": {
+    "question": "“I saw Ali in Cairo at 5.” — “He ___ been in Riyadh then.”",
+    "options": [
+     "must have",
+     "can’t have",
+     "mustn’t have"
+    ],
+    "answer_index": 1,
+    "why_ar": "مستحيل يكون في الرياض → can’t have."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "might / could have: maybe",
+   "explain_en": "Use might have, may have or could have when you think something possibly happened: “I can’t find my keys. I might have left them at work.”",
+   "explain_ar": "might have أو may have أو could have لما تكون الحاجة ممكن حصلت: “I might have left them at work.”",
+   "board": "might / may / could have done = يمكن حصل",
+   "examples": [
+    {
+     "en": "She’s late. She might have missed the bus.",
+     "ar": "اتأخرت، يمكن الأتوبيس فاتها."
+    },
+    {
+     "en": "They could have gone to the cinema.",
+     "ar": "يمكن يكونوا راحوا السينما."
+    }
+   ],
+   "check": {
+    "question": "“Where’s Omar?” — “I’m not sure. He ___ gone home.”",
+    "options": [
+     "must have",
+     "might have",
+     "can’t have"
+    ],
+    "answer_index": 1,
+    "why_ar": "مش متأكد → might have."
+   },
+   "recap_en": "Use must have for things you are almost sure happened, can’t have for things that almost certainly didn’t, and might or could have for possibilities."
+  }
+ ],
+ "make or do?": [
+  {
+   "step_title": "Two verbs, one Arabic word",
+   "explain_en": "Arabic often uses one verb (عمل) for both “make” and “do”, so learners mix them up. In English, the noun decides which verb we use.",
+   "explain_ar": "بالعربي بنستخدم “عمل” للاتنين، فبنلخبط بين make وdo. في الإنجليزي الاسم اللي بعدهم هو اللي بيحدد.",
+   "board": "make or do? → it depends on the noun",
+   "examples": [
+    {
+     "en": "I need to do my homework.",
+     "ar": "لازم أعمل الواجب."
+    },
+    {
+     "en": "Let’s make a cake!",
+     "ar": "يلا نعمل كيكة!"
+    }
+   ],
+   "check": {
+    "question": "Choose the correct phrase:",
+    "options": [
+     "make homework",
+     "do homework",
+     "take homework"
+    ],
+    "answer_index": 1,
+    "why_ar": "مع homework بنقول do."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "do: tasks and activities",
+   "explain_en": "Use “do” for tasks, jobs and general activities: do homework, do the dishes, do exercise, do a job, do your best, do business.",
+   "explain_ar": "do للمهام والشغل والأنشطة العامة: do homework وdo the dishes وdo exercise وdo your best.",
+   "board": "do + homework / the dishes / exercise / your best",
+   "examples": [
+    {
+     "en": "I do exercise three times a week.",
+     "ar": "بعمل رياضة تلات مرات في الأسبوع."
+    },
+    {
+     "en": "Just do your best!",
+     "ar": "اعمل أحسن ما عندك!"
+    }
+   ],
+   "check": {
+    "question": "Can you ___ the shopping today?",
+    "options": [
+     "make",
+     "do",
+     "play"
+    ],
+    "answer_index": 1,
+    "why_ar": "التسوق مهمة → do the shopping."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "make: creating and producing",
+   "explain_en": "Use “make” when you create or produce something: make a cake, make a mistake, make a noise, make a decision, make a plan, make friends, make money.",
+   "explain_ar": "make لما بتصنع أو تنتج حاجة: make a cake وmake a mistake وmake a decision وmake friends وmake money.",
+   "board": "make + a mistake / a decision / money / friends / noise",
+   "examples": [
+    {
+     "en": "Don’t worry, everyone makes mistakes.",
+     "ar": "ماتقلقش، الكل بيغلط."
+    },
+    {
+     "en": "We need to make a decision now.",
+     "ar": "لازم ناخد قرار دلوقتي."
+    }
+   ],
+   "check": {
+    "question": "Please don’t ___ so much noise.",
+    "options": [
+     "do",
+     "make",
+     "have"
+    ],
+    "answer_index": 1,
+    "why_ar": "مع noise بنقول make."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Learn them as pairs",
+   "explain_en": "The best way is to learn them as fixed pairs (collocations). Notice: make a phone call, make an effort, make progress — but do a favour, do research, do well.",
+   "explain_ar": "أحسن طريقة إنك تحفظهم كأزواج ثابتة: make a phone call وmake progress، لكن do a favour وdo research وdo well.",
+   "board": "make progress · do research · do me a favour",
+   "examples": [
+    {
+     "en": "You’ve made great progress!",
+     "ar": "اتقدمت جامد!"
+    },
+    {
+     "en": "Could you do me a favour?",
+     "ar": "ممكن تعملي خدمة؟"
+    }
+   ],
+   "check": {
+    "question": "Which pair is correct?",
+    "options": [
+     "do a mistake",
+     "make a mistake",
+     "make a favour"
+    ],
+    "answer_index": 1,
+    "why_ar": "الصح make a mistake وdo a favour."
+   },
+   "recap_en": "Use do for tasks and activities and make for creating or producing things — and learn common pairs like make a mistake and do homework by heart."
+  }
+ ]
+}

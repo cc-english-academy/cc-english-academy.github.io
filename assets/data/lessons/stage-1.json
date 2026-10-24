@@ -1,0 +1,686 @@
+{
+ "The verb to be: am / is / are": [
+  {
+   "step_title": "What “to be” means",
+   "explain_en": "The verb “to be” helps us say who we are, how we feel and where things are. In English we always need it: we say “I am happy”, not “I happy”.",
+   "explain_ar": "فعل “to be” بيساعدنا نقول إحنا مين، وحاسين بإيه، والحاجات فين. في الإنجليزي لازم نستخدمه دايماً: نقول “I am happy” مش “I happy”.",
+   "board": "I am · You are · He / She / It is",
+   "examples": [
+    {
+     "en": "I am a student.",
+     "ar": "أنا طالب."
+    },
+    {
+     "en": "She is my sister.",
+     "ar": "هي أختي."
+    },
+    {
+     "en": "We are at home.",
+     "ar": "إحنا في البيت."
+    }
+   ],
+   "check": {
+    "question": "Which sentence is correct?",
+    "options": [
+     "I happy today.",
+     "I am happy today.",
+     "I is happy today."
+    ],
+    "answer_index": 1,
+    "why_ar": "لازم فعل to be، ومع I بنستخدم am."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "am, is or are?",
+   "explain_en": "Use “am” only with I. Use “is” with he, she, it and one person or thing. Use “are” with you, we, they and many people or things.",
+   "explain_ar": "am مع I بس. is مع he وshe وit وأي شخص أو حاجة واحدة. are مع you وwe وthey وأي أكتر من واحد.",
+   "board": "I → am\nhe / she / it → is · you / we / they → are",
+   "examples": [
+    {
+     "en": "The cat is black.",
+     "ar": "القطة سودا."
+    },
+    {
+     "en": "My friends are kind.",
+     "ar": "أصحابي طيبين."
+    },
+    {
+     "en": "You are late!",
+     "ar": "إنت متأخر!"
+    }
+   ],
+   "check": {
+    "question": "My brothers ___ tall.",
+    "options": [
+     "is",
+     "am",
+     "are"
+    ],
+    "answer_index": 2,
+    "why_ar": "brothers جمع، فبنستخدم are."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Short forms and “not”",
+   "explain_en": "In speaking we often use short forms: I’m, you’re, he’s. To say no, add “not”: I am not → I’m not, she is not → she isn’t, they are not → they aren’t.",
+   "explain_ar": "في الكلام بنختصر: I’m وyou’re وhe’s. وللنفي بنضيف not: I’m not وshe isn’t وthey aren’t.",
+   "board": "I’m not · he isn’t · we aren’t",
+   "examples": [
+    {
+     "en": "I’m not tired.",
+     "ar": "أنا مش تعبان."
+    },
+    {
+     "en": "It isn’t cold today.",
+     "ar": "الجو مش برد النهارده."
+    },
+    {
+     "en": "They aren’t here.",
+     "ar": "هم مش هنا."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct negative:",
+    "options": [
+     "She isn’t a doctor.",
+     "She not a doctor.",
+     "She don’t a doctor."
+    ],
+    "answer_index": 0,
+    "why_ar": "النفي مع is بيكون isn’t، مش not لوحدها ولا don’t."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Asking questions",
+   "explain_en": "To ask a question, put am, is or are first: “Are you ready?”, “Is he your teacher?”. Answer short: “Yes, I am.” or “No, he isn’t.”",
+   "explain_ar": "عشان نسأل، بنحط am أو is أو are في الأول: “Are you ready?”. والإجابة القصيرة: “Yes, I am.” أو “No, he isn’t.”",
+   "board": "Are you …? → Yes, I am. / No, I’m not.",
+   "examples": [
+    {
+     "en": "Are you from Egypt? — Yes, I am.",
+     "ar": "إنت من مصر؟ — أيوه."
+    },
+    {
+     "en": "Is it your bag? — No, it isn’t.",
+     "ar": "دي شنطتك؟ — لأ."
+    }
+   ],
+   "check": {
+    "question": "“___ your parents at home?” — “Yes, they are.”",
+    "options": [
+     "Is",
+     "Are",
+     "Am"
+    ],
+    "answer_index": 1,
+    "why_ar": "parents جمع، فالسؤال يبدأ بـ Are."
+   },
+   "recap_en": "We use am with I, is with one person or thing, and are with you, we and they. Put the verb first to ask a question, and add not to say no."
+  }
+ ],
+ "Present simple: I play / she plays": [
+  {
+   "step_title": "When we use it",
+   "explain_en": "We use the present simple for habits, routines and facts — things that happen again and again or are always true.",
+   "explain_ar": "بنستخدم المضارع البسيط للعادات والروتين والحقائق: حاجات بتحصل كتير أو صحيحة دايماً.",
+   "board": "habits · routines · facts",
+   "examples": [
+    {
+     "en": "I drink milk every morning.",
+     "ar": "أنا بشرب لبن كل صباح."
+    },
+    {
+     "en": "The sun rises in the east.",
+     "ar": "الشمس بتطلع من الشرق."
+    }
+   ],
+   "check": {
+    "question": "Which sentence is a habit?",
+    "options": [
+     "I am eating now.",
+     "I play football every Friday.",
+     "I played yesterday."
+    ],
+    "answer_index": 1,
+    "why_ar": "every Friday بتدل على عادة، فده مضارع بسيط."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Add -s with he, she, it",
+   "explain_en": "With I, you, we and they, use the verb as it is: I play. With he, she and it, add -s: she plays. Some verbs add -es: watch → watches, go → goes.",
+   "explain_ar": "مع I وyou وwe وthey الفعل زي ما هو. ومع he وshe وit بنضيف s: she plays. وأفعال بتاخد es زي watches وgoes.",
+   "board": "I / you / we / they + play\nhe / she / it + plays",
+   "examples": [
+    {
+     "en": "He plays the guitar.",
+     "ar": "هو بيعزف جيتار."
+    },
+    {
+     "en": "My mum watches TV at night.",
+     "ar": "ماما بتتفرج على التلفزيون بالليل."
+    },
+    {
+     "en": "We live in Jeddah.",
+     "ar": "إحنا ساكنين في جدة."
+    }
+   ],
+   "check": {
+    "question": "My father ___ to work by car.",
+    "options": [
+     "go",
+     "goes",
+     "going"
+    ],
+    "answer_index": 1,
+    "why_ar": "father = he، فبنضيف es على go."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Don’t and doesn’t",
+   "explain_en": "To say no, use “don’t” with I, you, we, they and “doesn’t” with he, she, it. After doesn’t, the verb has no -s: she doesn’t like fish.",
+   "explain_ar": "للنفي: don’t مع I وyou وwe وthey، وdoesn’t مع he وshe وit. وبعد doesn’t الفعل من غير s.",
+   "board": "I don’t play · she doesn’t play",
+   "examples": [
+    {
+     "en": "I don’t like coffee.",
+     "ar": "أنا مش بحب القهوة."
+    },
+    {
+     "en": "He doesn’t speak French.",
+     "ar": "هو مش بيتكلم فرنساوي."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "She doesn’t likes tea.",
+     "She don’t like tea.",
+     "She doesn’t like tea."
+    ],
+    "answer_index": 2,
+    "why_ar": "بعد doesn’t الفعل بيرجع لأصله من غير s."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Questions with do / does",
+   "explain_en": "Ask with “Do” or “Does” at the start: “Do you like sport?”, “Does she work here?”. Again, no -s after does. Answer: “Yes, I do.” / “No, she doesn’t.”",
+   "explain_ar": "بنسأل بـ Do أو Does في الأول: “Do you like sport?”. ومفيش s بعد does. والإجابة: “Yes, I do.”",
+   "board": "Do you …? · Does he …?",
+   "examples": [
+    {
+     "en": "Do you speak English? — Yes, I do.",
+     "ar": "بتتكلم إنجليزي؟ — أيوه."
+    },
+    {
+     "en": "Does your sister read books? — Yes, she does.",
+     "ar": "أختك بتقرا كتب؟ — أيوه."
+    }
+   ],
+   "check": {
+    "question": "“___ your brother play tennis?”",
+    "options": [
+     "Do",
+     "Does",
+     "Is"
+    ],
+    "answer_index": 1,
+    "why_ar": "brother = he، فالسؤال بـ Does."
+   },
+   "recap_en": "Use the present simple for habits and facts. Add -s with he, she and it, use don’t or doesn’t to say no, and do or does to ask."
+  }
+ ],
+ "a / an / the": [
+  {
+   "step_title": "a and an",
+   "explain_en": "Use “a” or “an” for one thing when we first talk about it. Use “a” before a consonant sound (a book) and “an” before a vowel sound (an apple).",
+   "explain_ar": "بنستخدم a أو an مع حاجة واحدة أول مرة نتكلم عنها. a قبل صوت ساكن (a book)، وan قبل صوت متحرك (an apple).",
+   "board": "a + consonant sound · an + a, e, i, o, u sound",
+   "examples": [
+    {
+     "en": "I have a pen.",
+     "ar": "معايا قلم."
+    },
+    {
+     "en": "She eats an orange.",
+     "ar": "هي بتاكل برتقالة."
+    },
+    {
+     "en": "It’s an hour.",
+     "ar": "دي ساعة."
+    }
+   ],
+   "check": {
+    "question": "I want ___ egg, please.",
+    "options": [
+     "a",
+     "an",
+     "the"
+    ],
+    "answer_index": 1,
+    "why_ar": "egg بتبدأ بصوت متحرك e، فبنستخدم an."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "the",
+   "explain_en": "Use “the” when we both know which thing we mean, or when there is only one: the sun, the door of this room. After we say “a dog”, next time we say “the dog”.",
+   "explain_ar": "بنستخدم the لما نكون عارفين بنتكلم عن أنهي حاجة، أو لما تكون حاجة واحدة بس زي the sun. أول مرة a dog، والمرة اللي بعدها the dog.",
+   "board": "first time → a · we know which → the",
+   "examples": [
+    {
+     "en": "I saw a dog. The dog was big.",
+     "ar": "شفت كلب. الكلب كان كبير."
+    },
+    {
+     "en": "Please close the window.",
+     "ar": "اقفل الشباك من فضلك."
+    }
+   ],
+   "check": {
+    "question": "“Look at ___ moon! It’s beautiful.”",
+    "options": [
+     "a",
+     "the",
+     "an"
+    ],
+    "answer_index": 1,
+    "why_ar": "القمر واحد بس، فبنقول the moon."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "No article",
+   "explain_en": "We don’t use a/an with plural or uncountable things in general: “I like cats”, “Water is important”. In Arabic we say “القطط” but in English we just say “cats”.",
+   "explain_ar": "مش بنستخدم a أو an مع الجمع أو الحاجات اللي ما بتتعدش لما نتكلم بشكل عام. بالعربي بنقول “القطط”، لكن بالإنجليزي بنقول cats بس من غير the.",
+   "board": "I like cats. (not the cats)",
+   "examples": [
+    {
+     "en": "Dogs are friendly.",
+     "ar": "الكلاب ودودة."
+    },
+    {
+     "en": "I drink water every day.",
+     "ar": "بشرب مية كل يوم."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "I love the books in general.",
+     "I love books.",
+     "I love a books."
+    ],
+    "answer_index": 1,
+    "why_ar": "بنتكلم عن الكتب عموماً، فمش محتاجين the ولا a."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Jobs and places",
+   "explain_en": "Use a/an with jobs: “She is a teacher.” Arabic speakers often forget it. Use “the” with some places we all know: the bank, the cinema, the airport.",
+   "explain_ar": "بنستخدم a أو an مع الوظايف: “She is a teacher.” وكتير بننساها. وبنستخدم the مع أماكن معروفة زي the bank وthe airport.",
+   "board": "She is a doctor. · I’m going to the bank.",
+   "examples": [
+    {
+     "en": "My father is an engineer.",
+     "ar": "بابا مهندس."
+    },
+    {
+     "en": "Let’s go to the cinema.",
+     "ar": "يلا نروح السينما."
+    }
+   ],
+   "check": {
+    "question": "My uncle is ___ pilot.",
+    "options": [
+     "the",
+     "an",
+     "a"
+    ],
+    "answer_index": 2,
+    "why_ar": "وظيفة لشخص واحد، وpilot بتبدأ بصوت ساكن، فـ a."
+   },
+   "recap_en": "Use a or an for one thing the first time, and an before vowel sounds. Use the when we know which one, and no article for things in general."
+  }
+ ],
+ "Plurals: cat → cats, child → children": [
+  {
+   "step_title": "Most words add -s",
+   "explain_en": "To talk about more than one thing, we usually add -s: one cat, two cats. Numbers like two, three and many need the plural.",
+   "explain_ar": "عشان نتكلم عن أكتر من حاجة، غالباً بنضيف s: one cat وtwo cats. وبعد الأرقام وmany لازم الجمع.",
+   "board": "one book → two books",
+   "examples": [
+    {
+     "en": "I have two brothers.",
+     "ar": "عندي اتنين إخوات."
+    },
+    {
+     "en": "There are many cars in the street.",
+     "ar": "فيه عربيات كتير في الشارع."
+    }
+   ],
+   "check": {
+    "question": "I have three ___.",
+    "options": [
+     "pen",
+     "pens",
+     "penes"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد three لازم جمع، وpen بتاخد s."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "-es and -ies",
+   "explain_en": "Words ending in s, sh, ch, x or o often add -es: bus → buses, box → boxes. A consonant + y changes to -ies: baby → babies, city → cities.",
+   "explain_ar": "الكلمات اللي آخرها s أو sh أو ch أو x أو o غالباً بتاخد es. ولو آخرها حرف ساكن + y بتبقى ies: babies وcities.",
+   "board": "box → boxes · baby → babies",
+   "examples": [
+    {
+     "en": "Two buses are coming.",
+     "ar": "اتنين أتوبيس جايين."
+    },
+    {
+     "en": "I visited many cities.",
+     "ar": "زرت مدن كتير."
+    },
+    {
+     "en": "She washed the dishes.",
+     "ar": "هي غسلت الأطباق."
+    }
+   ],
+   "check": {
+    "question": "What is the plural of “family”?",
+    "options": [
+     "familys",
+     "families",
+     "familyes"
+    ],
+    "answer_index": 1,
+    "why_ar": "y بعد حرف ساكن بتتغير لـ ies."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Irregular plurals",
+   "explain_en": "Some words change completely: child → children, man → men, woman → women, foot → feet, tooth → teeth, person → people, mouse → mice.",
+   "explain_ar": "كلمات بتتغير خالص في الجمع: children وmen وwomen وfeet وteeth وpeople وmice. لازم نحفظها.",
+   "board": "child → children · person → people",
+   "examples": [
+    {
+     "en": "The children are playing.",
+     "ar": "الأطفال بيلعبوا."
+    },
+    {
+     "en": "Brush your teeth!",
+     "ar": "اغسل سنانك!"
+    }
+   ],
+   "check": {
+    "question": "There are twenty ___ in the room.",
+    "options": [
+     "persons",
+     "peoples",
+     "people"
+    ],
+    "answer_index": 2,
+    "why_ar": "جمع person هو people."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Plural with the verb",
+   "explain_en": "A plural subject needs a plural verb: “The boys are”, “My feet hurt”. Some words have no plural: information, advice, homework.",
+   "explain_ar": "الفاعل الجمع بياخد فعل جمع: The boys are. وفيه كلمات مالهاش جمع زي information وadvice وhomework.",
+   "board": "The children are … (not is)",
+   "examples": [
+    {
+     "en": "My friends are funny.",
+     "ar": "أصحابي دمهم خفيف."
+    },
+    {
+     "en": "I have a lot of homework.",
+     "ar": "عندي واجب كتير."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "The women is nice.",
+     "The women are nice.",
+     "The womans are nice."
+    ],
+    "answer_index": 1,
+    "why_ar": "women جمع، فالفعل are."
+   },
+   "recap_en": "Most nouns add -s, some add -es or -ies, and some change completely like children and people. A plural noun needs a plural verb."
+  }
+ ],
+ "There is / There are": [
+  {
+   "step_title": "Saying something exists",
+   "explain_en": "We use “there is” and “there are” to say that something exists or is in a place: “There is a park near my house.”",
+   "explain_ar": "بنستخدم there is وthere are عشان نقول إن فيه حاجة موجودة في مكان: “There is a park near my house.”",
+   "board": "There is = فيه (واحد) · There are = فيه (أكتر)",
+   "examples": [
+    {
+     "en": "There is a cat on the sofa.",
+     "ar": "فيه قطة على الكنبة."
+    },
+    {
+     "en": "There are two parks in my town.",
+     "ar": "فيه جنينتين في مدينتي."
+    }
+   ],
+   "check": {
+    "question": "Which means “فيه كتاب على الترابيزة”?",
+    "options": [
+     "It is a book on the table.",
+     "There is a book on the table.",
+     "Have a book on the table."
+    ],
+    "answer_index": 1,
+    "why_ar": "للوجود بنقول there is، مش it is ولا have."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "is or are?",
+   "explain_en": "Use “there is” with one thing or uncountable things (there is some water). Use “there are” with plurals (there are three chairs).",
+   "explain_ar": "there is مع حاجة واحدة أو حاجة ما بتتعدش زي water. وthere are مع الجمع.",
+   "board": "There is a / some water · There are three / some apples",
+   "examples": [
+    {
+     "en": "There is some milk in the fridge.",
+     "ar": "فيه شوية لبن في التلاجة."
+    },
+    {
+     "en": "There are some apples.",
+     "ar": "فيه شوية تفاح."
+    }
+   ],
+   "check": {
+    "question": "___ five students in the class.",
+    "options": [
+     "There is",
+     "There are",
+     "It are"
+    ],
+    "answer_index": 1,
+    "why_ar": "students جمع، فـ There are."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Negatives",
+   "explain_en": "To say no, use “there isn’t” and “there aren’t”. We often use “any” with them: “There aren’t any shops here.”",
+   "explain_ar": "للنفي: there isn’t وthere aren’t، وغالباً بنستخدم any معاهم: “There aren’t any shops here.”",
+   "board": "There isn’t a … · There aren’t any …",
+   "examples": [
+    {
+     "en": "There isn’t a bank near here.",
+     "ar": "مفيش بنك قريب من هنا."
+    },
+    {
+     "en": "There aren’t any eggs.",
+     "ar": "مفيش أي بيض."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "There no any chairs.",
+     "There aren’t any chairs.",
+     "There isn’t any chairs."
+    ],
+    "answer_index": 1,
+    "why_ar": "chairs جمع، فالنفي there aren’t any."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Questions",
+   "explain_en": "Ask with “Is there…?” or “Are there…?”: “Is there a toilet here?”, “Are there any buses to the airport?”. Answer: “Yes, there is.” / “No, there aren’t.”",
+   "explain_ar": "بنسأل بـ Is there أو Are there في الأول، والإجابة: “Yes, there is.” أو “No, there aren’t.”",
+   "board": "Is there …? · Are there any …?",
+   "examples": [
+    {
+     "en": "Is there a pharmacy near here? — Yes, there is.",
+     "ar": "فيه صيدلية قريبة؟ — أيوه."
+    },
+    {
+     "en": "Are there any questions? — No, there aren’t.",
+     "ar": "فيه أسئلة؟ — لأ."
+    }
+   ],
+   "check": {
+    "question": "“___ any restaurants in this street?”",
+    "options": [
+     "Is there",
+     "Are there",
+     "There are"
+    ],
+    "answer_index": 1,
+    "why_ar": "restaurants جمع، والسؤال بيبدأ بـ Are there."
+   },
+   "recap_en": "Use there is for one thing and there are for plurals. Say no with isn’t or aren’t, and ask with Is there or Are there."
+  }
+ ],
+ "Can / can’t": [
+  {
+   "step_title": "Ability",
+   "explain_en": "We use “can” to say we are able to do something, and “can’t” when we are not: “I can swim. I can’t drive.”",
+   "explain_ar": "بنستخدم can عشان نقول إننا نقدر نعمل حاجة، وcan’t لما مانقدرش: “I can swim. I can’t drive.”",
+   "board": "can = يقدر · can’t = ما يقدرش",
+   "examples": [
+    {
+     "en": "My sister can sing very well.",
+     "ar": "أختي تقدر تغني كويس جداً."
+    },
+    {
+     "en": "I can’t cook.",
+     "ar": "مش بعرف أطبخ."
+    }
+   ],
+   "check": {
+    "question": "Which sentence means “أقدر أتكلم إنجليزي”?",
+    "options": [
+     "I can speak English.",
+     "I can to speak English.",
+     "I can speaks English."
+    ],
+    "answer_index": 0,
+    "why_ar": "بعد can الفعل في أصله من غير to ومن غير s."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "The same for everyone",
+   "explain_en": "Can is the same for all people — no -s with he or she — and the next verb has no “to”: “She can play”, not “She cans play” or “She can to play”.",
+   "explain_ar": "can ثابتة مع الكل، مفيش s مع he أو she، والفعل اللي بعدها من غير to: “She can play”.",
+   "board": "he / she / it + can + verb",
+   "examples": [
+    {
+     "en": "He can ride a bike.",
+     "ar": "هو يقدر يركب عجلة."
+    },
+    {
+     "en": "Our dog can jump high.",
+     "ar": "كلبنا يقدر ينط عالي."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "She cans swim.",
+     "She can swims.",
+     "She can swim."
+    ],
+    "answer_index": 2,
+    "why_ar": "can مش بتتغير، والفعل بعدها في أصله."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Asking and permission",
+   "explain_en": "Ask with Can first: “Can you help me?”. We also use can to ask for permission: “Can I open the window?”. Answer: “Yes, you can.” / “Sorry, you can’t.”",
+   "explain_ar": "بنسأل بـ Can في الأول: “Can you help me?”. وبنستخدمها كمان نستأذن: “Can I open the window?”",
+   "board": "Can I …? (permission) · Can you …? (request)",
+   "examples": [
+    {
+     "en": "Can I sit here? — Yes, of course.",
+     "ar": "ممكن أقعد هنا؟ — أكيد."
+    },
+    {
+     "en": "Can you speak slowly, please?",
+     "ar": "ممكن تتكلم ببطء من فضلك؟"
+    }
+   ],
+   "check": {
+    "question": "You want to borrow a pen. You say:",
+    "options": [
+     "Can I borrow your pen?",
+     "I can borrow your pen?",
+     "Can I to borrow your pen?"
+    ],
+    "answer_index": 0,
+    "why_ar": "السؤال بيبدأ بـ Can، والفعل بعدها من غير to."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Can in real life",
+   "explain_en": "In a shop or café, “can” makes you sound polite and friendly: “Can I have a coffee, please?”, “Can you show me the blue one?”",
+   "explain_ar": "في المحل أو الكافيه، can بتخليك مؤدب ولطيف: “Can I have a coffee, please?”",
+   "board": "Can I have …, please?",
+   "examples": [
+    {
+     "en": "Can I have the bill, please?",
+     "ar": "ممكن الحساب من فضلك؟"
+    },
+    {
+     "en": "Can you tell me the way to the station?",
+     "ar": "ممكن تقولي طريق المحطة؟"
+    }
+   ],
+   "check": {
+    "question": "In a café, the most polite choice is:",
+    "options": [
+     "Give me water.",
+     "Can I have some water, please?",
+     "I want water now."
+    ],
+    "answer_index": 1,
+    "why_ar": "Can I have … please طريقة مؤدبة للطلب."
+   },
+   "recap_en": "Use can and can’t to talk about ability, with no -s and no to after it. Put can first to ask, and use “Can I…?” to ask politely."
+  }
+ ]
+}

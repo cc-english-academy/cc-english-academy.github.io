@@ -1,0 +1,662 @@
+{
+ "Inversion: Never have I…": [
+  {
+   "step_title": "What inversion is",
+   "explain_en": "Inversion means putting the auxiliary verb before the subject, like in a question, after a negative or limiting word at the start: “Never have I seen such a view.” It sounds formal and dramatic.",
+   "explain_ar": "القلب معناه إننا نقدّم الفعل المساعد قبل الفاعل زي السؤال، بعد كلمة نفي أو تقييد في أول الجملة: “Never have I seen such a view.” وده أسلوب رسمي وقوي.",
+   "board": "Negative word + auxiliary + subject + verb",
+   "examples": [
+    {
+     "en": "Never have I felt so proud.",
+     "ar": "عمري ما حسيت بالفخر ده."
+    },
+    {
+     "en": "Rarely do we see snow here.",
+     "ar": "نادراً ما بنشوف تلج هنا."
+    }
+   ],
+   "check": {
+    "question": "Which sentence uses inversion?",
+    "options": [
+     "I have never seen it.",
+     "Never have I seen it.",
+     "Never I have seen it."
+    ],
+    "answer_index": 1,
+    "why_ar": "Never في الأول وبعدها have قبل I."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Common starters",
+   "explain_en": "Inversion follows words like never, rarely, seldom, hardly … when, no sooner … than, not only … but also, under no circumstances, only then.",
+   "explain_ar": "القلب بييجي بعد never وrarely وseldom وhardly … when وno sooner … than وnot only … but also وunder no circumstances وonly then.",
+   "board": "Not only did he …, but he also … · Under no circumstances should you …",
+   "examples": [
+    {
+     "en": "Not only did she win, but she also broke the record.",
+     "ar": "مش بس كسبت، كمان كسرت الرقم القياسي."
+    },
+    {
+     "en": "Under no circumstances should you open this door.",
+     "ar": "تحت أي ظرف ماتفتحش الباب ده."
+    }
+   ],
+   "check": {
+    "question": "Not only ___ late, but he also forgot his book.",
+    "options": [
+     "he was",
+     "was he",
+     "he is"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد Not only بنقلب: was he."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Using “do / did”",
+   "explain_en": "If there is no auxiliary in the normal sentence, add do, does or did: “I rarely go out” → “Rarely do I go out.” “She seldom complained” → “Seldom did she complain.”",
+   "explain_ar": "لو مفيش فعل مساعد في الجملة العادية بنضيف do أو does أو did: “Rarely do I go out.”",
+   "board": "Rarely do I … · Seldom did she …",
+   "examples": [
+    {
+     "en": "Hardly ever do they eat meat.",
+     "ar": "نادراً جداً ما بياكلوا لحمة."
+    },
+    {
+     "en": "Little did he know what was coming.",
+     "ar": "ماكانش يعرف خالص إيه اللي جاي."
+    }
+   ],
+   "check": {
+    "question": "“She rarely smiles.” → “Rarely ___.”",
+    "options": [
+     "she smiles",
+     "does she smile",
+     "does she smiles"
+    ],
+    "answer_index": 1,
+    "why_ar": "نضيف does والفعل في أصله: does she smile."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Hardly / No sooner",
+   "explain_en": "For one thing happening right after another: “Hardly had I arrived when the phone rang.” / “No sooner had we sat down than the show started.” Note: hardly … when, no sooner … than.",
+   "explain_ar": "لحاجة حصلت على طول بعد حاجة: “Hardly had I arrived when …” و“No sooner had we sat down than …”. لاحظ: hardly مع when، وno sooner مع than.",
+   "board": "Hardly had … when · No sooner had … than",
+   "examples": [
+    {
+     "en": "No sooner had I left than it started to rain.",
+     "ar": "أول ما خرجت بدأت تمطر."
+    },
+    {
+     "en": "Hardly had the film begun when the lights went out.",
+     "ar": "الفيلم يادوب بدأ والنور قطع."
+    }
+   ],
+   "check": {
+    "question": "No sooner had we arrived ___ the meeting began.",
+    "options": [
+     "when",
+     "than",
+     "then"
+    ],
+    "answer_index": 1,
+    "why_ar": "No sooner بتيجي معاها than."
+   },
+   "recap_en": "After negative or limiting words at the start of a sentence, put the auxiliary before the subject, adding do or did when needed. It makes writing formal and emphatic."
+  }
+ ],
+ "Cleft sentences: What I need is…": [
+  {
+   "step_title": "Why use cleft sentences?",
+   "explain_en": "Cleft sentences split one idea into two parts to focus on the important information: “I need a holiday” → “What I need is a holiday.”",
+   "explain_ar": "الجمل المشقوقة بتقسم الفكرة لجزئين عشان تركز على المعلومة المهمة: “What I need is a holiday.”",
+   "board": "What + clause + is + focus",
+   "examples": [
+    {
+     "en": "What I love about Cairo is the energy.",
+     "ar": "اللي بحبه في القاهرة هو الحيوية."
+    },
+    {
+     "en": "What we need is more time.",
+     "ar": "اللي محتاجينه هو وقت أكتر."
+    }
+   ],
+   "check": {
+    "question": "Which sentence focuses on “patience”?",
+    "options": [
+     "You need patience.",
+     "What you need is patience.",
+     "Patience you need is."
+    ],
+    "answer_index": 1,
+    "why_ar": "What … is بتسلط الضوء على patience."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "It is … that / who",
+   "explain_en": "Use “It is / It was … that / who” to emphasise one part: “Sara broke the window” → “It was Sara who broke the window (not Ali).”",
+   "explain_ar": "“It was … who/that” بتأكد جزء معين: “It was Sara who broke the window (not Ali).”",
+   "board": "It was + focus + who / that + rest",
+   "examples": [
+    {
+     "en": "It was in Alexandria that I met her.",
+     "ar": "في إسكندرية بالذات قابلتها."
+    },
+    {
+     "en": "It’s the price that worries me.",
+     "ar": "السعر هو اللي قالقني."
+    }
+   ],
+   "check": {
+    "question": "“My brother called you.” → “It was my brother ___ called you.”",
+    "options": [
+     "which",
+     "who",
+     "what"
+    ],
+    "answer_index": 1,
+    "why_ar": "للأشخاص بنستخدم who."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "All and The thing",
+   "explain_en": "Similar patterns: “All I want is…” (only this), “The thing (that) I like most is…”, “The reason (why) … is that…”.",
+   "explain_ar": "تراكيب شبيهة: “All I want is…” (بس كده)، و“The thing I like most is…”، و“The reason … is that…”.",
+   "board": "All I want is … · The reason … is that …",
+   "examples": [
+    {
+     "en": "All I want is some peace and quiet.",
+     "ar": "كل اللي عايزه شوية هدوء."
+    },
+    {
+     "en": "The reason I’m late is that the bus broke down.",
+     "ar": "السبب إني اتأخرت إن الأتوبيس عطل."
+    }
+   ],
+   "check": {
+    "question": "“I only want to sleep.” → “___ I want is to sleep.”",
+    "options": [
+     "All",
+     "That",
+     "Which"
+    ],
+    "answer_index": 0,
+    "why_ar": "All I want is = كل اللي عايزه."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Using verbs as focus",
+   "explain_en": "To focus on an action, use “What … do is (to) + verb”: “What you should do is call her.” “What happened was (that) the car broke down.”",
+   "explain_ar": "عشان نركز على فعل: “What you should do is call her.” و“What happened was that the car broke down.”",
+   "board": "What you should do is + verb · What happened was …",
+   "examples": [
+    {
+     "en": "What I did was apologise immediately.",
+     "ar": "اللي عملته إني اعتذرت فوراً."
+    },
+    {
+     "en": "What happened was that we got lost.",
+     "ar": "اللي حصل إننا تهنا."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "What you should doing is rest.",
+     "What you should do is rest.",
+     "What should you do is rest."
+    ],
+    "answer_index": 1,
+    "why_ar": "What you should do is + الفعل في أصله."
+   },
+   "recap_en": "Cleft sentences split an idea to highlight what matters: What I need is…, It was … who…, All I want is… — powerful in speaking and writing."
+  }
+ ],
+ "Mixed conditionals": [
+  {
+   "step_title": "Mixing past and present",
+   "explain_en": "Mixed conditionals connect different times. The most common: an imaginary past action with a present result: “If I had studied medicine, I would be a doctor now.”",
+   "explain_ar": "الشرط المختلط بيربط أزمنة مختلفة. أشهرهم: فعل ماضي خيالي ونتيجته في الحاضر: “If I had studied medicine, I would be a doctor now.”",
+   "board": "If + had done (past), … would + verb (now)",
+   "examples": [
+    {
+     "en": "If I had taken that job, I would live in Dubai now.",
+     "ar": "لو كنت قبلت الشغلانة دي كنت هبقى عايش في دبي دلوقتي."
+    },
+    {
+     "en": "If she hadn’t missed the flight, she would be here.",
+     "ar": "لو ماكانتش الطيارة فاتتها كانت هتبقى هنا."
+    }
+   ],
+   "check": {
+    "question": "“If I had saved money, I ___ rich now.”",
+    "options": [
+     "would have been",
+     "would be",
+     "will be"
+    ],
+    "answer_index": 1,
+    "why_ar": "النتيجة في الحاضر (now) → would be."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Present cause, past result",
+   "explain_en": "The other type: a present (permanent) situation explains a past result: “If I were braver, I would have spoken to her.” (I’m not brave, so I didn’t.)",
+   "explain_ar": "النوع التاني: حالة في الحاضر (دايمة) بتفسر نتيجة في الماضي: “If I were braver, I would have spoken to her.”",
+   "board": "If + past simple (always true), … would have done (past)",
+   "examples": [
+    {
+     "en": "If he were more careful, he wouldn’t have crashed the car.",
+     "ar": "لو كان أحرص ماكانش خبط العربية."
+    },
+    {
+     "en": "If I spoke French, I would have understood the film.",
+     "ar": "لو كنت بعرف فرنساوي كنت فهمت الفيلم."
+    }
+   ],
+   "check": {
+    "question": "“I don’t speak Arabic well, so I didn’t understand.” → “If I ___ Arabic well, I would have understood.”",
+    "options": [
+     "spoke",
+     "had spoken",
+     "speak"
+    ],
+    "answer_index": 0,
+    "why_ar": "الحالة دايمة في الحاضر → spoke."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Choosing the right mix",
+   "explain_en": "Ask two questions: When is the condition — past or always/now? When is the result — past or now? Then choose: past → had done; now → past simple; result now → would + verb; result past → would have done.",
+   "explain_ar": "اسأل سؤالين: الشرط إمتى (ماضي ولا دايماً)؟ والنتيجة إمتى (ماضي ولا دلوقتي)؟ وبعدين اختار التركيب.",
+   "board": "condition time + result time → choose the forms",
+   "examples": [
+    {
+     "en": "If you had listened, you wouldn’t be confused now.",
+     "ar": "لو كنت سمعت ماكنتش هتبقى متلخبط دلوقتي."
+    },
+    {
+     "en": "If I didn’t trust you, I wouldn’t have told you.",
+     "ar": "لو ماكنتش بثق فيك ماكنتش قلتلك."
+    }
+   ],
+   "check": {
+    "question": "“If we had left on time, we ___ there by now.”",
+    "options": [
+     "would be",
+     "would have been",
+     "will be"
+    ],
+    "answer_index": 0,
+    "why_ar": "by now → النتيجة في الحاضر: would be."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Natural use",
+   "explain_en": "Mixed conditionals are common when talking about life choices and regrets: “If I hadn’t moved to Jeddah, I wouldn’t know my best friend.”",
+   "explain_ar": "الشرط المختلط بيتقال كتير لما نتكلم عن اختيارات الحياة والندم: “If I hadn’t moved to Jeddah, I wouldn’t know my best friend.”",
+   "board": "life choices · regrets · imagining another life",
+   "examples": [
+    {
+     "en": "If I had learned English as a child, I’d be fluent now.",
+     "ar": "لو كنت اتعلمت إنجليزي وأنا صغير كنت هبقى بطلاقة دلوقتي."
+    },
+    {
+     "en": "If she weren’t so kind, she wouldn’t have helped us.",
+     "ar": "لو ماكانتش طيبة كده ماكانتش ساعدتنا."
+    }
+   ],
+   "check": {
+    "question": "“If I hadn’t met my teacher, I ___ English today.”",
+    "options": [
+     "wouldn’t love",
+     "wouldn’t have loved",
+     "won’t love"
+    ],
+    "answer_index": 0,
+    "why_ar": "today → النتيجة في الحاضر: wouldn’t love."
+   },
+   "recap_en": "Mixed conditionals join different times: an imaginary past with a present result, or a present situation with a past result. Decide the time of each half first."
+  }
+ ],
+ "Discourse markers for essays": [
+  {
+   "step_title": "Signposts for the reader",
+   "explain_en": "Discourse markers guide the reader through your ideas: they show order, addition, contrast, cause and conclusion. Good essays use a variety of them.",
+   "explain_ar": "أدوات الربط بتوجّه القارئ في أفكارك: بتوضح الترتيب والإضافة والتناقض والسبب والخلاصة. والمقالات الكويسة بتنوّع فيها.",
+   "board": "order · addition · contrast · cause · conclusion",
+   "examples": [
+    {
+     "en": "Firstly, technology saves time.",
+     "ar": "أولاً، التكنولوجيا بتوفر الوقت."
+    },
+    {
+     "en": "In conclusion, both sides have a point.",
+     "ar": "في الختام، كل طرف عنده وجهة نظر."
+    }
+   ],
+   "check": {
+    "question": "Which marker shows a conclusion?",
+    "options": [
+     "Moreover",
+     "To sum up",
+     "For instance"
+    ],
+    "answer_index": 1,
+    "why_ar": "To sum up = باختصار/في الختام."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Adding and giving examples",
+   "explain_en": "To add ideas: moreover, furthermore, in addition, what is more. To give examples: for instance, for example, such as. These replace simple “and” and “also”.",
+   "explain_ar": "للإضافة: moreover وfurthermore وin addition. وللأمثلة: for instance وsuch as. ودول بيحلوا محل and وalso البسيطة.",
+   "board": "Moreover, … · For instance, … · such as + noun",
+   "examples": [
+    {
+     "en": "Moreover, online learning is cheaper.",
+     "ar": "علاوة على ذلك، التعلم أونلاين أرخص."
+    },
+    {
+     "en": "Many sports, such as tennis, improve focus.",
+     "ar": "رياضات كتير زي التنس بتحسن التركيز."
+    }
+   ],
+   "check": {
+    "question": "Reading is relaxing. ___, it improves vocabulary.",
+    "options": [
+     "However",
+     "Furthermore",
+     "Therefore"
+    ],
+    "answer_index": 1,
+    "why_ar": "بنضيف فكرة تانية في نفس الاتجاه → Furthermore."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Cause, result and contrast",
+   "explain_en": "Result: therefore, as a result, consequently. Cause: due to, owing to (+ noun). Contrast: however, on the other hand, nevertheless, whereas.",
+   "explain_ar": "النتيجة: therefore وas a result. السبب: due to + اسم. التناقض: however وon the other hand وnevertheless وwhereas.",
+   "board": "Therefore, … · due to + noun · On the other hand, …",
+   "examples": [
+    {
+     "en": "Prices rose. As a result, sales fell.",
+     "ar": "الأسعار زادت، ونتيجة لكده المبيعات قلت."
+    },
+    {
+     "en": "City life is exciting, whereas village life is calm.",
+     "ar": "حياة المدينة مثيرة، بينما حياة القرية هادية."
+    }
+   ],
+   "check": {
+    "question": "The flight was cancelled ___ bad weather.",
+    "options": [
+     "due to",
+     "therefore",
+     "although"
+    ],
+    "answer_index": 0,
+    "why_ar": "due to + اسم (bad weather) للسبب."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Building a paragraph",
+   "explain_en": "A strong paragraph moves clearly: a topic sentence, then ideas linked with markers, then a closing sentence. Don’t overuse them — one or two per sentence is enough.",
+   "explain_ar": "الفقرة القوية: جملة موضوع، وبعدين أفكار مربوطة بأدوات ربط، وبعدين جملة ختام. وماتكترش منهم — واحدة أو اتنين في الجملة كفاية.",
+   "board": "topic sentence → support (Firstly / Moreover) → contrast (However) → conclusion (Therefore)",
+   "examples": [
+    {
+     "en": "Firstly, … Moreover, … However, … Therefore, …",
+     "ar": "أولاً… علاوة على ذلك… ومع ذلك… لذلك…"
+    },
+    {
+     "en": "On the one hand…, on the other hand…",
+     "ar": "من ناحية… ومن ناحية تانية…"
+    }
+   ],
+   "check": {
+    "question": "Best final sentence marker:",
+    "options": [
+     "For instance,",
+     "In conclusion,",
+     "Such as"
+    ],
+    "answer_index": 1,
+    "why_ar": "جملة الختام بتبدأ بـ In conclusion."
+   },
+   "recap_en": "Discourse markers like firstly, moreover, however, therefore and in conclusion guide the reader. Use a variety, but don’t overuse them."
+  }
+ ],
+ "Idioms in context": [
+  {
+   "step_title": "What idioms are",
+   "explain_en": "An idiom is a group of words whose meaning is different from the individual words: “It’s a piece of cake” means it is very easy — not real cake!",
+   "explain_ar": "المصطلح مجموعة كلمات معناها مختلف عن معنى كل كلمة لوحدها: “It’s a piece of cake” يعني سهلة جداً، مش كيك بجد!",
+   "board": "idiom = fixed phrase with a new meaning",
+   "examples": [
+    {
+     "en": "The exam was a piece of cake.",
+     "ar": "الامتحان كان سهل جداً."
+    },
+    {
+     "en": "I’m feeling under the weather today.",
+     "ar": "أنا تعبان شوية النهارده."
+    }
+   ],
+   "check": {
+    "question": "“A piece of cake” means …",
+    "options": [
+     "very easy",
+     "very sweet",
+     "very small"
+    ],
+    "answer_index": 0,
+    "why_ar": "a piece of cake = سهلة جداً."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Idioms about time and effort",
+   "explain_en": "Useful ones: “once in a blue moon” (very rarely), “call it a day” (stop working), “burn the midnight oil” (work late), “hit the books” (study hard).",
+   "explain_ar": "مصطلحات مفيدة: once in a blue moon (نادراً جداً)، call it a day (نكتفي كده)، burn the midnight oil (نسهر نشتغل)، hit the books (نذاكر جامد).",
+   "board": "once in a blue moon · call it a day · hit the books",
+   "examples": [
+    {
+     "en": "We only eat out once in a blue moon.",
+     "ar": "بناكل بره نادراً جداً."
+    },
+    {
+     "en": "It’s late — let’s call it a day.",
+     "ar": "الوقت اتأخر — يلا نكتفي كده."
+    }
+   ],
+   "check": {
+    "question": "Before exams, students often ___.",
+    "options": [
+     "hit the books",
+     "break the ice",
+     "cost an arm and a leg"
+    ],
+    "answer_index": 0,
+    "why_ar": "hit the books = يذاكر جامد."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Idioms about people and feelings",
+   "explain_en": "“Break the ice” (start a friendly conversation), “over the moon” (very happy), “in hot water” (in trouble), “cost an arm and a leg” (very expensive).",
+   "explain_ar": "break the ice (يكسر الحواجز)، over the moon (مبسوط جداً)، in hot water (في مشكلة)، cost an arm and a leg (غالي جداً).",
+   "board": "over the moon = very happy · in hot water = in trouble",
+   "examples": [
+    {
+     "en": "She was over the moon with her results.",
+     "ar": "كانت طايرة من الفرحة بنتيجتها."
+    },
+    {
+     "en": "That phone cost an arm and a leg.",
+     "ar": "التليفون ده غالي جداً."
+    }
+   ],
+   "check": {
+    "question": "He told a joke to ___ at the meeting.",
+    "options": [
+     "break the ice",
+     "call it a day",
+     "hit the books"
+    ],
+    "answer_index": 0,
+    "why_ar": "يكسر الحواجز في أول لقاء → break the ice."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Using idioms naturally",
+   "explain_en": "Use idioms in informal speaking, not in formal essays. Don’t change their words: say “a piece of cake”, not “a slice of cake”. Learn them with a real example.",
+   "explain_ar": "استخدم المصطلحات في الكلام غير الرسمي مش في المقالات الرسمية. وماتغيرش كلماتها: a piece of cake مش a slice of cake.",
+   "board": "informal speaking ✓ · formal essay ✗ · don’t change the words",
+   "examples": [
+    {
+     "en": "Don’t worry, the test will be a piece of cake!",
+     "ar": "ماتقلقش، الامتحان هيبقى سهل!"
+    },
+    {
+     "en": "I got the job — I’m over the moon!",
+     "ar": "اتقبلت في الشغل — أنا مبسوط جداً!"
+    }
+   ],
+   "check": {
+    "question": "Where is “a piece of cake” most natural?",
+    "options": [
+     "A formal report",
+     "Chatting with a friend",
+     "A legal contract"
+    ],
+    "answer_index": 1,
+    "why_ar": "المصطلحات مناسبة للكلام غير الرسمي."
+   },
+   "recap_en": "Idioms are fixed phrases with special meanings. Learn them with examples, keep the words exactly the same, and use them in informal speaking."
+  }
+ ],
+ "Formal and informal English": [
+  {
+   "step_title": "Two styles",
+   "explain_en": "English changes with the situation. We use informal English with friends and family, and formal English in emails to companies, essays, interviews and official letters.",
+   "explain_ar": "الإنجليزي بيتغير حسب الموقف: غير رسمي مع الأصحاب والعيلة، ورسمي في الإيميلات للشركات والمقالات والمقابلات والجوابات الرسمية.",
+   "board": "friends → informal · work / official → formal",
+   "examples": [
+    {
+     "en": "Hi Sara! What’s up?",
+     "ar": "أهلاً سارة! إيه الأخبار؟"
+    },
+    {
+     "en": "Dear Mr Hassan, I am writing to enquire about…",
+     "ar": "السيد حسن المحترم، أكتب للاستفسار عن…"
+    }
+   ],
+   "check": {
+    "question": "Which is formal?",
+    "options": [
+     "Hey, gimme a call!",
+     "I would be grateful if you could contact me.",
+     "Call me, yeah?"
+    ],
+    "answer_index": 1,
+    "why_ar": "I would be grateful if … أسلوب رسمي."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Words and contractions",
+   "explain_en": "Formal English avoids contractions (I’m → I am) and uses more formal words: get → receive, ask → enquire, help → assist, need → require, buy → purchase.",
+   "explain_ar": "الرسمي بيتجنب الاختصارات (I’m → I am) وبيستخدم كلمات رسمية: receive بدل get، وenquire بدل ask، وassist بدل help.",
+   "board": "get → receive · help → assist · buy → purchase",
+   "examples": [
+    {
+     "en": "We have received your application.",
+     "ar": "استلمنا طلبك."
+    },
+    {
+     "en": "Please let me know if I can assist you further.",
+     "ar": "من فضلك بلغني لو أقدر أساعدك أكتر."
+    }
+   ],
+   "check": {
+    "question": "Formal version of “I want to buy a ticket”:",
+    "options": [
+     "I wanna buy a ticket.",
+     "I would like to purchase a ticket.",
+     "Gimme a ticket."
+    ],
+    "answer_index": 1,
+    "why_ar": "would like وpurchase أسلوب رسمي."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Polite requests",
+   "explain_en": "Formal requests are indirect: “Could you…?”, “Would you mind…?”, “I would appreciate it if…”. Informal: “Can you…?”, “Send me…”.",
+   "explain_ar": "الطلبات الرسمية غير مباشرة: Could you…? وWould you mind…? وI would appreciate it if…. وغير الرسمي: Can you…?",
+   "board": "Could you …? · Would you mind + -ing? · I would appreciate it if …",
+   "examples": [
+    {
+     "en": "Would you mind sending me the file?",
+     "ar": "ممكن تبعتلي الملف؟"
+    },
+    {
+     "en": "I would appreciate it if you could reply soon.",
+     "ar": "هكون ممتن لو رديت قريب."
+    }
+   ],
+   "check": {
+    "question": "Most formal request:",
+    "options": [
+     "Send me the report.",
+     "Can you send the report?",
+     "Could you please send me the report?"
+    ],
+    "answer_index": 2,
+    "why_ar": "Could you please … الأكثر رسمية وأدب."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Emails: openings and closings",
+   "explain_en": "Formal email: “Dear Ms Ali,” … “Kind regards,” / “Yours sincerely,”. Informal: “Hi Omar,” … “See you soon!” / “Cheers,”. Match the style from start to finish.",
+   "explain_ar": "الإيميل الرسمي: “Dear Ms Ali,” وفي الآخر “Kind regards,”. وغير الرسمي: “Hi Omar,” و“See you soon!”. وخلي الأسلوب واحد من الأول للآخر.",
+   "board": "Dear … / Kind regards · Hi … / See you!",
+   "examples": [
+    {
+     "en": "Dear Sir or Madam, I am writing to complain about…",
+     "ar": "السادة المحترمين، أكتب للشكوى من…"
+    },
+    {
+     "en": "Hi Mona, thanks for the photos! See you soon.",
+     "ar": "أهلاً منى، شكراً على الصور! أشوفك قريب."
+    }
+   ],
+   "check": {
+    "question": "Best closing for an email to a company:",
+    "options": [
+     "Love,",
+     "Kind regards,",
+     "Bye!"
+    ],
+    "answer_index": 1,
+    "why_ar": "Kind regards خاتمة رسمية مناسبة."
+   },
+   "recap_en": "Choose formal or informal English by situation. Formal English avoids contractions, uses formal words and indirect requests, and keeps the same style from greeting to closing."
+  }
+ ]
+}

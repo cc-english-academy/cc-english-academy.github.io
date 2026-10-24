@@ -1,0 +1,662 @@
+{
+ "Second conditional: If I were…": [
+  {
+   "step_title": "Imaginary situations",
+   "explain_en": "We use the second conditional for situations that are imaginary or unlikely now or in the future: “If I had a million dollars, I would travel the world.”",
+   "explain_ar": "بنستخدم الشرط التاني لمواقف خيالية أو بعيدة دلوقتي أو في المستقبل: “If I had a million dollars, I would travel the world.”",
+   "board": "imaginary / unlikely → would",
+   "examples": [
+    {
+     "en": "If I lived by the sea, I would swim every day.",
+     "ar": "لو كنت ساكن جنب البحر كنت هعوم كل يوم."
+    },
+    {
+     "en": "What would you do if you won the lottery?",
+     "ar": "كنت هتعمل إيه لو كسبت اليانصيب؟"
+    }
+   ],
+   "check": {
+    "question": "Which sentence is imaginary?",
+    "options": [
+     "If it rains, I’ll stay home.",
+     "If I were a bird, I would fly.",
+     "If you heat ice, it melts."
+    ],
+    "answer_index": 1,
+    "why_ar": "إني أبقى طير حاجة خيالية → الشرط التاني."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "The form",
+   "explain_en": "Use if + past simple, then would + base verb. The past form here does not mean past time — it shows the situation is not real.",
+   "explain_ar": "if + ماضي بسيط، وبعدين would + الفعل في أصله. الماضي هنا مش معناه زمن فات، معناه إن الموقف مش حقيقي.",
+   "board": "If + past simple, … would + verb",
+   "examples": [
+    {
+     "en": "If she studied more, she would get better marks.",
+     "ar": "لو كانت بتذاكر أكتر كانت هتجيب درجات أحسن."
+    },
+    {
+     "en": "I would buy that car if it were cheaper.",
+     "ar": "كنت هشتري العربية دي لو كانت أرخص."
+    }
+   ],
+   "check": {
+    "question": "If I ___ more time, I would learn Spanish.",
+    "options": [
+     "have",
+     "had",
+     "will have"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد if في الشرط التاني بنستخدم الماضي: had."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "If I were you",
+   "explain_en": "With “be”, we often use “were” for everyone: “If I were rich…”, “If she were here…”. “If I were you, I would…” is a polite way to give advice.",
+   "explain_ar": "مع be بنستخدم were مع الكل: “If I were rich”. و“If I were you, I would…” طريقة مؤدبة للنصيحة.",
+   "board": "If I were you, I would …",
+   "examples": [
+    {
+     "en": "If I were you, I would take the job.",
+     "ar": "لو كنت مكانك كنت قبلت الشغلانة."
+    },
+    {
+     "en": "If he were taller, he could play basketball.",
+     "ar": "لو كان أطول كان يقدر يلعب باسكت."
+    }
+   ],
+   "check": {
+    "question": "Choose the best advice:",
+    "options": [
+     "If I am you, I will rest.",
+     "If I were you, I would rest.",
+     "If I was you, I rest."
+    ],
+    "answer_index": 1,
+    "why_ar": "للنصيحة بنقول If I were you, I would."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "First or second conditional?",
+   "explain_en": "Real and possible → first conditional (if + present, will). Imaginary or very unlikely → second (if + past, would). Compare: “If I see him, I’ll tell him” / “If I saw a lion, I’d run.”",
+   "explain_ar": "لو ممكن يحصل فعلاً → الشرط الأول. لو خيالي أو بعيد جداً → الشرط التاني.",
+   "board": "possible → if + present, will · imaginary → if + past, would",
+   "examples": [
+    {
+     "en": "If I pass the exam, I’ll celebrate. (possible)",
+     "ar": "لو نجحت هحتفل. (ممكن)"
+    },
+    {
+     "en": "If I could fly, I’d visit every country. (imaginary)",
+     "ar": "لو أقدر أطير كنت زرت كل البلاد. (خيال)"
+    }
+   ],
+   "check": {
+    "question": "“If I ___ the president, I would build more schools.”",
+    "options": [
+     "am",
+     "were",
+     "will be"
+    ],
+    "answer_index": 1,
+    "why_ar": "موقف خيالي → were."
+   },
+   "recap_en": "Use if + past simple with would + verb for imaginary or unlikely situations, use were for everyone, and say “If I were you” to give advice."
+  }
+ ],
+ "The passive: It was made…": [
+  {
+   "step_title": "Why use the passive?",
+   "explain_en": "We use the passive when the action is more important than who did it, or when we don’t know who did it: “My phone was stolen.”",
+   "explain_ar": "بنستخدم المبني للمجهول لما الفعل يكون أهم من اللي عمله، أو لما مانكونش عارفين مين عمله: “My phone was stolen.”",
+   "board": "the action matters, not who did it",
+   "examples": [
+    {
+     "en": "This bridge was built in 1990.",
+     "ar": "الكوبري ده اتبنى سنة ١٩٩٠."
+    },
+    {
+     "en": "Arabic is spoken in many countries.",
+     "ar": "العربي بيتكلموه في بلاد كتير."
+    }
+   ],
+   "check": {
+    "question": "Which sentence is passive?",
+    "options": [
+     "They clean the room every day.",
+     "The room is cleaned every day.",
+     "The room cleans every day."
+    ],
+    "answer_index": 1,
+    "why_ar": "the room is cleaned = الأوضة بتتنضف (مبني للمجهول)."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "be + past participle",
+   "explain_en": "Make the passive with the verb “be” in the right tense + the past participle: is made, was made, has been made, will be made.",
+   "explain_ar": "المبني للمجهول = be في الزمن المناسب + التصريف التالت: is made وwas made وwill be made.",
+   "board": "present: is / are + done\npast: was / were + done",
+   "examples": [
+    {
+     "en": "Cars are made in this factory.",
+     "ar": "العربيات بتتصنع في المصنع ده."
+    },
+    {
+     "en": "The letters were sent yesterday.",
+     "ar": "الجوابات اتبعتت امبارح."
+    }
+   ],
+   "check": {
+    "question": "The pyramids ___ thousands of years ago.",
+    "options": [
+     "built",
+     "were built",
+     "are built"
+    ],
+    "answer_index": 1,
+    "why_ar": "في الماضي ومجهول: were built."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "by + the doer",
+   "explain_en": "If we want to say who did the action, we use “by”: “The Mona Lisa was painted by Leonardo da Vinci.” Often we leave it out because it isn’t important.",
+   "explain_ar": "لو عايزين نقول مين عمل الفعل بنستخدم by: “… was painted by Leonardo da Vinci.” وغالباً بنشيله لو مش مهم.",
+   "board": "passive + by + person",
+   "examples": [
+    {
+     "en": "The book was written by Naguib Mahfouz.",
+     "ar": "الكتاب ده كتبه نجيب محفوظ."
+    },
+    {
+     "en": "The match was watched by millions.",
+     "ar": "الماتش اتفرج عليه ملايين."
+    }
+   ],
+   "check": {
+    "question": "The phone was invented ___ Alexander Graham Bell.",
+    "options": [
+     "from",
+     "by",
+     "with"
+    ],
+    "answer_index": 1,
+    "why_ar": "اللي عمل الفعل بييجي بعد by."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Common mistakes",
+   "explain_en": "Don’t forget “be”: “The car was repaired”, not “The car repaired”. And the verb must be the past participle: “It was written”, not “It was wrote”.",
+   "explain_ar": "ماتنساش be: “The car was repaired” مش “The car repaired”. والفعل لازم تصريف تالت: written مش wrote.",
+   "board": "was written ✓ · was wrote ✗",
+   "examples": [
+    {
+     "en": "The windows are cleaned every week.",
+     "ar": "الشبابيك بتتمسح كل أسبوع."
+    },
+    {
+     "en": "Dinner will be served at 8.",
+     "ar": "العشا هيتقدم الساعة ٨."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "The email sent yesterday.",
+     "The email was sent yesterday.",
+     "The email was send yesterday."
+    ],
+    "answer_index": 1,
+    "why_ar": "لازم was + التصريف التالت sent."
+   },
+   "recap_en": "The passive is be + past participle. We use it when the action matters more than the doer, and add by only when we want to say who did it."
+  }
+ ],
+ "Reported speech: She said that…": [
+  {
+   "step_title": "Telling what someone said",
+   "explain_en": "We use reported speech to tell someone what another person said, without their exact words: “I’m tired.” → She said (that) she was tired.",
+   "explain_ar": "بنستخدم الكلام المنقول عشان نحكي اللي حد قاله من غير كلامه بالحرف: She said (that) she was tired.",
+   "board": "direct: “I’m tired.” → reported: She said she was tired.",
+   "examples": [
+    {
+     "en": "He said he liked the film.",
+     "ar": "قال إن الفيلم عجبه."
+    },
+    {
+     "en": "They said they were hungry.",
+     "ar": "قالوا إنهم جعانين."
+    }
+   ],
+   "check": {
+    "question": "Which is reported speech?",
+    "options": [
+     "“I am happy,” she said.",
+     "She said she was happy.",
+     "She says: I am happy."
+    ],
+    "answer_index": 1,
+    "why_ar": "من غير علامات تنصيص ومع تغيير الزمن → كلام منقول."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "One step back in time",
+   "explain_en": "After “said”, we usually move the tense one step back: am/is → was, present simple → past simple, will → would, can → could.",
+   "explain_ar": "بعد said بنرجّع الزمن خطوة لورا: am → was، والمضارع → ماضي، وwill → would، وcan → could.",
+   "board": "is → was · like → liked · will → would · can → could",
+   "examples": [
+    {
+     "en": "“I will help you.” → He said he would help me.",
+     "ar": "قال إنه هيساعدني."
+    },
+    {
+     "en": "“I can swim.” → She said she could swim.",
+     "ar": "قالت إنها بتعرف تعوم."
+    }
+   ],
+   "check": {
+    "question": "“I live in Cairo.” → He said he ___ in Cairo.",
+    "options": [
+     "lives",
+     "lived",
+     "living"
+    ],
+    "answer_index": 1,
+    "why_ar": "المضارع بيرجع ماضي: lived."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Pronouns and time words",
+   "explain_en": "Change pronouns and time words to match: I → he/she, my → his/her, today → that day, tomorrow → the next day, here → there.",
+   "explain_ar": "غيّر الضماير وكلمات الوقت: I → he/she، وtomorrow → the next day، وhere → there.",
+   "board": "tomorrow → the next day · here → there",
+   "examples": [
+    {
+     "en": "“I’ll see you tomorrow.” → She said she would see me the next day.",
+     "ar": "قالت إنها هتشوفني تاني يوم."
+    },
+    {
+     "en": "“My car is here.” → He said his car was there.",
+     "ar": "قال إن عربيته هناك."
+    }
+   ],
+   "check": {
+    "question": "“I’m busy today.” → She said she was busy ___.",
+    "options": [
+     "today",
+     "that day",
+     "tomorrow"
+    ],
+    "answer_index": 1,
+    "why_ar": "today بتبقى that day في الكلام المنقول."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "say or tell? Questions",
+   "explain_en": "“Tell” needs a person: “He told me…”; “say” doesn’t: “He said…”. Reported questions use normal word order: “Where do you live?” → She asked where I lived.",
+   "explain_ar": "tell لازم بعدها شخص: “He told me”. وsay لأ: “He said”. والسؤال المنقول ترتيبه زي الجملة العادية: She asked where I lived.",
+   "board": "tell + person · say (no person) · asked where I lived",
+   "examples": [
+    {
+     "en": "She told me she was leaving.",
+     "ar": "قالتلي إنها ماشية."
+    },
+    {
+     "en": "He asked if I was ready.",
+     "ar": "سألني إذا كنت جاهز."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "He said me the answer.",
+     "He told me the answer.",
+     "He told the answer me."
+    ],
+    "answer_index": 1,
+    "why_ar": "مع الشخص بنستخدم told me."
+   },
+   "recap_en": "In reported speech we move tenses one step back, change pronouns and time words, use tell with a person, and keep normal word order in questions."
+  }
+ ],
+ "used to / be used to": [
+  {
+   "step_title": "used to: past habits",
+   "explain_en": "Use “used to + verb” for habits or states in the past that are not true now: “I used to play football every day.” (Now I don’t.)",
+   "explain_ar": "used to + الفعل لعادات أو أحوال في الماضي ما بقتش موجودة: “I used to play football every day.”",
+   "board": "used to + verb = كنت متعود (زمان)",
+   "examples": [
+    {
+     "en": "We used to live in Tanta.",
+     "ar": "كنا ساكنين في طنطا زمان."
+    },
+    {
+     "en": "She used to have long hair.",
+     "ar": "كان شعرها طويل زمان."
+    }
+   ],
+   "check": {
+    "question": "Which means “زمان كنت بخاف من الكلاب”?",
+    "options": [
+     "I used to be afraid of dogs.",
+     "I am used to be afraid of dogs.",
+     "I use to afraid of dogs."
+    ],
+    "answer_index": 0,
+    "why_ar": "عادة أو حالة في الماضي → used to + الفعل."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Negatives and questions",
+   "explain_en": "Negative: “didn’t use to” (no -d). Question: “Did you use to…?”: “I didn’t use to like vegetables.” “Did you use to walk to school?”",
+   "explain_ar": "النفي: didn’t use to (من غير d). والسؤال: Did you use to…?",
+   "board": "didn’t use to · Did you use to …?",
+   "examples": [
+    {
+     "en": "He didn’t use to wear glasses.",
+     "ar": "ماكانش بيلبس نضارة زمان."
+    },
+    {
+     "en": "Did you use to watch cartoons?",
+     "ar": "كنت بتتفرج على كرتون زمان؟"
+    }
+   ],
+   "check": {
+    "question": "I ___ like coffee, but now I love it.",
+    "options": [
+     "didn’t used to",
+     "didn’t use to",
+     "not used to"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد didn’t بنكتب use من غير d."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "be used to: familiar",
+   "explain_en": "“Be used to + noun or -ing” means something is normal or familiar for you now: “I’m used to the hot weather.” “She’s used to getting up early.”",
+   "explain_ar": "be used to + اسم أو ing معناها متعود على حاجة دلوقتي: “I’m used to the hot weather.”",
+   "board": "be used to + noun / -ing = متعود على",
+   "examples": [
+    {
+     "en": "I’m used to living alone.",
+     "ar": "أنا متعود أعيش لوحدي."
+    },
+    {
+     "en": "He isn’t used to the noise yet.",
+     "ar": "هو لسه مش متعود على الدوشة."
+    }
+   ],
+   "check": {
+    "question": "She ___ driving on the right now.",
+    "options": [
+     "used to",
+     "is used to",
+     "use to"
+    ],
+    "answer_index": 1,
+    "why_ar": "متعودة على حاجة دلوقتي → is used to + ing."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "get used to",
+   "explain_en": "“Get used to” describes the process of becoming familiar: “It took me a month to get used to my new school.”",
+   "explain_ar": "get used to = بدأت أتعود، عملية التعود نفسها: “It took me a month to get used to my new school.”",
+   "board": "get used to + noun / -ing = يتعود",
+   "examples": [
+    {
+     "en": "You’ll soon get used to the food here.",
+     "ar": "قريب هتتعود على الأكل هنا."
+    },
+    {
+     "en": "I’m getting used to working from home.",
+     "ar": "ببدأ أتعود على الشغل من البيت."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "I can’t get used to wake up early.",
+     "I can’t get used to waking up early.",
+     "I can’t get use to wake up early."
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد get used to بنستخدم ing."
+   },
+   "recap_en": "Used to + verb is for past habits. Be used to + noun or -ing means something is familiar now, and get used to is the process of becoming familiar."
+  }
+ ],
+ "Gerund or infinitive: enjoy doing / want to do": [
+  {
+   "step_title": "Two forms after verbs",
+   "explain_en": "When one verb follows another, the second verb is either -ing (a gerund) or to + verb (an infinitive). It depends on the first verb.",
+   "explain_ar": "لما فعل ييجي بعد فعل، التاني يا إما ing يا إما to + فعل، وده حسب الفعل الأول.",
+   "board": "verb + -ing · verb + to + verb",
+   "examples": [
+    {
+     "en": "I enjoy reading.",
+     "ar": "بحب القراية."
+    },
+    {
+     "en": "I want to read.",
+     "ar": "عايز أقرا."
+    }
+   ],
+   "check": {
+    "question": "Which is correct?",
+    "options": [
+     "I want reading.",
+     "I want to read.",
+     "I want read."
+    ],
+    "answer_index": 1,
+    "why_ar": "want بييجي بعدها to + فعل."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Verbs + -ing",
+   "explain_en": "Use -ing after enjoy, finish, mind, avoid, keep, suggest, can’t stand: “I finished doing my homework.” Also after prepositions: “good at drawing”.",
+   "explain_ar": "ing بعد enjoy وfinish وmind وavoid وkeep وsuggest، وبعد حروف الجر: good at drawing.",
+   "board": "enjoy / finish / avoid / mind + -ing",
+   "examples": [
+    {
+     "en": "Would you mind closing the door?",
+     "ar": "ممكن تقفل الباب؟"
+    },
+    {
+     "en": "She’s interested in learning Japanese.",
+     "ar": "هي مهتمة تتعلم ياباني."
+    }
+   ],
+   "check": {
+    "question": "Have you finished ___ the book?",
+    "options": [
+     "to read",
+     "reading",
+     "read"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد finish بنستخدم ing."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Verbs + to",
+   "explain_en": "Use to + verb after want, decide, hope, plan, need, learn, promise, would like: “We decided to stay.” “I’d like to order, please.”",
+   "explain_ar": "to + فعل بعد want وdecide وhope وplan وneed وlearn وpromise وwould like.",
+   "board": "want / decide / hope / need + to + verb",
+   "examples": [
+    {
+     "en": "He promised to call me.",
+     "ar": "وعدني إنه يكلمني."
+    },
+    {
+     "en": "I need to buy some bread.",
+     "ar": "محتاج أشتري عيش."
+    }
+   ],
+   "check": {
+    "question": "They hope ___ the competition.",
+    "options": [
+     "winning",
+     "to win",
+     "win"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد hope بنستخدم to + الفعل."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Change in meaning",
+   "explain_en": "A few verbs take both with different meanings: “I stopped smoking” (I don’t smoke now) vs “I stopped to drink water” (I stopped in order to drink). “Remember to lock the door” (don’t forget) vs “I remember locking it” (I have a memory of it).",
+   "explain_ar": "أفعال قليلة بتاخد الاتنين بمعنى مختلف: stopped smoking (بطّلت) وstopped to drink (وقفت عشان أشرب). remember to (ماتنساش) وremember doing (فاكر إني عملت).",
+   "board": "stop doing ≠ stop to do · remember to do ≠ remember doing",
+   "examples": [
+    {
+     "en": "Please remember to bring your book.",
+     "ar": "افتكر تجيب كتابك."
+    },
+    {
+     "en": "I remember meeting her at the party.",
+     "ar": "فاكر إني قابلتها في الحفلة."
+    }
+   ],
+   "check": {
+    "question": "He stopped ___ to answer the phone. (He paused his work.)",
+    "options": [
+     "working",
+     "to work",
+     "work"
+    ],
+    "answer_index": 0,
+    "why_ar": "وقف الشغل نفسه → stopped working."
+   },
+   "recap_en": "Some verbs like enjoy and finish take -ing, others like want and decide take to + verb, and a few like stop and remember change meaning."
+  }
+ ],
+ "Phrasal verbs for everyday life": [
+  {
+   "step_title": "What is a phrasal verb?",
+   "explain_en": "A phrasal verb is a verb + a small word like up, off, on or out. Together they have a new meaning: “get up” means to leave your bed.",
+   "explain_ar": "الفعل المركب هو فعل + كلمة صغيرة زي up أو off أو on أو out، ومع بعض بيدوا معنى جديد: get up = تقوم من السرير.",
+   "board": "verb + up / off / on / out = new meaning",
+   "examples": [
+    {
+     "en": "I get up at 6 every day.",
+     "ar": "بصحى الساعة ٦ كل يوم."
+    },
+    {
+     "en": "Turn off the light, please.",
+     "ar": "اطفي النور من فضلك."
+    }
+   ],
+   "check": {
+    "question": "“Get up” means …",
+    "options": [
+     "to go to bed",
+     "to leave your bed",
+     "to go upstairs"
+    ],
+    "answer_index": 1,
+    "why_ar": "get up = تقوم من السرير."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Daily routine verbs",
+   "explain_en": "Many common actions use phrasal verbs: wake up, get dressed, put on (clothes), take off (clothes), turn on / turn off, go out.",
+   "explain_ar": "أفعال يومية كتير مركبة: wake up وput on (تلبس) وtake off (تقلع) وturn on / off وgo out.",
+   "board": "put on ≠ take off · turn on ≠ turn off",
+   "examples": [
+    {
+     "en": "Put on your jacket — it’s cold.",
+     "ar": "البس الجاكيت — الجو برد."
+    },
+    {
+     "en": "We’re going out for dinner tonight.",
+     "ar": "هنخرج نتعشى بره النهارده."
+    }
+   ],
+   "check": {
+    "question": "It’s hot. ___ your coat.",
+    "options": [
+     "Put on",
+     "Take off",
+     "Turn off"
+    ],
+    "answer_index": 1,
+    "why_ar": "لما الجو حر بنقلع: take off."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Separable verbs",
+   "explain_en": "With many phrasal verbs, the object can go in the middle: “turn the TV off” or “turn off the TV”. But with a pronoun (it, them), it must go in the middle: “turn it off”, not “turn off it”.",
+   "explain_ar": "أفعال مركبة كتير بنحط المفعول في النص أو في الآخر. لكن مع الضمير (it أو them) لازم في النص: “turn it off” مش “turn off it”.",
+   "board": "turn it off ✓ · turn off it ✗",
+   "examples": [
+    {
+     "en": "Pick up your toys. — Pick them up!",
+     "ar": "لم لعبك — لمّها!"
+    },
+    {
+     "en": "Can you fill in this form? — Fill it in, please.",
+     "ar": "ممكن تملا الاستمارة دي؟"
+    }
+   ],
+   "check": {
+    "question": "Your music is loud. Please turn ___.",
+    "options": [
+     "down it",
+     "it down",
+     "it downs"
+    ],
+    "answer_index": 1,
+    "why_ar": "مع it بنحطها في النص: turn it down."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Useful phrasal verbs",
+   "explain_en": "Learn them in real sentences: look for (search), find out (discover), give up (stop trying), look after (take care of), run out of (have no more).",
+   "explain_ar": "اتعلمهم في جمل حقيقية: look for (يدوّر)، find out (يعرف)، give up (يستسلم)، look after (ياخد باله من)، run out of (يخلص منه).",
+   "board": "look for · find out · give up · look after · run out of",
+   "examples": [
+    {
+     "en": "I’m looking for my keys.",
+     "ar": "بدوّر على مفاتيحي."
+    },
+    {
+     "en": "We’ve run out of milk.",
+     "ar": "اللبن خلص."
+    }
+   ],
+   "check": {
+    "question": "Don’t ___ ! You can do it!",
+    "options": [
+     "give up",
+     "give in up",
+     "look up"
+    ],
+    "answer_index": 0,
+    "why_ar": "give up = تستسلم."
+   },
+   "recap_en": "Phrasal verbs are a verb plus a small word with a new meaning. Learn them in real sentences, and put pronouns like it in the middle."
+  }
+ ]
+}

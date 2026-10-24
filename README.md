@@ -60,7 +60,7 @@ and keeps the original name in `materials.file_name`, which is used as the downl
 - Search, "NEW" and "READ" badges, teacher delete
 - Reading streak 🔥 with a 7-day strip, and a weekly top-readers leaderboard per club
 - Live toasts when a teacher uploads a book or sends an announcement
-- Coco, the robot English buddy: talk and role-play with Claude through the `tutor` Edge Function (`supabase/functions/tutor`), gentle corrections in Arabic, new-word jar, browser voice in and out; pronunciation practice ("Say it") works with no AI and no account
+- Coco, the robot English teacher: 36 built-in whiteboard lessons (6 per stage, `assets/data/lessons/stage-N.json`) and pronunciation practice that are free and need no account; optional AI for chat, role-play and custom topics, through the `tutor` Edge Function (`supabase/functions/tutor`); gentle corrections in Arabic, new-word jar, browser voice in and out
 - Sign in with email or phone number (the password is checked in the database before the account's email is used)
 - Prices shown in US dollars with riyals in brackets (payment amounts stay in riyals)
 - Free placement test: adaptive, 86-question bank, different questions on every attempt

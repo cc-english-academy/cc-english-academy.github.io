@@ -2043,6 +2043,29 @@ body:has(#dashboardPage:not([hidden])) .coco-hint{display:none;}
 .coco-form{display:flex;gap:8px;align-items:flex-end;padding:10px 12px 14px;border-top:1px solid rgba(92,26,40,.08);background:#fff;}
 .coco.say-mode .coco-form{display:none;}
 .coco.lesson-active .coco-form{display:none;}
+.ccmds{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px;}
+.ccmds button{display:flex;align-items:center;gap:7px;text-align:start;border:1.5px solid rgba(92,26,40,.12);background:#fffaf5;border-radius:14px;padding:10px;font-family:inherit;font-size:.8rem;font-weight:600;color:var(--maroon-deep);cursor:pointer;transition:border-color .2s,transform .2s;}
+.ccmds button:hover{border-color:var(--maroon);transform:translateY(-1px);}
+.ccmds button span{font-size:1.15rem;}
+.cform{display:grid;gap:8px;margin-top:6px;}
+.cform>b{color:var(--maroon-deep);}
+.cform label{display:grid;gap:4px;font-size:.76rem;font-weight:700;color:#6a5057;}
+.cform input,.cform select,.cform textarea{width:100%;box-sizing:border-box;border:1.5px solid rgba(92,26,40,.15);border-radius:12px;padding:9px 10px;font-family:inherit;font-size:.86rem;background:#fff;color:#2b1d21;}
+.cdone-form .cform{opacity:.55;pointer-events:none;}
+.cres{border:1px solid rgba(92,26,40,.1);border-radius:14px;padding:8px 10px;margin-top:7px;background:#fff;}
+.cres summary{cursor:pointer;display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:.84rem;color:var(--maroon-deep);}
+.cres summary small{font-weight:600;color:#6a5057;white-space:nowrap;}
+.cres ul{margin:8px 0;padding:0;list-style:none;display:grid;gap:4px;font-size:.84rem;}
+.cres li.miss{color:#9a7b83;}
+.creport{white-space:pre-wrap;font-family:inherit;font-size:.8rem;line-height:1.6;background:#fffaf5;border:1px dashed rgba(92,26,40,.2);border-radius:12px;padding:10px;margin:8px 0 0;}
+.cchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.cchips button{border:1.5px solid rgba(92,26,40,.14);background:#fff;border-radius:999px;padding:7px 12px;font-family:inherit;font-size:.78rem;font-weight:600;color:var(--maroon-deep);cursor:pointer;}
+.cchips button:hover{border-color:var(--maroon);}
+.cassist{line-height:1.65;overflow-wrap:anywhere;}
+.cacts{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;}
+.cacts li{display:flex;gap:7px;align-items:center;background:#f1f9f3;border:1px solid #cfe8d6;color:#1e6b34;border-radius:12px;padding:7px 10px;font-size:.8rem;font-weight:600;}
+.ctopics small{font-weight:500;color:#9a6b00;}
+@media(max-width:420px){.ccmds{grid-template-columns:1fr}}
 .ctopics{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
 .ctopics button{text-align:start;border:1.5px solid rgba(92,26,40,.12);background:#fffaf5;border-radius:14px;padding:10px 12px;font:600 .84rem inherit;color:var(--maroon-deep);cursor:pointer;transition:transform .2s,border-color .2s;}
 .ctopics button:hover{transform:translateX(3px);border-color:var(--maroon);}
@@ -3527,6 +3550,7 @@ html[dir="rtl"] .ctopics button:hover{transform:translateX(-3px);}
     </div>
   </header>
   <nav class="coco-tabs">
+    <button type="button" data-coco-mode="assist" hidden>🤖 <span>Assistant</span></button>
     <button type="button" data-coco-mode="learn" class="on">🧑‍🏫 <span>Lesson</span></button>
     <button type="button" data-coco-mode="talk">💬 <span>Talk</span></button>
     <button type="button" data-coco-mode="play">🎭 <span>Role-play</span></button>
@@ -7849,7 +7873,22 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ['Third conditional: If I had known…', 'Past perfect: I had already eaten', 'I wish / If only', 'however / although / despite', 'must have / can’t have', 'make or do?'],
     ['Inversion: Never have I…', 'Cleft sentences: What I need is…', 'Mixed conditionals', 'Discourse markers for essays', 'Idioms in context', 'Formal and informal English']
   ];
-  let cocoLesson = null; // { topic, step, history: [{title, correct}], data }
+  let cocoLesson = null; // { topic, step, history: [{title, correct}], data, builtIn, examples }
+  let cocoSayCustom = null; // sentences to say from the lesson just finished
+  // the 36 listed lessons are written in advance (assets/data/lessons) — free, instant, no AI needed
+  const cocoLibrary = {};
+  async function cocoBuiltIn(topic){
+    const si = COCO_TOPICS.findIndex(function(list){ return list.indexOf(topic) !== -1; });
+    if(si === -1) return null;
+    try{
+      if(!cocoLibrary[si]){
+        const res = await fetch('assets/data/lessons/stage-' + (si + 1) + '.json');
+        if(!res.ok) return null;
+        cocoLibrary[si] = await res.json();
+      }
+      return cocoLibrary[si][topic] || null;
+    }catch(e){ return null; }
+  }
   let cocoMode = 'learn', cocoScene = null, cocoTurns = [], cocoBusy = false, cocoSpeak = true, cocoSayIdx = 0, cocoRec = null;
 
   function cocoStore(key, fallback){
@@ -7968,7 +8007,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       : err === 'signin' ? t('Please sign in again.', 'من فضلك سجّل الدخول مرة أخرى.')
       : err === 'busy' ? t('Coco is very busy right now. Try again in a minute.', 'كوكو مشغول جداً الآن. حاول بعد دقيقة.')
       : err === 'topic' ? t('Coco can only teach English topics — try another one!', 'كوكو بيشرح مواضيع الإنجليزي بس — جرّب موضوع تاني!')
-      : err === 'setup' ? t('Coco is still being set up by the academy. Try “Say it” for now!', 'الأكاديمية لسه بتجهّز كوكو. جرّب «قلها» دلوقتي!') +
+      : err === 'setup' ? (cocoMode === 'learn'
+          ? t('I can teach every lesson in the list for free 🧑‍🏫 — explaining any topic you type is coming soon.', 'أقدر أشرحلك كل دروس القائمة ببلاش 🧑‍🏫 — وشرح أي موضوع تكتبه قريباً.')
+          : t('Chatting with Coco is coming soon! For now, take a free lesson 🧑‍🏫 or practise in “Say it” 🎤.', 'الكلام مع كوكو قريباً! دلوقتي خد درس مجاني 🧑‍🏫 أو اتمرّن في «قلها» 🎤.')) +
           (isAdmin() ? ' — ' + t('Admin: see AI-TUTOR.md to switch Coco on.', 'للمدير: افتح ملف AI-TUTOR.md لتفعيل كوكو.') : '')
       : t('Oops, Coco lost the thread. Please try again.', 'حصل خطأ بسيط، حاول مرة أخرى.');
   }
@@ -7983,19 +8024,25 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoLog.innerHTML = '';
     const topics = COCO_TOPICS[cocoStage()] || COCO_TOPICS[0];
     const done = cocoStore('lessons', []);
-    cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level — or type anything you want me to explain.', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك — أو اكتب أي حاجة عايزني أشرحها.')) + '</p>' +
+    cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level 👇', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك 👇')) + '</p>' +
       '<div class="ctopics">' + topics.map(function(tp){
         const seen = done.indexOf(tp) !== -1;
         return '<button type="button" data-coco-topic="' + esc(tp) + '"' + (seen ? ' class="done"' : '') + '><bdi>' + esc(tp) + '</bdi>' + (seen ? ' ✓' : '') + '</button>';
       }).join('') + '</div>');
     cocoMood('happy');
+    cocoShowTasks();
   }
-  function cocoStartLesson(topic){
+  async function cocoStartLesson(topic){
     topic = (topic || '').trim();
-    if(!topic) return;
-    if(!currentProfile){ cocoSignin(); return; }
+    if(!topic || cocoBusy) return;
+    const builtIn = await cocoBuiltIn(topic);
+    if(!builtIn && !currentProfile){
+      cocoBubble('bot', '<p>' + esc(t('Sign in and I’ll try to explain that. Or pick one of the free lessons above!', 'سجّل الدخول وهحاول أشرحلك ده. أو اختار درس من الدروس المجانية اللي فوق!')) + '</p>');
+      cocoInput.value = '';
+      return;
+    }
     cocoInput.value = '';
-    cocoLesson = { topic: topic, step: 0, history: [] };
+    cocoLesson = { topic: topic, step: 0, history: [], builtIn: builtIn, examples: [] };
     coco.classList.add('lesson-active');
     cocoLog.innerHTML = '';
     cocoBubble('scene', '🧑‍🏫 <bdi>' + esc(topic) + '</bdi>');
@@ -8004,12 +8051,23 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   async function cocoLessonStep(){
     if(!cocoLesson || cocoBusy) return;
     cocoLesson.step++;
-    cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
-    const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
-    const out = await cocoCall({ mode: 'lesson', level: cocoLevel(), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
-    wait.remove();
-    cocoBusy = false; cocoState('busy', false);
+    let out;
+    if(cocoLesson.builtIn){
+      out = { data: JSON.parse(JSON.stringify(cocoLesson.builtIn[cocoLesson.step - 1])) };
+    } else {
+      cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
+      const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
+      out = await cocoCall({ mode: 'lesson', level: cocoLevel(), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
+      wait.remove();
+      cocoBusy = false; cocoState('busy', false);
+    }
     const d = out.data;
+    if(d && d.check && Array.isArray(d.check.options)){
+      // shuffle the answers so the right one isn't always in the same place
+      const right = d.check.options[d.check.answer_index];
+      d.check.options = shuffleArr(d.check.options.slice());
+      d.check.answer_index = d.check.options.indexOf(right);
+    }
     if(out.err || !d || !d.check){
       cocoLesson.step--;
       cocoMood('encouraging');
@@ -8018,6 +8076,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return;
     }
     cocoLesson.data = d;
+    (d.examples || []).forEach(function(x){ if(x && x.en) cocoLesson.examples.push(x.en); });
     cocoShowLeft(d.left);
     const n = cocoLesson.step;
     const card = cocoBubble('bot board', '<div class="cboard">' +
@@ -8065,10 +8124,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const done = cocoStore('lessons', []);
     if(done.indexOf(L.topic) === -1){ done.push(L.topic); cocoSave('lessons', done); }
     if(score === 4) cocoStars(2);
+    if(L.task && currentProfile) sb.from('coco_results').insert({ task_id: L.task.id, student_id: currentProfile.id, score: score, total: 4, answers: L.history }).then(function(){});
     cocoBubble('bot done', '<div class="cdone"><span>🎓</span><b>' + esc(t('Lesson complete!', 'خلصت الدرس!')) + '</b><bdi>' + esc(L.topic) + '</bdi>' +
       '<em dir="ltr">' + '★'.repeat(score) + '☆'.repeat(4 - score) + ' ' + score + ' / 4</em>' +
       (d.recap_en ? '<p dir="ltr">' + esc(d.recap_en) + '</p>' : '') + '</div>' +
-      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-practise>💬 ' + t('Practise it with Coco', 'اتمرّن عليه مع كوكو') + '</button>' +
+      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-sayex>🎤 ' + t('Say the examples', 'انطق الأمثلة') + '</button>' +
+      (currentProfile ? '<button type="button" class="cbtn ghost" data-coco-practise>💬 ' + t('Practise in a chat', 'اتمرّن في محادثة') + '</button>' : '') +
       '<button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Another lesson', 'درس تاني') + '</button></div>');
     coco.classList.remove('lesson-active');
     cocoMood(score >= 3 ? 'proud' : 'encouraging');
@@ -8104,9 +8165,382 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   function cocoSignin(){
     cocoLog.innerHTML = '';
-    cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 your English teacher. Sign in and I’ll explain any lesson step by step, chat with you, play real-life scenes and fix your mistakes kindly. You can try “Say it” right now — no account needed!',
-      'أهلاً! أنا كوكو 🤖 مدرّس الإنجليزي بتاعك. سجّل الدخول وأشرحلك أي درس خطوة بخطوة، ونتكلم، ونمثّل مواقف حقيقية، وأصحح أخطاءك بلطف. وتقدر تجرب «قلها» دلوقتي من غير حساب!')) + '</p>' +
-      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-login>' + t('Sign in', 'تسجيل الدخول') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Try “Say it”', 'جرّب «قلها»') + '</button></div>');
+    cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 your English teacher. Sign in to chat with me, act out real-life scenes and get your mistakes fixed. Lessons and “Say it” are free for everyone — try them now!',
+      'أهلاً! أنا كوكو 🤖 مدرّس الإنجليزي بتاعك. سجّل الدخول عشان نتكلم ونمثّل مواقف وأصحح أخطاءك. والدروس و«قلها» مجانيين للكل — جربهم دلوقتي!')) + '</p>' +
+      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-login>' + t('Sign in', 'تسجيل الدخول') + '</button><button type="button" class="cbtn ghost" data-coco-mode="learn">🧑‍🏫 ' + t('Free lesson', 'درس مجاني') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Say it', 'قلها') + '</button></div>');
+  }
+
+  // ---- Coco as the teacher's assistant: the teacher gives an order, Coco carries it out (no AI needed) ----
+  const COCO_CLUBS = ['Phonics Club', 'Reading Club', 'Writing Club', 'Grammar Club', 'Speaking Club', 'Conversation Club', 'Cinema Club'];
+  const COCO_CLUB_WORDS = { 'Phonics Club': ['phonics', 'فونكس', 'الصوتيات', 'صوتيات'], 'Reading Club': ['reading', 'القراءة', 'قراءة'], 'Writing Club': ['writing', 'الكتابة', 'كتابة'],
+    'Grammar Club': ['grammar', 'القواعد', 'قواعد', 'جرامر'], 'Speaking Club': ['speaking', 'التحدث', 'تحدث'], 'Conversation Club': ['conversation', 'المحادثة', 'محادثة'], 'Cinema Club': ['cinema', 'السينما', 'سينما'] };
+  // Arabic and English words a teacher might use for each lesson
+  const COCO_TOPIC_WORDS = {
+    'The verb to be: am / is / are': ['to be', 'am is are', 'فعل يكون', 'verb to be'], 'Present simple: I play / she plays': ['present simple', 'المضارع البسيط'],
+    'a / an / the': ['a an the', 'articles', 'أدوات التعريف', 'أداة'], 'Plurals: cat → cats, child → children': ['plural', 'الجمع', 'جمع'],
+    'There is / There are': ['there is', 'there are', 'يوجد'], 'Can / can’t': ['can', 'يستطيع', 'القدرة'],
+    'Past simple: played, went, saw': ['past simple', 'الماضي البسيط'], 'Present continuous: I am playing': ['present continuous', 'المضارع المستمر'],
+    'Comparing: bigger / more beautiful': ['comparative', 'comparing', 'المقارنة', 'التفضيل'], 'much / many / a lot of': ['much', 'many', 'a lot of', 'المعدود'],
+    'Going to: future plans': ['going to', 'المستقبل', 'خطط'], 'in / on / at for time': ['in on at', 'prepositions', 'حروف الجر'],
+    'Present perfect: I have been': ['present perfect', 'المضارع التام'], 'First conditional: If it rains, …': ['first conditional', 'الشرط الأول', 'الشرطية الأولى'],
+    'Past continuous: I was reading': ['past continuous', 'الماضي المستمر'], 'will or going to?': ['will', 'will or going'],
+    'should / must / have to': ['should', 'must', 'have to', 'النصيحة', 'الإلزام'], 'who / which / that': ['who which', 'relative', 'الموصول', 'أسماء الموصول'],
+    'Second conditional: If I were…': ['second conditional', 'الشرط التاني', 'الشرط الثاني'], 'The passive: It was made…': ['passive', 'المبني للمجهول', 'المجهول'],
+    'Reported speech: She said that…': ['reported speech', 'الكلام المنقول', 'المنقول'], 'used to / be used to': ['used to', 'اعتاد'],
+    'Gerund or infinitive: enjoy doing / want to do': ['gerund', 'infinitive', 'المصدر'], 'Phrasal verbs for everyday life': ['phrasal', 'الأفعال المركبة'],
+    'Third conditional: If I had known…': ['third conditional', 'الشرط التالت', 'الشرط الثالث'], 'Past perfect: I had already eaten': ['past perfect', 'الماضي التام'],
+    'I wish / If only': ['wish', 'if only', 'التمني'], 'however / although / despite': ['however', 'although', 'despite', 'التناقض'],
+    'must have / can’t have': ['must have', 'can’t have', 'الاستنتاج'], 'make or do?': ['make or do', 'make do'],
+    'Inversion: Never have I…': ['inversion', 'القلب'], 'Cleft sentences: What I need is…': ['cleft', 'what i need'],
+    'Mixed conditionals': ['mixed conditional', 'الشرط المختلط'], 'Discourse markers for essays': ['discourse', 'linking', 'أدوات الربط'],
+    'Idioms in context': ['idiom', 'المصطلحات', 'التعبيرات'], 'Formal and informal English': ['formal', 'informal', 'الرسمي']
+  };
+  let cocoStudents = null; // [{id, full_name, club}] for the teacher's forms
+  async function cocoLoadStudents(){
+    if(cocoStudents) return cocoStudents;
+    const { data } = await sb.from('profiles').select('id, full_name, club').eq('role', 'student').order('full_name');
+    cocoStudents = data || [];
+    return cocoStudents;
+  }
+  function cocoTopicOptions(sel){
+    return COCO_TOPICS.map(function(list, si){
+      return '<optgroup label="' + esc(t(STAGES[si].en, STAGES[si].ar) + ' · ' + STAGES[si].cefr) + '">' + list.map(function(tp){
+        return '<option value="' + esc(tp) + '"' + (tp === sel ? ' selected' : '') + '>' + esc(tp) + '</option>';
+      }).join('') + '</optgroup>';
+    }).join('');
+  }
+  function cocoTargetOptions(sel){
+    return '<optgroup label="' + esc(t('Whole club', 'نادي كامل')) + '">' + COCO_CLUBS.map(function(c){
+      return '<option value="club:' + esc(c) + '"' + (sel === 'club:' + c ? ' selected' : '') + '>' + esc(c) + '</option>';
+    }).join('') + '</optgroup><optgroup label="' + esc(t('One student', 'طالب واحد')) + '">' + (cocoStudents || []).map(function(s){
+      return '<option value="student:' + esc(s.id) + '"' + (sel === 'student:' + s.id ? ' selected' : '') + '>' + esc(s.full_name || '—') + (s.club ? ' · ' + esc(s.club) : '') + '</option>';
+    }).join('') + '</optgroup>';
+  }
+  const COCO_CMDS = [
+    { id: 'lesson',   icon: '🧑‍🏫', en: 'Teach a lesson',            ar: 'اشرح درس' },
+    { id: 'quiz',     icon: '📝', en: 'Quiz (marked by Coco)',       ar: 'اختبار يتصحح لوحده' },
+    { id: 'homework', icon: '✍️', en: 'Written homework',            ar: 'واجب كتابي' },
+    { id: 'report',   icon: '📊', en: 'Report to students & parents', ar: 'تقرير للطلاب وأولياء الأمور' },
+    { id: 'remind',   icon: '🔔', en: 'Send a reminder',             ar: 'ابعت تذكير' },
+    { id: 'results',  icon: '📋', en: 'Results',                     ar: 'النتائج' }
+  ];
+  async function cocoAssistHome(){
+    cocoLog.innerHTML = '';
+    cocoMood('happy');
+    cocoBubble('bot', '<p>' + esc(t('I’m your assistant 🤖 Give me an order — type it, or pick one below. For example: “explain the past simple to Reading Club”.',
+      'أنا مساعدك 🤖 ادّيني أمر — اكتبه أو اختار من تحت. مثلاً: «اشرح الماضي البسيط لنادي القراءة».')) + '</p>' +
+      '<div class="ccmds">' + COCO_CMDS.map(function(c){ return '<button type="button" data-coco-cmd="' + c.id + '"><span>' + c.icon + '</span>' + esc(t(c.en, c.ar)) + '</button>'; }).join('') + '</div>');
+    cocoLoadStudents();
+  }
+  // understand a typed order well enough to fill in the form for the teacher to confirm
+  function cocoParse(text){
+    const s = ' ' + String(text || '').toLowerCase() + ' ';
+    const kind = /تقرير|report/.test(s) ? 'report' : /نتائج|نتيجة|results|مين خلص|who finished/.test(s) ? 'results'
+      : /اختبار|امتحان|كويز|quiz|test/.test(s) ? 'quiz' : /واجب|homework/.test(s) ? 'homework'
+      : /ذكّر|ذكر|فكّر|فكر|remind/.test(s) ? 'remind' : /اشرح|شرح|درس|علّم|علم|explain|teach|lesson/.test(s) ? 'lesson' : null;
+    let target = null;
+    COCO_CLUBS.forEach(function(c){ if(!target && COCO_CLUB_WORDS[c].some(function(w){ return s.indexOf(w) !== -1; })) target = 'club:' + c; });
+    if(!target && cocoStudents) cocoStudents.forEach(function(st){
+      const first = String(st.full_name || '').trim().split(/\s+/)[0];
+      if(!target && first.length > 1 && s.indexOf(' ' + first.toLowerCase()) !== -1) target = 'student:' + st.id;
+    });
+    let topic = null, best = 0;
+    Object.keys(COCO_TOPIC_WORDS).forEach(function(tp){
+      const score = COCO_TOPIC_WORDS[tp].reduce(function(n, w){ return n + (s.indexOf(w.toLowerCase()) !== -1 ? w.length : 0); }, 0);
+      if(score > best){ best = score; topic = tp; }
+    });
+    return { kind: kind, target: target, topic: topic };
+  }
+  async function cocoAssistCommand(text){
+    text = (text || '').trim();
+    if(!text) return;
+    cocoInput.value = '';
+    cocoBubble('me', '<p dir="auto">' + esc(text) + '</p>');
+    await cocoLoadStudents();
+    const p = cocoParse(text);
+    if(!p.kind){
+      cocoMood('thinking');
+      cocoBubble('bot', '<p>' + esc(t('I didn’t get that order 🤔 Try “explain…”, “quiz…”, “homework…”, “report…”, “remind…” — or pick a button.', 'مافهمتش الأمر 🤔 جرّب «اشرح…» أو «اختبار…» أو «واجب…» أو «تقرير…» أو «ذكّر…» — أو اختار زرار.')) + '</p>' +
+        '<div class="ccmds">' + COCO_CMDS.map(function(c){ return '<button type="button" data-coco-cmd="' + c.id + '"><span>' + c.icon + '</span>' + esc(t(c.en, c.ar)) + '</button>'; }).join('') + '</div>');
+      return;
+    }
+    cocoForm(p.kind, p, true);
+  }
+  async function cocoForm(kind, pre, understood){
+    pre = pre || {};
+    await cocoLoadStudents();
+    if(kind === 'results'){ cocoResults(); return; }
+    const c = COCO_CMDS.find(function(x){ return x.id === kind; });
+    const due = '<label>' + t('Due date (optional)', 'آخر ميعاد (اختياري)') + '<input type="date" name="due"></label>';
+    let fields = '<label>' + t('For', 'لمين') + '<select name="target">' + cocoTargetOptions(pre.target || ('club:' + COCO_CLUBS[1])) + '</select></label>';
+    if(kind === 'lesson' || kind === 'quiz'){
+      fields += '<label>' + t('Lesson', 'الدرس') + '<select name="topic">' + cocoTopicOptions(pre.topic) + '</select></label>' + due +
+        '<label>' + t('Message to the students (optional)', 'رسالة للطلاب (اختياري)') + '<input name="note" maxlength="200" placeholder="' + esc(t('e.g. Focus on the examples!', 'مثلاً: ركزوا في الأمثلة!')) + '"></label>';
+    } else if(kind === 'homework'){
+      fields += '<label>' + t('Title', 'العنوان') + '<input name="title" required maxlength="120" placeholder="' + esc(t('e.g. Write 5 sentences about your weekend', 'مثلاً: اكتب ٥ جمل عن إجازتك')) + '"></label>' +
+        '<label>' + t('Instructions', 'التعليمات') + '<textarea name="text" rows="2" maxlength="600"></textarea></label>' + due;
+    } else if(kind === 'report'){
+      fields += '<label>' + t('Period', 'الفترة') + '<select name="days"><option value="7">' + t('Last 7 days', 'آخر ٧ أيام') + '</option><option value="30" selected>' + t('Last 30 days', 'آخر ٣٠ يوم') + '</option></select></label>';
+    } else if(kind === 'remind'){
+      fields += '<label>' + t('Reminder', 'التذكير') + '<textarea name="text" rows="2" required maxlength="300" placeholder="' + esc(t('e.g. Don’t forget tomorrow’s class at 6 pm!', 'مثلاً: ماتنسوش حصة بكرة الساعة ٦!')) + '"></textarea></label>';
+    }
+    cocoMood('curious');
+    const el = cocoBubble('bot', (understood ? '<p>' + esc(t('Got it 👍 Check the details and confirm:', 'فهمت 👍 راجع التفاصيل وأكّد:')) + '</p>' : '') +
+      '<form class="cform" data-coco-form="' + kind + '"><b>' + c.icon + ' ' + esc(t(c.en, c.ar)) + '</b>' + fields +
+      '<div class="cmsg-cta"><button type="submit" class="cbtn">✅ ' + t('Do it', 'نفّذ') + '</button><button type="button" class="cbtn ghost" data-coco-cancel>' + t('Cancel', 'إلغاء') + '</button></div></form>');
+    el.scrollIntoView({ block: 'nearest' });
+  }
+  function cocoTargetInfo(v){
+    if(v.indexOf('club:') === 0){
+      const club = v.slice(5), n = (cocoStudents || []).filter(function(s){ return s.club === club; }).length;
+      return { club: club, label: club, students: (cocoStudents || []).filter(function(s){ return s.club === club; }), count: n };
+    }
+    const st = (cocoStudents || []).find(function(s){ return s.id === v.slice(8); }) || {};
+    return { studentId: st.id, club: st.club, label: st.full_name || '—', students: st.id ? [st] : [], count: 1 };
+  }
+  async function cocoRun(form){
+    const kind = form.dataset.cocoForm, f = form.elements, tg = cocoTargetInfo(f.target.value);
+    const btn = form.querySelector('[type=submit]');
+    btn.disabled = true;
+    const dueVal = f.due && f.due.value ? new Date(f.due.value + 'T23:59:00').toISOString() : null;
+    const done = function(html){ form.closest('.cmsg').classList.add('cdone-form'); cocoMood('proud'); cocoStars(0); cocoBubble('bot', html); };
+    const fail = function(err){ btn.disabled = false; cocoMood('encouraging'); cocoBubble('bot err', '<p>' + esc(friendlyErrorMessage(err)) + '</p>'); };
+    try{
+      if(kind === 'lesson' || kind === 'quiz'){
+        const row = { kind: kind, topic: f.topic.value, note: f.note.value.trim() || null, due_at: dueVal };
+        if(tg.studentId) row.student_id = tg.studentId; else row.club = tg.club;
+        const { error } = await sb.from('coco_tasks').insert(row);
+        if(error) throw error;
+        const note = { title: kind === 'quiz' ? t('📝 New quiz from your teacher', '📝 اختبار جديد من معلمك') : t('🧑‍🏫 New lesson from your teacher', '🧑‍🏫 درس جديد من معلمك'),
+          body: 'Coco: ' + row.topic + (row.note ? ' — ' + row.note : '') };
+        if(tg.studentId) note.user_id = tg.studentId; else note.club = tg.club;
+        await sb.from('notifications').insert(note);
+        done('<p>✅ ' + esc(kind === 'quiz'
+          ? t('Done! The quiz on “' + row.topic + '” is waiting for ' + tg.label + '. I’ll mark it as soon as they finish.', 'تم! اختبار «' + row.topic + '» مستني ' + tg.label + '. هصححه أول ما يخلصوا.')
+          : t('Done! I’ll teach “' + row.topic + '” to ' + tg.label + ' and tell you how they did.', 'تم! هشرح «' + row.topic + '» لـ ' + tg.label + ' وأقولك عملوا إيه.')) +
+          (tg.club && !tg.studentId ? ' (' + tg.count + ' ' + t('students', 'طالب') + ')' : '') + '</p>' +
+          '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-cmd="results">📋 ' + t('See results', 'شوف النتائج') + '</button></div>');
+      } else if(kind === 'homework'){
+        if(!tg.club) throw new Error(t('This student has no club yet.', 'الطالب ده مالوش نادي لسه.'));
+        const { error } = await sb.from('assignments').insert({ club: tg.club, title: f.title.value.trim(), instructions: f.text.value.trim(), due_at: dueVal });
+        if(error) throw error;
+        done('<p>✅ ' + esc(t('Homework sent to ' + tg.club + '. Students can answer with text, a photo or a voice note — you’ll find their answers in Homework.', 'تم إرسال الواجب لـ ' + tg.club + '. الطلاب يقدروا يجاوبوا كتابة أو بصورة أو تسجيل صوتي — هتلاقي الإجابات في الواجبات.')) +
+          (tg.studentId ? ' ' + esc(t('(Homework goes to the whole club.)', '(الواجب بيروح للنادي كله.)')) : '') + '</p>');
+      } else if(kind === 'report'){
+        const list = tg.students, days = parseInt(f.days.value, 10) || 30;
+        if(!list.length) throw new Error(t('No students in ' + tg.label + ' yet.', 'مفيش طلاب في ' + tg.label + ' لسه.'));
+        const prog = cocoBubble('bot', '<p>' + esc(t('Writing reports…', 'بكتب التقارير…')) + ' <b>0 / ' + list.length + '</b></p>');
+        let sent = 0, sample = '';
+        for(const st of list){
+          const { data: r, error } = await sb.rpc('coco_report', { p_student: st.id, p_days: days });
+          if(error) throw error;
+          const body = cocoReportText(r, days);
+          const res = await sb.from('messages').insert({ student_id: st.id, body: body });
+          if(res.error) throw res.error;
+          sent++; if(!sample) sample = body;
+          prog.querySelector('b').textContent = sent + ' / ' + list.length;
+        }
+        done('<p>✅ ' + esc(t('Sent ' + sent + ' report(s). Each student and their parents can read it in Messages.', 'اتبعت ' + sent + ' تقرير. كل طالب وولي أمره يقدروا يقروه في الرسائل.')) + '</p><pre class="creport" dir="rtl">' + esc(sample) + '</pre>');
+      } else if(kind === 'remind'){
+        const note = { title: t('🔔 Reminder from your teacher', '🔔 تذكير من معلمك'), body: f.text.value.trim() };
+        if(tg.studentId) note.user_id = tg.studentId; else note.club = tg.club;
+        const { error } = await sb.from('notifications').insert(note);
+        if(error) throw error;
+        done('<p>✅ ' + esc(t('Reminder sent to ' + tg.label + '. It pops up for them right away.', 'التذكير اتبعت لـ ' + tg.label + '. هيظهرلهم على طول.')) + '</p>');
+      }
+    }catch(err){ fail(err); }
+  }
+  // a short, friendly report in Arabic (the academy's parents) with the key numbers
+  function cocoReportText(r, days){
+    const L = [];
+    L.push('📊 تقرير كوكو — ' + (r.name || '') + ' (آخر ' + days + ' يوم)');
+    L.push('📚 القراءة: ' + (r.books || 0) + ' كتاب في ' + (r.read_days || 0) + ' يوم');
+    L.push('🧑‍🏫 دروس واختبارات كوكو: ' + (r.coco_done || 0) + ' خلصها' + (r.coco_pct != null ? ' — متوسط ' + r.coco_pct + '%' : '') + (r.coco_todo ? ' · ' + r.coco_todo + ' لسه مستنياه' : ''));
+    L.push('✍️ الواجبات: ' + (r.hw_done || 0) + ' اتسلّم' + (r.hw_avg != null ? ' — متوسط الدرجة ' + r.hw_avg + '/100' : '') + (r.hw_missing ? ' · ' + r.hw_missing + ' ماتسلّمش' : ''));
+    if((r.present || 0) + (r.absent || 0)) L.push('🎥 الحصص: حضر ' + (r.present || 0) + ' · غاب ' + (r.absent || 0));
+    (r.exams || []).slice(0, 2).forEach(function(e){ L.push('🎓 امتحان ' + levelName(e.level) + ': ' + e.score + '% ' + (e.passed ? '✅' : '')); });
+    const good = (r.coco_pct || 0) >= 75 || (r.hw_avg || 0) >= 75, todo = (r.coco_todo || 0) + (r.hw_missing || 0);
+    L.push(todo ? '💡 مطلوب: ' + todo + ' مهمة لسه ما اتعملتش — يلا نخلصها! 💪' : good ? '🌟 مستوى ممتاز، استمر!' : '👍 شغل كويس، ونقدر نتحسن أكتر مع التمرين.');
+    return L.join('\n');
+  }
+  async function cocoResults(){
+    cocoMood('thinking');
+    const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
+    const { data: tasks, error } = await sb.from('coco_tasks').select('*').order('created_at', { ascending: false }).limit(15);
+    const ids = (tasks || []).map(function(x){ return x.id; });
+    const { data: res } = ids.length ? await sb.from('coco_results').select('*').in('task_id', ids) : { data: [] };
+    wait.remove();
+    if(error){ cocoBubble('bot err', '<p>' + esc(friendlyErrorMessage(error)) + '</p>'); return; }
+    if(!ids.length){ cocoBubble('bot', '<p>' + esc(t('No tasks yet — give me an order first!', 'مفيش مهام لسه — ادّيني أمر الأول!')) + '</p>'); return; }
+    const name = function(id){ const s = (cocoStudents || []).find(function(x){ return x.id === id; }); return s ? s.full_name : '—'; };
+    cocoMood('happy');
+    cocoBubble('bot', '<p><b>📋 ' + esc(t('Results', 'النتائج')) + '</b></p>' + tasks.map(function(tk){
+      const who = tk.student_id ? (cocoStudents || []).filter(function(s){ return s.id === tk.student_id; }) : (cocoStudents || []).filter(function(s){ return s.club === tk.club; });
+      const rs = (res || []).filter(function(r){ return r.task_id === tk.id; });
+      const missing = who.filter(function(s){ return !rs.some(function(r){ return r.student_id === s.id; }); });
+      return '<details class="cres"><summary><span>' + (tk.kind === 'quiz' ? '📝' : '🧑‍🏫') + ' <bdi>' + esc(tk.topic) + '</bdi></span><small>' + esc(tk.student_id ? name(tk.student_id) : tk.club) + ' · ' +
+        rs.length + '/' + who.length + ' ' + t('done', 'خلصوا') + '</small></summary><ul>' +
+        rs.map(function(r){ return '<li>✅ ' + esc(name(r.student_id)) + ' — <b>' + r.score + '/' + r.total + '</b></li>'; }).join('') +
+        missing.map(function(s){ return '<li class="miss">⏳ ' + esc(s.full_name || '—') + '</li>'; }).join('') + '</ul>' +
+        '<button type="button" class="cbtn ghost" data-coco-deltask="' + tk.id + '">' + t('Delete task', 'حذف المهمة') + '</button></details>';
+    }).join(''));
+  }
+
+  // ---- the student's side: tasks from the teacher ----
+  async function cocoMyTasks(){
+    if(!currentProfile || !isStudent()) return [];
+    const [{ data: tasks }, { data: res }] = await Promise.all([
+      sb.from('coco_tasks').select('*').order('created_at', { ascending: false }).limit(20),
+      sb.from('coco_results').select('*').eq('student_id', currentProfile.id)
+    ]);
+    return (tasks || []).map(function(tk){ return Object.assign({}, tk, { result: (res || []).find(function(r){ return r.task_id === tk.id; }) || null }); });
+  }
+  async function cocoStartQuiz(task){
+    const steps = await cocoBuiltIn(task.topic);
+    if(!steps){ cocoBubble('bot err', '<p>' + esc(t('I couldn’t find this quiz.', 'مش لاقي الاختبار ده.')) + '</p>'); return; }
+    const qs = steps.map(function(s){
+      const right = s.check.options[s.check.answer_index];
+      const opts = shuffleArr(s.check.options.slice());
+      return { q: s.check.question, opts: opts, ans: opts.indexOf(right), why: s.check.why_ar };
+    });
+    cocoLesson = { quiz: true, task: task, qs: qs, i: 0, answers: [] };
+    coco.classList.add('lesson-active');
+    cocoLog.innerHTML = '';
+    cocoBubble('scene', '📝 <bdi>' + esc(task.topic) + '</bdi>');
+    if(task.note) cocoBubble('bot', '<p>💬 ' + esc(t('Your teacher says: ', 'معلمك بيقولك: ')) + '<span dir="auto">' + esc(task.note) + '</span></p>');
+    cocoQuizNext();
+  }
+  function cocoQuizNext(){
+    const L = cocoLesson, q = L.qs[L.i];
+    cocoBubble('bot', '<div class="cquiz" data-quiz="1"><b>' + t('Question', 'سؤال') + ' <bdi dir="ltr">' + (L.i + 1) + ' / ' + L.qs.length + '</bdi></b><p dir="ltr">' + esc(q.q) + '</p>' +
+      '<div class="copts">' + q.opts.map(function(o, k){ return '<button type="button" dir="ltr" data-coco-qopt="' + k + '">' + esc(o) + '</button>'; }).join('') + '</div></div>');
+    cocoMood('curious');
+  }
+  async function cocoQuizAnswer(btn){
+    const L = cocoLesson, q = L.qs[L.i], quiz = btn.closest('.cquiz');
+    if(quiz.dataset.answered) return;
+    quiz.dataset.answered = '1';
+    const k = parseInt(btn.dataset.cocoQopt, 10), right = k === q.ans;
+    quiz.querySelectorAll('[data-coco-qopt]').forEach(function(b){ b.disabled = true; if(parseInt(b.dataset.cocoQopt, 10) === q.ans) b.classList.add('right'); });
+    if(!right) btn.classList.add('wrong');
+    L.answers.push({ q: q.q, chosen: q.opts[k], right: right });
+    cocoMood(right ? 'proud' : 'encouraging');
+    L.i++;
+    if(L.i < L.qs.length){ setTimeout(cocoQuizNext, 700); return; }
+    const score = L.answers.filter(function(a){ return a.right; }).length;
+    const { error } = await sb.from('coco_results').insert({ task_id: L.task.id, student_id: currentProfile.id, score: score, total: L.qs.length, answers: L.answers });
+    if(score) cocoStars(score);
+    cocoBubble('bot done', '<div class="cdone"><span>' + (score === L.qs.length ? '🏆' : '📝') + '</span><b>' + esc(t('Quiz marked!', 'الاختبار اتصحح!')) + '</b><bdi>' + esc(L.task.topic) + '</bdi>' +
+      '<em dir="ltr">' + score + ' / ' + L.qs.length + '</em><p>' + esc(error ? t('(Couldn’t save the result — tell your teacher.)', '(ماقدرتش أحفظ النتيجة — بلّغ معلمك.)') : t('Your teacher can see your result.', 'معلمك يقدر يشوف نتيجتك.')) + '</p></div>' +
+      L.qs.map(function(q2, i){ const a = L.answers[i]; return a.right ? '' : '<div class="ccorr"><b>✏️ <span dir="ltr">' + esc(q2.q) + '</span></b><em dir="ltr">' + esc(q2.opts[q2.ans]) + '</em><small>' + esc(q2.why) + '</small></div>'; }).join('') +
+      '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Back', 'رجوع') + '</button></div>');
+    coco.classList.remove('lesson-active');
+    cocoLesson = null;
+  }
+
+
+  // ---- the assistant tab: Coco carries out orders (teachers) and helps with anything (students, parents) ----
+  // With the AI switched on (AI-TUTOR.md) Coco understands any request and acts through the server.
+  // Without it, the buttons and forms below still do every teacher order for free, and students still get their tasks.
+  let cocoAiOff = false; // set once the AI turns out not to be set up
+  function cocoAssistHello(){
+    cocoLog.innerHTML = '';
+    cocoTurns = [];
+    cocoMood('happy');
+    const first = (currentProfile.full_name || '').split(' ')[0];
+    if(isTeacher()){
+      cocoAssistHome();
+    } else if(isParent()){
+      cocoBubble('bot', '<p>' + esc(t('Hi ' + first + '! I’m Coco 🤖 Ask me how your children are doing — homework, grades, Coco lessons, attendance or their plan.',
+        'أهلاً ' + first + '! أنا كوكو 🤖 اسألني عن ولادك — الواجبات والدرجات ودروس كوكو والحضور والخطة.')) + '</p>' + cocoChips([
+        t('How are my children doing?', 'ولادي عاملين إيه؟'), t('Any homework not handed in?', 'فيه واجبات ماتسلمتش؟')]));
+    } else {
+      cocoBubble('bot', '<p>' + esc(t('Hi ' + first + '! I’m your assistant 🤖 Ask me anything — explain a rule, help with homework, or what’s waiting for you.',
+        'أهلاً ' + first + '! أنا مساعدك 🤖 اسألني في أي حاجة — أشرحلك قاعدة، أساعدك في الواجب، أو أقولك إيه اللي مستنيك.')) + '</p>' + cocoChips([
+        t('What do I have to do?', 'إيه المطلوب مني؟'), t('Explain the present perfect', 'اشرحلي المضارع التام'), t('Check my sentence: I go to school yesterday', 'صحّحلي: I go to school yesterday')]));
+      cocoShowTasks();
+    }
+  }
+  function cocoChips(list){
+    return '<div class="cchips">' + list.map(function(q){ return '<button type="button" data-coco-ask="' + esc(q) + '" dir="auto">' + esc(q) + '</button>'; }).join('') + '</div>';
+  }
+  function cocoAssistReplyHtml(r){
+    let h = '<div class="cassist" dir="auto">' + esc(r.reply).replace(/\n/g, '<br>') + '</div>';
+    if(r.actions && r.actions.length) h += '<ul class="cacts">' + r.actions.map(function(a){ return '<li><span>' + esc(a.icon || '✅') + '</span><bdi>' + esc(a.text) + '</bdi></li>'; }).join('') + '</ul>';
+    if(r.offers && r.offers.length) h += '<div class="ctopics">' + r.offers.map(function(tp){ return '<button type="button" data-coco-topic="' + esc(tp) + '">🧑‍🏫 <bdi>' + esc(tp) + '</bdi></button>'; }).join('') + '</div>';
+    return h;
+  }
+  async function cocoAssistSend(text){
+    text = (text || '').trim();
+    if(!text || cocoBusy) return;
+    if(!currentProfile){ cocoSignin(); return; }
+    if(cocoAiOff){ cocoAssistFree(text); return; }
+    cocoInput.value = '';
+    const mine = cocoBubble('me', '<p dir="auto">' + esc(text) + '</p>');
+    cocoTurns.push({ role: 'user', text: text });
+    cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
+    const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
+    const out = await cocoCall({ mode: 'assistant', level: cocoLevel(), turns: cocoTurns });
+    wait.remove();
+    cocoBusy = false; cocoState('busy', false);
+    const r = out.data;
+    if(out.err === 'setup'){
+      cocoTurns.pop();
+      cocoAiOff = true;
+      mine.remove(); // the free assistant shows the message again itself
+      cocoAssistFree(text, true);
+      return;
+    }
+    if(out.err || !r || !r.reply){
+      cocoTurns.pop();
+      cocoMood('encouraging');
+      cocoBubble('bot err', '<p>' + esc(cocoErrText(out.err)) + '</p>');
+      return;
+    }
+    cocoTurns.push({ role: 'assistant', text: r.reply + (r.actions && r.actions.length ? '\n[done: ' + r.actions.map(function(a){ return a.text; }).join('; ') + ']' : '') });
+    cocoMood(r.actions && r.actions.length ? 'proud' : 'happy');
+    cocoBubble('bot', cocoAssistReplyHtml(r));
+    cocoShowLeft(r.left);
+    if(r.actions && r.actions.length){ cocoStars(0); if(isTeacher()) cocoStudents = null; }
+  }
+  // no AI: understand the order with simple rules and show the form to confirm
+  function cocoAssistFree(text, first){
+    if(isTeacher()){
+      if(first && isAdmin()) cocoBubble('bot', '<p><small>' + esc(t('(Free mode — the AI isn’t switched on, see AI-TUTOR.md. Buttons and forms work fully.)', '(وضع مجاني — الذكاء الاصطناعي مش متفعّل، شوف AI-TUTOR.md. الأزرار والنماذج شغالة كلها.)')) + '</small></p>');
+      cocoAssistCommand(text);
+      return;
+    }
+    cocoInput.value = '';
+    cocoBubble('me', '<p dir="auto">' + esc(text) + '</p>');
+    cocoMood('encouraging');
+    if(isParent()){
+      cocoBubble('bot', '<p>' + esc(t('Chatting with me is coming soon! Meanwhile, your children’s homework, grades and attendance are in “My children”, and you can message the teacher in Messages.',
+        'الكلام معايا قريباً! لحد ما يجهز، واجبات ولادك ودرجاتهم وحضورهم في «أبنائي»، وتقدر تكلم المعلم من الرسائل.')) + '</p>');
+      return;
+    }
+    const p = cocoParse(text);
+    cocoBubble('bot', '<p>' + esc(t('Answering any question is coming soon! Here’s what I can do now:', 'الإجابة على أي سؤال قريباً! ده اللي أقدر أعمله دلوقتي:')) + '</p>' +
+      (p.topic ? '<div class="ctopics"><button type="button" data-coco-topic="' + esc(p.topic) + '">🧑‍🏫 <bdi>' + esc(p.topic) + '</bdi></button></div>' : '') +
+      '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-mode="learn">🧑‍🏫 ' + t('Lessons', 'الدروس') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Say it', 'قلها') + '</button></div>');
+  }
+  // the student's tasks from the teacher, as buttons
+  async function cocoShowTasks(){
+    if(!isStudent()) return;
+    const mode = cocoMode;
+    const list = (await cocoMyTasks()).filter(function(tk){ return !tk.result; });
+    if(!list.length || cocoMode !== mode || cocoLesson || !coco.querySelector('.cmsg')) return;
+    cocoBubble('bot tasks', '<p><b>📌 ' + esc(t('From your teacher', 'من معلمك')) + '</b></p><div class="ctopics">' + list.slice(0, 6).map(function(tk){
+      return '<button type="button" data-coco-task="' + tk.id + '">' + (tk.kind === 'quiz' ? '📝 ' : '🧑‍🏫 ') + '<bdi>' + esc(tk.topic) + '</bdi>' +
+        (tk.due_at ? ' <small>· ' + esc(t('due ', 'آخر ميعاد ')) + new Date(tk.due_at).toLocaleDateString(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-GB', { day: 'numeric', month: 'short' }) + '</small>' : '') + '</button>';
+    }).join('') + '</div>');
+    cocoTaskCache = list;
+  }
+  let cocoTaskCache = [];
+  async function cocoStartTask(id){
+    const tk = cocoTaskCache.find(function(x){ return String(x.id) === String(id); });
+    if(!tk) return;
+    if(tk.kind === 'quiz') cocoStartQuiz(tk);
+    else { await cocoStartLesson(tk.topic); if(cocoLesson) cocoLesson.task = tk; }
   }
 
   // ---- modes ----
@@ -8117,11 +8551,19 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     coco.classList.toggle('say-mode', m === 'say');
     coco.classList.remove('lesson-active');
     cocoLesson = null;
+    cocoSayCustom = null;
     cocoLog.innerHTML = '';
     cocoTurns = []; cocoScene = null;
     cocoMood('happy');
     if(m === 'say'){ cocoRenderSay(); return; }
+    cocoInput.dir = m === 'assist' ? 'auto' : 'ltr';
+    if(m === 'learn'){ cocoInput.placeholder = t('Type a topic… e.g. past simple', 'اكتب موضوع… مثلاً past simple'); cocoLessonHome(); return; }
     if(!currentProfile){ cocoSignin(); return; }
+    if(m === 'assist'){
+      cocoInput.placeholder = isTeacher() ? t('Give Coco an order…', 'ادّي كوكو أمر…') : t('Ask Coco anything…', 'اسأل كوكو في أي حاجة…');
+      cocoAssistHello();
+      return;
+    }
     cocoInput.placeholder = m === 'learn' ? t('Type a topic… e.g. past simple', 'اكتب موضوع… مثلاً past simple') : t('Write or speak in English…', 'اكتب أو اتكلم بالإنجليزي…');
     if(m === 'learn'){ cocoLessonHome(); return; }
     if(m === 'play'){
@@ -8136,7 +8578,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoSay(hello);
   }
   function cocoRenderSay(){
-    const list = COCO_SAY[cocoStage()] || COCO_SAY[0];
+    const list = cocoSayCustom || COCO_SAY[cocoStage()] || COCO_SAY[0];
     const s = list[cocoSayIdx % list.length];
     cocoLog.innerHTML = '';
     cocoBubble('bot say', '<small>' + esc(t('Read this aloud:', 'اقرأ الجملة دي بصوت عالي:')) + '</small><p class="ctarget" dir="ltr">' +
@@ -8168,6 +8610,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
 
   // ---- open / close ----
+  // teachers and parents start with the assistant; students and visitors with a lesson
+  function cocoHomeMode(){ return currentProfile && (isTeacher() || isParent()) ? 'assist' : 'learn'; }
   function cocoOpen(){
     coco.hidden = false;
     cocoBtn.classList.add('hide');
@@ -8175,7 +8619,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('cocoLevel').textContent = cocoLevel().replace(/ \(.*\)/, '');
     document.getElementById('cocoLeft').textContent = '';
     cocoJarCount();
-    if(!cocoLog.children.length) cocoSetMode(currentProfile ? 'learn' : 'say');
+    coco.querySelector('.coco-tabs [data-coco-mode="assist"]').hidden = !currentProfile;
+    if(!cocoLog.children.length) cocoSetMode(cocoHomeMode());
     setTimeout(function(){ if(cocoMode !== 'say') cocoInput.focus(); }, 50);
   }
   function cocoClose(){
@@ -8191,7 +8636,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     this.textContent = cocoSpeak ? '🔊' : '🔇';
     if(!cocoSpeak && window.speechSynthesis) speechSynthesis.cancel();
   });
-  function cocoSubmit(text){ if(cocoMode === 'learn') cocoStartLesson(text); else cocoSend(text); }
+  function cocoSubmit(text){ if(cocoMode === 'learn') cocoStartLesson(text); else if(cocoMode === 'assist') cocoAssistSend(text); else cocoSend(text); }
   document.getElementById('cocoForm').addEventListener('submit', function(e){ e.preventDefault(); cocoSubmit(cocoInput.value); });
   cocoInput.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); cocoSubmit(cocoInput.value); } });
   cocoMic.addEventListener('click', function(){ cocoListen(cocoSubmit); });
@@ -8227,10 +8672,25 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     else if(b.hasAttribute('data-coco-next')){ cocoSayIdx++; cocoRenderSay(); cocoMood('happy'); }
     else if(b.hasAttribute('data-coco-login')){ cocoClose(); openAuth('login'); }
     else if(b.dataset.cocoTopic){ cocoStartLesson(b.dataset.cocoTopic); }
+    else if(b.dataset.cocoCmd){ cocoForm(b.dataset.cocoCmd); }
+    else if(b.hasAttribute('data-coco-cancel')){ b.closest('.cmsg').remove(); }
+    else if(b.dataset.cocoDeltask){
+      if(!confirm(t('Delete this task and its results?', 'حذف المهمة ونتائجها؟'))) return;
+      b.disabled = true;
+      sb.from('coco_tasks').delete().eq('id', b.dataset.cocoDeltask).then(function(r){ if(r.error){ b.disabled = false; toast(friendlyErrorMessage(r.error), '', true); } else b.closest('.cres').remove(); });
+    }
+    else if(b.hasAttribute('data-coco-qopt')){ cocoQuizAnswer(b); }
+    else if(b.dataset.cocoTask){ cocoStartTask(b.dataset.cocoTask); }
+    else if(b.dataset.cocoAsk){ cocoAssistSend(b.dataset.cocoAsk); }
     else if(b.hasAttribute('data-coco-opt')){ cocoAnswer(b); }
     else if(b.hasAttribute('data-coco-nextstep')){ b.disabled = true; cocoLessonStep(); }
     else if(b.hasAttribute('data-coco-retry')){ b.closest('.cmsg').remove(); cocoLessonStep(); }
     else if(b.hasAttribute('data-coco-finish')){ b.disabled = true; cocoFinishLesson(); }
+    else if(b.hasAttribute('data-coco-sayex')){
+      const list = cocoLesson && cocoLesson.examples.length ? cocoLesson.examples.slice() : null;
+      cocoSetMode('say');
+      if(list){ cocoSayCustom = list; cocoSayIdx = 0; cocoRenderSay(); }
+    }
     else if(b.hasAttribute('data-coco-practise')){
       const topic = cocoLesson ? cocoLesson.topic : '';
       cocoSetMode('talk');
@@ -8241,9 +8701,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       cocoSay(hello);
     }
   });
+  cocoLog.addEventListener('submit', function(e){ const f = e.target.closest('[data-coco-form]'); if(f){ e.preventDefault(); cocoRun(f); } });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !coco.hidden) cocoClose(); });
   // a new person signs in or out: start Coco fresh
-  window.__cocoReset = function(){ cocoLog.innerHTML = ''; cocoTurns = []; cocoLesson = null; if(!coco.hidden) cocoSetMode(currentProfile ? 'learn' : 'say'); };
+  window.__cocoReset = function(){
+    cocoLog.innerHTML = ''; cocoTurns = []; cocoLesson = null; cocoStudents = null;
+    coco.querySelector('.coco-tabs [data-coco-mode="assist"]').hidden = !currentProfile;
+    if(!coco.hidden) cocoSetMode(cocoHomeMode());
+  };
 
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
@@ -8981,6 +9446,7 @@ revealEls.forEach(el=>revealObserver.observe(el));
     "Save $27":"وفّر 27$",
     "about $22 a month":"حوالي 22$ في الشهر",
     "Lesson":"درس",
+    "Assistant":"مساعد",
     "Homework":"الواجبات",
     "Files for the students (optional)":"ملفات للطلاب (اختياري)",
     "Messages":"الرسائل",
