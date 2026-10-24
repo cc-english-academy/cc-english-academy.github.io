@@ -4,7 +4,7 @@ Single-page website (`index.html`) with a Supabase backend for accounts, club li
 
 **📘 Launch checklist (Arabic): [LAUNCH.md](LAUNCH.md)** · **🤖 AI tutor setup (Arabic): [AI-TUTOR.md](AI-TUTOR.md)** — database setup, admin, email/SMTP, domain, backups, content and a pilot-test script.
 
-Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icons) · `supabase/schema.sql` (database) · `privacy.html`, `terms.html` (legal templates) · `manifest.webmanifest`.
+Files: `index.html` (page markup) · `assets/css/site.css` and `assets/js/` (styles and code, kept by the browser between visits) · `sw.js` (keeps the site's files on the device) · `assets/` (images, lesson videos, icons) · `supabase/schema.sql` (database) · `privacy.html`, `terms.html` (legal templates) · `manifest.webmanifest`.
 
 ## تشغيل الـ Backend (مرة واحدة فقط)
 
@@ -18,7 +18,7 @@ Files: `index.html` (site + dashboard) · `assets/` (images, lesson videos, icon
    ```
    بعدها ادخل على الموقع وافتح **Users & roles** لترقية المعلمين، وراجع أي حساب "معلم" قديم سجّل نفسه بنفسه.
 4. من **Authentication → Providers → Email**: لو فعّلت "Confirm email" فالحساب يُنشأ تلقائياً بعد التأكيد (عن طريق الـ trigger).
-5. ارفع `index.html` على GitHub Pages (فرع `main`) — وبعد النشر اعمل تحديث للصفحة بـ **Ctrl + F5**.
+5. ارفع الملفات على GitHub Pages (فرع `main`) — وبعد النشر اعمل تحديث للصفحة بـ **Ctrl + F5**.
 
 ### ماذا يضيف `schema.sql`
 | الجزء | الوظيفة |
@@ -65,3 +65,6 @@ and keeps the original name in `materials.file_name`, which is used as the downl
 - Prices shown in US dollars with riyals in brackets (payment amounts stay in riyals)
 - Free placement test: adaptive, 86-question bank, different questions on every attempt
 - Exams graded on the server (falls back to the old in-browser grading until `schema.sql` is installed)
+
+
+**Editing styles or code:** after changing `assets/css/site.css` or `assets/js/*.js`, run `node scripts/bump-assets.mjs` so visitors get the new file instead of the copy their browser kept.
