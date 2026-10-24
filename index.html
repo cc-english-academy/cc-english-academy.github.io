@@ -7849,7 +7849,22 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ['Third conditional: If I had known…', 'Past perfect: I had already eaten', 'I wish / If only', 'however / although / despite', 'must have / can’t have', 'make or do?'],
     ['Inversion: Never have I…', 'Cleft sentences: What I need is…', 'Mixed conditionals', 'Discourse markers for essays', 'Idioms in context', 'Formal and informal English']
   ];
-  let cocoLesson = null; // { topic, step, history: [{title, correct}], data }
+  let cocoLesson = null; // { topic, step, history: [{title, correct}], data, builtIn, examples }
+  let cocoSayCustom = null; // sentences to say from the lesson just finished
+  // the 36 listed lessons are written in advance (assets/data/lessons) — free, instant, no AI needed
+  const cocoLibrary = {};
+  async function cocoBuiltIn(topic){
+    const si = COCO_TOPICS.findIndex(function(list){ return list.indexOf(topic) !== -1; });
+    if(si === -1) return null;
+    try{
+      if(!cocoLibrary[si]){
+        const res = await fetch('assets/data/lessons/stage-' + (si + 1) + '.json');
+        if(!res.ok) return null;
+        cocoLibrary[si] = await res.json();
+      }
+      return cocoLibrary[si][topic] || null;
+    }catch(e){ return null; }
+  }
   let cocoMode = 'learn', cocoScene = null, cocoTurns = [], cocoBusy = false, cocoSpeak = true, cocoSayIdx = 0, cocoRec = null;
 
   function cocoStore(key, fallback){
@@ -7968,7 +7983,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       : err === 'signin' ? t('Please sign in again.', 'من فضلك سجّل الدخول مرة أخرى.')
       : err === 'busy' ? t('Coco is very busy right now. Try again in a minute.', 'كوكو مشغول جداً الآن. حاول بعد دقيقة.')
       : err === 'topic' ? t('Coco can only teach English topics — try another one!', 'كوكو بيشرح مواضيع الإنجليزي بس — جرّب موضوع تاني!')
-      : err === 'setup' ? t('Coco is still being set up by the academy. Try “Say it” for now!', 'الأكاديمية لسه بتجهّز كوكو. جرّب «قلها» دلوقتي!') +
+      : err === 'setup' ? (cocoMode === 'learn'
+          ? t('I can teach every lesson in the list for free 🧑‍🏫 — explaining any topic you type is coming soon.', 'أقدر أشرحلك كل دروس القائمة ببلاش 🧑‍🏫 — وشرح أي موضوع تكتبه قريباً.')
+          : t('Chatting with Coco is coming soon! For now, take a free lesson 🧑‍🏫 or practise in “Say it” 🎤.', 'الكلام مع كوكو قريباً! دلوقتي خد درس مجاني 🧑‍🏫 أو اتمرّن في «قلها» 🎤.')) +
           (isAdmin() ? ' — ' + t('Admin: see AI-TUTOR.md to switch Coco on.', 'للمدير: افتح ملف AI-TUTOR.md لتفعيل كوكو.') : '')
       : t('Oops, Coco lost the thread. Please try again.', 'حصل خطأ بسيط، حاول مرة أخرى.');
   }
@@ -7983,19 +8000,24 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoLog.innerHTML = '';
     const topics = COCO_TOPICS[cocoStage()] || COCO_TOPICS[0];
     const done = cocoStore('lessons', []);
-    cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level — or type anything you want me to explain.', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك — أو اكتب أي حاجة عايزني أشرحها.')) + '</p>' +
+    cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level 👇', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك 👇')) + '</p>' +
       '<div class="ctopics">' + topics.map(function(tp){
         const seen = done.indexOf(tp) !== -1;
         return '<button type="button" data-coco-topic="' + esc(tp) + '"' + (seen ? ' class="done"' : '') + '><bdi>' + esc(tp) + '</bdi>' + (seen ? ' ✓' : '') + '</button>';
       }).join('') + '</div>');
     cocoMood('happy');
   }
-  function cocoStartLesson(topic){
+  async function cocoStartLesson(topic){
     topic = (topic || '').trim();
-    if(!topic) return;
-    if(!currentProfile){ cocoSignin(); return; }
+    if(!topic || cocoBusy) return;
+    const builtIn = await cocoBuiltIn(topic);
+    if(!builtIn && !currentProfile){
+      cocoBubble('bot', '<p>' + esc(t('Sign in and I’ll try to explain that. Or pick one of the free lessons above!', 'سجّل الدخول وهحاول أشرحلك ده. أو اختار درس من الدروس المجانية اللي فوق!')) + '</p>');
+      cocoInput.value = '';
+      return;
+    }
     cocoInput.value = '';
-    cocoLesson = { topic: topic, step: 0, history: [] };
+    cocoLesson = { topic: topic, step: 0, history: [], builtIn: builtIn, examples: [] };
     coco.classList.add('lesson-active');
     cocoLog.innerHTML = '';
     cocoBubble('scene', '🧑‍🏫 <bdi>' + esc(topic) + '</bdi>');
@@ -8004,12 +8026,23 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   async function cocoLessonStep(){
     if(!cocoLesson || cocoBusy) return;
     cocoLesson.step++;
-    cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
-    const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
-    const out = await cocoCall({ mode: 'lesson', level: cocoLevel(), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
-    wait.remove();
-    cocoBusy = false; cocoState('busy', false);
+    let out;
+    if(cocoLesson.builtIn){
+      out = { data: JSON.parse(JSON.stringify(cocoLesson.builtIn[cocoLesson.step - 1])) };
+    } else {
+      cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
+      const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
+      out = await cocoCall({ mode: 'lesson', level: cocoLevel(), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
+      wait.remove();
+      cocoBusy = false; cocoState('busy', false);
+    }
     const d = out.data;
+    if(d && d.check && Array.isArray(d.check.options)){
+      // shuffle the answers so the right one isn't always in the same place
+      const right = d.check.options[d.check.answer_index];
+      d.check.options = shuffleArr(d.check.options.slice());
+      d.check.answer_index = d.check.options.indexOf(right);
+    }
     if(out.err || !d || !d.check){
       cocoLesson.step--;
       cocoMood('encouraging');
@@ -8018,6 +8051,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return;
     }
     cocoLesson.data = d;
+    (d.examples || []).forEach(function(x){ if(x && x.en) cocoLesson.examples.push(x.en); });
     cocoShowLeft(d.left);
     const n = cocoLesson.step;
     const card = cocoBubble('bot board', '<div class="cboard">' +
@@ -8068,7 +8102,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoBubble('bot done', '<div class="cdone"><span>🎓</span><b>' + esc(t('Lesson complete!', 'خلصت الدرس!')) + '</b><bdi>' + esc(L.topic) + '</bdi>' +
       '<em dir="ltr">' + '★'.repeat(score) + '☆'.repeat(4 - score) + ' ' + score + ' / 4</em>' +
       (d.recap_en ? '<p dir="ltr">' + esc(d.recap_en) + '</p>' : '') + '</div>' +
-      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-practise>💬 ' + t('Practise it with Coco', 'اتمرّن عليه مع كوكو') + '</button>' +
+      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-sayex>🎤 ' + t('Say the examples', 'انطق الأمثلة') + '</button>' +
+      (currentProfile ? '<button type="button" class="cbtn ghost" data-coco-practise>💬 ' + t('Practise in a chat', 'اتمرّن في محادثة') + '</button>' : '') +
       '<button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Another lesson', 'درس تاني') + '</button></div>');
     coco.classList.remove('lesson-active');
     cocoMood(score >= 3 ? 'proud' : 'encouraging');
@@ -8104,9 +8139,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   function cocoSignin(){
     cocoLog.innerHTML = '';
-    cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 your English teacher. Sign in and I’ll explain any lesson step by step, chat with you, play real-life scenes and fix your mistakes kindly. You can try “Say it” right now — no account needed!',
-      'أهلاً! أنا كوكو 🤖 مدرّس الإنجليزي بتاعك. سجّل الدخول وأشرحلك أي درس خطوة بخطوة، ونتكلم، ونمثّل مواقف حقيقية، وأصحح أخطاءك بلطف. وتقدر تجرب «قلها» دلوقتي من غير حساب!')) + '</p>' +
-      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-login>' + t('Sign in', 'تسجيل الدخول') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Try “Say it”', 'جرّب «قلها»') + '</button></div>');
+    cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 your English teacher. Sign in to chat with me, act out real-life scenes and get your mistakes fixed. Lessons and “Say it” are free for everyone — try them now!',
+      'أهلاً! أنا كوكو 🤖 مدرّس الإنجليزي بتاعك. سجّل الدخول عشان نتكلم ونمثّل مواقف وأصحح أخطاءك. والدروس و«قلها» مجانيين للكل — جربهم دلوقتي!')) + '</p>' +
+      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-login>' + t('Sign in', 'تسجيل الدخول') + '</button><button type="button" class="cbtn ghost" data-coco-mode="learn">🧑‍🏫 ' + t('Free lesson', 'درس مجاني') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Say it', 'قلها') + '</button></div>');
   }
 
   // ---- modes ----
@@ -8117,10 +8152,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     coco.classList.toggle('say-mode', m === 'say');
     coco.classList.remove('lesson-active');
     cocoLesson = null;
+    cocoSayCustom = null;
     cocoLog.innerHTML = '';
     cocoTurns = []; cocoScene = null;
     cocoMood('happy');
     if(m === 'say'){ cocoRenderSay(); return; }
+    if(m === 'learn'){ cocoLessonHome(); return; }
     if(!currentProfile){ cocoSignin(); return; }
     cocoInput.placeholder = m === 'learn' ? t('Type a topic… e.g. past simple', 'اكتب موضوع… مثلاً past simple') : t('Write or speak in English…', 'اكتب أو اتكلم بالإنجليزي…');
     if(m === 'learn'){ cocoLessonHome(); return; }
@@ -8136,7 +8173,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoSay(hello);
   }
   function cocoRenderSay(){
-    const list = COCO_SAY[cocoStage()] || COCO_SAY[0];
+    const list = cocoSayCustom || COCO_SAY[cocoStage()] || COCO_SAY[0];
     const s = list[cocoSayIdx % list.length];
     cocoLog.innerHTML = '';
     cocoBubble('bot say', '<small>' + esc(t('Read this aloud:', 'اقرأ الجملة دي بصوت عالي:')) + '</small><p class="ctarget" dir="ltr">' +
@@ -8175,7 +8212,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('cocoLevel').textContent = cocoLevel().replace(/ \(.*\)/, '');
     document.getElementById('cocoLeft').textContent = '';
     cocoJarCount();
-    if(!cocoLog.children.length) cocoSetMode(currentProfile ? 'learn' : 'say');
+    if(!cocoLog.children.length) cocoSetMode('learn');
     setTimeout(function(){ if(cocoMode !== 'say') cocoInput.focus(); }, 50);
   }
   function cocoClose(){
@@ -8231,6 +8268,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     else if(b.hasAttribute('data-coco-nextstep')){ b.disabled = true; cocoLessonStep(); }
     else if(b.hasAttribute('data-coco-retry')){ b.closest('.cmsg').remove(); cocoLessonStep(); }
     else if(b.hasAttribute('data-coco-finish')){ b.disabled = true; cocoFinishLesson(); }
+    else if(b.hasAttribute('data-coco-sayex')){
+      const list = cocoLesson && cocoLesson.examples.length ? cocoLesson.examples.slice() : null;
+      cocoSetMode('say');
+      if(list){ cocoSayCustom = list; cocoSayIdx = 0; cocoRenderSay(); }
+    }
     else if(b.hasAttribute('data-coco-practise')){
       const topic = cocoLesson ? cocoLesson.topic : '';
       cocoSetMode('talk');
@@ -8243,7 +8285,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !coco.hidden) cocoClose(); });
   // a new person signs in or out: start Coco fresh
-  window.__cocoReset = function(){ cocoLog.innerHTML = ''; cocoTurns = []; cocoLesson = null; if(!coco.hidden) cocoSetMode(currentProfile ? 'learn' : 'say'); };
+  window.__cocoReset = function(){ cocoLog.innerHTML = ''; cocoTurns = []; cocoLesson = null; if(!coco.hidden) cocoSetMode('learn'); };
 
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){

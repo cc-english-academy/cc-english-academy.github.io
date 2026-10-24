@@ -1,0 +1,666 @@
+{
+ "Past simple: played, went, saw": [
+  {
+   "step_title": "Finished actions",
+   "explain_en": "We use the past simple for actions that started and finished in the past. We often say when: yesterday, last week, in 2020, two days ago.",
+   "explain_ar": "بنستخدم الماضي البسيط لحاجات حصلت وخلصت في الماضي، وغالباً بنقول إمتى: yesterday وlast week وtwo days ago.",
+   "board": "yesterday · last … · … ago · in 2020",
+   "examples": [
+    {
+     "en": "I visited my grandma yesterday.",
+     "ar": "زرت جدتي امبارح."
+    },
+    {
+     "en": "We moved here two years ago.",
+     "ar": "نقلنا هنا من سنتين."
+    }
+   ],
+   "check": {
+    "question": "Which sentence is past simple?",
+    "options": [
+     "I watch TV every day.",
+     "I watched a film last night.",
+     "I am watching TV."
+    ],
+    "answer_index": 1,
+    "why_ar": "last night زمن خلص، والفعل watched ماضي."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Regular and irregular verbs",
+   "explain_en": "Regular verbs add -ed: play → played, study → studied. Irregular verbs change: go → went, see → saw, eat → ate, have → had. The verb is the same for everyone.",
+   "explain_ar": "الأفعال المنتظمة بتاخد ed: played وstudied. والشاذة بتتغير: went وsaw وate وhad. والفعل واحد مع كل الضمائر.",
+   "board": "play → played · go → went · see → saw",
+   "examples": [
+    {
+     "en": "She studied for the test.",
+     "ar": "هي ذاكرت للامتحان."
+    },
+    {
+     "en": "They went to the beach.",
+     "ar": "هم راحوا البحر."
+    },
+    {
+     "en": "I saw a great film.",
+     "ar": "شفت فيلم حلو."
+    }
+   ],
+   "check": {
+    "question": "Last summer we ___ to Alexandria.",
+    "options": [
+     "goed",
+     "went",
+     "go"
+    ],
+    "answer_index": 1,
+    "why_ar": "go فعل شاذ وماضيه went."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "didn’t + verb",
+   "explain_en": "To say no, use “didn’t” and the base verb: “I didn’t go”, not “I didn’t went”. Arabic speakers often put the past form twice — remember: only one past!",
+   "explain_ar": "للنفي: didn’t + الفعل في أصله: “I didn’t go” مش “I didn’t went”. خلي بالك: الماضي مرة واحدة بس.",
+   "board": "didn’t + base verb",
+   "examples": [
+    {
+     "en": "He didn’t call me.",
+     "ar": "هو ما اتصلش بيا."
+    },
+    {
+     "en": "We didn’t see the match.",
+     "ar": "ما شفناش الماتش."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "She didn’t came.",
+     "She didn’t come.",
+     "She not came."
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد didn’t الفعل بيرجع لأصله: come."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Telling a story",
+   "explain_en": "Questions use “Did … + base verb?”: “Did you enjoy the trip?”. Use the past simple to tell what happened in order: first, then, after that.",
+   "explain_ar": "السؤال: Did + الفعل في أصله: “Did you enjoy the trip?”. وبنحكي اللي حصل بالترتيب بـ first وthen وafter that.",
+   "board": "Did you …? → Yes, I did. / No, I didn’t.",
+   "examples": [
+    {
+     "en": "Did you have fun? — Yes, I did!",
+     "ar": "اتبسطت؟ — أيوه!"
+    },
+    {
+     "en": "First we ate, then we played football.",
+     "ar": "الأول أكلنا، وبعدين لعبنا كورة."
+    }
+   ],
+   "check": {
+    "question": "“___ you finish your homework?” — “Yes, I did.”",
+    "options": [
+     "Do",
+     "Did",
+     "Were"
+    ],
+    "answer_index": 1,
+    "why_ar": "سؤال عن الماضي بأفعال عادية بيبدأ بـ Did."
+   },
+   "recap_en": "The past simple is for finished actions. Regular verbs add -ed, irregular verbs change, and we use didn’t and did with the base verb."
+  }
+ ],
+ "Present continuous: I am playing": [
+  {
+   "step_title": "Happening now",
+   "explain_en": "We use the present continuous for actions happening now, at this moment: “I am reading”, “Look! It’s raining.”",
+   "explain_ar": "بنستخدم المضارع المستمر لحاجة بتحصل دلوقتي حالاً: “I am reading”.",
+   "board": "now · at the moment · Look! · Listen!",
+   "examples": [
+    {
+     "en": "She is talking on the phone.",
+     "ar": "هي بتتكلم في التليفون."
+    },
+    {
+     "en": "Listen! The baby is crying.",
+     "ar": "اسمع! البيبي بيعيط."
+    }
+   ],
+   "check": {
+    "question": "Which sentence is happening now?",
+    "options": [
+     "I play football on Fridays.",
+     "I am playing football now.",
+     "I played football."
+    ],
+    "answer_index": 1,
+    "why_ar": "now بتدل على حاجة بتحصل دلوقتي."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "am / is / are + -ing",
+   "explain_en": "Make it with am, is or are and the verb + -ing. Spelling: write → writing (drop e), swim → swimming (double the letter).",
+   "explain_ar": "بنكوّنه بـ am أو is أو are + الفعل + ing. انتبه: writing (شيل e)، وswimming (كرر الحرف).",
+   "board": "am / is / are + verb-ing",
+   "examples": [
+    {
+     "en": "We are waiting for the bus.",
+     "ar": "إحنا مستنيين الأتوبيس."
+    },
+    {
+     "en": "He is writing an email.",
+     "ar": "هو بيكتب إيميل."
+    }
+   ],
+   "check": {
+    "question": "Look! The children ___ in the pool.",
+    "options": [
+     "swim",
+     "are swiming",
+     "are swimming"
+    ],
+    "answer_index": 2,
+    "why_ar": "are + swimming (بنكرر m)."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Don’t forget “be”",
+   "explain_en": "A common mistake is “I playing” without am. In English we need both parts: “I am playing.” Also, verbs like like, know and want don’t usually take -ing.",
+   "explain_ar": "غلطة مشهورة: “I playing” من غير am. لازم الجزئين: “I am playing.” وأفعال زي like وknow وwant غالباً ما بتاخدش ing.",
+   "board": "I am playing ✓ · I playing ✗",
+   "examples": [
+    {
+     "en": "They are studying now.",
+     "ar": "هم بيذاكروا دلوقتي."
+    },
+    {
+     "en": "I know the answer. (not I am knowing)",
+     "ar": "أنا عارف الإجابة."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "She cooking dinner.",
+     "She is cooking dinner.",
+     "She is cook dinner."
+    ],
+    "answer_index": 1,
+    "why_ar": "لازم is + cooking."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Questions and plans",
+   "explain_en": "Ask with am, is or are first: “Are you coming?”. We also use it for fixed plans soon: “I’m meeting Sara tomorrow.”",
+   "explain_ar": "بنسأل بـ am أو is أو are في الأول: “Are you coming?”. وبنستخدمه كمان لمواعيد قريبة متفق عليها: “I’m meeting Sara tomorrow.”",
+   "board": "Are you …-ing? · I’m …-ing tomorrow.",
+   "examples": [
+    {
+     "en": "What are you doing? — I’m cooking.",
+     "ar": "بتعمل إيه؟ — بطبخ."
+    },
+    {
+     "en": "We’re flying to Dubai on Monday.",
+     "ar": "إحنا مسافرين دبي يوم الاتنين."
+    }
+   ],
+   "check": {
+    "question": "“What ___ you doing now?”",
+    "options": [
+     "do",
+     "are",
+     "is"
+    ],
+    "answer_index": 1,
+    "why_ar": "السؤال بالمستمر مع you بيبدأ بـ are."
+   },
+   "recap_en": "Use am, is or are with verb-ing for actions happening now and for near plans. Never forget the “be” part."
+  }
+ ],
+ "Comparing: bigger / more beautiful": [
+  {
+   "step_title": "Short adjectives: -er",
+   "explain_en": "To compare two things, short adjectives add -er and we use “than”: tall → taller than, cheap → cheaper than. Big doubles the letter: bigger.",
+   "explain_ar": "عشان نقارن حاجتين، الصفة القصيرة بتاخد er وبعدها than: taller than. وbig بتبقى bigger.",
+   "board": "tall → taller than · big → bigger than",
+   "examples": [
+    {
+     "en": "My brother is taller than me.",
+     "ar": "أخويا أطول مني."
+    },
+    {
+     "en": "This bag is cheaper than that one.",
+     "ar": "الشنطة دي أرخص من دي."
+    }
+   ],
+   "check": {
+    "question": "Riyadh is ___ than Abha in summer.",
+    "options": [
+     "hot",
+     "hotter",
+     "more hot"
+    ],
+    "answer_index": 1,
+    "why_ar": "hot صفة قصيرة: hotter، وبنكرر t."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Long adjectives: more",
+   "explain_en": "Long adjectives use “more”: beautiful → more beautiful, expensive → more expensive. Words ending in -y change to -ier: easy → easier, happy → happier.",
+   "explain_ar": "الصفات الطويلة بنستخدم معاها more: more beautiful. واللي آخرها y بتبقى ier: easier.",
+   "board": "more + long adjective · easy → easier",
+   "examples": [
+    {
+     "en": "English is easier than I thought.",
+     "ar": "الإنجليزي أسهل مما كنت فاكر."
+    },
+    {
+     "en": "This phone is more expensive.",
+     "ar": "التليفون ده أغلى."
+    }
+   ],
+   "check": {
+    "question": "Which is correct?",
+    "options": [
+     "more interesting",
+     "interestinger",
+     "more interestinger"
+    ],
+    "answer_index": 0,
+    "why_ar": "interesting صفة طويلة، فبنستخدم more."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Irregular and common mistakes",
+   "explain_en": "Some are irregular: good → better, bad → worse, far → farther. Never use “more” and “-er” together: say “bigger”, not “more bigger”.",
+   "explain_ar": "فيه صفات شاذة: better وworse وfarther. وماينفعش نجمع more مع er: “more bigger” غلط.",
+   "board": "good → better · bad → worse",
+   "examples": [
+    {
+     "en": "Your English is better now!",
+     "ar": "إنجليزيك بقى أحسن!"
+    },
+    {
+     "en": "The weather is worse today.",
+     "ar": "الجو أوحش النهارده."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "My car is more better.",
+     "My car is gooder.",
+     "My car is better."
+    ],
+    "answer_index": 2,
+    "why_ar": "good في المقارنة بتبقى better لوحدها."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "The best: superlatives",
+   "explain_en": "To compare with everyone, use “the … -est” or “the most …”: the tallest, the most beautiful, the best. “He is the best player in the team.”",
+   "explain_ar": "عشان نقارن بالكل: the + est أو the most: the tallest وthe most beautiful وthe best.",
+   "board": "the tallest · the most beautiful · the best",
+   "examples": [
+    {
+     "en": "It’s the biggest city in Egypt.",
+     "ar": "دي أكبر مدينة في مصر."
+    },
+    {
+     "en": "She’s the most helpful teacher.",
+     "ar": "هي أكتر مدرسة بتساعد."
+    }
+   ],
+   "check": {
+    "question": "Everest is ___ mountain in the world.",
+    "options": [
+     "the highest",
+     "the most high",
+     "higher"
+    ],
+    "answer_index": 0,
+    "why_ar": "مقارنة بالكل لصفة قصيرة: the highest."
+   },
+   "recap_en": "Short adjectives add -er and -est, long ones use more and the most, and good and bad become better, worse, the best and the worst."
+  }
+ ],
+ "much / many / a lot of": [
+  {
+   "step_title": "Countable and uncountable",
+   "explain_en": "Some things we can count: one apple, two apples. Others we can’t: water, money, time, rice. This changes the words we use for quantity.",
+   "explain_ar": "فيه حاجات بنعدها: apple وapples. وحاجات ما بتتعدش: water وmoney وtime وrice. وده بيغير الكلمات اللي بنستخدمها للكمية.",
+   "board": "countable: apples, books · uncountable: water, money",
+   "examples": [
+    {
+     "en": "I have three books.",
+     "ar": "عندي تلات كتب."
+    },
+    {
+     "en": "I need some water.",
+     "ar": "محتاج شوية مية."
+    }
+   ],
+   "check": {
+    "question": "Which word is uncountable?",
+    "options": [
+     "chair",
+     "rice",
+     "egg"
+    ],
+    "answer_index": 1,
+    "why_ar": "rice ما بيتعدش (مش بنقول two rices)."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "many and much",
+   "explain_en": "Use “many” with countable plurals (many friends) and “much” with uncountable things (much time). We mostly use them in questions and negatives.",
+   "explain_ar": "many مع الجمع اللي بيتعد (many friends)، وmuch مع اللي ما بيتعدش (much time). وأكتر استخدامهم في الأسئلة والنفي.",
+   "board": "How many …? (count) · How much …? (no count)",
+   "examples": [
+    {
+     "en": "How many brothers do you have?",
+     "ar": "عندك كام أخ؟"
+    },
+    {
+     "en": "I don’t have much money.",
+     "ar": "مامعيش فلوس كتير."
+    }
+   ],
+   "check": {
+    "question": "How ___ sugar do you want?",
+    "options": [
+     "many",
+     "much",
+     "a"
+    ],
+    "answer_index": 1,
+    "why_ar": "sugar ما بيتعدش، فبنستخدم much."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "a lot of",
+   "explain_en": "In positive sentences we usually say “a lot of” — it works with both kinds: a lot of friends, a lot of time. It sounds more natural than much in everyday English.",
+   "explain_ar": "في الجمل المثبتة غالباً بنقول a lot of، وبتنفع مع النوعين: a lot of friends وa lot of time. وهي أطبع من much في الكلام.",
+   "board": "a lot of + any noun",
+   "examples": [
+    {
+     "en": "She has a lot of books.",
+     "ar": "عندها كتب كتير."
+    },
+    {
+     "en": "We had a lot of fun.",
+     "ar": "اتبسطنا جداً."
+    }
+   ],
+   "check": {
+    "question": "Most natural: “There is ___ traffic today.”",
+    "options": [
+     "many",
+     "a lot of",
+     "a many"
+    ],
+    "answer_index": 1,
+    "why_ar": "traffic ما بيتعدش، وفي الجملة المثبتة a lot of هي الأطبع."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "some, any and a few",
+   "explain_en": "Use “some” in positive sentences and “any” in questions and negatives. “A few” = a small number (a few friends), “a little” = a small amount (a little milk).",
+   "explain_ar": "some في المثبت، وany في الأسئلة والنفي. a few = عدد قليل (a few friends)، وa little = كمية قليلة (a little milk).",
+   "board": "a few + count · a little + no count",
+   "examples": [
+    {
+     "en": "Do you have any questions?",
+     "ar": "عندك أي أسئلة؟"
+    },
+    {
+     "en": "I added a little salt.",
+     "ar": "حطيت شوية ملح."
+    }
+   ],
+   "check": {
+    "question": "I invited ___ friends to my party.",
+    "options": [
+     "a little",
+     "much",
+     "a few"
+    ],
+    "answer_index": 2,
+    "why_ar": "friends بيتعدوا، فبنقول a few."
+   },
+   "recap_en": "Use many with things we count and much with things we can’t, mostly in questions and negatives. A lot of works with both in positive sentences."
+  }
+ ],
+ "Going to: future plans": [
+  {
+   "step_title": "Plans and intentions",
+   "explain_en": "We use “going to” to talk about plans we have already decided: “I’m going to study medicine.”",
+   "explain_ar": "بنستخدم going to لخطط قررناها خلاص: “I’m going to study medicine.”",
+   "board": "decided plan → going to",
+   "examples": [
+    {
+     "en": "We’re going to visit Cairo next month.",
+     "ar": "إحنا ناويين نزور القاهرة الشهر الجاي."
+    },
+    {
+     "en": "She’s going to learn to drive.",
+     "ar": "هي ناوية تتعلم سواقة."
+    }
+   ],
+   "check": {
+    "question": "Which sentence is a plan?",
+    "options": [
+     "I’m going to buy a new phone.",
+     "I buy a new phone.",
+     "I bought a new phone."
+    ],
+    "answer_index": 0,
+    "why_ar": "going to بتعبر عن خطة في المستقبل."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "How to make it",
+   "explain_en": "Use am, is or are + going to + the base verb: “He is going to play.” Don’t forget the verb “be”.",
+   "explain_ar": "am أو is أو are + going to + الفعل في أصله: “He is going to play.” وماتنساش be.",
+   "board": "am / is / are + going to + verb",
+   "examples": [
+    {
+     "en": "I’m going to call my mum.",
+     "ar": "هكلم ماما."
+    },
+    {
+     "en": "They are going to watch the match.",
+     "ar": "هم هيتفرجوا على الماتش."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "She going to travel.",
+     "She is going to travel.",
+     "She is going to travels."
+    ],
+    "answer_index": 1,
+    "why_ar": "لازم is، والفعل بعد to في أصله."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Predictions you can see",
+   "explain_en": "We also use going to when we can see something will happen: “Look at those clouds — it’s going to rain!”",
+   "explain_ar": "وبنستخدمه كمان لما نشوف دليل إن حاجة هتحصل: “Look at those clouds — it’s going to rain!”",
+   "board": "I can see it → going to",
+   "examples": [
+    {
+     "en": "Be careful! You’re going to fall!",
+     "ar": "خلي بالك! هتقع!"
+    },
+    {
+     "en": "The team is winning. They’re going to win the cup.",
+     "ar": "الفريق كسبان، هيكسب الكاس."
+    }
+   ],
+   "check": {
+    "question": "The sky is dark. It ___ rain.",
+    "options": [
+     "is going to",
+     "goes to",
+     "going"
+    ],
+    "answer_index": 0,
+    "why_ar": "شايفين دليل (السما مضلمة)، فـ is going to."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Questions and negatives",
+   "explain_en": "Ask: “Are you going to come?” Say no: “I’m not going to stay.” In fast speech, people often say “gonna” — but write “going to”.",
+   "explain_ar": "السؤال: “Are you going to come?” والنفي: “I’m not going to stay.” وفي الكلام السريع بيقولوا gonna، لكن في الكتابة going to.",
+   "board": "Are you going to …? · I’m not going to …",
+   "examples": [
+    {
+     "en": "What are you going to do this weekend?",
+     "ar": "هتعمل إيه الويك إند ده؟"
+    },
+    {
+     "en": "He isn’t going to come today.",
+     "ar": "هو مش هييجي النهارده."
+    }
+   ],
+   "check": {
+    "question": "“___ you going to watch the film?”",
+    "options": [
+     "Do",
+     "Are",
+     "Will"
+    ],
+    "answer_index": 1,
+    "why_ar": "السؤال بـ be: Are you going to …?"
+   },
+   "recap_en": "Use am, is or are + going to + verb for plans you have decided and for things you can see will happen."
+  }
+ ],
+ "in / on / at for time": [
+  {
+   "step_title": "at for clock times",
+   "explain_en": "Use “at” for exact times and some short expressions: at 7 o’clock, at noon, at night, at the weekend (British English).",
+   "explain_ar": "at مع الساعة بالظبط وتعبيرات زي at noon وat night.",
+   "board": "at 5:30 · at night · at noon",
+   "examples": [
+    {
+     "en": "The lesson starts at 4 pm.",
+     "ar": "الدرس بيبدأ الساعة ٤."
+    },
+    {
+     "en": "I sleep at 11 o’clock.",
+     "ar": "بنام الساعة ١١."
+    }
+   ],
+   "check": {
+    "question": "The film starts ___ 8 o’clock.",
+    "options": [
+     "in",
+     "on",
+     "at"
+    ],
+    "answer_index": 2,
+    "why_ar": "مع الساعة بالظبط بنستخدم at."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "on for days and dates",
+   "explain_en": "Use “on” for days and dates: on Monday, on Friday morning, on 15 May, on my birthday.",
+   "explain_ar": "on مع الأيام والتواريخ: on Monday وon 15 May وon my birthday.",
+   "board": "on Monday · on 3 March · on my birthday",
+   "examples": [
+    {
+     "en": "We have English on Sundays.",
+     "ar": "عندنا إنجليزي يوم الحد."
+    },
+    {
+     "en": "I was born on 12 June.",
+     "ar": "اتولدت يوم ١٢ يونيو."
+    }
+   ],
+   "check": {
+    "question": "My birthday party is ___ Saturday.",
+    "options": [
+     "on",
+     "in",
+     "at"
+    ],
+    "answer_index": 0,
+    "why_ar": "مع الأيام بنستخدم on."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "in for longer times",
+   "explain_en": "Use “in” for months, years, seasons and parts of the day: in July, in 2025, in summer, in the morning. But we say “at night”!",
+   "explain_ar": "in مع الشهور والسنين والفصول وأجزاء اليوم: in July وin summer وin the morning. لكن بنقول at night!",
+   "board": "in May · in 2026 · in the morning",
+   "examples": [
+    {
+     "en": "It’s very hot in August.",
+     "ar": "الجو حر جداً في أغسطس."
+    },
+    {
+     "en": "I study in the evening.",
+     "ar": "بذاكر بالليل بدري (المسا)."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "I go to school in Sunday.",
+     "I go to school in the morning.",
+     "I go to school at the morning."
+    ],
+    "answer_index": 1,
+    "why_ar": "أجزاء اليوم بـ in: in the morning."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "No preposition",
+   "explain_en": "We don’t use in, on or at with today, tomorrow, yesterday, next and last: “See you tomorrow”, “I met him last week” — not “on last week”.",
+   "explain_ar": "مش بنستخدم in أو on أو at مع today وtomorrow وyesterday وnext وlast: “I met him last week”.",
+   "board": "next week · last Friday · tomorrow (no preposition)",
+   "examples": [
+    {
+     "en": "We’re travelling next month.",
+     "ar": "هنسافر الشهر الجاي."
+    },
+    {
+     "en": "I saw her yesterday.",
+     "ar": "شفتها امبارح."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "See you on next Monday.",
+     "See you next Monday.",
+     "See you at next Monday."
+    ],
+    "answer_index": 1,
+    "why_ar": "مع next مفيش حرف جر."
+   },
+   "recap_en": "Use at for clock times, on for days and dates, and in for months, years, seasons and parts of the day. Use nothing before next, last, today and tomorrow."
+  }
+ ]
+}

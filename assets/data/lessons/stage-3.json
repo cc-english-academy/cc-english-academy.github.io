@@ -1,0 +1,662 @@
+{
+ "Present perfect: I have been": [
+  {
+   "step_title": "Life experiences",
+   "explain_en": "We use the present perfect for experiences in our life, when the exact time is not important: “I have been to London.” “Have you ever eaten sushi?”",
+   "explain_ar": "بنستخدم المضارع التام للتجارب في حياتنا لما الوقت بالظبط مش مهم: “I have been to London.”",
+   "board": "ever · never · before",
+   "examples": [
+    {
+     "en": "I have never seen snow.",
+     "ar": "عمري ما شفت تلج."
+    },
+    {
+     "en": "Have you ever met a famous person?",
+     "ar": "عمرك قابلت حد مشهور؟"
+    }
+   ],
+   "check": {
+    "question": "Which sentence is about a life experience?",
+    "options": [
+     "I went to Paris in 2019.",
+     "I have been to Paris.",
+     "I am going to Paris."
+    ],
+    "answer_index": 1,
+    "why_ar": "التجربة من غير وقت محدد بالمضارع التام."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "have / has + past participle",
+   "explain_en": "Make it with have or has + the past participle: play → played, go → gone, see → seen, eat → eaten. He, she and it take “has”.",
+   "explain_ar": "بنكوّنه بـ have أو has + التصريف التالت: played وgone وseen وeaten. ومع he وshe وit بنستخدم has.",
+   "board": "I / you / we / they have + done\nhe / she / it has + done",
+   "examples": [
+    {
+     "en": "She has finished her homework.",
+     "ar": "هي خلصت واجبها."
+    },
+    {
+     "en": "We have lived here for five years.",
+     "ar": "إحنا ساكنين هنا من خمس سنين."
+    }
+   ],
+   "check": {
+    "question": "He ___ visited Japan twice.",
+    "options": [
+     "have",
+     "has",
+     "is"
+    ],
+    "answer_index": 1,
+    "why_ar": "مع he بنستخدم has."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Past simple or present perfect?",
+   "explain_en": "If you say WHEN (yesterday, in 2020, last week), use the past simple: “I saw it yesterday”, not “I have seen it yesterday”. No time or up to now → present perfect.",
+   "explain_ar": "لو قلت إمتى (yesterday أو in 2020) استخدم الماضي البسيط. ولو مفيش وقت أو لحد دلوقتي → المضارع التام.",
+   "board": "finished time → past simple · up to now → present perfect",
+   "examples": [
+    {
+     "en": "I lost my keys yesterday.",
+     "ar": "ضيعت مفاتيحي امبارح."
+    },
+    {
+     "en": "I have lost my keys! (I can’t find them now)",
+     "ar": "ضيعت مفاتيحي! (ومش لاقيها دلوقتي)"
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "I have seen him last week.",
+     "I saw him last week.",
+     "I have saw him last week."
+    ],
+    "answer_index": 1,
+    "why_ar": "last week وقت محدد خلص، فالماضي البسيط."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "for, since, just, already, yet",
+   "explain_en": "Use for + a period (for two years) and since + a start point (since 2020). “Just” = a moment ago, “already” = earlier than expected, “yet” in questions and negatives.",
+   "explain_ar": "for مع مدة (for two years)، وsince مع بداية (since 2020). just = من شوية، وalready = خلاص بدري، وyet في السؤال والنفي.",
+   "board": "for 3 years · since Monday · just · already · yet",
+   "examples": [
+    {
+     "en": "I’ve known her since primary school.",
+     "ar": "أعرفها من ابتدائي."
+    },
+    {
+     "en": "Have you finished yet? — Yes, I’ve just finished.",
+     "ar": "خلصت؟ — أيوه لسه مخلص."
+    }
+   ],
+   "check": {
+    "question": "I have studied English ___ 2021.",
+    "options": [
+     "for",
+     "since",
+     "ago"
+    ],
+    "answer_index": 1,
+    "why_ar": "2021 نقطة بداية، فبنستخدم since."
+   },
+   "recap_en": "Use have or has with the past participle for experiences and for things connected to now. If you say when it happened, use the past simple instead."
+  }
+ ],
+ "First conditional: If it rains, …": [
+  {
+   "step_title": "Real possibilities",
+   "explain_en": "We use the first conditional for real things that may happen in the future and their result: “If it rains, we will stay at home.”",
+   "explain_ar": "بنستخدم الشرط الأول لحاجات ممكن تحصل فعلاً في المستقبل ونتيجتها: “If it rains, we will stay at home.”",
+   "board": "real future possibility → result",
+   "examples": [
+    {
+     "en": "If you study, you will pass.",
+     "ar": "لو ذاكرت هتنجح."
+    },
+    {
+     "en": "If I see Ali, I’ll tell him.",
+     "ar": "لو شفت علي هقوله."
+    }
+   ],
+   "check": {
+    "question": "Which is a real future possibility?",
+    "options": [
+     "If it rains tomorrow, we’ll stay in.",
+     "If I were a bird, I’d fly.",
+     "If I had known, I’d have come."
+    ],
+    "answer_index": 0,
+    "why_ar": "المطر بكرة حاجة ممكن تحصل فعلاً."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "The form",
+   "explain_en": "Use if + present simple, then will + verb. The present comes after “if”, even though we mean the future.",
+   "explain_ar": "if + مضارع بسيط، وبعدين will + الفعل. بعد if بنستخدم المضارع حتى لو قصدنا المستقبل.",
+   "board": "If + present, … will + verb",
+   "examples": [
+    {
+     "en": "If she calls, I will answer.",
+     "ar": "لو اتصلت هرد."
+    },
+    {
+     "en": "We’ll miss the bus if we don’t hurry.",
+     "ar": "هيفوتنا الأتوبيس لو ما استعجلناش."
+    }
+   ],
+   "check": {
+    "question": "If you ___ hard, you will improve.",
+    "options": [
+     "will practise",
+     "practise",
+     "practised"
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد if بنستخدم المضارع البسيط."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "The common mistake",
+   "explain_en": "Arabic speakers often say “If it will rain…”. In English, never use will after if in this structure: “If it rains”, not “If it will rain”.",
+   "explain_ar": "غلطة مشهورة: “If it will rain”. ماينفعش will بعد if هنا: “If it rains”.",
+   "board": "If it rains ✓ · If it will rain ✗",
+   "examples": [
+    {
+     "en": "If I have time, I’ll call you.",
+     "ar": "لو عندي وقت هكلمك."
+    },
+    {
+     "en": "If he comes late, we’ll start without him.",
+     "ar": "لو اتأخر هنبدأ من غيره."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "If he will come, I will be happy.",
+     "If he comes, I will be happy.",
+     "If he come, I happy."
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد if مضارع (comes) من غير will."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "unless and warnings",
+   "explain_en": "“Unless” means “if not”: “You won’t pass unless you study.” We use the first conditional for warnings, promises and advice.",
+   "explain_ar": "unless معناها if not: “You won’t pass unless you study.” وبنستخدم الشرط الأول في التحذير والوعد والنصيحة.",
+   "board": "unless = if … not",
+   "examples": [
+    {
+     "en": "Unless you hurry, you’ll be late.",
+     "ar": "لو ما استعجلتش هتتأخر."
+    },
+    {
+     "en": "If you touch that, you’ll get hurt!",
+     "ar": "لو لمستها هتتعور!"
+    }
+   ],
+   "check": {
+    "question": "“You won’t get better ___ you rest.”",
+    "options": [
+     "if",
+     "unless",
+     "when"
+    ],
+    "answer_index": 1,
+    "why_ar": "unless = لو ما … (if not)."
+   },
+   "recap_en": "Use if + present simple with will + verb for real future possibilities. Never put will after if, and remember unless means if not."
+  }
+ ],
+ "Past continuous: I was reading": [
+  {
+   "step_title": "In progress in the past",
+   "explain_en": "We use the past continuous for an action that was in progress at a moment in the past: “At 8 o’clock I was reading.”",
+   "explain_ar": "بنستخدم الماضي المستمر لحاجة كانت شغالة في لحظة في الماضي: “At 8 o’clock I was reading.”",
+   "board": "at that moment in the past",
+   "examples": [
+    {
+     "en": "Yesterday at 6 pm we were playing football.",
+     "ar": "امبارح الساعة ٦ كنا بنلعب كورة."
+    },
+    {
+     "en": "It was raining all morning.",
+     "ar": "كانت بتمطر طول الصبح."
+    }
+   ],
+   "check": {
+    "question": "Which means “كنت بتعشى الساعة ٨”?",
+    "options": [
+     "I had dinner at 8.",
+     "I was having dinner at 8.",
+     "I have dinner at 8."
+    ],
+    "answer_index": 1,
+    "why_ar": "حاجة كانت شغالة في لحظة → was having."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "was / were + -ing",
+   "explain_en": "Use was with I, he, she, it and were with you, we, they, + verb-ing: “They were watching TV.”",
+   "explain_ar": "was مع I وhe وshe وit، وwere مع you وwe وthey، وبعدها الفعل + ing.",
+   "board": "I / he / she / it was + -ing\nyou / we / they were + -ing",
+   "examples": [
+    {
+     "en": "She was cooking when I arrived.",
+     "ar": "كانت بتطبخ لما وصلت."
+    },
+    {
+     "en": "We were waiting for you!",
+     "ar": "كنا مستنيينك!"
+    }
+   ],
+   "check": {
+    "question": "They ___ sleeping when the phone rang.",
+    "options": [
+     "was",
+     "were",
+     "are"
+    ],
+    "answer_index": 1,
+    "why_ar": "they مع were."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Interrupted actions",
+   "explain_en": "Use the past continuous for the long action and the past simple for the short action that interrupts it: “I was walking home when it started to rain.”",
+   "explain_ar": "الماضي المستمر للحدث الطويل، والماضي البسيط للحدث القصير اللي قاطعه: “I was walking home when it started to rain.”",
+   "board": "long action (was -ing) + when + short action (past simple)",
+   "examples": [
+    {
+     "en": "I was taking a shower when the doorbell rang.",
+     "ar": "كنت باخد دش لما الجرس رن."
+    },
+    {
+     "en": "While we were driving, we saw an accident.",
+     "ar": "وإحنا سايقين شفنا حادثة."
+    }
+   ],
+   "check": {
+    "question": "I ___ TV when my friend called.",
+    "options": [
+     "watched",
+     "was watching",
+     "am watching"
+    ],
+    "answer_index": 1,
+    "why_ar": "الفرجة كانت شغالة (طويلة)، والمكالمة قاطعتها."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "while and when",
+   "explain_en": "Use “while” with the long action and “when” with the short one. For two long actions at the same time, use while + past continuous twice.",
+   "explain_ar": "while مع الحدث الطويل، وwhen مع القصير. ولو حدثين طوال في نفس الوقت: while + ماضي مستمر للاتنين.",
+   "board": "while + was -ing · when + past simple",
+   "examples": [
+    {
+     "en": "While I was studying, my brother was playing games.",
+     "ar": "وأنا بذاكر، أخويا كان بيلعب."
+    },
+    {
+     "en": "When the lights went out, we were eating.",
+     "ar": "لما النور قطع كنا بناكل."
+    }
+   ],
+   "check": {
+    "question": "___ I was cooking, the cat jumped on the table.",
+    "options": [
+     "While",
+     "When",
+     "During"
+    ],
+    "answer_index": 0,
+    "why_ar": "with the long action (كنت بطبخ) نستخدم While."
+   },
+   "recap_en": "Use was or were with verb-ing for actions in progress in the past, and the past simple for a short action that interrupts them."
+  }
+ ],
+ "will or going to?": [
+  {
+   "step_title": "Two futures",
+   "explain_en": "English has two common ways to talk about the future: “will” and “going to”. They are both correct, but we choose by meaning.",
+   "explain_ar": "في طريقتين مشهورين للمستقبل: will وgoing to. الاتنين صح، لكن بنختار حسب المعنى.",
+   "board": "will · going to",
+   "examples": [
+    {
+     "en": "I’ll help you.",
+     "ar": "هساعدك."
+    },
+    {
+     "en": "I’m going to start a new course.",
+     "ar": "ناوي أبدأ كورس جديد."
+    }
+   ],
+   "check": {
+    "question": "Both will and going to talk about …",
+    "options": [
+     "the past",
+     "the future",
+     "right now"
+    ],
+    "answer_index": 1,
+    "why_ar": "الاتنين للمستقبل، والفرق في المعنى."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "will: decisions now, promises, offers",
+   "explain_en": "Use will for decisions you make at the moment of speaking, and for promises and offers: “The phone’s ringing — I’ll get it!”",
+   "explain_ar": "will للقرار اللي بتاخده وقت الكلام، وللوعود والعروض: “The phone’s ringing — I’ll get it!”",
+   "board": "decide now · promise · offer → will",
+   "examples": [
+    {
+     "en": "I’ll call you tonight, I promise.",
+     "ar": "هكلمك بالليل، وعد."
+    },
+    {
+     "en": "That bag looks heavy. I’ll carry it.",
+     "ar": "الشنطة شكلها تقيلة، هشيلها أنا."
+    }
+   ],
+   "check": {
+    "question": "“It’s cold.” — “OK, I ___ close the window.”",
+    "options": [
+     "am going to",
+     "will",
+     "go to"
+    ],
+    "answer_index": 1,
+    "why_ar": "قرار اتاخد في لحظة الكلام → will."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "going to: plans and evidence",
+   "explain_en": "Use going to for plans you made before, and for predictions with clear evidence now: “I’m going to visit my aunt on Friday.” “Look out! You’re going to fall.”",
+   "explain_ar": "going to لخطة متقررة قبل كده، أو لتوقع عليه دليل قدامك: “Look out! You’re going to fall.”",
+   "board": "plan made before · I can see it → going to",
+   "examples": [
+    {
+     "en": "We’re going to paint the kitchen this weekend.",
+     "ar": "هندهن المطبخ الويك إند ده."
+    },
+    {
+     "en": "She’s going to have a baby.",
+     "ar": "هي هتولد (حامل)."
+    }
+   ],
+   "check": {
+    "question": "I bought paint yesterday. I ___ paint my room.",
+    "options": [
+     "will",
+     "am going to",
+     "paint"
+    ],
+    "answer_index": 1,
+    "why_ar": "خطة متقررة قبل كده (اشتريت الدهان) → going to."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Predictions and opinions",
+   "explain_en": "For predictions based on opinion, we often use will with “I think”, “probably” or “I’m sure”: “I think it will be a great match.”",
+   "explain_ar": "للتوقعات اللي مبنية على رأي بنستخدم will مع I think أو probably: “I think it will be a great match.”",
+   "board": "I think … will · probably · I’m sure",
+   "examples": [
+    {
+     "en": "I’m sure you’ll love Alexandria.",
+     "ar": "أكيد هتحب إسكندرية."
+    },
+    {
+     "en": "It will probably be sunny tomorrow.",
+     "ar": "غالباً بكرة هيبقى مشمس."
+    }
+   ],
+   "check": {
+    "question": "“I think Egypt ___ win the match.”",
+    "options": [
+     "will",
+     "is going",
+     "wins"
+    ],
+    "answer_index": 0,
+    "why_ar": "توقع مبني على رأي مع I think → will."
+   },
+   "recap_en": "Use will for quick decisions, promises, offers and opinions about the future. Use going to for plans you already made and for things you can see coming."
+  }
+ ],
+ "should / must / have to": [
+  {
+   "step_title": "should: advice",
+   "explain_en": "Use “should” to give advice or say what is a good idea: “You should drink more water.” The negative is “shouldn’t”.",
+   "explain_ar": "should للنصيحة أو الحاجة اللي يستحسن تتعمل: “You should drink more water.” والنفي shouldn’t.",
+   "board": "should + verb = advice",
+   "examples": [
+    {
+     "en": "You should see a doctor.",
+     "ar": "المفروض تروح لدكتور."
+    },
+    {
+     "en": "You shouldn’t stay up so late.",
+     "ar": "ماينفعش تسهر كده."
+    }
+   ],
+   "check": {
+    "question": "Your friend has a headache. You say:",
+    "options": [
+     "You must to rest.",
+     "You should rest.",
+     "You should resting."
+    ],
+    "answer_index": 1,
+    "why_ar": "نصيحة → should + الفعل في أصله."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "must and have to: strong obligation",
+   "explain_en": "Use “must” and “have to” for things that are necessary. “Must” often comes from the speaker; “have to” is often a rule from outside: “I have to wear a uniform at school.”",
+   "explain_ar": "must وhave to للحاجات الضرورية. must غالباً من رأي المتكلم، وhave to غالباً قانون من برا: “I have to wear a uniform.”",
+   "board": "must + verb · have / has to + verb",
+   "examples": [
+    {
+     "en": "I must remember her birthday.",
+     "ar": "لازم أفتكر عيد ميلادها."
+    },
+    {
+     "en": "She has to work on Saturdays.",
+     "ar": "هي لازم تشتغل يوم السبت."
+    }
+   ],
+   "check": {
+    "question": "He ___ wake up at 6 for work.",
+    "options": [
+     "have to",
+     "has to",
+     "must to"
+    ],
+    "answer_index": 1,
+    "why_ar": "مع he بنقول has to."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "mustn’t vs don’t have to",
+   "explain_en": "Careful! “Mustn’t” means it is not allowed. “Don’t have to” means it is not necessary — you can choose: “You mustn’t smoke here.” “You don’t have to come.”",
+   "explain_ar": "خلي بالك! mustn’t = ممنوع. وdon’t have to = مش ضروري، براحتك.",
+   "board": "mustn’t = ممنوع · don’t have to = مش لازم",
+   "examples": [
+    {
+     "en": "You mustn’t use your phone in the exam.",
+     "ar": "ممنوع تستخدم التليفون في الامتحان."
+    },
+    {
+     "en": "You don’t have to bring food. We have lunch.",
+     "ar": "مش لازم تجيب أكل، عندنا غدا."
+    }
+   ],
+   "check": {
+    "question": "Tomorrow is a holiday. We ___ go to school.",
+    "options": [
+     "mustn’t",
+     "don’t have to",
+     "shouldn’t to"
+    ],
+    "answer_index": 1,
+    "why_ar": "إجازة يعني مش ضروري نروح، مش ممنوع."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "No “to” after should and must",
+   "explain_en": "After should and must, use the base verb with no “to”: “You must go”, not “You must to go”. Only “have to” has “to”.",
+   "explain_ar": "بعد should وmust الفعل في أصله من غير to: “You must go”. الوحيدة اللي فيها to هي have to.",
+   "board": "should / must + verb · have to + verb",
+   "examples": [
+    {
+     "en": "We should leave now.",
+     "ar": "المفروض نمشي دلوقتي."
+    },
+    {
+     "en": "I had to finish early yesterday.",
+     "ar": "اضطريت أخلص بدري امبارح."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "You must to listen.",
+     "You must listen.",
+     "You must listening."
+    ],
+    "answer_index": 1,
+    "why_ar": "بعد must الفعل في أصله من غير to."
+   },
+   "recap_en": "Use should for advice, and must or have to for strong obligation. Mustn’t means not allowed, but don’t have to means not necessary."
+  }
+ ],
+ "who / which / that": [
+  {
+   "step_title": "Adding information",
+   "explain_en": "Relative clauses add information about a noun, so we can join two sentences: “I have a friend. She lives in Dubai.” → “I have a friend who lives in Dubai.”",
+   "explain_ar": "الجمل الموصولة بتزود معلومة عن اسم، فبنقدر نوصل جملتين: “I have a friend who lives in Dubai.”",
+   "board": "noun + who / which / that + extra information",
+   "examples": [
+    {
+     "en": "The man who called you is my uncle.",
+     "ar": "الراجل اللي كلمك يبقى خالي."
+    },
+    {
+     "en": "This is the phone which I bought.",
+     "ar": "ده التليفون اللي اشتريته."
+    }
+   ],
+   "check": {
+    "question": "Which joins the sentences correctly?",
+    "options": [
+     "I know a girl she speaks French.",
+     "I know a girl who speaks French.",
+     "I know a girl which speaks French."
+    ],
+    "answer_index": 1,
+    "why_ar": "للأشخاص بنستخدم who."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "who for people, which for things",
+   "explain_en": "Use “who” for people and “which” for things and animals. “That” can be used for both in everyday English.",
+   "explain_ar": "who للأشخاص، وwhich للحاجات والحيوانات. وthat تنفع للاتنين في الكلام العادي.",
+   "board": "people → who · things → which · both → that",
+   "examples": [
+    {
+     "en": "The teacher who helped me was kind.",
+     "ar": "المدرس اللي ساعدني كان طيب."
+    },
+    {
+     "en": "The book that I’m reading is great.",
+     "ar": "الكتاب اللي بقراه حلو."
+    }
+   ],
+   "check": {
+    "question": "The film ___ we watched was scary.",
+    "options": [
+     "who",
+     "which",
+     "what"
+    ],
+    "answer_index": 1,
+    "why_ar": "film حاجة مش شخص، فبنستخدم which (أو that)."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "Don’t repeat the pronoun",
+   "explain_en": "Arabic says “الكتاب اللي قريته” with “ه”, but in English we don’t repeat it: “the book which I read”, not “the book which I read it”.",
+   "explain_ar": "بالعربي بنقول “قريته” بالهاء، لكن بالإنجليزي ما بنكررش الضمير: “the book which I read” مش “I read it”.",
+   "board": "the book which I read ✓ · … I read it ✗",
+   "examples": [
+    {
+     "en": "The cake that my mum made was delicious.",
+     "ar": "الكيكة اللي ماما عملتها كانت لذيذة."
+    },
+    {
+     "en": "The city which we visited is very old.",
+     "ar": "المدينة اللي زرناها قديمة جداً."
+    }
+   ],
+   "check": {
+    "question": "Choose the correct sentence:",
+    "options": [
+     "The car which I bought it is red.",
+     "The car which I bought is red.",
+     "The car who I bought is red."
+    ],
+    "answer_index": 1,
+    "why_ar": "ما بنكررش it بعد الفعل."
+   },
+   "recap_en": ""
+  },
+  {
+   "step_title": "where and whose",
+   "explain_en": "Use “where” for places (the café where we met) and “whose” for possession (the boy whose bike was stolen).",
+   "explain_ar": "where للأماكن (the café where we met)، وwhose للملكية (the boy whose bike was stolen).",
+   "board": "place → where · possession → whose",
+   "examples": [
+    {
+     "en": "That’s the hospital where I was born.",
+     "ar": "دي المستشفى اللي اتولدت فيها."
+    },
+    {
+     "en": "I met a woman whose son is a pilot.",
+     "ar": "قابلت ست ابنها طيار."
+    }
+   ],
+   "check": {
+    "question": "This is the school ___ I studied.",
+    "options": [
+     "which",
+     "where",
+     "who"
+    ],
+    "answer_index": 1,
+    "why_ar": "school مكان، فبنستخدم where."
+   },
+   "recap_en": "Use who for people, which for things, that for both, where for places and whose for possession — and don’t repeat the pronoun at the end."
+  }
+ ]
+}
