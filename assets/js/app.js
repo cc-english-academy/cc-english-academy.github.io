@@ -494,32 +494,34 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   let materialsFilter = 'all';
   let wantDashboard = true; // remembers whether a signed-in visitor asked to "view website"
   let pendingClub = null; // a club clicked on the public page before signing in
-  // 6 levels, one per stage (A1 … C1); a student opens the next level by passing the exam of the one before
-  const STAGES = [
-    { en: 'Beginner',           ar: 'المبتدئ',        cefr: 'A1',  from: 1, to: 1, icon: '🌱' },
-    { en: 'Elementary',         ar: 'الأساسيات',      cefr: 'A2',  from: 2, to: 2, icon: '🌿' },
-    { en: 'Pre-Intermediate',   ar: 'ما قبل المتوسط', cefr: 'B1',  from: 3, to: 3, icon: '🍀' },
-    { en: 'Intermediate',       ar: 'المتوسط',        cefr: 'B1+\u200E', from: 4, to: 4, icon: '🌳' },
-    { en: 'Upper-Intermediate', ar: 'فوق المتوسط',    cefr: 'B2',  from: 5, to: 5, icon: '⛰️' },
-    { en: 'Advanced',           ar: 'المتقدم',        cefr: 'C1',  from: 6, to: 6, icon: '🏆' }
-  ];
+  // 9 levels (Level 1 … Level 9); a student opens the next level by passing the exam of the one before.
+  // Behind the scenes each level has an English grade, used only to pitch Coco's lessons and the AI at the right difficulty.
+  const LEVEL_ICONS = ['🌱', '🌿', '🍀', '🌳', '🌲', '⛰️', '🏔️', '🚀', '🏆'];
+  const LEVEL_CEFR = ['A1', 'A1', 'A2', 'A2', 'B1', 'B1', 'B2', 'B2', 'C1'];
+  const LESSON_GROUP = [0, 0, 1, 1, 2, 3, 4, 4, 5]; // which of Coco's 6 lesson groups fits each level
+  const GROUP_LEVEL = [1, 3, 5, 6, 7, 9];           // and the first level of each group
   const LEVELS = [], LEVEL_INFO = {};
-  STAGES.forEach(function(s, si){
-    for(let n = s.from; n <= s.to; n++){
-      const key = 'Level ' + n;
-      LEVELS.push(key);
-      LEVEL_INFO[key] = { n: n, en: s.en, ar: s.ar, cefr: s.cefr, icon: s.icon, stage: si };
-    }
+  LEVEL_ICONS.forEach(function(icon, i){
+    LEVELS.push('Level ' + (i + 1));
+    LEVEL_INFO['Level ' + (i + 1)] = { n: i + 1, icon: icon, cefr: LEVEL_CEFR[i], lessons: LESSON_GROUP[i] };
   });
-  // names used before the 6 levels (old rows are moved by schema.sql; this keeps old links readable)
-  const OLD_LEVEL = { 'Beginner (A1-A2)': 'Level 1', 'Intermediate (B1-B2)': 'Level 3', 'Advanced (C1-C2)': 'Level 6' };
+  // names used before the 9 levels (old rows are moved by schema.sql; this keeps old links readable)
+  const OLD_LEVEL = { 'Beginner (A1-A2)': 'Level 1', 'Intermediate (B1-B2)': 'Level 5', 'Advanced (C1-C2)': 'Level 9' };
   function levelName(l){
     const i = LEVEL_INFO[OLD_LEVEL[l] || l];
-    return i ? t('Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')', 'المستوى ' + i.n + ' · ' + i.ar + ' (' + i.cefr + ')') : (l || '');
+    return i ? t('Level ' + i.n, 'المستوى ' + i.n) : (l || '');
   }
   window.__levelLabel = levelName;
-  function levelNameEn(l){ const i = LEVEL_INFO[OLD_LEVEL[l] || l]; return i ? 'Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')' : (l || ''); } // certificates are printed in English
-  // every level picker (upload, videos) lists the 6 levels; the book upload can also be for every level
+  function levelNameEn(l){ const i = LEVEL_INFO[OLD_LEVEL[l] || l]; return i ? 'Level ' + i.n : (l || ''); } // certificates are printed in English
+  // what the AI is told: the level and the English grade it stands for
+  function levelForAi(l){ const i = LEVEL_INFO[l]; return i ? 'Level ' + i.n + ' of 9 (about CEFR ' + i.cefr + ')' : 'Level 1 of 9 (about CEFR A1)'; }
+  // "Level 1–2": the levels a group of Coco's lessons is for
+  function groupLabel(g){
+    const ns = LESSON_GROUP.map(function(x, i){ return x === g ? i + 1 : 0; }).filter(Boolean);
+    const r = ns[0] + (ns.length > 1 ? '–' + ns[ns.length - 1] : '');
+    return t('Level ' + r, 'المستوى ' + r);
+  }
+  // every level picker (upload, videos) lists the 9 levels; the book upload can also be for every level
   function levelOptionsHtml(any){
     return (any ? '<option value="">' + esc(t('All levels', 'كل المستويات')) + '</option>' : '') + LEVELS.map(function(l){
       return '<option value="' + l + '">' + esc(levelName(l)) + '</option>';
@@ -532,15 +534,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(v && LEVEL_INFO[v]) sel.value = v;
     });
     const home = document.getElementById('homeLevels');
-    if(home) home.innerHTML = STAGES.map(function(s){
-      return '<div class="lv-stage"><div class="lv-top"><span class="lv-ico">' + s.icon + '</span><bdi class="lv-cefr">' + s.cefr + '</bdi></div>' +
-        '<b>' + esc(t(s.en, s.ar)) + '</b><small>' + esc(t('Level ' + s.from, 'المستوى ' + s.from)) + '</small></div>';
+    if(home) home.innerHTML = LEVELS.map(function(l){
+      const i = LEVEL_INFO[l];
+      return '<div class="lv-stage"><span class="lv-ico">' + i.icon + '</span><b>' + esc(levelName(l)) + '</b></div>';
     }).join('');
     const tabs = document.getElementById('levelTabs');
-    if(tabs) tabs.innerHTML = STAGES.map(function(s){
-      let b = '';
-      for(let n = s.from; n <= s.to; n++) b += '<button class="level-tab" data-level="Level ' + n + '" type="button"><span class="lv-dot"></span>' + n + '</button>';
-      return '<div class="lt-stage"><small>' + esc(t(s.en, s.ar)) + ' · <bdi>' + s.cefr + '</bdi></small><div>' + b + '</div></div>';
+    if(tabs) tabs.innerHTML = LEVELS.map(function(l){
+      return '<button class="level-tab" data-level="' + l + '" type="button"><span class="lv-dot"></span>' + LEVEL_INFO[l].n + '</button>';
     }).join('');
   }
   let currentLevel = LEVELS[0];
@@ -3145,7 +3145,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   };
   const PT_BANDS = ['A1', 'A2', 'B1', 'B2', 'C1'];
   const PT_TOTAL = 12;
-  const PT_SITE_LEVEL = { A1: 'Level 1', A2: 'Level 2', B1: 'Level 3', 'B1+': 'Level 4', B2: 'Level 5', C1: 'Level 6' };
+  const PT_SITE_LEVEL = { A1: 'Level 1', A2: 'Level 3', B1: 'Level 5', 'B1+': 'Level 6', B2: 'Level 7', C1: 'Level 9' };
   const PT_RESULT_BANDS = ['A1', 'A2', 'B1', 'B1+', 'B2', 'C1']; // the 6 levels; the questions use 5 bands, the AI-marked writing all 6
   let ptAiOff = false; // the AI placement test isn't switched on: use the written question bank
   const ptStart = document.getElementById('ptStart'), ptRun = document.getElementById('ptRun'), ptDone = document.getElementById('ptDone');
@@ -3242,14 +3242,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       B2: t('Strong English. Intermediate-to-advanced practice will polish accuracy and natural expressions.', 'إنجليزية قوية. التدريب المتوسط إلى المتقدم سيصقل الدقة والتعبيرات الطبيعية.'),
       C1: t('Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.', 'إنجليزية ممتازة. الدروس المتقدمة ستتحداك بالنقاش والدقة والتحدث بطلاقة.')
     };
-    document.getElementById('ptCefr').textContent = cefr;
+    document.getElementById('ptCefr').textContent = LEVEL_INFO[level].n;
     document.getElementById('ptLevel').textContent = levelName(level);
     document.getElementById('ptScore').textContent = t(right + '/' + PT_TOTAL + ' correct', right + '/' + PT_TOTAL + ' إجابة صحيحة');
     document.getElementById('ptMsg').textContent = MSG[cefr];
-    document.getElementById('ptScale').innerHTML = PT_RESULT_BANDS.map(function(b){ return '<i class="' + (b === cefr ? 'on' : '') + '">' + b + '</i>'; }).join('');
+    document.getElementById('ptScale').innerHTML = LEVELS.map(function(l){ return '<i class="' + (l === level ? 'on' : '') + '">' + LEVEL_INFO[l].n + '</i>'; }).join('');
     const fb = document.getElementById('ptWriteFb');
     fb.hidden = !writing;
-    if(writing) fb.innerHTML = '<b>✍️ ' + esc(t('Your writing', 'كتابتك')) + ' · <bdi>' + esc(writing.cefr) + '</bdi></b><p dir="rtl">' + esc(writing.feedback_ar) + '</p>' +
+    if(writing) fb.innerHTML = '<b>✍️ ' + esc(t('Your writing', 'كتابتك')) + '</b><p dir="rtl">' + esc(writing.feedback_ar) + '</p>' +
       (writing.fix && writing.fix.better ? '<p dir="ltr"><s>' + esc(writing.fix.original) + '</s> → <em>' + esc(writing.fix.better) + '</em></p>' : '');
     const wrong = pt.asked.filter(function(x){ return !x.right; });
     document.getElementById('ptReviewWrap').hidden = !wrong.length;
@@ -3290,9 +3290,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(isTeacher()) return true;
     const idx = LEVELS.indexOf(level);
     if(idx <= 0) return true;
-    return passedLevels.indexOf(LEVELS[idx - 1]) !== -1;
+    return idx <= highestPassed() + 1; // every level up to the one after the highest passed
   }
   function isLevelPassed(level){ return passedLevels.indexOf(level) !== -1; }
+  function highestPassed(){ return LEVELS.reduce(function(top, l, i){ return isLevelPassed(l) ? i : top; }, -1); }
 
   async function loadPassedLevels(){
     if(isTeacher() || !currentProfile){ passedLevels = []; return; }
@@ -3322,8 +3323,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   // the level the student should be working on now
   function currentStudentLevel(){
-    for(let i = 0; i < LEVELS.length; i++){ if(!isLevelPassed(LEVELS[i])) return LEVELS[i]; }
-    return LEVELS[LEVELS.length - 1];
+    return LEVELS[Math.min(highestPassed() + 1, LEVELS.length - 1)];
   }
 
   function renderPath(){
@@ -3339,20 +3339,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         '<span class="ps-bar"><i style="width:' + wpct + '%"></i></span>' +
         '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — take the level exam whenever you’re ready', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — وادخل امتحان المستوى وقت ما تكون جاهز')
                               : t('Practise with Coco, then take the level exam whenever you’re ready', 'اتمرّن مع كوكو، وادخل امتحان المستوى وقت ما تكون جاهز')) + '</em></div></div>';
-    const stages = STAGES.map(function(s, si){
-      const levels = LEVELS.filter(function(l){ return LEVEL_INFO[l].stage === si; });
-      const done = levels.every(isLevelPassed), here = levels.indexOf(working) !== -1;
-      const open = levels.some(isLevelUnlocked);
-      return '<div class="stage' + (done ? ' done' : here ? ' here' : !open ? ' locked' : '') + '">' +
-        '<div class="stage-head"><span>' + (done ? '✓' : s.icon) + '</span><div><b>' + esc(t(s.en, s.ar)) + '</b><small><bdi>' + s.cefr + '</bdi> · ' +
-          t('Level ' + s.from, 'المستوى ' + s.from) + '</small></div></div>' +
-        '<div class="stage-levels">' + levels.map(function(l){
-          const passed = isLevelPassed(l), unlocked = isLevelUnlocked(l);
-          return '<button type="button" class="lv-chip' + (passed ? ' passed' : !unlocked ? ' locked' : '') + (l === currentLevel ? ' active' : '') + (l === working ? ' working' : '') +
-            '" data-level="' + l + '" title="' + esc(levelName(l)) + '"' + (unlocked ? '' : ' aria-disabled="true"') + '>' + (passed ? '✓ ' : !unlocked ? '🔒 ' : '') + LEVEL_INFO[l].n + '</button>';
-        }).join('') + '</div></div>';
+    const chips = LEVELS.map(function(l){
+      const passed = isLevelPassed(l), unlocked = isLevelUnlocked(l);
+      return '<button type="button" class="lv-chip' + (passed ? ' passed' : !unlocked ? ' locked' : '') + (l === currentLevel ? ' active' : '') + (l === working ? ' working' : '') +
+        '" data-level="' + l + '" title="' + esc(levelName(l)) + '"' + (unlocked ? '' : ' aria-disabled="true"') + '>' + (passed ? '✓ ' : !unlocked ? '🔒 ' : '') + LEVEL_INFO[l].n + '</button>';
     }).join('');
-    learnPath.innerHTML = now + '<div class="path-stages">' + stages + '</div>';
+    learnPath.innerHTML = now + '<div class="path-levels">' + chips + '</div>';
   }
   learnPath.addEventListener('click', function(e){
     const b = e.target.closest('[data-level]');
@@ -4375,7 +4367,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     try{ const pl = JSON.parse(localStorage.getItem('cc_placement') || 'null'); if(pl && LEVEL_INFO[pl.level]) return levelNameEn(pl.level); }catch(e){}
     return levelNameEn('Level 1');
   }
-  function cocoStage(){ const m = /Level (\d+)/.exec(cocoLevel()); const info = m && LEVEL_INFO['Level ' + m[1]]; return info ? info.stage : 0; }
+  function cocoStage(){ const m = /Level (\d+)/.exec(cocoLevel()); const info = m && LEVEL_INFO['Level ' + m[1]]; return info ? info.lessons : 0; }
+  function cocoLevelKey(){ const m = /Level (\d+)/.exec(cocoLevel()); return m && LEVEL_INFO['Level ' + m[1]] ? 'Level ' + m[1] : 'Level 1'; }
 
   // ---- the robot's face ----
   function cocoMood(m){
@@ -4536,7 +4529,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     } else {
       cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
       const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
-      out = await cocoCall({ mode: 'lesson', level: cocoLevel(), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
+      out = await cocoCall({ mode: 'lesson', level: levelForAi(cocoLevelKey()), topic: cocoLesson.topic, step: cocoLesson.step, history: cocoLesson.history });
       wait.remove();
       cocoBusy = false; cocoState('busy', false);
     }
@@ -4626,7 +4619,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoTurns.push({ role: 'user', text: text });
     cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
     const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
-    const out = await cocoCall({ level: cocoLevel(), mode: cocoMode === 'play' ? 'roleplay' : 'talk', scene: cocoScene, turns: cocoTurns });
+    const out = await cocoCall({ level: levelForAi(cocoLevelKey()), mode: cocoMode === 'play' ? 'roleplay' : 'talk', scene: cocoScene, turns: cocoTurns });
     const r = out.data, err = out.err;
     wait.remove();
     cocoBusy = false; cocoState('busy', false);
@@ -4685,7 +4678,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   function cocoTopicOptions(sel){
     return COCO_TOPICS.map(function(list, si){
-      return '<optgroup label="' + esc(t(STAGES[si].en, STAGES[si].ar) + ' · ' + STAGES[si].cefr) + '">' + list.map(function(tp){
+      return '<optgroup label="' + esc(groupLabel(si)) + '">' + list.map(function(tp){
         return '<option value="' + esc(tp) + '"' + (tp === sel ? ' selected' : '') + '>' + esc(tp) + '</option>';
       }).join('') + '</optgroup>';
     }).join('');
@@ -4967,7 +4960,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoTurns.push({ role: 'user', text: text });
     cocoBusy = true; cocoMood('thinking'); cocoState('busy', true);
     const wait = cocoBubble('bot typing', '<span></span><span></span><span></span>');
-    const out = await cocoCall({ mode: 'assistant', level: cocoLevel(), turns: cocoTurns });
+    const out = await cocoCall({ mode: 'assistant', level: levelForAi(cocoLevelKey()), turns: cocoTurns });
     wait.remove();
     cocoBusy = false; cocoState('busy', false);
     const r = out.data;
@@ -5324,7 +5317,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   // With the AI on, Claude writes a fresh worksheet on any topic; otherwise it is built from the 36 written lessons.
   async function cocoWorksheetData(topic, level){
     if(!cocoAiOff && currentProfile){
-      const out = await cocoCall({ mode: 'worksheet', topic: topic, level: levelNameEn(level) });
+      const out = await cocoCall({ mode: 'worksheet', topic: topic, level: levelForAi(level) });
       if(out.data && out.data.sections) return { data: out.data, ai: true, left: out.data.left };
       if(out.err === 'setup') cocoAiOff = true;
       else if(out.err === 'limit' || out.err === 'topic') return { err: out.err };
@@ -5395,7 +5388,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     topic = String(topic || '').trim();
     if(!topic) return;
     const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(topic) !== -1; });
-    level = LEVEL_INFO[level] ? level : 'Level ' + ((si !== -1 ? si : cocoStage()) + 1);
+    level = LEVEL_INFO[level] ? level : si !== -1 ? 'Level ' + GROUP_LEVEL[si] : cocoLevelKey();
     const win = window.open('', '_blank'); // opened now, while the click still counts, so pop-up blockers allow it
     if(win) win.document.write('<p style="font:16px sans-serif;padding:30px;color:#5C1A28">⏳ Code Cademy — preparing your worksheet… جاري تجهيز ورقة التمارين…</p>');
     if(btn) btn.disabled = true;
@@ -5427,8 +5420,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       '<label>' + t('Level', 'المستوى') + '<select name="level">' + levelOptionsHtml() + '</select></label>' +
       '<div class="cmsg-cta"><button type="submit" class="cbtn">🖨️ ' + t('Make it', 'اعملها') + '</button><button type="button" class="cbtn ghost" data-coco-cancel>' + t('Cancel', 'إلغاء') + '</button></div></form>');
     const f = el.querySelector('form');
-    f.level.value = 'Level ' + (COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }) + 1);
-    f.topic.addEventListener('change', function(){ const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }); if(si !== -1) f.level.value = 'Level ' + (si + 1); });
+    f.level.value = 'Level ' + GROUP_LEVEL[Math.max(0, COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }))];
+    f.topic.addEventListener('change', function(){ const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }); if(si !== -1) f.level.value = 'Level ' + GROUP_LEVEL[si]; });
     el.scrollIntoView({ block: 'nearest' });
   }
 
@@ -5441,7 +5434,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const lessons = [];
     COCO_TOPICS.forEach(function(list, si){
       list.forEach(function(tp){
-        const hay = norm(tp + ' ' + (COCO_TOPIC_WORDS[tp] || []).join(' ') + ' ' + STAGES[si].en + ' ' + STAGES[si].ar + ' ' + STAGES[si].cefr + ' level ' + (si + 1));
+        const hay = norm(tp + ' ' + (COCO_TOPIC_WORDS[tp] || []).join(' ') + ' ' + LESSON_GROUP.map(function(x, i){ return x === si ? 'level ' + (i + 1) + ' المستوى ' + (i + 1) : ''; }).join(' '));
         if(hit(hay)) lessons.push({ topic: tp, si: si });
       });
     });
@@ -5453,7 +5446,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const r = cocoSearchResults(q);
     if(!r){ list.innerHTML = list.dataset.home; return; }
     list.innerHTML = r.lessons.map(function(x){
-      return '<button type="button" data-coco-topic="' + esc(x.topic) + '"><bdi>' + esc(x.topic) + '</bdi> <small>· ' + esc(t('Level ' + (x.si + 1), 'المستوى ' + (x.si + 1))) + ' <bdi>' + STAGES[x.si].cefr + '</bdi></small></button>';
+      return '<button type="button" data-coco-topic="' + esc(x.topic) + '"><bdi>' + esc(x.topic) + '</bdi> <small>· ' + esc(groupLabel(x.si)) + '</small></button>';
     }).join('') + r.books.map(function(m){
       return '<button type="button" data-coco-book="' + m.id + '">📚 <bdi>' + esc(m.title) + '</bdi></button>';
     }).join('') + (r.lessons.length || r.books.length ? '' : '<p class="cnone">' + esc(cocoAiOff || !currentProfile

@@ -394,11 +394,11 @@ function assistantTools(c: Ctx) {
   ];
 
   // the page opens the worksheet itself (a printable page with the academy's logo), so this only adds the button
-  const sheet = T("offer_worksheet", "Show a button that makes a printable Code Cademy worksheet (exercises + answer key) on a topic. level is a number from 1 to 6.",
+  const sheet = T("offer_worksheet", "Show a button that makes a printable Code Cademy worksheet (exercises + answer key) on a topic. level is a number from 1 to 9 (1–2 ≈ A1, 3–4 ≈ A2, 5–6 ≈ B1, 7–8 ≈ B2, 9 ≈ C1).",
     { topic: S, level: I }, async (a) => {
       const topic = str(a.topic, 140);
       if (!topic) return "ERROR: missing topic";
-      const level = "Level " + Math.max(1, Math.min(6, Math.round(Number(a.level)) || 1));
+      const level = "Level " + Math.max(1, Math.min(9, Math.round(Number(a.level)) || 1));
       if (!c.sheets.some((x) => x.topic === topic)) c.sheets.push({ topic, level });
       return "The worksheet button is shown under your reply; tapping it opens the worksheet to print.";
     });

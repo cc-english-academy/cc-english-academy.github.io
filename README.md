@@ -50,7 +50,7 @@ and keeps the original name in `materials.file_name`, which is used as the downl
 
 ## Features
 - Roles: student / parent sign up themselves; teachers sign up as applicants and the admin approves them (Users & roles); admin is granted only by an admin
-- 6 levels: Beginner (A1), Elementary (A2), Pre-Intermediate (B1), Intermediate (B1+), Upper-Intermediate (B2), Advanced (C1); each level opens after passing the exam of the one before
+- 9 levels (Level 1 … Level 9); each level opens after passing the exam of the one before
 - Parent portal: link a child with a 6-character code, see streak, books, exams and teacher notes
 - Messages: one conversation per student between the student, their parents and teachers, live, with private parent–teacher messages
 - Certificates: printable certificate for every level passed

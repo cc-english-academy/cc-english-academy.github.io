@@ -1407,7 +1407,7 @@ button.dash-stat{font:inherit;text-align:start;cursor:pointer;color:inherit;widt
 .treq-row>span{flex:1;min-width:180px;}
 .treq-row small{display:block;color:var(--muted);font-size:.76rem;}
 .levels-home{padding:80px 0;}
-.lv-ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.lv-ladder{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;}
 .lv-stage{background:#fff;border:1px solid var(--soft-line);border-radius:18px;padding:18px 16px;box-shadow:var(--shadow-sm);position:relative;transition:transform .25s,box-shadow .25s;}
 .lv-stage:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
 .lv-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
@@ -1417,8 +1417,11 @@ button.dash-stat{font:inherit;text-align:start;cursor:pointer;color:inherit;widt
 .lv-stage small{font-size:.76rem;color:var(--muted);}
 .lv-nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
 .lv-nums span{min-width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;background:rgba(92,26,40,.07);color:var(--maroon-deep);}
-@media(max-width:1100px){.lv-ladder{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:560px){.lv-ladder{grid-template-columns:1fr 1fr;gap:10px;}.levels-home{padding:56px 0;}}
+@media(max-width:1100px){.lv-ladder{grid-template-columns:repeat(5,1fr);}}
+.lv-ladder .lv-stage{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:18px 8px;}
+.lv-ladder .lv-stage b{font-size:1rem;white-space:nowrap;}
+.path-levels{display:flex;flex-wrap:wrap;gap:8px;}
+@media(max-width:560px){.lv-ladder{grid-template-columns:repeat(3,1fr);gap:10px;}.levels-home{padding:56px 0;}}
 .protect-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff7ec;border:1px solid #f1dcc4;border-radius:14px;padding:14px 18px;margin:0 0 16px;}
 .protect-box>span{font-size:1.5rem;}
 .protect-box p{flex:1;min-width:220px;margin:0;font-size:.86rem;color:#5a4148;}
