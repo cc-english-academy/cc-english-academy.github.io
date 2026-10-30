@@ -307,19 +307,33 @@ update public.plan_settings set sessions = null
 update public.enrollments set sessions_total = null
  where (plan, sessions_total) in (('level1', 12), ('level2', 24), ('level3', 36), ('immersion', 72));
 
-alter table public.materials      alter column level set default 'Level 1';
+-- a book can be for every level of its club: level stays empty
+alter table public.materials      alter column level drop not null;
+alter table public.materials      alter column level drop default;
 alter table public.exam_questions alter column level set default 'Level 1';
--- 14 levels (Level 1 … Level 14) replace the old three; older rows move to the first level of the matching stage
+
+-- one-time data moves, each recorded here so running this file again never repeats them
+create table if not exists public.app_migrations (name text primary key, done_at timestamptz not null default now());
+alter table public.app_migrations enable row level security;
+
+-- 6 levels (Level 1 … Level 6, one per stage A1 … C1) replace the 14 and the old three names
 do $$
 declare t text;
 begin
+  if exists (select 1 from public.app_migrations where name = 'six_levels') then return; end if;
   foreach t in array array['materials','exam_questions','exam_attempts','lesson_videos'] loop
     if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = t and column_name = 'level') then
-      execute format($f$update public.%I set level = case level
-          when 'Beginner (A1-A2)' then 'Level 1' when 'Intermediate (B1-B2)' then 'Level 9' when 'Advanced (C1-C2)' then 'Level 13' end
-        where level in ('Beginner (A1-A2)','Intermediate (B1-B2)','Advanced (C1-C2)')$f$, t);
+      execute format($f$update public.%I set level = case
+          when level = 'Beginner (A1-A2)' then 'Level 1' when level = 'Intermediate (B1-B2)' then 'Level 3' when level = 'Advanced (C1-C2)' then 'Level 6'
+          when level ~ '^Level [0-9]+$' then 'Level ' || (case
+            when substring(level from 7)::int <= 4 then 1 when substring(level from 7)::int <= 6 then 2
+            when substring(level from 7)::int <= 8 then 3 when substring(level from 7)::int <= 10 then 4
+            when substring(level from 7)::int <= 12 then 5 else 6 end)
+          else level end
+        where level is not null$f$, t);
     end if;
   end loop;
+  insert into public.app_migrations (name) values ('six_levels');
 end $$;
 
 -- Coco's tasks: a teacher orders Coco to teach a lesson or give an auto-marked quiz to a club or one student
@@ -1254,6 +1268,32 @@ begin
   return v_limit - v_count - 1;
 end $$;
 grant execute on function public.ai_take_turn() to authenticated;
+
+-- visitors without an account may take the AI placement test: 4 AI requests a day per connection
+-- (two tests: questions + writing), and at most 400 a day for all visitors together
+create table if not exists public.ai_anon_usage (
+  key    text not null,  -- a one-way fingerprint of the visitor's connection, never the address itself
+  day    date not null default current_date,
+  count  int  not null default 0,
+  primary key (key, day)
+);
+alter table public.ai_anon_usage enable row level security;
+create or replace function public.ai_take_anon_turn(p_key text)
+returns int language plpgsql security definer set search_path = public as $$
+declare v_count int; v_total int;
+begin
+  if p_key is null or length(p_key) < 16 or length(p_key) > 64 then raise exception 'Bad key'; end if;
+  delete from public.ai_anon_usage where day < current_date - 2;
+  select coalesce(sum(count), 0) into v_total from public.ai_anon_usage where day = current_date;
+  if v_total >= 400 then return -1; end if;
+  insert into public.ai_anon_usage (key, day, count) values (p_key, current_date, 0) on conflict (key, day) do nothing;
+  select count into v_count from public.ai_anon_usage where key = p_key and day = current_date for update;
+  if v_count >= 4 then return -1; end if;
+  update public.ai_anon_usage set count = count + 1 where key = p_key and day = current_date;
+  return 4 - v_count - 1;
+end $$;
+revoke all on function public.ai_take_anon_turn(text) from public;
+grant execute on function public.ai_take_anon_turn(text) to anon, authenticated;
 
 -- numbers for the admin / teacher overview
 create or replace function public.academy_stats()

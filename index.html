@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=bcd533b1">
+<link rel="stylesheet" href="assets/css/site.css?v=109e8638">
 </head>
 <body>
 
@@ -238,7 +238,7 @@
     </div>
     <div class="stat-strip">
       <div class="stat"><b class="count" data-target="7">0</b><span>English clubs</span></div>
-      <div class="stat"><b class="count" data-target="14">0</b><span>levels</span></div>
+      <div class="stat"><b class="count" data-target="6">0</b><span>levels</span></div>
       <div class="stat"><b>A1–C1</b><span>6 stages</span></div>
     </div>
    </div>
@@ -307,7 +307,7 @@
         </div>
         <div class="how-text">
           <h4>Learn level by level</h4>
-          <p>Read your club's books at your level — 14 levels, from Beginner to Advanced.</p>
+          <p>Read your club's books at your level — 6 levels, from Beginner to Advanced.</p>
         </div>
       </div>
 
@@ -331,10 +331,29 @@
   <div class="wrap">
     <div class="how-head reveal">
       <div class="kicker">Our levels</div>
-      <h2>14 levels, one clear path.</h2>
-      <p>Every student moves from Level 1 to Level 14 in six stages. Each level has its own books, and its exam opens the next one.</p>
+      <h2>6 levels, one clear path.</h2>
+      <p>Every student moves from Level 1 (A1) to Level 6 (C1). Each level's exam opens the next one.</p>
     </div>
     <div class="lv-ladder" id="homeLevels"></div>
+  </div>
+</section>
+
+<section class="accredit" id="accreditation">
+  <div class="wrap accredit-grid">
+    <a class="accredit-cert reveal" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener" aria-label="View the accreditation certificate (PDF)">
+      <img loading="lazy" decoding="async" src="assets/img/cpd-accreditation.webp" width="900" height="636" alt="Code Cademy — Approved CPD Provider certificate">
+    </a>
+    <div class="accredit-copy reveal" data-i="1">
+      <div class="kicker">Accredited academy</div>
+      <h2>An Approved CPD Provider.</h2>
+      <p>Code Cademy is an Approved CPD Provider and a member of CPD Accreditation International.</p>
+      <ul class="accredit-facts">
+        <li><small>Provider No.</small><b>CPD-10020</b></li>
+        <li><small>Since</small><b>28 Oct 2026</b></li>
+        <li><small>Valid until</small><b>28 Oct 2027</b></li>
+      </ul>
+      <a class="path-btn ghost" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener">View the certificate</a>
+    </div>
   </div>
 </section>
 
@@ -495,6 +514,15 @@
           <div id="ptOpts" class="pt-opts"></div>
         </div>
       </div>
+      <div id="ptWrite" class="pt-pane" hidden>
+        <form id="ptWriteForm">
+          <div class="pt-top"><span>Last step: a little writing</span></div>
+          <p class="pt-wq">Write 3–5 sentences in English about yourself: your family, your day or what you like doing.</p>
+          <textarea id="ptText" rows="5" maxlength="1500" dir="ltr" placeholder="My name is … I live in … Every day I …"></textarea>
+          <p class="pt-werr" id="ptWriteErr" aria-live="polite"></p>
+          <div class="pt-cta"><button class="cta-solid" type="submit">See my level</button><button class="cta-ghost" type="button" id="ptSkip">Skip</button></div>
+        </form>
+      </div>
       <div id="ptDone" class="pt-pane" hidden>
         <div class="pt-result">
           <div class="pt-badge ok" id="ptCefr">A2</div>
@@ -502,6 +530,7 @@
         </div>
         <div class="pt-scale" id="ptScale" aria-hidden="true"></div>
         <p id="ptMsg"></p>
+        <div class="pt-wfb" id="ptWriteFb" hidden></div>
         <details class="pt-review" id="ptReviewWrap"><summary id="ptReviewSum">Review your mistakes</summary><ol id="ptReview"></ol></details>
         <div class="pt-cta">
           <button class="cta-solid" id="ptJoin" type="button">Start learning at this level</button>
@@ -795,7 +824,7 @@
           </div>
           <div>
             <label for="libLevel">Level</label>
-            <select id="libLevel" data-levels required></select>
+            <select id="libLevel" data-levels data-any-level></select>
           </div>
           <div class="full">
             <label for="libTitle">Title</label>
@@ -1462,7 +1491,7 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=83fcfb24"></script>
-<script defer src="assets/js/app.js?v=0eeb3f07"></script>
+<script defer src="assets/js/lang.js?v=9872744f"></script>
+<script defer src="assets/js/app.js?v=a8cccd71"></script>
 </body>
 </html>

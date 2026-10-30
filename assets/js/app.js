@@ -494,14 +494,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   let materialsFilter = 'all';
   let wantDashboard = true; // remembers whether a signed-in visitor asked to "view website"
   let pendingClub = null; // a club clicked on the public page before signing in
-  // 14 levels in 6 stages; a student opens the next level by passing the exam of the one before
+  // 6 levels, one per stage (A1 … C1); a student opens the next level by passing the exam of the one before
   const STAGES = [
-    { en: 'Beginner',           ar: 'المبتدئ',        cefr: 'A1',  from: 1,  to: 4,  icon: '🌱' },
-    { en: 'Elementary',         ar: 'الأساسيات',      cefr: 'A2',  from: 5,  to: 6,  icon: '🌿' },
-    { en: 'Pre-Intermediate',   ar: 'ما قبل المتوسط', cefr: 'B1',  from: 7,  to: 8,  icon: '🍀' },
-    { en: 'Intermediate',       ar: 'المتوسط',        cefr: 'B1+\u200E', from: 9,  to: 10, icon: '🌳' },
-    { en: 'Upper-Intermediate', ar: 'فوق المتوسط',    cefr: 'B2',  from: 11, to: 12, icon: '⛰️' },
-    { en: 'Advanced',           ar: 'المتقدم',        cefr: 'C1',  from: 13, to: 14, icon: '🏆' }
+    { en: 'Beginner',           ar: 'المبتدئ',        cefr: 'A1',  from: 1, to: 1, icon: '🌱' },
+    { en: 'Elementary',         ar: 'الأساسيات',      cefr: 'A2',  from: 2, to: 2, icon: '🌿' },
+    { en: 'Pre-Intermediate',   ar: 'ما قبل المتوسط', cefr: 'B1',  from: 3, to: 3, icon: '🍀' },
+    { en: 'Intermediate',       ar: 'المتوسط',        cefr: 'B1+\u200E', from: 4, to: 4, icon: '🌳' },
+    { en: 'Upper-Intermediate', ar: 'فوق المتوسط',    cefr: 'B2',  from: 5, to: 5, icon: '⛰️' },
+    { en: 'Advanced',           ar: 'المتقدم',        cefr: 'C1',  from: 6, to: 6, icon: '🏆' }
   ];
   const LEVELS = [], LEVEL_INFO = {};
   STAGES.forEach(function(s, si){
@@ -511,35 +511,30 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       LEVEL_INFO[key] = { n: n, en: s.en, ar: s.ar, cefr: s.cefr, icon: s.icon, stage: si };
     }
   });
-  // names used before the 14 levels (old rows are moved by schema.sql; this keeps old links readable)
-  const OLD_LEVEL = { 'Beginner (A1-A2)': 'Level 1', 'Intermediate (B1-B2)': 'Level 9', 'Advanced (C1-C2)': 'Level 13' };
+  // names used before the 6 levels (old rows are moved by schema.sql; this keeps old links readable)
+  const OLD_LEVEL = { 'Beginner (A1-A2)': 'Level 1', 'Intermediate (B1-B2)': 'Level 3', 'Advanced (C1-C2)': 'Level 6' };
   function levelName(l){
     const i = LEVEL_INFO[OLD_LEVEL[l] || l];
     return i ? t('Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')', 'المستوى ' + i.n + ' · ' + i.ar + ' (' + i.cefr + ')') : (l || '');
   }
   window.__levelLabel = levelName;
   function levelNameEn(l){ const i = LEVEL_INFO[OLD_LEVEL[l] || l]; return i ? 'Level ' + i.n + ' · ' + i.en + ' (' + i.cefr + ')' : (l || ''); } // certificates are printed in English
-  // every level picker (upload, videos) lists the 14 levels grouped by stage
-  function levelOptionsHtml(){
-    return STAGES.map(function(s){
-      let opts = '';
-      for(let n = s.from; n <= s.to; n++) opts += '<option value="Level ' + n + '">' + esc(t('Level ' + n, 'المستوى ' + n)) + '</option>';
-      return '<optgroup label="' + esc(t(s.en, s.ar) + ' · ' + s.cefr) + '">' + opts + '</optgroup>';
+  // every level picker (upload, videos) lists the 6 levels; the book upload can also be for every level
+  function levelOptionsHtml(any){
+    return (any ? '<option value="">' + esc(t('All levels', 'كل المستويات')) + '</option>' : '') + LEVELS.map(function(l){
+      return '<option value="' + l + '">' + esc(levelName(l)) + '</option>';
     }).join('');
   }
   function fillLevelPickers(){
     document.querySelectorAll('select[data-levels]').forEach(function(sel){
       const v = sel.value;
-      sel.innerHTML = levelOptionsHtml();
+      sel.innerHTML = levelOptionsHtml(sel.hasAttribute('data-any-level'));
       if(v && LEVEL_INFO[v]) sel.value = v;
     });
     const home = document.getElementById('homeLevels');
     if(home) home.innerHTML = STAGES.map(function(s){
-      let chips = '';
-      for(let n = s.from; n <= s.to; n++) chips += '<span>' + n + '</span>';
       return '<div class="lv-stage"><div class="lv-top"><span class="lv-ico">' + s.icon + '</span><bdi class="lv-cefr">' + s.cefr + '</bdi></div>' +
-        '<b>' + esc(t(s.en, s.ar)) + '</b><small>' + esc(t('Levels ' + s.from + '–' + s.to, 'المستويات ' + s.from + '–' + s.to)) + '</small>' +
-        '<div class="lv-nums">' + chips + '</div></div>';
+        '<b>' + esc(t(s.en, s.ar)) + '</b><small>' + esc(t('Level ' + s.from, 'المستوى ' + s.from)) + '</small></div>';
     }).join('');
     const tabs = document.getElementById('levelTabs');
     if(tabs) tabs.innerHTML = STAGES.map(function(s){
@@ -2861,7 +2856,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   async function cdRender(){
     try{
       const sample = { full_name: (currentProfile && currentProfile.full_name) || 'Student Name', club: cdClub.value === '*' ? 'Conversation Club' : cdClub.value,
-                       level: 'Level 4', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
+                       level: 'Level 2', score: 95, created_at: new Date().toISOString(), id: 'SAMPLE01' };
       const c = await drawCertificate(sample, { src: cdSrc, layout: cdLayout });
       cdCanvas.width = c.width; cdCanvas.height = c.height;
       cdCanvas.getContext('2d').drawImage(c, 0, 0);
@@ -3150,11 +3145,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   };
   const PT_BANDS = ['A1', 'A2', 'B1', 'B2', 'C1'];
   const PT_TOTAL = 12;
-  const PT_SITE_LEVEL = { A1: 'Level 1', A2: 'Level 5', B1: 'Level 7', B2: 'Level 11', C1: 'Level 13' };
+  const PT_SITE_LEVEL = { A1: 'Level 1', A2: 'Level 2', B1: 'Level 3', 'B1+': 'Level 4', B2: 'Level 5', C1: 'Level 6' };
+  const PT_RESULT_BANDS = ['A1', 'A2', 'B1', 'B1+', 'B2', 'C1']; // the 6 levels; the questions use 5 bands, the AI-marked writing all 6
+  let ptAiOff = false; // the AI placement test isn't switched on: use the written question bank
   const ptStart = document.getElementById('ptStart'), ptRun = document.getElementById('ptRun'), ptDone = document.getElementById('ptDone');
   let pt = null; // { band, asked: [{band, q, opts, correct, chosen}], used: {band: [indexes]} }
-  function ptShow(which){ ptStart.hidden = which !== 'start'; ptRun.hidden = which !== 'run'; ptDone.hidden = which !== 'done'; }
+  const ptWrite = document.getElementById('ptWrite');
+  function ptShow(which){ ptStart.hidden = which !== 'start'; ptRun.hidden = which !== 'run'; ptDone.hidden = which !== 'done'; ptWrite.hidden = which !== 'write'; }
   function ptPick(band){
+    // fresh questions written by the AI for this test come first
+    const ai = pt.pool && pt.pool[band], aiUsed = pt.used['ai' + band] = pt.used['ai' + band] || [];
+    if(ai && aiUsed.length < ai.length){
+      const k = aiUsed.length; aiUsed.push(k);
+      return { band: band, q: ai[k].q, opts: shuffleArr(ai[k].o.map(function(text, n){ return { text: text, ok: n === 0 }; })) };
+    }
     const pool = PT_BANK[band], used = pt.used[band] = pt.used[band] || [];
     const free = pool.map(function(_, k){ return k; }).filter(function(k){ return used.indexOf(k) === -1; });
     // prefer questions this visitor has not seen in earlier attempts, so a retake feels new
@@ -3168,11 +3172,21 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const opts = shuffleArr(item.o.map(function(text, n){ return { text: text, ok: n === 0 }; }));
     return { band: band, q: item.q, opts: opts };
   }
-  function ptBegin(){
+  async function ptBegin(){
     let seen = [];
     try{ seen = JSON.parse(localStorage.getItem('cc_pt_seen') || '[]') || []; }catch(e){}
-    pt = { band: 1, asked: [], used: {}, seen: seen }; // start at A2
+    const test = pt = { band: 1, asked: [], used: {}, seen: seen, pool: null }; // start at A2
     ptShow('run');
+    if(!ptAiOff){
+      // ask the AI for today's questions; if it is off or slow, the written bank is used
+      document.getElementById('ptCount').textContent = t('Preparing your test…', 'بجهّزلك الامتحان…');
+      document.getElementById('ptQ').textContent = '✨ ' + t('Coco is writing fresh questions for you', 'كوكو بيكتبلك أسئلة جديدة');
+      document.getElementById('ptOpts').innerHTML = '<span class="pt-wait"><i></i><i></i><i></i></span>';
+      const out = await Promise.race([cocoCall({ mode: 'placement' }), new Promise(function(r){ setTimeout(function(){ r({ err: 'slow' }); }, 15000); })]);
+      if(pt !== test) return; // restarted meanwhile
+      if(out.data && out.data.pool) pt.pool = out.data.pool;
+      else if(out.err === 'setup') ptAiOff = true;
+    }
     ptNext();
   }
   function ptNext(){
@@ -3196,14 +3210,35 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     });
     return PT_BANDS[best];
   }
-  function ptFinish(){
-    const cefr = ptEstimate();
+  // with the AI on, the test ends with a few sentences of writing that the AI marks
+  function ptAskWriting(){
+    document.getElementById('ptBar').style.width = '100%';
+    document.getElementById('ptText').value = '';
+    document.getElementById('ptWriteErr').textContent = '';
+    ptShow('write');
+  }
+  document.getElementById('ptWriteForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const text = document.getElementById('ptText').value.trim(), btn = this.querySelector('[type=submit]'), err = document.getElementById('ptWriteErr');
+    if(text.split(/\s+/).length < 8){ err.textContent = t('Write at least two full sentences (8 words or more).', 'اكتب جملتين كاملتين على الأقل (٨ كلمات أو أكتر).'); return; }
+    btn.disabled = true; err.textContent = '⏳ ' + t('Coco is reading your writing…', 'كوكو بيقرا اللي كتبته…');
+    const out = await cocoCall({ mode: 'placement_write', text: text });
+    btn.disabled = false; err.textContent = '';
+    ptFinish(out.data && out.data.cefr ? out.data : null);
+  });
+  document.getElementById('ptSkip').addEventListener('click', function(){ ptFinish(null); });
+  function ptFinish(writing){
+    // the questions give one level; the marked writing (when there is one) pulls it up or down
+    const mcq = PT_RESULT_BANDS.indexOf(ptEstimate());
+    const w = writing ? PT_RESULT_BANDS.indexOf(writing.cefr) : -1;
+    const cefr = PT_RESULT_BANDS[w === -1 ? mcq : Math.round((mcq + w) / 2)];
     const right = pt.asked.filter(function(x){ return x.right; }).length;
     const level = PT_SITE_LEVEL[cefr];
     const MSG = {
       A1: t('A perfect place to start. You will build vocabulary, sounds and your first sentences step by step.', 'بداية ممتازة. ستبني المفردات والأصوات وجملك الأولى خطوة بخطوة.'),
       A2: t('You know the basics. Beginner lessons will make everyday English feel easy and natural.', 'تعرف الأساسيات. دروس المستوى المبتدئ ستجعل الإنجليزية اليومية سهلة وطبيعية.'),
       B1: t('A solid base. Intermediate lessons will build fluency and confidence in real conversations.', 'أساس قوي. دروس المستوى المتوسط ستبني الطلاقة والثقة في المحادثات الحقيقية.'),
+      'B1+': t('Confident everyday English. Intermediate practice will grow your range and make you sound more natural.', 'إنجليزي يومي واثق. التدريب المتوسط هيوسّع كلماتك ويخليك تتكلم بشكل طبيعي أكتر.'),
       B2: t('Strong English. Intermediate-to-advanced practice will polish accuracy and natural expressions.', 'إنجليزية قوية. التدريب المتوسط إلى المتقدم سيصقل الدقة والتعبيرات الطبيعية.'),
       C1: t('Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.', 'إنجليزية ممتازة. الدروس المتقدمة ستتحداك بالنقاش والدقة والتحدث بطلاقة.')
     };
@@ -3211,7 +3246,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('ptLevel').textContent = levelName(level);
     document.getElementById('ptScore').textContent = t(right + '/' + PT_TOTAL + ' correct', right + '/' + PT_TOTAL + ' إجابة صحيحة');
     document.getElementById('ptMsg').textContent = MSG[cefr];
-    document.getElementById('ptScale').innerHTML = PT_BANDS.map(function(b){ return '<i class="' + (b === cefr ? 'on' : '') + '">' + b + '</i>'; }).join('');
+    document.getElementById('ptScale').innerHTML = PT_RESULT_BANDS.map(function(b){ return '<i class="' + (b === cefr ? 'on' : '') + '">' + b + '</i>'; }).join('');
+    const fb = document.getElementById('ptWriteFb');
+    fb.hidden = !writing;
+    if(writing) fb.innerHTML = '<b>✍️ ' + esc(t('Your writing', 'كتابتك')) + ' · <bdi>' + esc(writing.cefr) + '</bdi></b><p dir="rtl">' + esc(writing.feedback_ar) + '</p>' +
+      (writing.fix && writing.fix.better ? '<p dir="ltr"><s>' + esc(writing.fix.original) + '</s> → <em>' + esc(writing.fix.better) + '</em></p>' : '');
     const wrong = pt.asked.filter(function(x){ return !x.right; });
     document.getElementById('ptReviewWrap').hidden = !wrong.length;
     document.getElementById('ptReviewSum').textContent = t('Review your mistakes (' + wrong.length + ')', 'راجع أخطاءك (' + wrong.length + ')');
@@ -3238,7 +3277,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.querySelectorAll('#ptOpts button').forEach(function(x){ x.disabled = true; });
     b.classList.add(o.ok ? 'right' : 'wrong');
     pt.band = o.ok ? Math.min(PT_BANDS.length - 1, pt.band + 1) : Math.max(0, pt.band - 1);
-    setTimeout(function(){ if(pt.asked.length >= PT_TOTAL) ptFinish(); else ptNext(); }, 450);
+    setTimeout(function(){ if(pt.asked.length >= PT_TOTAL) (pt.pool ? ptAskWriting() : ptFinish()); else ptNext(); }, 450);
   });
 
   fillLevelPickers();
@@ -3278,7 +3317,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     clubBooks = data || [];
   }
   function levelStats(level){
-    const books = clubBooks.filter(function(b){ return b.level === level; });
+    const books = clubBooks.filter(function(b){ return !b.level || b.level === level; }); // a book without a level is for every level
     return { total: books.length, read: books.filter(function(b){ return readIds.has(b.id); }).length, books: books };
   }
   // the level the student should be working on now
@@ -3295,18 +3334,18 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const wpct = ws.total ? Math.round(ws.read * 100 / ws.total) : 0;
     const passedCount = LEVELS.filter(isLevelPassed).length;
     const now = '<div class="path-now"><span class="ps-badge">' + wi.icon + '</span><div><small>' + t('You are here', 'أنت هنا') + ' · ' +
-        t(passedCount + ' of 14 levels passed', 'نجحت في ' + passedCount + ' من 14 مستوى') + '</small>' +
+        t(passedCount + ' of ' + LEVELS.length + ' levels passed', 'نجحت في ' + passedCount + ' من ' + LEVELS.length + ' مستويات') + '</small>' +
         '<b>' + esc(levelName(working)) + '</b>' +
         '<span class="ps-bar"><i style="width:' + wpct + '%"></i></span>' +
-        '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — then take the level exam', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — ثم ادخل امتحان المستوى')
-                              : t('Books for this level are coming soon', 'كتب هذا المستوى قريباً')) + '</em></div></div>';
+        '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — take the level exam whenever you’re ready', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — وادخل امتحان المستوى وقت ما تكون جاهز')
+                              : t('Practise with Coco, then take the level exam whenever you’re ready', 'اتمرّن مع كوكو، وادخل امتحان المستوى وقت ما تكون جاهز')) + '</em></div></div>';
     const stages = STAGES.map(function(s, si){
       const levels = LEVELS.filter(function(l){ return LEVEL_INFO[l].stage === si; });
       const done = levels.every(isLevelPassed), here = levels.indexOf(working) !== -1;
       const open = levels.some(isLevelUnlocked);
       return '<div class="stage' + (done ? ' done' : here ? ' here' : !open ? ' locked' : '') + '">' +
         '<div class="stage-head"><span>' + (done ? '✓' : s.icon) + '</span><div><b>' + esc(t(s.en, s.ar)) + '</b><small><bdi>' + s.cefr + '</bdi> · ' +
-          t('Levels ' + s.from + '–' + s.to, 'المستويات ' + s.from + '–' + s.to) + '</small></div></div>' +
+          t('Level ' + s.from, 'المستوى ' + s.from) + '</small></div></div>' +
         '<div class="stage-levels">' + levels.map(function(l){
           const passed = isLevelPassed(l), unlocked = isLevelUnlocked(l);
           return '<button type="button" class="lv-chip' + (passed ? ' passed' : !unlocked ? ' locked' : '') + (l === currentLevel ? ' active' : '') + (l === working ? ' working' : '') +
@@ -3359,9 +3398,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       text = t('Take the ' + levelName(lv) + ' exam to move up.', 'ادخل امتحان ' + levelName(lv) + ' لتنتقل للمستوى التالي.');
       btn = t('Start the exam', 'ابدأ الامتحان'); action = 'exam';
     } else {
-      icon = '⏳'; title = t('Books are on the way', 'الكتب في الطريق');
-      text = t('Your teacher hasn’t added books to ' + levelName(lv) + ' yet.', 'لم يضف معلمك كتباً لمستوى ' + levelName(lv) + ' بعد.');
-      btn = t('See my level', 'شاهد مستواي'); action = 'path';
+      icon = '📝'; title = t('Ready to move up?', 'جاهز تطلع مستوى؟');
+      text = t('Practise with Coco, then take the ' + levelName(lv) + ' exam.', 'اتمرّن مع كوكو، وبعدين ادخل امتحان ' + levelName(lv) + '.');
+      btn = t('Start the exam', 'ابدأ الامتحان'); action = 'exam';
     }
     box.hidden = false;
     box.innerHTML = '<div class="ns-icon">' + icon + '</div><div class="ns-text"><small>' + t('Your next step', 'خطوتك التالية') + '</small><b>' + esc(title) + '</b><span>' + esc(text) + '</span></div>' +
@@ -3420,8 +3459,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(locked){
       const prev = LEVELS[LEVELS.indexOf(currentLevel) - 1];
       document.getElementById('lockedTitle').textContent = t('Level ' + LEVEL_INFO[currentLevel].n + ' is locked', 'المستوى ' + LEVEL_INFO[currentLevel].n + ' مغلق');
-      document.getElementById('lockedText').textContent = t('Read the ' + levelName(prev) + ' books and pass its exam to open this level.',
-                                                            'اقرأ كتب مستوى ' + levelName(prev) + ' وانجح في امتحانه لفتح هذا المستوى.');
+      document.getElementById('lockedText').textContent = t('Pass the ' + levelName(prev) + ' exam to open this level.',
+                                                            'انجح في امتحان ' + levelName(prev) + ' عشان يفتحلك المستوى ده.');
       shelfHead.hidden = true;
       examCTA.hidden = true;
       examPanel.hidden = true;
@@ -3429,7 +3468,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return;
     }
 
-    let query = sb.from('materials').select('*').eq('level', currentLevel).order('created_at', { ascending: false });
+    // this level's books plus the books meant for every level
+    let query = sb.from('materials').select('*').or('level.is.null,level.eq."' + currentLevel + '"').order('created_at', { ascending: false });
     if(!isTeacher()){
       query = query.eq('club', currentProfile.club);
     } else if(materialsFilter !== 'all'){
@@ -3470,8 +3510,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       examCTAText.textContent = passedHere
         ? (isLastLevel ? t('You completed the final level. Your certificate is ready.', 'أكملت المستوى الأخير. شهادتك جاهزة.')
                        : t('Your certificate is ready and ' + levelName(LEVELS[LEVELS.indexOf(currentLevel) + 1]) + ' is open.', 'شهادتك جاهزة ومستوى ' + levelName(LEVELS[LEVELS.indexOf(currentLevel) + 1]) + ' مفتوح.'))
-        : t('Finished the books? Score 70% or more to ' + (isLastLevel ? 'earn your final certificate.' : 'unlock ' + levelName(LEVELS[LEVELS.indexOf(currentLevel) + 1]) + ' and get a certificate.'),
-            'خلّصت الكتب؟ احصل على ٧٠٪ أو أكثر ' + (isLastLevel ? 'لتحصل على شهادتك النهائية.' : 'لتفتح مستوى ' + levelName(LEVELS[LEVELS.indexOf(currentLevel) + 1]) + ' وتحصل على شهادة.'));
+        : t('Ready? Score 70% or more to ' + (isLastLevel ? 'earn your final certificate.' : 'unlock ' + levelName(LEVELS[LEVELS.indexOf(currentLevel) + 1]) + ' and get a certificate.'),
+            'جاهز؟ احصل على ٧٠٪ أو أكثر ' + (isLastLevel ? 'لتحصل على شهادتك النهائية.' : 'لتفتح مستوى ' + levelName(LEVELS[LEVELS.indexOf(currentLevel) + 1]) + ' وتحصل على شهادة.'));
       startExamBtn.textContent = passedHere ? t('View certificate', 'عرض الشهادة') : t('Start the exam', 'ابدأ الامتحان');
     }
   }
@@ -3526,7 +3566,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         (badges ? '<div class="lib-badges">' + badges + '</div>' : '') +
         '<span class="ftype">' + fileIcon(ext) + '</span>' +
         '<h5>' + esc(item.title) + '</h5>' +
-        '<div class="meta">' + esc(item.club) + ' · ' + esc(item.level) +
+        '<div class="meta">' + esc(item.club) + ' · ' + esc(item.level ? levelName(item.level) : t('All levels', 'كل المستويات')) +
           (item.file_size ? ' · <span class="size">' + fmtSize(item.file_size) + '</span>' : '') + '</div>' +
         '<div class="meta lib-guard">' + (isProtected(item)
           ? '🔒 ' + (item.preview_path ? t('Protected · ' + (item.preview_pages || PREVIEW_PAGES) + '-page free preview', 'محمي · معاينة مجانية ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات') : t('Protected · plan only', 'محمي · بالاشتراك فقط'))
@@ -3763,7 +3803,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const m = payload.new || {};
         if(!currentProfile || m.uploaded_by === currentProfile.id) return;
         if(isParent() || (!isTeacher() && m.club !== currentProfile.club)) return;
-        toast('📚 ' + t('New book added', 'تمت إضافة كتاب جديد'), m.title + ' · ' + m.level);
+        toast('📚 ' + t('New book added', 'تمت إضافة كتاب جديد'), m.title + (m.level ? ' · ' + levelName(m.level) : ''));
         loadClubBooks().then(function(){ loadMaterials(); renderNextStep(); });
         loadOverviewStats();
       })
@@ -3852,13 +3892,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   libForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const club = document.getElementById('libClub').value;
-    const level = document.getElementById('libLevel').value;
+    const level = document.getElementById('libLevel').value || null; // empty = for every level
     const title = libTitle.value.trim();
     const file = libFile.files[0];
     if(!title || !file){ setUploadStatus('err', t('Add a title and choose a file first.', 'أضف عنواناً واختر ملفاً أولاً.')); return; }
     if(file.size > MAX_UPLOAD){ setUploadStatus('err', t('The file is too big — the limit is 50 MB.', 'الملف كبير جداً — الحد الأقصى 50 ميجابايت.')); return; }
 
-    const path = buildStoragePath(club, level, file.name);
+    const path = buildStoragePath(club, level || 'All levels', file.name);
     libSubmit.disabled = true;
     setUploadStatus('busy', t('Uploading “' + file.name + '”…', 'جارٍ رفع «' + file.name + '»…'));
     try{
@@ -4332,7 +4372,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function cocoSave(key, v){ try{ localStorage.setItem('coco_' + key + '_' + (currentProfile ? currentProfile.id : 'guest'), JSON.stringify(v)); }catch(e){} }
   function cocoLevel(){
     if(isStudent && currentProfile && isStudent()) return levelNameEn(currentStudentLevel());
-    try{ const pl = JSON.parse(localStorage.getItem('cc_placement') || 'null'); if(pl && pl.level) return levelNameEn(pl.level); }catch(e){}
+    try{ const pl = JSON.parse(localStorage.getItem('cc_placement') || 'null'); if(pl && LEVEL_INFO[pl.level]) return levelNameEn(pl.level); }catch(e){}
     return levelNameEn('Level 1');
   }
   function cocoStage(){ const m = /Level (\d+)/.exec(cocoLevel()); const info = m && LEVEL_INFO['Level ' + m[1]]; return info ? info.stage : 0; }
@@ -4459,11 +4499,15 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoLog.innerHTML = '';
     const topics = COCO_TOPICS[cocoStage()] || COCO_TOPICS[0];
     const done = cocoStore('lessons', []);
-    cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level 👇', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك 👇')) + '</p>' +
-      '<div class="ctopics">' + topics.map(function(tp){
-        const seen = done.indexOf(tp) !== -1;
-        return '<button type="button" data-coco-topic="' + esc(tp) + '"' + (seen ? ' class="done"' : '') + '><bdi>' + esc(tp) + '</bdi>' + (seen ? ' ✓' : '') + '</button>';
-      }).join('') + '</div>');
+    const home = topics.map(function(tp){
+      const seen = done.indexOf(tp) !== -1;
+      return '<button type="button" data-coco-topic="' + esc(tp) + '"' + (seen ? ' class="done"' : '') + '><bdi>' + esc(tp) + '</bdi>' + (seen ? ' ✓' : '') + '</button>';
+    }).join('');
+    const el = cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level, or search 👇', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك، أو دوّر 👇')) + '</p>' +
+      '<input type="search" class="csearch" data-coco-search dir="auto" autocomplete="off" placeholder="🔎 ' + esc(t('Search lessons… e.g. past, if, plural, الماضي', 'دوّر على درس… مثلاً past أو الماضي أو الجمع')) + '">' +
+      '<div class="ctopics" data-topic-list></div>');
+    const list = el.querySelector('[data-topic-list]');
+    list.dataset.home = home; list.innerHTML = home;
     cocoMood('happy');
     cocoShowTasks().then(cocoShowBooks);
   }
@@ -4564,6 +4608,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       '<em dir="ltr">' + '★'.repeat(score) + '☆'.repeat(4 - score) + ' ' + score + ' / 4</em>' +
       (d.recap_en ? '<p dir="ltr">' + esc(d.recap_en) + '</p>' : '') + '</div>' +
       '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-sayex>🎤 ' + t('Say the examples', 'انطق الأمثلة') + '</button>' +
+      '<button type="button" class="cbtn ghost" data-coco-sheet="' + esc(L.topic) + '">🖨️ ' + t('Worksheet', 'ورقة تمارين') + '</button>' +
       (currentProfile ? '<button type="button" class="cbtn ghost" data-coco-practise>💬 ' + t('Practise in a chat', 'اتمرّن في محادثة') + '</button>' : '') +
       '<button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Another lesson', 'درس تاني') + '</button></div>');
     coco.classList.remove('lesson-active');
@@ -4659,6 +4704,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     { id: 'report',   icon: '📊', en: 'Report to students & parents', ar: 'تقرير للطلاب وأولياء الأمور' },
     { id: 'remind',   icon: '🔔', en: 'Send a reminder',             ar: 'ابعت تذكير' },
     { id: 'book',     icon: '📚', en: 'Explain a book',              ar: 'اشرح كتاب' },
+    { id: 'sheet',    icon: '🖨️', en: 'Worksheet to print',          ar: 'ورقة تمارين للطباعة' },
     { id: 'results',  icon: '📋', en: 'Results',                     ar: 'النتائج' }
   ];
   async function cocoAssistHome(){
@@ -4674,7 +4720,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const s = ' ' + String(text || '').toLowerCase() + ' ';
     const kind = /تقرير|report/.test(s) ? 'report' : /نتائج|نتيجة|results|مين خلص|who finished/.test(s) ? 'results'
       : /اختبار|امتحان|كويز|quiz|test/.test(s) ? 'quiz' : /واجب|homework/.test(s) ? 'homework'
-      : /ذكّر|ذكر|فكّر|فكر|remind/.test(s) ? 'remind' : /كتاب|الكتب|book/.test(s) ? 'book' : /اشرح|شرح|درس|علّم|علم|explain|teach|lesson/.test(s) ? 'lesson' : null;
+      : /ذكّر|ذكر|فكّر|فكر|remind/.test(s) ? 'remind' : /ورقة|ورقه|تمارين|تدريبات|worksheet|exercise/.test(s) ? 'sheet' : /كتاب|الكتب|book/.test(s) ? 'book' : /اشرح|شرح|درس|علّم|علم|explain|teach|lesson/.test(s) ? 'lesson' : null;
     let target = null;
     COCO_CLUBS.forEach(function(c){ if(!target && COCO_CLUB_WORDS[c].some(function(w){ return s.indexOf(w) !== -1; })) target = 'club:' + c; });
     if(!target && cocoStudents) cocoStudents.forEach(function(st){
@@ -4708,6 +4754,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     await cocoLoadStudents();
     if(kind === 'results'){ cocoResults(); return; }
     if(kind === 'book'){ cocoGuideForm(pre.book); return; }
+    if(kind === 'sheet'){ cocoSheetForm(pre); return; }
     const c = COCO_CMDS.find(function(x){ return x.id === kind; });
     const due = '<label>' + t('Due date (optional)', 'آخر ميعاد (اختياري)') + '<input type="date" name="due"></label>';
     let fields = '<label>' + t('For', 'لمين') + '<select name="target">' + cocoTargetOptions(pre.target || ('club:' + COCO_CLUBS[1])) + '</select></label>';
@@ -4907,6 +4954,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     let h = '<div class="cassist" dir="auto">' + esc(r.reply).replace(/\n/g, '<br>') + '</div>';
     if(r.actions && r.actions.length) h += '<ul class="cacts">' + r.actions.map(function(a){ return '<li><span>' + esc(a.icon || '✅') + '</span><bdi>' + esc(a.text) + '</bdi></li>'; }).join('') + '</ul>';
     if(r.offers && r.offers.length) h += '<div class="ctopics">' + r.offers.map(function(tp){ return '<button type="button" data-coco-topic="' + esc(tp) + '">🧑‍🏫 <bdi>' + esc(tp) + '</bdi></button>'; }).join('') + '</div>';
+    if(r.sheets && r.sheets.length) h += '<div class="ctopics">' + r.sheets.map(function(x){ return '<button type="button" data-coco-sheet="' + esc(x.topic) + '" data-level="' + esc(x.level) + '">🖨️ <bdi>' + esc(x.topic) + '</bdi> <small>· ' + esc(levelName(x.level)) + '</small></button>'; }).join('') + '</div>';
     return h;
   }
   async function cocoAssistSend(text){
@@ -5088,7 +5136,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const mode = cocoMode;
     const level = currentStudentLevel();
     const { data } = await sb.from('materials').select('*').eq('club', currentProfile.club).order('created_at', { ascending: false });
-    const all = data || [], here = all.filter(function(m){ return m.level === level; });
+    const all = data || [], here = all.filter(function(m){ return !m.level || m.level === level; });
     cocoBooks = (here.length ? here : all).slice(0, 8);
     if(!cocoBooks.length || cocoMode !== mode || cocoLesson || cocoBook) return;
     cocoBubble('bot books', '<p><b>📚 ' + esc(t('Books of your club', 'كتب ناديك')) + '</b> — ' + esc(t('I’ll explain them for you', 'هشرحهالك')) + '</p><div class="ctopics">' +
@@ -5272,6 +5320,147 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       (bad > 0 ? '<p><small>⚠️ ' + esc(t(bad + ' question line(s) skipped — each needs: question | right | wrong.', 'اتساب ' + bad + ' سطر أسئلة — كل سطر محتاج: السؤال | الصح | غلط.')) + '</small></p>' : ''));
   }
 
+  // ---- worksheets: printable exercises for a lesson, with the academy's logo and colours ----
+  // With the AI on, Claude writes a fresh worksheet on any topic; otherwise it is built from the 36 written lessons.
+  async function cocoWorksheetData(topic, level){
+    if(!cocoAiOff && currentProfile){
+      const out = await cocoCall({ mode: 'worksheet', topic: topic, level: levelNameEn(level) });
+      if(out.data && out.data.sections) return { data: out.data, ai: true, left: out.data.left };
+      if(out.err === 'setup') cocoAiOff = true;
+      else if(out.err === 'limit' || out.err === 'topic') return { err: out.err };
+    }
+    const steps = await cocoBuiltIn(topic);
+    if(!steps) return { err: 'notopic' };
+    const ex = []; steps.forEach(function(s){ (s.examples || []).forEach(function(x){ ex.push(x); }); });
+    return { data: {
+      title: topic, intro_ar: steps[0].explain_ar,
+      sections: [
+        { title_en: 'Choose the right answer', instructions_ar: 'اختار الإجابة الصحيحة.', kind: 'choose',
+          items: steps.map(function(s){ return { prompt: s.check.question, options: shuffleArr(s.check.options.slice()), answer: s.check.options[s.check.answer_index] }; }) },
+        { title_en: 'The rule', instructions_ar: 'اكتب القاعدة بخط واضح وحاول تحفظها.', kind: 'write',
+          items: [{ prompt: steps.map(function(s){ return s.board; }).filter(Boolean).join('  ·  '), options: [], answer: steps.map(function(s){ return s.board; }).filter(Boolean).join('  ·  ') }] },
+        { title_en: 'Translate into English', instructions_ar: 'ترجم الجمل دي للإنجليزي.', kind: 'translate',
+          items: shuffleArr(ex.slice()).slice(0, 6).map(function(x){ return { prompt: x.ar, options: [], answer: x.en }; }) },
+        { title_en: 'Your turn', instructions_ar: 'اكتب ٣ جمل عن نفسك باستخدام الدرس ده.', kind: 'write',
+          items: [{ prompt: 'Write three sentences about you using: ' + topic, options: [], answer: ex.slice(0, 3).map(function(x){ return x.en; }).join(' ') }] }
+      ] }, ai: false };
+  }
+  function cocoWorksheetHtml(ws, meta){
+    const logo = new URL('assets/img/logo.jpg', location.href).href, year = new Date().getFullYear();
+    const e = function(x){ return esc(String(x == null ? '' : x)); };
+    const LETTERS = 'abcdefgh';
+    let n = 0;
+    const sections = ws.sections.map(function(sec, si){
+      const items = (sec.items || []).map(function(it){
+        n++;
+        if(sec.kind === 'choose') return '<li><p>' + e(it.prompt) + '</p><div class="opts">' + (it.options || []).map(function(o, k){ return '<span><b>' + LETTERS[k] + ')</b> ' + e(o) + '</span>'; }).join('') + '</div></li>';
+        if(sec.kind === 'write') return '<li><p>' + e(it.prompt) + '</p><div class="lines"><i></i><i></i><i></i><i></i></div></li>';
+        return '<li><p' + (sec.kind === 'translate' ? ' dir="rtl" class="ar"' : '') + '>' + e(it.prompt) + '</p><div class="lines"><i></i></div></li>';
+      }).join('');
+      return '<section><h3><span>' + (si + 1) + '</span>' + e(sec.title_en) + '</h3>' + (sec.instructions_ar ? '<p class="ins" dir="rtl">' + e(sec.instructions_ar) + '</p>' : '') + '<ol>' + items + '</ol></section>';
+    }).join('');
+    const key = ws.sections.map(function(sec, si){
+      return '<div class="key"><b>' + (si + 1) + '. ' + e(sec.title_en) + '</b><ol>' + (sec.items || []).map(function(it){ return '<li>' + e(it.answer) + '</li>'; }).join('') + '</ol></div>';
+    }).join('');
+    const foot = '<footer><img src="' + logo + '" alt=""><span>© ' + year + ' Code Cademy — All rights reserved · جميع الحقوق محفوظة لأكاديمية Code Cademy</span></footer>';
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>' + e(ws.title) + ' — Code Cademy</title>' +
+      '<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;600&family=Cairo:wght@400;600&display=swap" rel="stylesheet">' +
+      '<style>' +
+      '@page{size:A4;margin:14mm 14mm 18mm;}*{box-sizing:border-box}body{margin:0;font:14px/1.55 Inter,Cairo,sans-serif;color:#2b1d21;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+      '.page{max-width:780px;margin:0 auto;padding:22px;position:relative}' +
+      '.page::before{content:"";position:fixed;inset:0;background:url(' + logo + ') center 55%/46% no-repeat;opacity:.05;pointer-events:none}' +
+      'header{display:flex;align-items:center;gap:16px;border-bottom:4px solid #5C1A28;padding-bottom:12px}header img{width:74px;height:58px;object-fit:contain}' +
+      'header div{flex:1}header small{display:block;color:#5C1A28;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:11px}' +
+      'h1{font-family:Fraunces,serif;color:#3E0F1B;margin:2px 0 0;font-size:25px}header em{font-style:normal;background:#5C1A28;color:#FBEFE3;border-radius:999px;padding:6px 12px;font-size:12px;white-space:nowrap}' +
+      '.who{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;margin:14px 0 8px;font-size:12px;color:#6a5057}.who span{border-bottom:1px solid #c9b3b8;padding-bottom:16px}' +
+      '.intro{background:#FBEFE3;border-inline-start:5px solid #5C1A28;border-radius:10px;padding:10px 14px;margin:12px 0;font-family:Cairo,sans-serif}' +
+      'section{margin:18px 0;break-inside:avoid}h3{display:flex;align-items:center;gap:10px;color:#3E0F1B;font-family:Fraunces,serif;margin:0 0 4px;font-size:18px}' +
+      'h3 span{width:28px;height:28px;border-radius:50%;background:#5C1A28;color:#fff;display:grid;place-items:center;font:600 14px Inter,sans-serif}' +
+      '.ins{margin:0 0 8px;color:#6a5057;font-family:Cairo,sans-serif;font-size:13px}ol{margin:0;padding-inline-start:22px}li{margin:0 0 10px;break-inside:avoid}li p{margin:0}' +
+      '.ar{font-family:Cairo,sans-serif;text-align:right}.opts{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:4px}.opts b{color:#5C1A28}' +
+      '.lines i{display:block;border-bottom:1px dashed #b89aa1;height:26px}' +
+      'footer{display:flex;align-items:center;gap:10px;border-top:2px solid #5C1A28;margin-top:22px;padding-top:8px;font-size:11px;color:#5C1A28}footer img{width:30px;height:24px;object-fit:contain}' +
+      '.answers{break-before:page;margin-top:30px}.answers h2{font-family:Fraunces,serif;color:#3E0F1B}.key{margin:10px 0}.key b{color:#5C1A28}' +
+      '.bar{position:sticky;top:0;background:#3E0F1B;color:#fff;padding:10px 16px;display:flex;gap:10px;align-items:center;justify-content:center;font:600 14px Inter,sans-serif;z-index:5}' +
+      '.bar button{border:0;border-radius:10px;padding:8px 16px;font:700 14px Inter,sans-serif;background:#FBEFE3;color:#3E0F1B;cursor:pointer}' +
+      '@media print{.bar{display:none}.page{padding:0}}' +
+      '</style></head><body>' +
+      '<div class="bar">Code Cademy · ' + e(ws.title) + ' <button onclick="print()">🖨️ Print / Save as PDF · اطبع</button></div>' +
+      '<div class="page"><header><img src="' + logo + '" alt="Code Cademy"><div><small>Code Cademy · English Worksheet</small><h1>' + e(ws.title) + '</h1></div><em>' + e(meta.level) + '</em></header>' +
+      '<div class="who"><span>Name / الاسم:</span><span>Class / الفصل:</span><span>Date / التاريخ:</span></div>' +
+      (ws.intro_ar ? '<div class="intro" dir="rtl">💡 ' + e(ws.intro_ar) + '</div>' : '') + sections + foot +
+      '<div class="answers"><h2>Answer key · الإجابات</h2>' + key + foot + '</div></div></body></html>';
+  }
+  async function cocoMakeWorksheet(topic, level, btn){
+    topic = String(topic || '').trim();
+    if(!topic) return;
+    const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(topic) !== -1; });
+    level = LEVEL_INFO[level] ? level : 'Level ' + ((si !== -1 ? si : cocoStage()) + 1);
+    const win = window.open('', '_blank'); // opened now, while the click still counts, so pop-up blockers allow it
+    if(win) win.document.write('<p style="font:16px sans-serif;padding:30px;color:#5C1A28">⏳ Code Cademy — preparing your worksheet… جاري تجهيز ورقة التمارين…</p>');
+    if(btn) btn.disabled = true;
+    cocoMood('thinking'); cocoState('busy', true);
+    const res = await cocoWorksheetData(topic, level);
+    cocoState('busy', false);
+    if(btn) btn.disabled = false;
+    if(res.err){
+      if(win) win.close();
+      cocoMood('encouraging');
+      cocoBubble('bot err', '<p>' + esc(res.err === 'notopic'
+        ? t('I can make worksheets for the 36 written lessons — pick one from the list. (Any topic works once the AI is switched on.)', 'أقدر أعمل أوراق تمارين لدروس القائمة الـ٣٦ — اختار واحد منها. (وأي موضوع هيشتغل لما الذكاء الاصطناعي يتفعّل.)')
+        : cocoErrText(res.err)) + '</p>');
+      return;
+    }
+    const html = cocoWorksheetHtml(res.data, { level: levelNameEn(level) });
+    if(win){ win.document.open(); win.document.write(html); win.document.close(); }
+    else { const u = URL.createObjectURL(new Blob([html], { type: 'text/html' })); location.assign(u); }
+    cocoMood('proud');
+    cocoBubble('bot', '<p>🖨️ ' + esc(t('Your worksheet “' + res.data.title + '” is open in a new tab — print it or save it as PDF. The answer key is on the last page.',
+      'ورقة التمارين «' + res.data.title + '» اتفتحت في تبويب جديد — اطبعها أو احفظها PDF. الإجابات في آخر صفحة.')) + (res.ai ? ' ✨' : '') + '</p>');
+    if(res.left != null) cocoShowLeft(res.left);
+  }
+  function cocoSheetForm(pre){
+    const el = cocoBubble('bot', '<form class="cform" data-coco-sheet><b>🖨️ ' + esc(t('Worksheet', 'ورقة تمارين')) + '</b>' +
+      '<p><small>' + esc(t('Printable exercises with the Code Cademy logo and an answer key.', 'تمارين للطباعة بلوجو Code Cademy ومعاها الإجابات.')) + '</small></p>' +
+      '<label>' + t('Lesson', 'الدرس') + '<select name="topic">' + cocoTopicOptions(pre && pre.topic) + '</select></label>' +
+      '<label>' + t('…or any topic (needs the AI)', '…أو أي موضوع (محتاج الذكاء الاصطناعي)') + '<input name="custom" maxlength="140" dir="auto" placeholder="' + esc(t('e.g. Animals vocabulary', 'مثلاً: كلمات الحيوانات')) + '"></label>' +
+      '<label>' + t('Level', 'المستوى') + '<select name="level">' + levelOptionsHtml() + '</select></label>' +
+      '<div class="cmsg-cta"><button type="submit" class="cbtn">🖨️ ' + t('Make it', 'اعملها') + '</button><button type="button" class="cbtn ghost" data-coco-cancel>' + t('Cancel', 'إلغاء') + '</button></div></form>');
+    const f = el.querySelector('form');
+    f.level.value = 'Level ' + (COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }) + 1);
+    f.topic.addEventListener('change', function(){ const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }); if(si !== -1) f.level.value = 'Level ' + (si + 1); });
+    el.scrollIntoView({ block: 'nearest' });
+  }
+
+  // ---- lesson search: matching lessons and books show up while typing ----
+  function cocoSearchResults(q){
+    const norm = function(x){ return String(x || '').toLowerCase().replace(/[^\p{L}\p{N} ]/gu, ' ').replace(/\s+/g, ' ').trim(); };
+    const words = norm(q).split(' ').filter(Boolean);
+    if(!words.length) return null;
+    const hit = function(hay){ return words.every(function(w){ return hay.indexOf(w) !== -1; }); };
+    const lessons = [];
+    COCO_TOPICS.forEach(function(list, si){
+      list.forEach(function(tp){
+        const hay = norm(tp + ' ' + (COCO_TOPIC_WORDS[tp] || []).join(' ') + ' ' + STAGES[si].en + ' ' + STAGES[si].ar + ' ' + STAGES[si].cefr + ' level ' + (si + 1));
+        if(hit(hay)) lessons.push({ topic: tp, si: si });
+      });
+    });
+    const books = (cocoBooks || []).filter(function(m){ return hit(norm(m.title)); });
+    return { lessons: lessons, books: books };
+  }
+  function cocoRenderSearch(box, q){
+    const list = box.parentNode.querySelector('[data-topic-list]');
+    const r = cocoSearchResults(q);
+    if(!r){ list.innerHTML = list.dataset.home; return; }
+    list.innerHTML = r.lessons.map(function(x){
+      return '<button type="button" data-coco-topic="' + esc(x.topic) + '"><bdi>' + esc(x.topic) + '</bdi> <small>· ' + esc(t('Level ' + (x.si + 1), 'المستوى ' + (x.si + 1))) + ' <bdi>' + STAGES[x.si].cefr + '</bdi></small></button>';
+    }).join('') + r.books.map(function(m){
+      return '<button type="button" data-coco-book="' + m.id + '">📚 <bdi>' + esc(m.title) + '</bdi></button>';
+    }).join('') + (r.lessons.length || r.books.length ? '' : '<p class="cnone">' + esc(cocoAiOff || !currentProfile
+      ? t('No lesson with that name 🤔 Try another word.', 'مفيش درس بالاسم ده 🤔 جرّب كلمة تانية.')
+      : t('No ready lesson with that name — press Enter and I’ll explain it for you ✨', 'مفيش درس جاهز بالاسم ده — اضغط Enter وأنا أشرحهولك ✨')) + '</p>');
+  }
+
   // ---- modes ----
   function cocoSetMode(m){
     cocoMode = m;
@@ -5429,6 +5618,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     else if(b.dataset.cocoTopic){ cocoStartLesson(b.dataset.cocoTopic); }
     else if(b.dataset.cocoCmd){ cocoForm(b.dataset.cocoCmd); }
     else if(b.dataset.cocoBook){ cocoOpenBook(b.dataset.cocoBook); }
+    else if(b.dataset.cocoSheet){ cocoMakeWorksheet(b.dataset.cocoSheet, b.dataset.level || null, b); }
     else if(b.dataset.cocoBk){ cocoBookAction(b.dataset.cocoBk); }
     else if(b.hasAttribute('data-coco-bkall')){ cocoReadAll(cocoBook && cocoBook.pages ? cocoBook.pages[cocoBook.p] : []); }
     else if(b.hasAttribute('data-coco-bksay')){ const list = cocoBook.pages[cocoBook.p].slice(0, 20); cocoSetMode('say'); cocoSayCustom = list; cocoSayIdx = 0; cocoRenderSay(); }
@@ -5465,8 +5655,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       cocoSay(hello);
     }
   });
+  cocoLog.addEventListener('input', function(e){ if(e.target.matches('[data-coco-search]')) cocoRenderSearch(e.target, e.target.value); });
+  cocoLog.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' || !e.target.matches('[data-coco-search]')) return;
+    e.preventDefault();
+    const first = e.target.parentNode.querySelector('[data-topic-list] button');
+    if(first && e.target.value.trim()) first.click(); else if(e.target.value.trim()) cocoStartLesson(e.target.value);
+  });
   cocoLog.addEventListener('submit', function(e){
-    const f = e.target.closest('[data-coco-form]'), g = e.target.closest('[data-coco-guide]');
+    const f = e.target.closest('[data-coco-form]'), g = e.target.closest('[data-coco-guide]'), w = e.target.closest('[data-coco-sheet]');
+    if(w){ e.preventDefault(); cocoMakeWorksheet(w.custom.value.trim() || w.topic.value, w.level.value, w.querySelector('[type=submit]')); }
     if(f){ e.preventDefault(); cocoRun(f); }
     if(g){ e.preventDefault(); cocoSaveGuide(g); }
   });
