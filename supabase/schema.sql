@@ -336,6 +336,21 @@ begin
   insert into public.app_migrations (name) values ('six_levels');
 end $$;
 
+-- the sign-up page used to save the club's Arabic name for visitors using the site in Arabic; put the real names back
+do $$
+declare t text;
+begin
+  foreach t in array array['profiles','materials','sessions','assignments','exam_questions','exam_attempts','coco_tasks','notifications'] loop
+    if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = t and column_name = 'club') then
+      execute format($f$update public.%I set club = case club
+          when 'نادي الصوتيات' then 'Phonics Club' when 'نادي القراءة' then 'Reading Club' when 'نادي الكتابة' then 'Writing Club'
+          when 'نادي القواعد' then 'Grammar Club' when 'نادي المحادثة' then 'Speaking Club' when 'نادي الحوار' then 'Conversation Club'
+          when 'نادي السينما' then 'Cinema Club' else club end
+        where club in ('نادي الصوتيات','نادي القراءة','نادي الكتابة','نادي القواعد','نادي المحادثة','نادي الحوار','نادي السينما')$f$, t);
+    end if;
+  end loop;
+end $$;
+
 -- 9 levels (Level 1 … Level 9) replace the 6; each of the 6 moves to the matching new level, so nobody goes back
 do $$
 declare t text;
@@ -1000,9 +1015,9 @@ $$;
 -- ----- admin: manage who is a teacher -----
 drop function if exists public.admin_list_users();
 create or replace function public.admin_list_users()
-returns table (id uuid, full_name text, email text, role text, club text, created_at timestamptz, teacher_request boolean)
+returns table (id uuid, full_name text, email text, role text, club text, created_at timestamptz, teacher_request boolean, phone text)
 language sql stable security definer set search_path = public as $$
-  select p.id, p.full_name, u.email::text, p.role, p.club, p.created_at, p.teacher_request
+  select p.id, p.full_name, u.email::text, p.role, p.club, p.created_at, p.teacher_request, p.phone
     from public.profiles p join auth.users u on u.id = p.id
    where public.is_admin()
    order by p.created_at desc;
@@ -1237,10 +1252,21 @@ create table if not exists public.phone_login_attempts (
 create index if not exists phone_login_attempts_idx on public.phone_login_attempts (phone, at desc);
 alter table public.phone_login_attempts enable row level security; -- no policies: only the function below uses it
 
+-- phone numbers are kept as digits with the country code; a local Saudi or Egyptian number gets its code
+-- (the same rule as normPhone() on the website)
+create or replace function public.norm_phone(p text)
+returns text language sql immutable as $$
+  select case
+    when d ~ '^05[0-9]{8}$' then '966' || substr(d, 2)
+    when d ~ '^01[0-9]{9}$' then '20' || substr(d, 2)
+    else d end
+  from (select regexp_replace(regexp_replace(coalesce(p, ''), '\D', '', 'g'), '^00', '') as d) x;
+$$;
+
 create or replace function public.phone_login_email(p_phone text, p_password text)
 returns text language plpgsql security definer set search_path = public, extensions as $$
 declare
-  v_phone text := regexp_replace(coalesce(p_phone, ''), '\D', '', 'g');
+  v_phone text := public.norm_phone(p_phone);
   v_email text; v_hash text;
 begin
   if length(v_phone) < 7 or coalesce(p_password, '') = '' then return null; end if;
@@ -1257,6 +1283,54 @@ begin
 end $$;
 revoke all on function public.phone_login_email(text, text) from public;
 grant execute on function public.phone_login_email(text, text) to anon, authenticated;
+
+-- ----- accounts with a phone number only (no email) -----
+-- Supabase sign-in needs an email address, so each phone account gets a hidden one that can never
+-- receive mail: <digits>@phone.code-cademy.invalid (".invalid" is reserved and can't be registered).
+-- People only ever type their phone number and password; the account is ready at once, no email link.
+create or replace function public.phone_signup(p_phone text, p_password text, p_full_name text, p_role text, p_club text default null)
+returns text language plpgsql security definer set search_path = public, extensions as $$
+declare
+  v_phone text := public.norm_phone(p_phone);
+  v_email text; v_id uuid := gen_random_uuid();
+  v_role text := case when p_role in ('parent', 'teacher') then p_role else 'student' end;
+begin
+  if length(v_phone) < 8 or length(v_phone) > 15 then raise exception 'Please enter a valid phone number'; end if;
+  if length(coalesce(p_password, '')) < 6 then raise exception 'The password needs at least 6 characters'; end if;
+  if length(trim(coalesce(p_full_name, ''))) = 0 then raise exception 'Please enter your name'; end if;
+  v_email := v_phone || '@phone.code-cademy.invalid';
+  if exists (select 1 from public.profiles where phone = v_phone) or exists (select 1 from auth.users where email = v_email) then
+    raise exception 'This phone number already has an account — sign in instead';
+  end if;
+  -- slow down anyone creating accounts in bulk
+  if (select count(*) from auth.users where raw_app_meta_data->>'via' = 'phone' and created_at > now() - interval '1 hour') >= 60 then
+    raise exception 'Too many new accounts right now — please try again in a little while';
+  end if;
+  insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data,
+                          created_at, updated_at, confirmation_token, recovery_token, email_change_token_new, email_change)
+  values ('00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated', v_email,
+          extensions.crypt(p_password, extensions.gen_salt('bf')), now(),
+          jsonb_build_object('provider', 'email', 'providers', jsonb_build_array('email'), 'via', 'phone'),
+          jsonb_build_object('full_name', trim(left(p_full_name, 100)), 'role', v_role, 'club', nullif(p_club, ''), 'phone', v_phone),
+          now(), now(), '', '', '', '');
+  insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+  values (gen_random_uuid(), v_id, v_id::text, jsonb_build_object('sub', v_id::text, 'email', v_email, 'email_verified', true), 'email', now(), now(), now());
+  return v_email; -- the page signs in with it right away
+end $$;
+revoke all on function public.phone_signup(text, text, text, text, text) from public;
+grant execute on function public.phone_signup(text, text, text, text, text) to anon, authenticated;
+
+-- forgotten password: the admin sets a new one (there is no email to send a link to)
+create or replace function public.admin_set_password(p_user uuid, p_password text)
+returns void language plpgsql security definer set search_path = public, extensions as $$
+begin
+  if not public.is_admin() then raise exception 'Not allowed'; end if;
+  if length(coalesce(p_password, '')) < 6 then raise exception 'The password needs at least 6 characters'; end if;
+  update auth.users set encrypted_password = extensions.crypt(p_password, extensions.gen_salt('bf')), updated_at = now() where id = p_user;
+  if not found then raise exception 'No such account'; end if;
+end $$;
+revoke all on function public.admin_set_password(uuid, text) from public;
+grant execute on function public.admin_set_password(uuid, text) to authenticated;
 
 -- ----- AI tutor: a daily message allowance per person -----
 create table if not exists public.ai_usage (

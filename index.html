@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=b65f20d3">
+<link rel="stylesheet" href="assets/css/site.css?v=a3717359">
 </head>
 <body>
 
@@ -681,7 +681,7 @@
       </div>
 
       <form id="loginForm" class="auth-form">
-        <label>Email or phone number<input type="text" id="loginEmail" required autocomplete="username" inputmode="email" placeholder="name@example.com · 05xxxxxxxx"></label>
+        <label>Phone number<input type="tel" id="loginEmail" required autocomplete="username" inputmode="tel" dir="ltr" placeholder="05xxxxxxxx · 01xxxxxxxxx"></label>
         <label>Password<input type="password" id="loginPassword" required autocomplete="current-password"></label>
         <p class="auth-hint">Students, parents and teachers all sign in here.</p>
         <button type="submit" class="lib-submit">Sign in</button>
@@ -690,9 +690,8 @@
       </form>
 
       <form id="forgotForm" class="auth-form" hidden>
-        <p class="auth-note">Type the email you signed up with and we'll send you a link to choose a new password.</p>
-        <label>Email<input type="email" id="forgotEmail" required autocomplete="email"></label>
-        <button type="submit" class="lib-submit">Send reset link</button>
+        <p class="auth-note">Message the academy on WhatsApp from your phone number, and the admin will set a new password for you.</p>
+        <a class="lib-submit auth-wa" id="forgotWa" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 Message the academy on WhatsApp</a>
         <button type="button" class="auth-forgot" id="forgotBack">← Back to sign in</button>
         <p class="auth-error" id="forgotMsg"></p>
       </form>
@@ -707,8 +706,7 @@
 
       <form id="signupForm" class="auth-form" hidden>
         <label>Full name<input type="text" id="suName" required></label>
-        <label>Email<input type="email" id="suEmail" required></label>
-        <label>Phone number (to sign in with your phone)<input type="tel" id="suPhone" inputmode="tel" autocomplete="tel" placeholder="05xxxxxxxx"></label>
+        <label>Phone number (you sign in with it)<input type="tel" id="suPhone" required inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx · 01xxxxxxxxx"></label>
         <label>Password (6+ characters)<input type="password" id="suPassword" required minlength="6"></label>
         <div class="field-label">I am a…</div>
         <div class="role-pick" role="radiogroup" aria-label="I am a…">
@@ -725,13 +723,13 @@
 
         <label id="suClubWrap">Club
           <select id="suClub">
-            <option>Phonics Club</option>
-            <option>Reading Club</option>
-            <option>Writing Club</option>
-            <option>Grammar Club</option>
-            <option>Speaking Club</option>
-            <option>Conversation Club</option>
-            <option>Cinema Club</option>
+            <option value="Phonics Club">Phonics Club</option>
+            <option value="Reading Club">Reading Club</option>
+            <option value="Writing Club">Writing Club</option>
+            <option value="Grammar Club">Grammar Club</option>
+            <option value="Speaking Club">Speaking Club</option>
+            <option value="Conversation Club">Conversation Club</option>
+            <option value="Cinema Club">Cinema Club</option>
           </select>
         </label>
         <label class="auth-consent"><input type="checkbox" id="suAgree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
@@ -1051,13 +1049,13 @@
           <div>
             <label for="hwClub">Club</label>
             <select id="hwClub">
-              <option>Phonics Club</option>
-              <option>Reading Club</option>
-              <option>Writing Club</option>
-              <option>Grammar Club</option>
-              <option>Speaking Club</option>
-              <option>Conversation Club</option>
-              <option>Cinema Club</option>
+              <option value="Phonics Club">Phonics Club</option>
+              <option value="Reading Club">Reading Club</option>
+              <option value="Writing Club">Writing Club</option>
+              <option value="Grammar Club">Grammar Club</option>
+              <option value="Speaking Club">Speaking Club</option>
+              <option value="Conversation Club">Conversation Club</option>
+              <option value="Cinema Club">Cinema Club</option>
             </select>
           </div>
           <div>
@@ -1211,10 +1209,10 @@
           <div>
             <label for="progStatus">Status</label>
             <select id="progStatus">
-              <option>Present</option>
-              <option>Absent</option>
-              <option>Improved</option>
-              <option>Needs practice</option>
+              <option value="Present">Present</option>
+              <option value="Absent">Absent</option>
+              <option value="Improved">Improved</option>
+              <option value="Needs practice">Needs practice</option>
             </select>
           </div>
           <div>
@@ -1250,13 +1248,13 @@
             <label for="notifClub">Send to</label>
             <select id="notifClub">
               <option value="">All clubs</option>
-              <option>Phonics Club</option>
-              <option>Reading Club</option>
-              <option>Writing Club</option>
-              <option>Grammar Club</option>
-              <option>Speaking Club</option>
-              <option>Conversation Club</option>
-              <option>Cinema Club</option>
+              <option value="Phonics Club">Phonics Club</option>
+              <option value="Reading Club">Reading Club</option>
+              <option value="Writing Club">Writing Club</option>
+              <option value="Grammar Club">Grammar Club</option>
+              <option value="Speaking Club">Speaking Club</option>
+              <option value="Conversation Club">Conversation Club</option>
+              <option value="Cinema Club">Cinema Club</option>
             </select>
           </div>
           <div>
@@ -1278,8 +1276,7 @@
         <div class="profile-card">
           <form id="profileForm" class="auth-form">
             <label>Full name<input type="text" id="profName" required></label>
-            <label>Email<input type="email" id="profEmail" disabled></label>
-            <label>Phone number (for signing in)<input type="tel" id="profPhone" inputmode="tel" placeholder="05xxxxxxxx"></label>
+            <label>Phone number (for signing in)<input type="tel" id="profPhone" required inputmode="tel" dir="ltr" placeholder="05xxxxxxxx"></label>
             <label>Role<input type="text" id="profRole" disabled></label>
             <label id="profClubWrap">Club<input type="text" id="profClub" disabled></label>
             <label id="profCodeWrap" hidden>Parent link code<input type="text" id="profCode" disabled></label>
@@ -1490,7 +1487,7 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=86c40bd1"></script>
-<script defer src="assets/js/app.js?v=ed481c31"></script>
+<script defer src="assets/js/lang.js?v=14dfcf69"></script>
+<script defer src="assets/js/app.js?v=8e52c452"></script>
 </body>
 </html>
