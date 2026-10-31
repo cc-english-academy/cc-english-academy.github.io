@@ -2157,6 +2157,8 @@ html[dir="rtl"] .ctopics button:hover{transform:translateX(-3px);}
 .accredit-facts b{color:var(--maroon-deep);font-size:.95rem;white-space:nowrap;}
 @media(max-width:820px){.accredit{padding:46px 0}.accredit-grid{grid-template-columns:1fr;gap:24px}.accredit-facts{grid-template-columns:1fr 1fr 1fr}.accredit-facts b{font-size:.82rem}}
 
+.footer-indep{display:block;margin-top:6px;font-size:.74rem;opacity:.75;}
+
 /* ===== lighter on phones ===== */
 /* the paper-grain layer covers the whole page; on phones it makes every scroll repaint everything */
 @media (hover:none), (max-width:820px){
