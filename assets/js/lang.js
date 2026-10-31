@@ -14,6 +14,8 @@
     "Start learning at this level":"ابدأ التعلّم من هذا المستوى",
     "See plans":"شاهد الخطط",
     "Retake":"أعد الاختبار",
+    "Code Cademy is an independent English-language academy. It is not affiliated with Codecademy.com or any other company.":"Code Cademy أكاديمية مستقلة لتعليم اللغة الإنجليزية، وليست تابعة لموقع Codecademy.com ولا لأي شركة أخرى.",
+    "Students, parents and teachers of Code Cademy English academy sign in here with the phone number they registered. We never ask for card details here.":"طلاب وأولياء أمور ومعلمي أكاديمية Code Cademy للغة الإنجليزية بيسجّلوا دخولهم هنا برقم الهاتف اللي سجّلوا بيه. إحنا مش بنطلب بيانات الكارت هنا أبداً.",
     "Phone number":"رقم الهاتف",
     "Phone number (you sign in with it)":"رقم الهاتف (هتدخل بيه)",
     "Message the academy on WhatsApp from your phone number, and the admin will set a new password for you.":"ابعت رسالة للأكاديمية على واتساب من رقمك، والمدير هيعملك كلمة مرور جديدة.",
