@@ -17,7 +17,7 @@ const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND = process.env.RESEND_API_KEY || '';
 const FROM = process.env.REMINDER_FROM || 'Code Cademy <onboarding@resend.dev>';
 const TZ = process.env.ACADEMY_TZ || 'Asia/Riyadh';
-const SITE = process.env.SITE_URL || 'https://codecademy-academy.github.io/';
+const SITE = process.env.SITE_URL || 'https://cc-english-academy.github.io/';
 const RESEND_URL = (process.env.RESEND_URL || 'https://api.resend.com').replace(/\/$/, '');
 
 if (!KEY) {
