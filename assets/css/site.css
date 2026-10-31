@@ -1689,6 +1689,9 @@ html[dir="rtl"] .chat-send svg{transform:scaleX(-1);}
 .role-parent{background:#EEF0FF;color:#3b46a3;}
 .role-teacher{background:var(--peach);color:var(--maroon-deep);}
 .role-admin{background:var(--maroon-deep);color:#fff;}
+.ur-pass{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 10px;cursor:pointer;font-size:.9rem;}
+.ur-pass:hover{border-color:var(--maroon);}
+.auth-wa{display:block;text-align:center;text-decoration:none;}
 .ur-role{padding:8px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:0.82rem;background:#fff;}
 .auth-hint{font-size:0.76rem;color:var(--muted);margin:-6px 0 14px;}
 

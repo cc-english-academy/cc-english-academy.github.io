@@ -570,7 +570,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       forgot: t('Reset your password', 'استعادة كلمة المرور'), reset: t('Choose a new password', 'اختر كلمة مرور جديدة') })[mode];
     authPageSub.textContent = ({ login: t('Sign in to reach your dashboard.', 'سجّل الدخول للوصول إلى لوحة التحكم.'),
       signup: t('Join as a student, a parent or a teacher — it takes a minute.', 'انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.'),
-      forgot: t('We’ll email you a secure link.', 'سنرسل لك رابطاً آمناً على بريدك.'),
+      forgot: t('The academy will set a new one for you.', 'الأكاديمية هتعملك كلمة مرور جديدة.'),
       reset: t('Almost done — pick a password you’ll remember.', 'خطوة أخيرة — اختر كلمة مرور تتذكرها.') })[mode];
   }
   function openAuth(mode){
@@ -612,27 +612,15 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   });
 
   // ---------- forgot / reset password ----------
+  // accounts have no email, so a forgotten password goes through the academy: the admin sets a new one
   document.getElementById('forgotLink').addEventListener('click', function(){
-    document.getElementById('forgotEmail').value = document.getElementById('loginEmail').value;
-    document.getElementById('forgotMsg').textContent = '';
+    const ph = normPhone(document.getElementById('loginEmail').value);
+    document.getElementById('forgotWa').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(
+      t('Hello! I forgot my Code Cademy password. My phone number: ', 'السلام عليكم، نسيت كلمة المرور في Code Cademy. رقمي: ') + (ph ? '+' + ph : ''));
     showAuthForm('forgot');
   });
   document.getElementById('forgotBack').addEventListener('click', function(){ showAuthForm('login'); });
-  forgotForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    const msg = document.getElementById('forgotMsg');
-    const btn = forgotForm.querySelector('.lib-submit');
-    msg.style.color = '';
-    msg.textContent = '';
-    btn.disabled = true;
-    const { error } = await sb.auth.resetPasswordForEmail(document.getElementById('forgotEmail').value.trim(),
-      { redirectTo: location.origin + location.pathname });
-    btn.disabled = false;
-    if(error){ msg.textContent = friendlyErrorMessage(error); return; }
-    msg.style.color = '#2e7d32';
-    msg.textContent = t('If this email has an account, a reset link is on its way. Check your inbox and spam folder.',
-                        'إذا كان لهذا البريد حساب فسيصلك رابط الاستعادة خلال دقائق. افحص البريد الوارد ومجلد الرسائل غير المرغوبة.');
-  });
+  forgotForm.addEventListener('submit', function(e){ e.preventDefault(); });
   resetForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const msg = document.getElementById('resetMsg');
@@ -668,11 +656,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(/no classes left/i.test(msg)){ return t('No classes left in your plan — renew your plan to book more.', 'لا توجد حصص متبقية في خطتك — جدّد خطتك لحجز المزيد.'); }
     if(/already have a class booked/i.test(msg)){ return t('You already have a class at this time — pick another time.', 'لديك حصة أخرى في نفس الوقت — اختر موعداً آخر.'); }
     if(/invalid login credentials/i.test(msg)){
-      return t('Wrong email or password. Try again, or use “Forgot your password?”.', 'البريد أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».');
+      return t('Wrong phone number or password. Try again, or use “Forgot your password?”.', 'رقم الهاتف أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».');
     }
     if(/email not confirmed/i.test(msg)){
       return t('Please confirm your email first — open the link we sent you, then sign in.', 'من فضلك أكّد بريدك أولاً — افتح الرابط الذي أرسلناه لك ثم سجّل الدخول.');
     }
+    if(/already has an account/i.test(msg)){
+      return t('This phone number already has an account — sign in instead.', 'رقم الهاتف ده عليه حساب بالفعل — سجّل الدخول.');
+    }
+    if(/valid phone number/i.test(msg)){ return t('Please enter a valid phone number, e.g. 05xxxxxxxx or 01xxxxxxxxx.', 'اكتب رقم هاتف صحيح، مثلاً 05xxxxxxxx أو 01xxxxxxxxx.'); }
+    if(/at least 6 characters/i.test(msg)){ return t('The password needs at least 6 characters.', 'كلمة المرور لازم تكون ٦ حروف أو أرقام على الأقل.'); }
     if(/user already registered|already been registered/i.test(msg)){
       return t('This email already has an account — sign in instead, or reset your password.', 'هذا البريد مسجّل بالفعل — سجّل الدخول أو استعد كلمة المرور.');
     }
@@ -709,7 +702,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         // a phone number: the database checks the password and only then returns the account's email
         const { data, error } = await sb.rpc('phone_login_email', { p_phone: normPhone(ident) || ident, p_password: password });
         if(error){ errEl.textContent = friendlyErrorMessage(error); return; }
-        if(!data){ errEl.textContent = t('Wrong phone number or password. Try again, or sign in with your email.', 'رقم الهاتف أو كلمة المرور غير صحيحة. حاول مرة أخرى أو سجّل الدخول بالبريد.'); return; }
+        if(!data){ errEl.textContent = t('Wrong phone number or password. Try again, or use “Forgot your password?”.', 'رقم الهاتف أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».'); return; }
         email = data;
       }
       result = await sb.auth.signInWithPassword({ email, password });
@@ -736,7 +729,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   signupForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const full_name = document.getElementById('suName').value.trim();
-    const email = document.getElementById('suEmail').value.trim();
+    const phone = normPhone(document.getElementById('suPhone').value);
     const password = document.getElementById('suPassword').value;
     // a teacher signs up as an applicant: a student account with teacher_request until the admin approves
     const asked = suRole.value === 'parent' ? 'parent' : suRole.value === 'teacher' ? 'teacher' : 'student';
@@ -745,27 +738,17 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const errEl = document.getElementById('signupError');
     errEl.textContent = '';
 
-    let signUpResult;
+    if(!phone){ errEl.textContent = friendlyErrorMessage('valid phone number'); return; }
+    // the database creates the account for the phone number (no email) and it is ready at once
     try{
-      signUpResult = await sb.auth.signUp({ email, password, options: { data: { full_name: full_name, role: asked, club: club, phone: normPhone(document.getElementById('suPhone').value) }, emailRedirectTo: location.origin + location.pathname } });
+      const { data: email, error } = await sb.rpc('phone_signup', { p_phone: phone, p_password: password, p_full_name: full_name, p_role: asked, p_club: club });
+      if(error){ errEl.textContent = friendlyErrorMessage(error); return; }
+      const res = await sb.auth.signInWithPassword({ email: email, password: password });
+      if(res.error){ errEl.textContent = friendlyErrorMessage(res.error); return; }
     } catch(err){
       errEl.textContent = friendlyErrorMessage(err);
       return;
     }
-    const { data, error } = signUpResult;
-    if(error){ errEl.textContent = friendlyErrorMessage(error); return; }
-    if(!data.session){
-      errEl.style.color = '#2e7d32';
-      errEl.textContent = t('Account created — check your email to confirm it, then sign in.', 'تم إنشاء الحساب — افتح الرابط في بريدك لتأكيده ثم سجّل الدخول.');
-      return;
-    }
-    // normally the database trigger has already created it; this only fills the gap on older setups
-    const prof = { id: data.user.id, full_name, role, club };
-    const ph = normPhone(document.getElementById('suPhone').value);
-    if(ph) prof.phone = ph;
-    if(asked === 'teacher') prof.teacher_request = true;
-    const { error: profErr } = await sb.from('profiles').upsert(prof, { onConflict: 'id', ignoreDuplicates: true });
-    if(profErr){ errEl.textContent = friendlyErrorMessage(profErr); return; }
     signupForm.reset();
     wantDashboard = true;
     closeAuth();
@@ -934,7 +917,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(switched && window.__cocoReset) window.__cocoReset();
     profName.value = currentProfile.full_name || '';
     document.getElementById('profPhone').value = currentProfile.phone ? '+' + currentProfile.phone : '';
-    profEmail.value = currentEmail;
+    if(profEmail) profEmail.value = currentEmail;
     profRole.value = roleLabel;
     profClub.value = currentProfile.club || '—';
     document.getElementById('profCodeWrap').hidden = !currentProfile.link_code;
@@ -2601,22 +2584,35 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const q = (usersSearch.value || '').trim().toLowerCase();
     const rows = usersCache.filter(function(u){
       return (usersRole === 'all' || u.role === usersRole || (usersRole === 'teacher' && u.role === 'admin')) &&
-             (!q || ((u.full_name || '') + ' ' + (u.email || '')).toLowerCase().indexOf(q) !== -1);
+             (!q || ((u.full_name || '') + ' ' + (u.phone || '') + ' ' + contactOf(u)).toLowerCase().indexOf(q) !== -1);
     });
     usersTable.innerHTML = rows.length ? rows.map(function(u){
       const me = u.id === currentProfile.id;
       return '<div class="user-row" data-uid="' + esc(u.id) + '">' +
         avatar(u.full_name) +
-        '<div class="ur-main"><b>' + esc(u.full_name || '—') + (me ? ' <em>(' + t('you', 'أنت') + ')</em>' : '') + '</b><span>' + esc(u.email || '') + (u.club ? ' · ' + esc(u.club) : '') + '</span></div>' +
+        '<div class="ur-main"><b>' + esc(u.full_name || '—') + (me ? ' <em>(' + t('you', 'أنت') + ')</em>' : '') + '</b><span dir="ltr">' + esc(contactOf(u)) + (u.club ? ' · ' + esc(u.club) : '') + '</span></div>' +
         '<span class="role-pill role-' + esc(u.role) + '">' + esc(roleName(u.role)) + '</span>' +
         '<select class="ur-role" aria-label="Role"' + (me ? ' disabled' : '') + '>' +
           ['student', 'parent', 'teacher', 'admin'].map(function(r){
             return '<option value="' + r + '"' + (r === u.role ? ' selected' : '') + '>' + roleName(r) + '</option>';
           }).join('') +
         '</select>' +
+        '<button type="button" class="ur-pass" data-setpass title="' + esc(t('Set a new password', 'كلمة مرور جديدة')) + '" aria-label="' + esc(t('Set a new password', 'كلمة مرور جديدة')) + '">🔑</button>' +
       '</div>';
     }).join('') : '<div class="lib-empty">' + esc(t('No users match.', 'لا يوجد مستخدمون مطابقون.')) + '</div>';
   }
+  // what identifies an account: its phone number (the hidden email of a phone account is never shown)
+  function contactOf(u){ return u.phone ? '+' + u.phone : /\.invalid$/.test(u.email || '') ? '' : (u.email || ''); }
+  usersTable.addEventListener('click', async function(e){
+    const b = e.target.closest('[data-setpass]');
+    if(!b) return;
+    const u = usersCache.find(function(x){ return x.id === b.closest('[data-uid]').dataset.uid; });
+    const pw = prompt(t('New password for ' + (u.full_name || '') + ' (6+ characters):', 'كلمة مرور جديدة لـ ' + (u.full_name || '') + ' (٦ حروف أو أرقام على الأقل):'));
+    if(pw == null) return;
+    const { error } = await sb.rpc('admin_set_password', { p_user: u.id, p_password: pw.trim() });
+    if(error){ toast(t('Not saved', 'لم يُحفظ'), friendlyErrorMessage(error), true); return; }
+    toast('🔑 ' + t('Password changed', 'تم تغيير كلمة المرور'), t('Send it to ' + (u.full_name || '') + ' on WhatsApp.', 'ابعتها لـ ' + (u.full_name || '') + ' على واتساب.'));
+  });
 
   async function loadUsers(){
     if(!isAdmin()) return;
@@ -2632,7 +2628,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const reqs = usersCache.filter(function(u){ return u.teacher_request && u.role === 'student'; });
     teacherRequests.innerHTML = reqs.length ? '<div class="treq"><b>🧑‍🏫 ' + t('Teacher requests', 'طلبات المعلمين') + ' (' + reqs.length + ')</b>' +
       reqs.map(function(u){
-        return '<div class="treq-row" data-uid="' + esc(u.id) + '"><span><b>' + esc(u.full_name || '—') + '</b><small>' + esc(u.email || '') + ' · ' + esc(fmtDay(u.created_at)) + '</small></span>' +
+        return '<div class="treq-row" data-uid="' + esc(u.id) + '"><span><b>' + esc(u.full_name || '—') + '</b><small dir="ltr">' + esc(contactOf(u)) + ' · ' + esc(fmtDay(u.created_at)) + '</small></span>' +
           '<button class="sess-btn" type="button" data-treq="teacher">' + t('Approve as teacher', 'اعتماد كمعلم') + '</button>' +
           '<button class="sess-btn ghost" type="button" data-treq="student">' + t('Decline', 'رفض') + '</button></div>';
       }).join('') + '</div>' : '';
@@ -4287,7 +4283,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const full_name = profName.value.trim();
       if(!full_name) return;
       const phone = normPhone(document.getElementById('profPhone').value);
-      const { error } = await sb.from('profiles').update({ full_name: full_name, phone: phone || null }).eq('id', currentProfile.id);
+      if(!phone){ profileMsg.style.color = ''; profileMsg.textContent = friendlyErrorMessage('valid phone number'); return; }
+      const { error } = await sb.from('profiles').update({ full_name: full_name, phone: phone }).eq('id', currentProfile.id);
       if(error){
         profileMsg.style.color = '';
         profileMsg.textContent = /duplicate|unique/i.test(error.message || '') ? t('This phone number is already used by another account.', 'رقم الهاتف مستخدم في حساب آخر.') : friendlyErrorMessage(error);

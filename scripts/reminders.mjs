@@ -62,6 +62,7 @@ async function emailOf(userId) {
   try {
     const res = await fetch(SUPA + '/auth/v1/admin/users/' + userId, { headers });
     if (res.ok) email = (await res.json()).email || null;
+    if (email && /\.invalid$/i.test(email)) email = null; // phone accounts have no real email
   } catch (e) { /* no email: the in-site notification is enough */ }
   return (emailCache[userId] = email);
 }
