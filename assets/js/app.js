@@ -1549,6 +1549,50 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   };
   const PLAN_ORDER = ['lesson', 'level1', 'level2', 'level3', 'immersion'];
   const STATUS_LABEL = { pending: 'Waiting for payment', active: 'Active', stopped: 'Stopped', rejected: 'Rejected' };
+  function payMethodName(m){ return m === 'tamara' ? 'Tamara' : m === 'visa' ? 'Visa' : m === 'bank' ? t('Bank transfer', 'تحويل بنكي') : 'WhatsApp'; }
+
+  // ---------- bank transfer: the academy's account (the admin fills it in) and the student's receipt ----------
+  let bankInfo = {};
+  async function loadBankInfo(){
+    const { data } = await sb.from('academy_settings').select('key, value').in('key', ['bank_name', 'bank_holder', 'bank_iban']);
+    bankInfo = {};
+    (data || []).forEach(function(r){ bankInfo[r.key] = r.value; });
+  }
+  function fmtIban(v){ return String(v || '').replace(/\s+/g, '').replace(/(.{4})/g, '$1 ').trim(); }
+  // what a student sees for a bank-transfer request: where to send the money, and the receipt upload
+  function bankHtml(e){
+    if(!bankInfo.bank_iban) return '<p class="bank-note">' + esc(t('Message us on WhatsApp and we’ll send you the bank details.', 'كلّمنا على واتساب وهنبعتلك بيانات الحساب.')) + '</p>';
+    return '<div class="bank-box">' +
+      '<div class="bank-row"><span>' + esc(t('Bank', 'البنك')) + '</span><b>' + esc(bankInfo.bank_name || 'Al Rajhi Bank') + '</b></div>' +
+      (bankInfo.bank_holder ? '<div class="bank-row"><span>' + esc(t('Account holder', 'اسم صاحب الحساب')) + '</span><b>' + esc(bankInfo.bank_holder) + '</b></div>' : '') +
+      '<div class="bank-row"><span>IBAN</span><b dir="ltr" class="bank-iban">' + esc(fmtIban(bankInfo.bank_iban)) + '</b><button type="button" class="sess-btn ghost" data-copy-iban>' + esc(t('Copy', 'نسخ')) + '</button></div>' +
+      '<div class="bank-row"><span>' + esc(t('Amount', 'المبلغ')) + '</span><b>' + esc(fmtPrice(e.amount)) + '</b></div>' +
+      '<p class="bank-note">' + esc(t('Write your name in the transfer note, then upload a photo of the receipt here.', 'اكتب اسمك في ملاحظة التحويل، وبعدين ارفع صورة الإيصال هنا.')) + '</p>' +
+      (e.receipt_path ? '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as the academy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما الأكاديمية تراجعه.')) + '</p>'
+        : '<div class="bank-up"><input type="file" accept="image/*,.pdf" data-receipt-file><button type="button" class="lib-submit" data-receipt="' + e.id + '">📎 ' + esc(t('Send the receipt', 'ابعت الإيصال')) + '</button></div><p class="bank-msg" aria-live="polite"></p>') +
+      '</div>';
+  }
+  document.addEventListener('click', async function(ev){
+    const copy = ev.target.closest('[data-copy-iban]');
+    if(copy){
+      try{ await navigator.clipboard.writeText(String(bankInfo.bank_iban || '').replace(/\s+/g, '')); copy.textContent = '✓'; }catch(e){}
+      return;
+    }
+    const b = ev.target.closest('[data-receipt]');
+    if(!b) return;
+    const box = b.closest('.bank-box'), file = box.querySelector('[data-receipt-file]').files[0], msg = box.querySelector('.bank-msg');
+    if(!file){ msg.textContent = t('Choose the receipt photo first.', 'اختار صورة الإيصال الأول.'); return; }
+    if(file.size > 10 * 1024 * 1024){ msg.textContent = t('The file is too big — the limit is 10 MB.', 'الملف كبير — الحد الأقصى ١٠ ميجا.'); return; }
+    b.disabled = true; msg.textContent = '⏳ ' + t('Uploading…', 'جاري الرفع…');
+    const ext = (file.name.match(/\.([a-z0-9]+)$/i) || [, 'jpg'])[1].toLowerCase();
+    const path = currentProfile.id + '/' + b.dataset.receipt + '-' + Date.now() + '.' + ext;
+    const up = await sb.storage.from('receipts').upload(path, file, { contentType: file.type || undefined });
+    const res = up.error ? up : await sb.rpc('attach_receipt', { p_enrollment: Number(b.dataset.receipt), p_path: path });
+    if(res.error){ b.disabled = false; msg.textContent = friendlyErrorMessage(res.error); return; }
+    box.querySelector('.bank-up').outerHTML = '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as the academy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما الأكاديمية تراجعه.')) + '</p>';
+    msg.textContent = '';
+    await loadMyPlan();
+  });
   let payLinks = {};            // { plan: { tamara: url, visa: url } } — pasted by the teacher in the dashboard
   let myEnrollments = [];
   let pendingPlan = null;
@@ -1691,7 +1735,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return;
     }
     btn.disabled = true;
-    const { error } = await sb.rpc('request_enrollment', { p_plan: coPlan, p_method: method });
+    const { data: enrollmentId, error } = await sb.rpc('request_enrollment', { p_plan: coPlan, p_method: method });
     if(error){
       btn.disabled = false;
       err.textContent = /function|schema cache|does not exist/i.test(error.message)
@@ -1703,11 +1747,22 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const p = PLANS[coPlan];
     const text = 'Hello Code Cademy, I would like to activate: ' + p.name + ' (' + fmtPrice(p.amount) + ') — paying with ' +
       (method === 'tamara' ? 'Tamara' : 'Visa') + '. Name: ' + (currentProfile.full_name || '');
-    const payA = document.getElementById('coPayLink');
-    payA.hidden = !link;
+    const payA = document.getElementById('coPayLink'), bankEl = document.getElementById('coBank');
+    const bank = method === 'bank';
+    payA.hidden = !link || bank;
     if(link) payA.href = safeUrl(link);
     document.getElementById('coWa').href = waLink(text);
-    document.getElementById('coMsg').textContent = link
+    let amount = p.amount;
+    if(bank){
+      // the amount the server saved for this request (from the plan settings), so it matches what the admin sees
+      const [, en] = await Promise.all([loadBankInfo(), sb.from('enrollments').select('amount').eq('id', enrollmentId).maybeSingle()]);
+      if(en && en.data && en.data.amount != null) amount = Number(en.data.amount);
+    }
+    bankEl.hidden = !bank;
+    bankEl.innerHTML = bank ? bankHtml({ id: enrollmentId, amount: amount }) : '';
+    document.getElementById('coMsg').textContent = bank
+      ? t('Your request is saved. Transfer the amount to the account below and send us the receipt.', 'طلبك اتسجّل. حوّل المبلغ على الحساب اللي تحت وابعتلنا الإيصال.')
+      : link
       ? 'Your request is saved. Finish the payment on the secure page — your plan is switched on as soon as your teacher confirms it.'
       : "Your request is saved. We'll send your secure payment link on WhatsApp shortly — your plan is switched on as soon as payment is confirmed.";
     setPendingPlan(null);
@@ -1725,7 +1780,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const myPlanBox = document.getElementById('myPlanBox');
   async function loadMyPlan(){
     if(!currentProfile || !isStudent()){ myEnrollments = []; if(planBanner) planBanner.innerHTML = ''; return; }
-    const { data, error } = await sb.from('enrollments').select('*').eq('student_id', currentProfile.id).order('created_at', { ascending: false });
+    const [{ data, error }] = await Promise.all([
+      sb.from('enrollments').select('*').eq('student_id', currentProfile.id).order('created_at', { ascending: false }),
+      loadBankInfo()
+    ]);
     if(error){
       myEnrollments = [];
       if(planBanner) planBanner.innerHTML = '';
@@ -1764,13 +1822,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const link = (payLinks[e.plan] || {})[e.method];
         const text = 'Hello Code Cademy, about my request: ' + planName(e.plan) + ' (' + fmtPrice(e.amount) + '). Name: ' + (currentProfile.full_name || '');
         return '<div class="sess-card"><div class="sess-info"><h5>' + esc(planName(e.plan)) + '</h5>' +
-          '<div class="meta">' + esc(fmtPrice(e.amount)) + ' · ' + (e.method === 'tamara' ? 'Tamara' : e.method === 'visa' ? 'Visa' : 'WhatsApp') + ' · ' + esc(fmtDay(e.created_at)) + '</div>' +
+          '<div class="meta">' + esc(fmtPrice(e.amount)) + ' · ' + esc(payMethodName(e.method)) + ' · ' + esc(fmtDay(e.created_at)) + '</div>' +
           (e.ends_at ? '<div class="meta"><span>Valid until</span> ' + esc(fmtDay(e.ends_at)) + '</div>' : '') +
           (isActiveEnrollment(e) && leftTxt ? '<div class="meta"><b>' + esc(leftTxt) + '</b></div>' : !isActiveEnrollment(e) && planTerms(e.plan) ? '<div class="meta">' + esc(planTerms(e.plan)) + '</div>' : '') + '</div>' +
           '<div class="sess-actions"><span class="sess-badge ' + (e.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[e.status] || e.status) + '</span>' +
           (e.status === 'pending' && link ? '<a class="sess-btn" href="' + esc(safeUrl(link)) + '" target="_blank" rel="noopener">Open the payment page</a>' : '') +
           (e.status === 'pending' ? '<a class="sess-btn ghost" href="' + esc(waLink(text)) + '" target="_blank" rel="noopener">Message us on WhatsApp</a>' : '') +
-          '</div></div>';
+          '</div>' + (e.status === 'pending' && e.method === 'bank' ? bankHtml(e) : '') + '</div>';
       }).join('') : '<div class="lib-empty">You have not chosen a plan yet.</div>';
     }
   }
@@ -1821,7 +1879,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         act.push('<button class="sess-btn" type="button" data-en="active" data-id="' + r.id + '">Activate again</button>');
       }
       return '<div class="sess-card"><div class="sess-info"><h5>' + esc(who.full_name || '—') + '</h5>' +
-        '<div class="meta">' + esc(planName(r.plan)) + ' · ' + esc(fmtPrice(r.amount)) + ' · ' + (r.method === 'tamara' ? 'Tamara' : r.method === 'visa' ? 'Visa' : 'WhatsApp') + '</div>' +
+        '<div class="meta">' + esc(planName(r.plan)) + ' · ' + esc(fmtPrice(r.amount)) + ' · ' + esc(payMethodName(r.method)) +
+          (r.receipt_path ? ' · <button type="button" class="link-btn" data-receipt-view="' + esc(r.receipt_path) + '">🧾 ' + esc(t('View receipt', 'شوف الإيصال')) + '</button>'
+            : r.method === 'bank' && r.status === 'pending' ? ' · ' + esc(t('no receipt yet', 'لسه مفيش إيصال')) : '') + '</div>' +
         '<div class="meta">' + esc(who.club || '') + ' · ' + esc(fmtDay(r.created_at)) + (r.ends_at ? ' · <span>until</span> ' + esc(fmtDay(r.ends_at)) : '') +
           (r.status === 'active' && r.sessions_total ? ' · ' + r.sessions_total + ' ' + t('classes', 'حصة') : '') + '</div></div>' +
         '<div class="sess-actions"><span class="sess-badge ' + (r.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[r.status] || r.status) + '</span>' + act.join('') + '</div></div>';
@@ -1840,6 +1900,15 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
             '<input type="number" min="1" step="1" data-ps="' + p + '|sessions" value="' + (s.sessions != null ? s.sessions : '') + '" placeholder="∞">' +
             '<input type="number" min="1" step="1" data-ps="' + p + '|valid_days" value="' + (s.valid_days != null ? s.valid_days : '') + '" placeholder="∞"></div>';
         }).join('');
+    }
+
+    // bank account for transfers (admin only)
+    document.getElementById('bankBox').hidden = !isAdmin();
+    if(isAdmin()){
+      await loadBankInfo();
+      document.getElementById('bkName').value = bankInfo.bank_name || 'Al Rajhi Bank';
+      document.getElementById('bkHolder').value = bankInfo.bank_holder || '';
+      document.getElementById('bkIban').value = fmtIban(bankInfo.bank_iban);
     }
 
     // payment link form
@@ -1861,6 +1930,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   if(enList){
     enList.addEventListener('click', async function(e){
+      const rv = e.target.closest('[data-receipt-view]');
+      if(rv){
+        const w = window.open('', '_blank');
+        const { data, error } = await sb.storage.from('receipts').createSignedUrl(rv.dataset.receiptView, 600);
+        if(error || !data){ if(w) w.close(); setEnNotice(friendlyErrorMessage(error || 'Not found')); return; }
+        if(w) w.location = data.signedUrl; else location.assign(data.signedUrl);
+        return;
+      }
       const b = e.target.closest('[data-en]');
       if(!b) return;
       b.disabled = true;
@@ -1887,6 +1964,22 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const { error } = await sb.from('plan_settings').upsert(Object.values(rows));
       setEnNotice(error ? friendlyErrorMessage(error) : t('Plans saved — the website shows the new prices now.', 'تم حفظ الخطط — الموقع يعرض الأسعار الجديدة الآن.'), !error);
       if(!error) await loadPlanSettings();
+    });
+  }
+  const bankForm = document.getElementById('bankForm');
+  if(bankForm){
+    bankForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const iban = document.getElementById('bkIban').value.replace(/\s+/g, '').toUpperCase();
+      if(iban && !/^SA\d{22}$/.test(iban)){ setEnNotice(t('A Saudi IBAN is SA followed by 22 digits.', 'الآيبان السعودي بيبدأ بـ SA وبعده ٢٢ رقم.')); return; }
+      const now = new Date().toISOString();
+      const { error } = await sb.from('academy_settings').upsert([
+        { key: 'bank_name', value: document.getElementById('bkName').value.trim(), updated_at: now },
+        { key: 'bank_holder', value: document.getElementById('bkHolder').value.trim(), updated_at: now },
+        { key: 'bank_iban', value: iban, updated_at: now }
+      ]);
+      setEnNotice(error ? friendlyErrorMessage(error) : t('Bank details saved — students see them when they choose “Bank transfer”.', 'بيانات الحساب اتحفظت — الطلاب هيشوفوها لما يختاروا «تحويل بنكي».'), !error);
+      if(!error) await loadBankInfo();
     });
   }
   if(plForm){

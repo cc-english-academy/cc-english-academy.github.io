@@ -284,6 +284,20 @@ alter table public.enrollments add column if not exists activated_at timestamptz
 alter table public.enrollments add column if not exists ends_at      timestamptz;
 alter table public.enrollments add column if not exists created_at   timestamptz not null default now();
 alter table public.enrollments add column if not exists sessions_total int; -- live classes included (null = unlimited)
+alter table public.enrollments add column if not exists receipt_path text;  -- bank transfer: the student's receipt in the 'receipts' bucket
+
+-- small public settings the admin edits from the dashboard (e.g. the bank account for transfers)
+create table if not exists public.academy_settings (
+  key         text primary key,
+  value       text not null default '',
+  updated_at  timestamptz not null default now()
+);
+alter table public.academy_settings enable row level security;
+drop policy if exists "settings: read" on public.academy_settings;
+create policy "settings: read" on public.academy_settings for select using (true);
+drop policy if exists "settings: admin write" on public.academy_settings;
+create policy "settings: admin write" on public.academy_settings
+  for all using (public.is_admin()) with check (public.is_admin());
 
 -- price, number of live classes and validity of every plan — the admin edits these from the dashboard
 create table if not exists public.plan_settings (
@@ -943,6 +957,18 @@ drop policy if exists "homework bucket: delete" on storage.objects;
 create policy "homework bucket: delete" on storage.objects
   for delete to authenticated using (bucket_id = 'homework' and public.homework_file_access(name, true));
 
+-- Private bucket for bank-transfer receipts: <student uuid>/<file>. The student uploads their own;
+-- teachers and the admin open them (signed links) to confirm the payment.
+insert into storage.buckets (id, name, public, file_size_limit)
+values ('receipts', 'receipts', false, 10485760)  -- 10 MB per file
+on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit;
+drop policy if exists "receipts: read" on storage.objects;
+create policy "receipts: read" on storage.objects
+  for select to authenticated using (bucket_id = 'receipts' and (public.is_teacher() or split_part(name, '/', 1) = auth.uid()::text));
+drop policy if exists "receipts: upload" on storage.objects;
+create policy "receipts: upload" on storage.objects
+  for insert to authenticated with check (bucket_id = 'receipts' and split_part(name, '/', 1) = auth.uid()::text);
+
 -- ---------------------------------------------------------------------
 -- 5. Server-side API (RPC functions called from the website)
 -- ---------------------------------------------------------------------
@@ -1424,22 +1450,37 @@ begin
   return v;
 end $$;
 
+drop function if exists public.request_enrollment(text, text);
+-- returns the request's id (a bank transfer attaches its receipt to it)
 create or replace function public.request_enrollment(p_plan text, p_method text)
-returns void language plpgsql security definer set search_path = public as $$
-declare v_price numeric;
+returns bigint language plpgsql security definer set search_path = public as $$
+declare v_price numeric; v_id bigint;
 begin
   if auth.uid() is null then raise exception 'Please sign in first'; end if;
   if public.my_role() <> 'student' then raise exception 'Plans are for student accounts'; end if;
   v_price := public.plan_price(p_plan);
   if v_price is null then raise exception 'Unknown plan'; end if;
-  if p_method not in ('tamara','visa','whatsapp') then raise exception 'Unknown payment method'; end if;
+  if p_method not in ('tamara','visa','whatsapp','bank') then raise exception 'Unknown payment method'; end if;
   update public.enrollments set method = p_method, amount = v_price
-   where student_id = auth.uid() and plan = p_plan and status = 'pending';
-  if not found then
+   where student_id = auth.uid() and plan = p_plan and status = 'pending'
+  returning id into v_id;
+  if v_id is null then
     insert into public.enrollments (student_id, plan, method, amount, status)
-    values (auth.uid(), p_plan, p_method, v_price, 'pending');
+    values (auth.uid(), p_plan, p_method, v_price, 'pending') returning id into v_id;
   end if;
+  return v_id;
 end $$;
+
+-- a student attaches the bank-transfer receipt to their own waiting request
+create or replace function public.attach_receipt(p_enrollment bigint, p_path text)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if auth.uid() is null or p_path is null or split_part(p_path, '/', 1) <> auth.uid()::text then raise exception 'Not allowed'; end if;
+  update public.enrollments set receipt_path = p_path, method = 'bank'
+   where id = p_enrollment and student_id = auth.uid() and status = 'pending';
+  if not found then raise exception 'This request is no longer waiting for payment'; end if;
+end $$;
+grant execute on function public.attach_receipt(bigint, text) to authenticated;
 
 -- ----- Instagram: the admin saves the token from the dashboard and sees the sync status -----
 create or replace function public.set_instagram_token(p_token text)

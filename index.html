@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=45f85c3d">
+<link rel="stylesheet" href="assets/css/site.css?v=36f62139">
 </head>
 <body>
 
@@ -1146,6 +1146,16 @@
           <form class="lib-form" id="psForm"><div class="full ps-table" id="psFields"></div>
             <button type="submit" class="lib-submit">Save plans</button></form>
         </div>
+        <div id="bankBox" hidden>
+          <h4 class="sess-h">Bank transfer</h4>
+          <p class="dash-sub">The account students transfer to. They see these details at checkout, transfer, and upload the receipt — you see the receipt here and switch the plan on.</p>
+          <form class="lib-form" id="bankForm">
+            <div><label for="bkName">Bank</label><input id="bkName" maxlength="80" placeholder="Al Rajhi Bank"></div>
+            <div><label for="bkHolder">Account holder</label><input id="bkHolder" maxlength="120"></div>
+            <div class="full"><label for="bkIban">IBAN</label><input id="bkIban" maxlength="40" dir="ltr" placeholder="SA00 8000 0000 6080 1000 0000"></div>
+            <button type="submit" class="lib-submit">Save bank details</button>
+          </form>
+        </div>
         <h4 class="sess-h">Payment links</h4>
         <p class="dash-sub">Paste the Tamara and Visa payment link for each plan. Students are sent there after choosing how to pay. Leave a link blank and students are asked to pay over WhatsApp instead.</p>
         <form class="lib-form" id="plForm">
@@ -1310,6 +1320,8 @@
         <span><b>Tamara</b><i>Split the payment into installments (subject to Tamara's approval)</i></span></label>
       <label class="co-opt"><input type="radio" name="coMethod" value="visa"><span class="pm-ico visa" aria-hidden="true"><svg viewBox="0 0 60 20"><text x="30" y="16" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="17" font-weight="900" font-style="italic" letter-spacing="-.5" fill="#1A1F71">VISA</text><path d="M4 18.6h52" stroke="#F7B600" stroke-width="1.6"/></svg></span>
         <span><b>Visa</b><i>Pay by card on a secure payment page</i></span></label>
+      <label class="co-opt"><input type="radio" name="coMethod" value="bank"><span class="pm-ico bank" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg></span>
+        <span><b>Bank transfer</b><i>Transfer to the academy's Al Rajhi account, then upload the receipt</i></span></label>
       <label class="auth-consent co-consent"><input type="checkbox" id="coAgree"> <span>I agree to the <a href="terms.html#refunds" target="_blank" rel="noopener">Terms &amp; refund policy</a>.</span></label>
       <p class="auth-error" id="coError"></p>
       <button class="lib-submit" id="coPay" type="button">Continue to payment</button>
@@ -1319,6 +1331,7 @@
       <div class="co-done"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
       <h3>Request received</h3>
       <p id="coMsg"></p>
+      <div id="coBank" hidden></div>
       <div class="co-actions">
         <a class="lib-submit" id="coPayLink" href="#" target="_blank" rel="noopener" hidden>Open the payment page</a>
         <a class="sess-btn ghost" id="coWa" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
@@ -1494,7 +1507,7 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=02e74e6e"></script>
-<script defer src="assets/js/app.js?v=ab20b1d8"></script>
+<script defer src="assets/js/lang.js?v=2fbb1e1e"></script>
+<script defer src="assets/js/app.js?v=6254c9fc"></script>
 </body>
 </html>

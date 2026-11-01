@@ -2186,6 +2186,22 @@ html[dir="rtl"] .ctopics button:hover{transform:translateX(-3px);}
 .lvb-load{display:flex;gap:6px;justify-content:center;padding:20px;}.lvb-load span{width:9px;height:9px;border-radius:50%;background:var(--maroon);opacity:.35;animation:cocoDot 1s infinite;}
 .lvb-load span:nth-child(2){animation-delay:.15s}.lvb-load span:nth-child(3){animation-delay:.3s}
 
+/* bank transfer */
+.pm-ico.bank svg{width:22px;height:22px;fill:none;stroke:var(--maroon-deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.bank-box{margin-top:12px;background:var(--peach-soft);border:1px solid var(--soft-line);border-radius:14px;padding:12px 14px;display:grid;gap:8px;text-align:start;width:100%;box-sizing:border-box;}
+.bank-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.bank-row span{min-width:110px;font-size:.8rem;color:#6a5057;}
+.bank-row b{color:var(--maroon-deep);}
+.bank-iban{font-family:ui-monospace,Menlo,monospace;letter-spacing:.03em;}
+.bank-row .sess-btn{padding:5px 12px;font-size:.78rem;}
+.bank-note{margin:2px 0;font-size:.85rem;color:#5a464b;}
+.bank-ok{margin:2px 0;color:#1e6b34;font-weight:600;font-size:.9rem;}
+.bank-up{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.bank-up input{flex:1;min-width:180px;font-size:.85rem;}
+.bank-up .lib-submit{width:auto;margin:0;padding:9px 16px;}
+.bank-msg{margin:0;font-size:.82rem;color:var(--maroon);}
+.link-btn{border:0;background:none;color:var(--maroon);font:inherit;font-weight:700;cursor:pointer;padding:0;text-decoration:underline;}
+
 /* ===== lighter on phones ===== */
 /* the paper-grain layer covers the whole page; on phones it makes every scroll repaint everything */
 @media (hover:none), (max-width:820px){
