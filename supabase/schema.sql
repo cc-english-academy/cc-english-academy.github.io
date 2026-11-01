@@ -651,6 +651,13 @@ language sql stable security definer set search_path = public as $$
    order by m.club, m.created_at desc limit 100;
 $$;
 grant execute on function public.public_level_books(text) to anon, authenticated;
+-- the site search lists every book title too (titles only)
+create or replace function public.public_book_titles()
+returns table (title text, club text, level text)
+language sql stable security definer set search_path = public as $$
+  select m.title, m.club, m.level from public.materials m order by m.created_at desc limit 300;
+$$;
+grant execute on function public.public_book_titles() to anon, authenticated;
 drop policy if exists "materials: teacher insert" on public.materials;
 create policy "materials: teacher insert" on public.materials
   for insert with check (public.is_teacher());

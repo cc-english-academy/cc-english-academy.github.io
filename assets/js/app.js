@@ -5838,6 +5838,116 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!coco.hidden) cocoSetMode(cocoHomeMode());
   };
 
+
+  // ---------- site search: sections, clubs, books, Coco's lessons, videos and plans, as you type ----------
+  const searchModal = document.getElementById('siteSearch'), searchInput = document.getElementById('siteSearchInput'), searchOut = document.getElementById('siteSearchResults');
+  let searchBooks = null; // loaded the first time the search opens
+  // Arabic letters that are written several ways count as one (أ/إ/آ/ا, ة/ه, ى/ي), and diacritics are ignored
+  function normSearch(s){
+    return String(s || '').toLowerCase().replace(/[ً-ٰٟ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي')
+      .replace(/[^\p{L}\p{N} ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  const SEARCH_SECTIONS = [
+    ['#top', 'Home', 'الرئيسية', 'home start الصفحه'],
+    ['#english-immersion', 'English clubs', 'النوادي', 'clubs club نادي نوادي phonics reading writing grammar speaking conversation cinema صوتيات قراءه كتابه قواعد محادثه حوار سينما'],
+    ['#levels', 'The 9 levels', 'المستويات التسعة', 'levels level مستوي مستويات'],
+    ['#accreditation', 'Accreditation (CPD)', 'الاعتماد (CPD)', 'accreditation accredited cpd certificate اعتماد معتمد شهاده'],
+    ['#watch', 'Watch & Learn videos', 'فيديوهات شاهد وتعلّم', 'videos video watch فيديو فيديوهات شاهد'],
+    ['#level-test', 'Free level test', 'اختبار تحديد المستوى', 'placement test level test exam امتحان اختبار تحديد المستوي'],
+    ['#plans', 'Plans & prices', 'الباقات والأسعار', 'plans prices price subscription payment باقه باقات اسعار سعر اشتراك دفع فيزا تحويل'],
+    ['#sessions', 'Live Zoom classes', 'حصص زوم المباشرة', 'zoom live classes sessions booking حصص حصه زوم مباشر حجز'],
+    ['#club-library', 'Club library', 'مكتبة النوادي', 'library books مكتبه كتب كتاب'],
+    ['#footer', 'Contact us', 'تواصل معنا', 'contact whatsapp instagram phone تواصل واتساب انستجرام']
+  ];
+  const SEARCH_CLUBS = [['Phonics Club', 'نادي الصوتيات'], ['Reading Club', 'نادي القراءة'], ['Writing Club', 'نادي الكتابة'], ['Grammar Club', 'نادي القواعد'],
+    ['Speaking Club', 'نادي المحادثة'], ['Conversation Club', 'نادي الحوار'], ['Cinema Club', 'نادي السينما']];
+  async function loadSearchBooks(){
+    if(currentProfile && (isStudent() || isTeacher())){
+      let q = sb.from('materials').select('*').order('created_at', { ascending: false }).limit(300);
+      if(isStudent()) q = q.eq('club', currentProfile.club);
+      const { data } = await q;
+      searchBooks = data || [];
+      await refreshBookAccess(searchBooks);
+    } else {
+      const { data } = await sb.rpc('public_book_titles');
+      searchBooks = data || [];
+    }
+  }
+  function siteSearch(q){
+    const words = normSearch(q).split(' ').filter(Boolean);
+    if(!words.length) return null;
+    const hit = function(){ const hay = normSearch(Array.prototype.join.call(arguments, ' ')); return words.every(function(w){ return hay.indexOf(w) !== -1; }); };
+    const groups = [];
+    const add = function(title, list){ if(list.length) groups.push([title, list.slice(0, 8)]); };
+    add(t('On the site', 'في الموقع'), SEARCH_SECTIONS.filter(function(s){ return hit(s[1], s[2], s[3]); })
+      .map(function(s){ return { icon: '📍', title: t(s[1], s[2]), go: 'anchor', arg: s[0] }; }));
+    add(t('Clubs', 'النوادي'), SEARCH_CLUBS.filter(function(c){ return hit(c[0], c[1]); })
+      .map(function(c){ return { icon: '🏛️', title: t(c[0], c[1]), go: 'club', arg: c[0] }; }));
+    add(t('Books', 'الكتب'), (searchBooks || []).map(function(m, k){ return [m, k]; }).filter(function(x){ return hit(x[0].title, x[0].club, x[0].level ? levelName(x[0].level) + ' ' + x[0].level : t('All levels', 'كل المستويات')); })
+      .map(function(x){ const m = x[0]; return { icon: '📖', title: m.title, sub: m.club + ' · ' + (m.level ? levelName(m.level) : t('All levels', 'كل المستويات')), go: 'book', arg: x[1] }; }));
+    const lessons = [];
+    COCO_TOPICS.forEach(function(list, g){ list.forEach(function(tp){ if(hit(tp, (COCO_TOPIC_WORDS[tp] || []).join(' '))) lessons.push({ icon: '🧑‍🏫', title: tp, sub: t('Lesson with Coco · ', 'درس مع كوكو · ') + groupLabel(g), go: 'lesson', arg: tp }); }); });
+    add(t('Lessons', 'الدروس'), lessons);
+    add(t('Videos', 'الفيديوهات'), (window.LESSONS || []).filter(function(v){ return hit(v.title, v.tag, (v.words || []).join(' ')); })
+      .map(function(v){ return { icon: '🎬', title: v.title, sub: v.tag, go: 'anchor', arg: '#watch' }; }));
+    add(t('Plans', 'الباقات'), Object.keys(PLANS).filter(function(p){ return hit(PLANS[p].name, PLANS[p].desc || '', planName(p)); })
+      .map(function(p){ return { icon: '🎟️', title: planName(p), sub: fmtPrice(PLANS[p].amount), go: 'anchor', arg: '#plans' }; }));
+    return groups;
+  }
+  let searchHits = [];
+  function renderSearch(){
+    const groups = siteSearch(searchInput.value);
+    searchHits = [];
+    if(!groups){ searchOut.innerHTML = '<p class="ss-tip">' + esc(t('Type a word — e.g. reading, past simple, plans, زوم, الماضي', 'اكتب كلمة — مثلاً: قراءة، الماضي، الباقات، zoom')) + '</p>'; return; }
+    if(!groups.length){ searchOut.innerHTML = '<p class="ss-tip">' + esc(t('Nothing found 🤔 Try another word.', 'مفيش نتايج 🤔 جرّب كلمة تانية.')) + '</p>'; return; }
+    searchOut.innerHTML = groups.map(function(g){
+      return '<div class="ss-group"><b>' + esc(g[0]) + '</b>' + g[1].map(function(r){
+        searchHits.push(r);
+        return '<button type="button" class="ss-hit" data-hit="' + (searchHits.length - 1) + '"><span>' + r.icon + '</span><span><bdi>' + esc(r.title) + '</bdi>' + (r.sub ? '<small>' + esc(r.sub) + '</small>' : '') + '</span></button>';
+      }).join('') + '</div>';
+    }).join('');
+  }
+  async function openSearch(){
+    searchModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    searchInput.value = '';
+    renderSearch();
+    setTimeout(function(){ searchInput.focus(); }, 30);
+    if(!searchBooks){ await loadSearchBooks(); renderSearch(); }
+  }
+  function closeSearch(){ searchModal.hidden = true; if(authPage.hidden && dashboardPage.hidden) document.body.style.overflow = ''; }
+  async function goSearchHit(r){
+    closeSearch();
+    if(r.go === 'lesson'){ cocoOpen(); cocoSetMode('learn'); cocoStartLesson(r.arg); return; }
+    if(r.go === 'book'){
+      const m = searchBooks[r.arg];
+      if(currentProfile && (isStudent() || isTeacher()) && m.id){ openReader(m); return; }
+      // visitors: show the book's level on the home page (sign up / plans to read it)
+      const lv = m.level || 'Level 1';
+      if(!dashboardPage.hidden){ wantDashboard = false; dashboardPage.hidden = true; }
+      document.getElementById('levels').scrollIntoView({ behavior: 'smooth' });
+      showHomeLevel(lv);
+      return;
+    }
+    if(!dashboardPage.hidden){ wantDashboard = false; dashboardPage.hidden = true; document.body.style.overflow = ''; }
+    const target = r.go === 'club' ? document.querySelector('.club-card[data-club="' + r.arg + '"]') || document.getElementById('english-immersion') : document.querySelector(r.arg);
+    if(target) target.scrollIntoView({ behavior: 'smooth', block: r.go === 'club' ? 'center' : 'start' });
+  }
+  document.querySelectorAll('[data-open-search]').forEach(function(b){ b.addEventListener('click', openSearch); });
+  searchInput.addEventListener('input', renderSearch);
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && searchHits.length){ e.preventDefault(); goSearchHit(searchHits[0]); }
+    if(e.key === 'Escape') closeSearch();
+  });
+  searchOut.addEventListener('click', function(e){ const b = e.target.closest('[data-hit]'); if(b) goSearchHit(searchHits[parseInt(b.dataset.hit, 10)]); });
+  searchModal.addEventListener('click', function(e){ if(e.target === searchModal || e.target.closest('[data-close-search]')) closeSearch(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === '/' && searchModal.hidden && !/input|textarea|select/i.test((document.activeElement || {}).tagName || '') && !document.activeElement.isContentEditable){ e.preventDefault(); openSearch(); }
+  });
+  // a different person signs in or out: their books differ
+  const _cocoReset = window.__cocoReset;
+  window.__cocoReset = function(){ searchBooks = null; if(_cocoReset) _cocoReset(); };
+
   // re-render text built in JavaScript when the visitor switches language
   window.__refreshDynamicText = function(){
     loadPlanSettings(); // prices and savings on the price cards

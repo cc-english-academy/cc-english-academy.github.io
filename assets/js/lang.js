@@ -14,6 +14,7 @@
     "Start learning at this level":"ابدأ التعلّم من هذا المستوى",
     "See plans":"شاهد الخطط",
     "Retake":"أعد الاختبار",
+    "Search lessons, books, clubs, plans…":"دوّر على درس، كتاب، نادي، باقة…",
     "Bank transfer":"تحويل بنكي",
     "Transfer to the academy's Al Rajhi account, then upload the receipt":"حوّل على حساب الأكاديمية في الراجحي، وبعدين ارفع الإيصال",
     "The account students transfer to. They see these details at checkout, transfer, and upload the receipt — you see the receipt here and switch the plan on.":"الحساب اللي الطلاب بيحوّلوا عليه. بيشوفوا البيانات دي وقت الدفع، يحوّلوا ويرفعوا الإيصال — وانتي تشوفي الإيصال هنا وتفعّلي الباقة.",
