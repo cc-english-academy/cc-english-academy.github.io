@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=0468e86a">
+<link rel="stylesheet" href="assets/css/site.css?v=bbec6163">
 </head>
 <body>
 
@@ -841,7 +841,7 @@
             <span id="upMsg"></span>
           </div>
           <button type="submit" class="lib-submit" id="libSubmit">Upload to club</button>
-          <p class="lib-note">Every student in that club sees it immediately — once they've unlocked this level.</p>
+          <p class="lib-note">Students of this club and level who have paid for a plan can read the whole book at once; other students see only the first pages.</p>
         </form>
         <div class="protect-box" id="protectBox" hidden><span>🔒</span><p id="protectText"></p><button type="button" class="sess-btn" id="protectBtn">Protect books</button></div>
         <div class="lib-tabs" id="libTabs" hidden>
@@ -858,6 +858,10 @@
         <div class="path" id="learnPath" hidden></div>
 
         <div class="level-tabs" id="levelTabs">
+        </div>
+        <div class="lv-upbar" id="lvUpBar" hidden>
+          <div><b id="lvUpTitle">Level 1</b><span id="lvUpMeta"></span></div>
+          <button type="button" class="lib-submit" id="lvUpBtn">📤 Upload a book</button>
         </div>
 
         <div class="shelf-head" id="shelfHead" hidden>
@@ -1488,7 +1492,7 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=bc68efa1"></script>
-<script defer src="assets/js/app.js?v=8e52c452"></script>
+<script defer src="assets/js/lang.js?v=5a7b8221"></script>
+<script defer src="assets/js/app.js?v=8edac26f"></script>
 </body>
 </html>

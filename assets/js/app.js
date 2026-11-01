@@ -894,7 +894,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('tabChildren').hidden = !isParent();
     document.getElementById('tabUsers').hidden = !isAdmin();
     document.querySelector('#tabMaterials span').textContent = isStudent() ? t('My learning', 'تعلّمي') : t('Materials', 'المواد');
-    libForm.hidden = !isTeacher();
+    libForm.hidden = true; // teachers open it from the level they are looking at (lvUpBar)
     libTabs.hidden = !isTeacher();
     notifForm.hidden = !isTeacher();
     if(sessForm) sessForm.hidden = !isTeacher();
@@ -3433,9 +3433,30 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     });
   }
 
+  // teachers: pick a level, then "Upload a book" opens the form already set to that level (and club)
+  const lvUpBar = document.getElementById('lvUpBar'), lvUpBtn = document.getElementById('lvUpBtn');
+  function renderUploadBar(){
+    lvUpBar.hidden = !isTeacher();
+    if(!isTeacher()) return;
+    document.getElementById('lvUpTitle').textContent = levelName(currentLevel) + (materialsFilter !== 'all' ? ' · ' + t(materialsFilter, materialsFilter) : '');
+    document.getElementById('lvUpMeta').textContent = t(materialsCache.length + (materialsCache.length === 1 ? ' book' : ' books'), materialsCache.length + ' كتاب');
+    lvUpBtn.textContent = libForm.hidden ? '📤 ' + t('Upload a book to ' + levelName(currentLevel), 'ارفع كتاب لـ' + levelName(currentLevel)) : '✕ ' + t('Close', 'إغلاق');
+  }
+  lvUpBtn.addEventListener('click', function(){
+    if(libForm.hidden){
+      lvUpBar.after(libForm); // the form opens right under the level
+      document.getElementById('libLevel').value = currentLevel;
+      if(materialsFilter !== 'all') document.getElementById('libClub').value = materialsFilter;
+      libForm.hidden = false;
+      libForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function(){ libTitle.focus(); }, 300);
+    } else libForm.hidden = true;
+    renderUploadBar();
+  });
+
   async function loadMaterials(){
     const libLevelSelect = document.getElementById('libLevel');
-    if(libLevelSelect) libLevelSelect.value = currentLevel;
+    if(libLevelSelect && libForm.hidden) libLevelSelect.value = currentLevel;
     updateLevelTabsUI();
     levelTabs.hidden = isStudent();
     renderPath();
@@ -3472,6 +3493,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       await refreshBookAccess(materialsCache);
       renderMaterials();
     }
+    renderUploadBar();
     if(isTeacher()) checkUnprotected();
 
     // exam call-to-action / admin, scoped to the level now showing
@@ -3908,7 +3930,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
             'تم الرفع! يقرأ طلاب ' + club + ' أول ' + stored.preview_pages + ' صفحات مجاناً، والكتاب كامل مع الاشتراك.')
         : t('Uploaded! “' + title + '” opens for students in ' + club + ' who have a plan.', 'تم الرفع! «' + title + '» متاح لطلاب ' + club + ' المشتركين.'));
       // jump to where the new book lives so the teacher sees it straight away
-      currentLevel = level;
+      if(level) currentLevel = level;
       if(materialsFilter !== 'all' && materialsFilter !== club) applyClubFilter(club);
       else await loadMaterials();
       await loadOverviewStats();
