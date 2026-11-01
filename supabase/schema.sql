@@ -628,6 +628,15 @@ drop policy if exists "materials: read club or teacher" on public.materials;
 create policy "materials: read club or teacher" on public.materials
   for select using (public.is_teacher() or club = public.my_club()
                     or club in (select public.my_children_clubs()));
+-- the home page lists each level's book titles for everyone (titles only: reading still needs an account and a plan)
+create or replace function public.public_level_books(p_level text)
+returns table (title text, club text, level text)
+language sql stable security definer set search_path = public as $$
+  select m.title, m.club, m.level from public.materials m
+   where m.level = p_level or m.level is null
+   order by m.club, m.created_at desc limit 100;
+$$;
+grant execute on function public.public_level_books(text) to anon, authenticated;
 drop policy if exists "materials: teacher insert" on public.materials;
 create policy "materials: teacher insert" on public.materials
   for insert with check (public.is_teacher());

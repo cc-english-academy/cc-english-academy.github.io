@@ -536,7 +536,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const home = document.getElementById('homeLevels');
     if(home) home.innerHTML = LEVELS.map(function(l){
       const i = LEVEL_INFO[l];
-      return '<div class="lv-stage"><span class="lv-ico">' + i.icon + '</span><b>' + esc(levelName(l)) + '</b></div>';
+      return '<button type="button" class="lv-stage" data-home-level="' + l + '"><span class="lv-ico">' + i.icon + '</span><b>' + esc(levelName(l)) + '</b></button>';
     }).join('');
     const tabs = document.getElementById('levelTabs');
     if(tabs) tabs.innerHTML = LEVELS.map(function(l){
@@ -3432,6 +3432,62 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       loadMaterials();
     });
   }
+
+  // ---------- home page: press a level to see its books right there ----------
+  const homeLevelBooks = document.getElementById('homeLevelBooks');
+  let homeBooks = [], homeLevel = null;
+  async function showHomeLevel(level){
+    homeLevel = level;
+    document.querySelectorAll('#homeLevels [data-home-level]').forEach(function(b){ b.classList.toggle('on', b.dataset.homeLevel === level); });
+    homeLevelBooks.hidden = false;
+    homeLevelBooks.innerHTML = '<div class="lvb-load"><span></span><span></span><span></span></div>';
+    const signedIn = currentProfile && (isStudent() || isTeacher());
+    let items = [];
+    if(signedIn){
+      let q = sb.from('materials').select('*').or('level.is.null,level.eq."' + level + '"').order('created_at', { ascending: false });
+      if(isStudent()) q = q.eq('club', currentProfile.club);
+      const { data } = await q;
+      items = data || [];
+      await refreshBookAccess(items);
+    } else {
+      const { data } = await sb.rpc('public_level_books', { p_level: level });
+      items = data || [];
+    }
+    if(homeLevel !== level) return; // another level was pressed meanwhile
+    homeBooks = items;
+    const locked = isStudent() && !isLevelUnlocked(level);
+    const head = '<div class="lvb-head"><div><b>' + esc(t('Books — ', 'كتب ') + levelName(level)) + '</b><span>' +
+      esc(t(items.length + (items.length === 1 ? ' book' : ' books'), items.length + ' كتاب')) + '</span></div>' +
+      (isTeacher() ? '<button type="button" class="lib-submit" data-home-upload="' + level + '">📤 ' + esc(t('Upload a book to ' + levelName(level), 'ارفع كتاب لـ' + levelName(level))) + '</button>' : '') + '</div>';
+    const cards = items.length ? '<div class="lvb-grid">' + items.map(function(m, k){
+      const full = signedIn && canReadFull(m), canOpen = signedIn && !locked;
+      return '<div class="lvb-book' + (full ? '' : ' locked') + '" style="--h:' + hueOf(m.title) + '"><span class="lvb-cover">📖</span><b>' + esc(m.title) + '</b>' +
+        '<small>' + esc(m.club) + (m.level ? '' : ' · ' + t('All levels', 'كل المستويات')) + '</small>' +
+        (canOpen ? '<button type="button" class="lvb-read" data-home-read="' + k + '">' + (full ? t('Read', 'اقرأ') : '🔒 ' + t('Free pages', 'صفحات مجانية')) + '</button>'
+                 : '<span class="lvb-lock">🔒 ' + esc(signedIn ? t('Pass the level before it', 'انجح في المستوى اللي قبله') : t('For subscribers', 'للمشتركين')) + '</span>') + '</div>';
+    }).join('') + '</div>' : '<p class="lvb-empty">' + esc(t('No books in this level yet.', 'لسه مفيش كتب في المستوى ده.')) + '</p>';
+    let foot = '';
+    if(!currentProfile) foot = '<div class="lvb-foot"><span>' + esc(t('Create your account and choose a plan to read the books.', 'اعمل حسابك واختار باقة عشان تقرا الكتب.')) + '</span>' +
+      '<button type="button" class="lib-submit" data-home-signup>' + esc(t('Sign up', 'إنشاء حساب')) + '</button><a class="cta-ghost" href="#plans">' + esc(t('See plans', 'شوف الباقات')) + '</a></div>';
+    else if(isStudent() && !bookAccess) foot = '<div class="lvb-foot"><span>' + esc(t('Choose a plan to read the whole books.', 'اختار باقة عشان تقرا الكتب كاملة.')) + '</span><a class="lib-submit" href="#plans">' + esc(t('See plans', 'شوف الباقات')) + '</a></div>';
+    homeLevelBooks.innerHTML = head + cards + foot;
+  }
+  document.getElementById('homeLevels').addEventListener('click', function(e){
+    const b = e.target.closest('[data-home-level]');
+    if(b) showHomeLevel(b.dataset.homeLevel);
+  });
+  homeLevelBooks.addEventListener('click', async function(e){
+    const read = e.target.closest('[data-home-read]'), up = e.target.closest('[data-home-upload]');
+    if(read){ openReader(homeBooks[parseInt(read.dataset.homeRead, 10)]); return; }
+    if(e.target.closest('[data-home-signup]')){ openAuth('signup'); return; }
+    if(up){
+      // straight to the upload form of that level in the dashboard
+      openDashboard(); showDashView('materials');
+      currentLevel = up.dataset.homeUpload;
+      await loadMaterials();
+      if(libForm.hidden) lvUpBtn.click();
+    }
+  });
 
   // teachers: pick a level, then "Upload a book" opens the form already set to that level (and club)
   const lvUpBar = document.getElementById('lvUpBar'), lvUpBtn = document.getElementById('lvUpBtn');
