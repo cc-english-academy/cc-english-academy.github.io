@@ -31,8 +31,8 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600;700;800&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/hub.css?v=f4fe84b0">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/hub.css?v=b2017bda">
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 </head>
 <body>
@@ -40,14 +40,13 @@
 
 <header class="nav" id="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span><b>Code Cademy</b></span></a>
+    <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><b>Code Cademy</b></a>
     <nav class="links" id="links" aria-label="Main">
-      <a href="#top" class="on"><span class="en">Home</span><span class="ar">الرئيسية</span></a>
       <a href="english.html" class="w en-w"><i>🇬🇧</i><span class="en">English</span><span class="ar">الإنجليزي</span></a>
       <a href="french.html" class="w fr-w"><i>🇫🇷</i><span class="en">Français</span><span class="ar">الفرنساوي</span></a>
       <a href="tech.html" class="w it-w"><i>💻</i><span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a>
+      <a href="#way"><span class="en">Our way</span><span class="ar">طريقتنا</span></a>
       <a href="#certs"><span class="en">Certificates</span><span class="ar">الشهادات</span></a>
-      <a href="#about"><span class="en">About</span><span class="ar">عننا</span></a>
       <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
     </nav>
     <div class="acts">
@@ -67,137 +66,126 @@
 </header>
 
 <section class="hero" id="top">
-  <div class="wrap hero-in">
-    <div class="hero-copy">
-      <span class="kick">✦ <span class="en">Code Cademy · Approved CPD Provider</span><span class="ar">Code Cademy · معتمدة من CPD</span></span>
+  <div class="orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
+  <div class="wrap">
+    <div class="hero-head">
+      <span class="seal"><i>✦</i><span class="en">Approved CPD Provider · CPD-10020</span><span class="ar">مقدّم معتمد من CPD · CPD-10020</span></span>
       <h1><span class="en">One place.<br><em>Three worlds.</em></span><span class="ar">مكان واحد.<br><em>تلات عوالم.</em></span></h1>
-      <p><span class="en">English, French, and Programming &amp; IT for every age: live Zoom classes with real teachers, Coco the AI coach, games, certificates, and a dashboard for students, parents and teachers.</span><span class="ar">إنجليزي وفرنساوي وبرمجة و IT لكل الأعمار: حصص Zoom لايف مع مدرسين حقيقيين، وكوكو المدرب الذكي، وألعاب، وشهادات، ولوحة تحكم للطلاب وأولياء الأمور والمعلمين.</span></p>
-      <div class="hero-btns">
-        <a class="btn main" href="#worlds"><span class="en">Choose your world</span><span class="ar">اختار عالمك</span> ↓</a>
-        <a class="btn ghost" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 <span class="en">Free trial class</span><span class="ar">حصة تجريبية مجانية</span></a>
-      </div>
+      <p><span class="en">English, French, and Programming &amp; IT for every age. Live classes with real teachers, an AI coach, games and certificates, all in one family.</span><span class="ar">إنجليزي وفرنساوي وبرمجة و IT لكل الأعمار. حصص لايف مع مدرسين حقيقيين، ومدرب ذكي، وألعاب، وشهادات — كله في مكان واحد.</span></p>
     </div>
-    <div class="portals">
-      <a class="portal po-en" href="english.html"><span class="po-em">🇬🇧</span><b><span class="en">English</span><span class="ar">الإنجليزي</span></b><small><span class="en">9 levels · 7 clubs</span><span class="ar">٩ مستويات · ٧ نوادي</span></small><i>→</i></a>
-      <a class="portal po-fr" href="french.html"><span class="po-em">🇫🇷</span><b><span class="en">Français</span><span class="ar">الفرنساوي</span></b><small><span class="en">6 levels · DELF</span><span class="ar">٦ مستويات · DELF</span></small><i>→</i></a>
-      <a class="portal po-it" href="tech.html"><span class="po-em">💻</span><b><span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></b><small><span class="en">39 courses · all ages</span><span class="ar">٣٩ كورس · كل الأعمار</span></small><i>→</i></a>
-    </div>
-    </div>
-  </div>
-  <div class="wrap">
-    <ul class="stats">
-      <li><b data-count="3">3</b><span class="en">schools</span><span class="ar">مجالات</span></li>
-      <li><b data-count="9">9</b><span class="en">English levels</span><span class="ar">مستويات إنجليزي</span></li>
-      <li><b data-count="6">6</b><span class="en">French levels</span><span class="ar">مستويات فرنساوي</span></li>
-      <li><b data-count="39">39</b><span class="en">tech courses</span><span class="ar">كورس برمجة و IT</span></li>
-      <li><b>CPD</b><span class="en">accredited</span><span class="ar">معتمدين</span></li>
-    </ul>
-  </div>
-</section>
-
-<section class="worlds" id="worlds">
-  <div class="wrap">
-    <div class="head reveal"><span class="tag"><span class="en">Our schools</span><span class="ar">مجالاتنا</span></span>
-      <h2><span class="en">Pick a world and step inside.</span><span class="ar">اختار عالم وادخل جوّاه.</span></h2>
-      <p><span class="en">Each school has its own courses, games and dashboard.</span><span class="ar">كل مجال ليه كورساته وألعابه ولوحة التحكم بتاعته.</span></p></div>
-    <div class="w-grid">
-      <article class="world en-c reveal">
-        <span class="w-em">🇬🇧</span><span class="w-tag">Code Cademy English</span>
-        <h3><span class="en">English you live, not just study.</span><span class="ar">إنجليزي تعيشه، مش بس تذاكره.</span></h3>
-        <ul>
-          <li><span class="en">9 levels with an exam that unlocks the next</span><span class="ar">٩ مستويات، وامتحان كل مستوى بيفتح اللي بعده</span></li>
-          <li><span class="en">7 clubs: phonics, reading, writing, grammar, speaking, conversation, cinema</span><span class="ar">٧ نوادي: صوتيات وقراءة وكتابة وقواعد وتحدث ومحادثة وسينما</span></li>
-          <li><span class="en">Live Zoom classes, a club library and a free level test</span><span class="ar">حصص Zoom لايف ومكتبة النوادي واختبار مستوى مجاني</span></li>
-          <li><span class="en">6 English games for every age</span><span class="ar">٦ ألعاب إنجليزي لكل الأعمار</span></li>
-        </ul>
-        <div class="w-btns"><a class="btn light" href="english.html"><span class="en">Enter English</span><span class="ar">ادخل الإنجليزي</span> →</a><a class="btn line" href="english.html?signin=1"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+    <div class="doors" id="worlds">
+      <article class="door d-en" tabindex="0">
+        <span class="glyph" aria-hidden="true">EN</span>
+        <div class="d-body">
+          <span class="d-em">🇬🇧</span>
+          <span class="d-tag">Code Cademy English</span>
+          <h3><span class="en">English you live.</span><span class="ar">إنجليزي تعيشه.</span></h3>
+          <p class="d-line"><span class="en">9 levels · 7 clubs · live Zoom</span><span class="ar">٩ مستويات · ٧ نوادي · Zoom لايف</span></p>
+          <ul class="d-list"><li><span class="en">Clubs: phonics to cinema</span><span class="ar">نوادي من الصوتيات للسينما</span></li><li><span class="en">Free level test</span><span class="ar">اختبار مستوى مجاني</span></li><li><span class="en">6 English games</span><span class="ar">٦ ألعاب إنجليزي</span></li></ul>
+          <div class="d-btns"><a class="d-go" href="english.html"><span class="en">Enter English</span><span class="ar">ادخل الإنجليزي</span> <i>→</i></a><a class="d-dash" href="english.html?signin=1">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+        </div>
       </article>
-      <article class="world fr-c reveal" data-i="1">
-        <span class="w-em">🥐</span><span class="w-tag">Le Club Français</span>
-        <h3><span class="en">Bonjour ! French, the Paris way.</span><span class="ar">Bonjour! فرنساوي على الطريقة الباريسية.</span></h3>
-        <ul>
-          <li><span class="en">Kids, teens, adults and DELF preparation</span><span class="ar">أطفال وشباب وكبار وتحضير DELF</span></li>
-          <li><span class="en">Talk with Coco at a Paris café</span><span class="ar">اتكلم مع كوكو في كافيه باريسي</span></li>
-          <li><span class="en">Pronunciation coach and a smart word notebook</span><span class="ar">مدرب نطق وكشكول كلمات ذكي</span></li>
-          <li><span class="en">A passport with a city stamp for every level</span><span class="ar">باسبور فيه ختم مدينة لكل مستوى</span></li>
-        </ul>
-        <div class="w-btns"><a class="btn dark" href="french.html"><span class="en">Entrer · French</span><span class="ar">ادخل الفرنساوي</span> →</a><a class="btn line" href="french-dashboard.html"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+      <article class="door d-fr" tabindex="0">
+        <span class="glyph" aria-hidden="true">FR</span>
+        <div class="d-body">
+          <span class="d-em">🇫🇷</span>
+          <span class="d-tag">Le Club Français</span>
+          <h3><span class="en">Bonjour, Paris.</span><span class="ar">Bonjour يا باريس.</span></h3>
+          <p class="d-line"><span class="en">Kids · Teens · Adults · DELF</span><span class="ar">أطفال · شباب · كبار · DELF</span></p>
+          <ul class="d-list"><li><span class="en">Café with Coco</span><span class="ar">كافيه مع كوكو</span></li><li><span class="en">Pronunciation coach</span><span class="ar">مدرب النطق</span></li><li><span class="en">A passport of city stamps</span><span class="ar">باسبور بأختام المدن</span></li></ul>
+          <div class="d-btns"><a class="d-go" href="french.html"><span class="en">Entrer · French</span><span class="ar">ادخل الفرنساوي</span> <i>→</i></a><a class="d-dash" href="french-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+        </div>
       </article>
-      <article class="world it-c reveal" data-i="2">
-        <span class="w-em">🤖</span><span class="w-tag">Coco Tech Lab</span>
-        <h3><span class="en">Programming &amp; IT for every age.</span><span class="ar">برمجة و IT لكل الأعمار.</span></h3>
-        <ul>
-          <li><span class="en">39 courses: kids coding, languages, web, IoT, IT, Office</span><span class="ar">٣٩ كورس: برمجة أطفال ولغات ومواقع وIoT وIT وOffice</span></li>
-          <li><span class="en">A one-minute explainer for every course</span><span class="ar">شرح في دقيقة لكل كورس</span></li>
-          <li><span class="en">Code exercises checked instantly and a shareable portfolio</span><span class="ar">تمارين كود بتتصحح فوراً ومعرض مشاريع</span></li>
-          <li><span class="en">A weekly challenge and 6 tech games</span><span class="ar">تحدي أسبوعي و٦ ألعاب تقنية</span></li>
-        </ul>
-        <div class="w-btns"><a class="btn light" href="tech.html"><span class="en">Enter the Tech Lab</span><span class="ar">ادخل البرمجة و IT</span> →</a><a class="btn line" href="tech-dashboard.html"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+      <article class="door d-it" tabindex="0">
+        <span class="glyph" aria-hidden="true">&lt;/&gt;</span>
+        <div class="d-body">
+          <span class="d-em">💻</span>
+          <span class="d-tag">Coco Tech Lab</span>
+          <h3><span class="en">Build the future.</span><span class="ar">ابني المستقبل.</span></h3>
+          <p class="d-line"><span class="en">39+ courses · kids to pros</span><span class="ar">+٣٩ كورس · من الأطفال للمحترفين</span></p>
+          <ul class="d-list"><li><span class="en">Coding, web, IoT, AI, Office</span><span class="ar">برمجة ومواقع وIoT وAI وOffice</span></li><li><span class="en">Code checked instantly</span><span class="ar">كود بيتصحح فوراً</span></li><li><span class="en">Ask Coco AI</span><span class="ar">اسأل كوكو AI</span></li></ul>
+          <div class="d-btns"><a class="d-go" href="tech.html"><span class="en">Enter the Tech Lab</span><span class="ar">ادخل البرمجة و IT</span> <i>→</i></a><a class="d-dash" href="tech-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
-<section class="about" id="about">
+<div class="ribbon" aria-hidden="true"><div class="r-track">
+  <span>Approved CPD Provider</span><span><span class="en">Live Zoom classes</span><span class="ar">حصص Zoom لايف</span></span><span><span class="en">Coco, the AI coach</span><span class="ar">كوكو المدرب الذكي</span></span><span><span class="en">Certificates with QR</span><span class="ar">شهادات عليها QR</span></span><span><span class="en">Students · Parents · Teachers</span><span class="ar">طلاب · أهالي · معلمين</span></span><span><span class="en">Games for every age</span><span class="ar">ألعاب لكل الأعمار</span></span>
+  <span>Approved CPD Provider</span><span><span class="en">Live Zoom classes</span><span class="ar">حصص Zoom لايف</span></span><span><span class="en">Coco, the AI coach</span><span class="ar">كوكو المدرب الذكي</span></span><span><span class="en">Certificates with QR</span><span class="ar">شهادات عليها QR</span></span><span><span class="en">Students · Parents · Teachers</span><span class="ar">طلاب · أهالي · معلمين</span></span><span><span class="en">Games for every age</span><span class="ar">ألعاب لكل الأعمار</span></span>
+</div></div>
+
+<section class="numbers">
+  <div class="wrap n-grid">
+    <div class="n reveal"><b data-count="3">3</b><span><span class="en">schools, one account</span><span class="ar">مجالات بحساب واحد</span></span></div>
+    <div class="n reveal" data-i="1"><b data-count="9">9</b><span><span class="en">English levels</span><span class="ar">مستويات إنجليزي</span></span></div>
+    <div class="n reveal" data-i="2"><b data-count="6">6</b><span><span class="en">French levels</span><span class="ar">مستويات فرنساوي</span></span></div>
+    <div class="n reveal" data-i="3"><b data-count="39" data-suffix="+">39+</b><span><span class="en">tech courses</span><span class="ar">كورس برمجة و IT</span></span></div>
+  </div>
+</section>
+
+<section class="way" id="way">
   <div class="wrap">
-    <div class="head reveal"><span class="tag"><span class="en">How we teach</span><span class="ar">إزاي بنعلّم</span></span>
-      <h2><span class="en">Real teachers. Smart tools. Visible progress.</span><span class="ar">مدرسين حقيقيين. أدوات ذكية. تقدّم واضح.</span></h2></div>
-    <div class="f-grid">
-      <div class="feat reveal"><i>🎥</i><h3><span class="en">Live classes</span><span class="ar">حصص لايف</span></h3><p><span class="en">Small groups on Zoom with real teachers, from home.</span><span class="ar">مجموعات صغيرة على Zoom مع مدرسين حقيقيين من البيت.</span></p></div>
-      <div class="feat reveal" data-i="1"><i>🤖</i><h3><span class="en">Coco, the AI coach</span><span class="ar">كوكو المدرب الذكي</span></h3><p><span class="en">Explains lessons, makes worksheets and practises with you any time.</span><span class="ar">بيشرح الدروس ويعمل أوراق شغل ويتمرن معاك في أي وقت.</span></p></div>
-      <div class="feat reveal" data-i="2"><i>🎮</i><h3><span class="en">Games for every age</span><span class="ar">ألعاب لكل الأعمار</span></h3><p><span class="en">Every school has its own games: learning feels like playing.</span><span class="ar">كل مجال ليه ألعابه — التعلم يبقى زي اللعب.</span></p></div>
-      <div class="feat reveal"><i>📊</i><h3><span class="en">Three dashboards</span><span class="ar">لوحات تحكم</span></h3><p><span class="en">Students see their path, parents follow progress, teachers mark and message.</span><span class="ar">الطالب يشوف طريقه، وولي الأمر يتابع، والمعلم يصحح ويراسل.</span></p></div>
-      <div class="feat reveal" data-i="1"><i>💬</i><h3><span class="en">Messages</span><span class="ar">رسايل</span></h3><p><span class="en">One conversation between the student, the parents and the teachers.</span><span class="ar">محادثة واحدة بين الطالب وأهله والمعلمين.</span></p></div>
-      <div class="feat reveal" data-i="2"><i>🎓</i><h3><span class="en">Certificates</span><span class="ar">شهادات</span></h3><p><span class="en">A certificate for every level and course, with a QR code anyone can check.</span><span class="ar">شهادة لكل مستوى وكورس، عليها QR أي حد يقدر يتأكد منه.</span></p></div>
+    <div class="head reveal"><span class="kick"><span class="en">The Code Cademy way</span><span class="ar">طريقة Code Cademy</span></span>
+      <h2><span class="en">Learning that feels <em>alive</em>.</span><span class="ar">تعليم <em>بروح</em>.</span></h2></div>
+    <div class="bento">
+      <div class="tile t-big reveal"><i>🎥</i><h3><span class="en">Live classes, real teachers</span><span class="ar">حصص لايف ومدرسين حقيقيين</span></h3><p><span class="en">Small groups on Zoom, from home. Every student is seen, heard and corrected.</span><span class="ar">مجموعات صغيرة على Zoom من البيت. كل طالب بيتشاف ويتسمع ويتصحح له.</span></p><span class="t-art" aria-hidden="true"><b></b><b></b><b></b><b></b></span></div>
+      <div class="tile t-ai reveal" data-i="1"><i>🤖</i><h3><span class="en">Coco, the AI coach</span><span class="ar">كوكو المدرب الذكي</span></h3><p><span class="en">Explains, quizzes and practises with you any time.</span><span class="ar">بيشرح ويمتحن ويتمرن معاك في أي وقت.</span></p></div>
+      <div class="tile reveal" data-i="2"><i>🎮</i><h3><span class="en">Games for every age</span><span class="ar">ألعاب لكل الأعمار</span></h3><p><span class="en">Each school has its own games.</span><span class="ar">كل مجال ليه ألعابه.</span></p></div>
+      <div class="tile reveal"><i>📊</i><h3><span class="en">Dashboards</span><span class="ar">لوحات تحكم</span></h3><p><span class="en">Path, tasks, marks and streaks at a glance.</span><span class="ar">الطريق والمهام والدرجات في نظرة.</span></p></div>
+      <div class="tile t-conv reveal" data-i="1"><i>💬</i><h3><span class="en">One conversation</span><span class="ar">محادثة واحدة</span></h3><p><span class="en">Student, parents and teachers together.</span><span class="ar">الطالب وأهله والمعلمين مع بعض.</span></p></div>
+      <div class="tile t-wide reveal" data-i="2"><i>🎓</i><h3><span class="en">Certificates you can verify</span><span class="ar">شهادات تقدر تتأكد منها</span></h3><p><span class="en">A certificate for every level and course, with a QR code anyone can scan.</span><span class="ar">شهادة لكل مستوى وكورس، عليها QR أي حد يمسحه ويتأكد.</span></p></div>
     </div>
   </div>
 </section>
 
 <section class="certs" id="certs">
   <div class="wrap cert-grid">
-    <a class="cert-img reveal" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener" aria-label="View the accreditation certificate (PDF)">
+    <a class="cert-frame reveal" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener" aria-label="View the accreditation certificate (PDF)">
       <img loading="lazy" decoding="async" src="assets/img/cpd-accreditation.webp" width="900" height="636" alt="Code Cademy — Approved CPD Provider certificate">
+      <span class="c-shine" aria-hidden="true"></span>
     </a>
     <div class="cert-copy reveal" data-i="1">
-      <span class="tag"><span class="en">CPD accredited</span><span class="ar">معتمدين من CPD</span></span>
-      <h2><span class="en">An Approved CPD Provider.</span><span class="ar">مقدّم معتمد من CPD.</span></h2>
+      <span class="kick"><span class="en">Accredited</span><span class="ar">معتمدين</span></span>
+      <h2><span class="en">An Approved <em>CPD</em> Provider.</span><span class="ar">مقدّم <em>معتمد</em> من CPD.</span></h2>
       <p><span class="en">Code Cademy is an Approved CPD Provider and a member of CPD Accreditation International.</span><span class="ar">Code Cademy مقدّم معتمد من CPD وعضو في CPD Accreditation International.</span></p>
-      <ul class="facts">
-        <li><small><span class="en">Provider No.</span><span class="ar">رقم المقدّم</span></small><b>CPD-10020</b></li>
-        <li><small><span class="en">Since</span><span class="ar">من</span></small><b>28 Oct 2026</b></li>
-        <li><small><span class="en">Valid until</span><span class="ar">صالحة حتى</span></small><b>28 Oct 2027</b></li>
-      </ul>
-      <div class="c-list">
-        <div><i>🇬🇧</i><span class="en">A certificate for every English level passed</span><span class="ar">شهادة لكل مستوى إنجليزي بتعدّيه</span></div>
-        <div><i>🇫🇷</i><span class="en">French certificates and DELF preparation</span><span class="ar">شهادات فرنساوي وتحضير DELF</span></div>
-        <div><i>💻</i><span class="en">Tech Lab certificates with a QR check</span><span class="ar">شهادات البرمجة و IT عليها QR للتأكد</span></div>
-      </div>
-      <a class="btn dark" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener"><span class="en">View the certificate</span><span class="ar">شوف الشهادة</span></a>
+      <dl class="facts"><div><dt><span class="en">Provider No.</span><span class="ar">رقم المقدّم</span></dt><dd>CPD-10020</dd></div><div><dt><span class="en">Since</span><span class="ar">من</span></dt><dd>28 Oct 2026</dd></div><div><dt><span class="en">Valid until</span><span class="ar">صالحة حتى</span></dt><dd>28 Oct 2027</dd></div></dl>
+      <a class="btn gold" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener"><span class="en">View the certificate</span><span class="ar">شوف الشهادة</span> →</a>
     </div>
   </div>
 </section>
 
-<section class="dash" id="dashboards">
+<section class="roles">
   <div class="wrap">
-    <div class="dash-box reveal">
-      <div><span class="tag light"><span class="en">Students · Parents · Teachers</span><span class="ar">طلاب · أولياء أمور · معلمين</span></span>
-        <h2><span class="en">Already with us? Open your dashboard.</span><span class="ar">معانا بالفعل؟ افتح لوحة التحكم.</span></h2>
-        <p><span class="en">One phone number and password for every school.</span><span class="ar">رقم موبايل وباسورد واحد لكل المجالات.</span></p></div>
-      <div class="d-btns">
-        <a href="english.html?signin=1"><i>🇬🇧</i><span class="en">English</span><span class="ar">الإنجليزي</span></a>
-        <a href="french-dashboard.html"><i>🇫🇷</i><span class="en">Français</span><span class="ar">الفرنساوي</span></a>
-        <a href="tech-dashboard.html"><i>💻</i><span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a>
-      </div>
+    <div class="head reveal"><span class="kick"><span class="en">Made for everyone</span><span class="ar">معمول للكل</span></span><h2><span class="en">Your own space, in every school.</span><span class="ar">مساحتك الخاصة في كل مجال.</span></h2></div>
+    <div class="r-grid">
+      <div class="role reveal"><span class="r-em">🧑‍🎓</span><h3><span class="en">Students</span><span class="ar">الطلاب</span></h3><p><span class="en">A clear path, tasks, games, streaks and certificates.</span><span class="ar">طريق واضح ومهام وألعاب وسلسلة أيام وشهادات.</span></p></div>
+      <div class="role reveal" data-i="1"><span class="r-em">👨‍👩‍👧</span><h3><span class="en">Parents</span><span class="ar">أولياء الأمور</span></h3><p><span class="en">Follow progress, marks and messages for every child.</span><span class="ar">تابع التقدم والدرجات والرسايل لكل ابن.</span></p></div>
+      <div class="role reveal" data-i="2"><span class="r-em">👩‍🏫</span><h3><span class="en">Teachers</span><span class="ar">المعلمين</span></h3><p><span class="en">Publish tasks, mark work, announce courses and reply.</span><span class="ar">انشر مهام وصحح وأعلن عن كورسات ورد على الرسايل.</span></p></div>
     </div>
+    <div class="d-pick reveal">
+      <a href="english.html?signin=1"><i>🇬🇧</i><span class="en">English dashboard</span><span class="ar">لوحة الإنجليزي</span></a>
+      <a href="french-dashboard.html"><i>🇫🇷</i><span class="en">French dashboard</span><span class="ar">لوحة الفرنساوي</span></a>
+      <a href="tech-dashboard.html"><i>💻</i><span class="en">Tech Lab dashboard</span><span class="ar">لوحة البرمجة و IT</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap final-box reveal">
+    <h2><span class="en">Your first class is <em>free</em>.</span><span class="ar">أول حصة <em>ببلاش</em>.</span></h2>
+    <p><span class="en">Tell us the age and the goal. We will match the right school, group and teacher.</span><span class="ar">قولنا السن والهدف، وإحنا نختار المجال والمجموعة والمدرس المناسبين.</span></p>
+    <a class="btn gold big" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 <span class="en">Book on WhatsApp</span><span class="ar">احجز على واتساب</span></a>
   </div>
 </section>
 
 <footer class="foot" id="contact">
   <div class="wrap foot-grid">
-    <div><img src="assets/img/logo.jpg" alt="Code Cademy" class="foot-logo"><p><span class="en">Learn. Build. Grow.</span><span class="ar">اتعلم. ابني. اكبر.</span></p></div>
+    <div class="f-brand"><img src="assets/img/logo.jpg" alt="Code Cademy"><b>Code Cademy</b><p><span class="en">Learn. Build. Grow.</span><span class="ar">اتعلم. ابني. اكبر.</span></p></div>
     <div><h4><span class="en">Schools</span><span class="ar">المجالات</span></h4><a href="english.html">🇬🇧 <span class="en">English</span><span class="ar">الإنجليزي</span></a><a href="french.html">🇫🇷 <span class="en">Français</span><span class="ar">الفرنساوي</span></a><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></div>
     <div><h4><span class="en">Start</span><span class="ar">ابدأ</span></h4><a href="english.html#level-test"><span class="en">Free English level test</span><span class="ar">اختبار مستوى إنجليزي مجاني</span></a><a href="english.html#plans"><span class="en">English plans</span><span class="ar">باقات الإنجليزي</span></a><a href="#certs"><span class="en">Certificates</span><span class="ar">الشهادات</span></a></div>
-    <div><h4><span class="en">Contact</span><span class="ar">تواصل معانا</span></h4><a href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 WhatsApp</a><a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">📷 Instagram</a></div>
+    <div><h4><span class="en">Contact</span><span class="ar">تواصل معانا</span></h4><a href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 WhatsApp</a><a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">📷 Instagram</a></div>
   </div>
   <div class="wrap foot-bottom">
     <span>© 2026 Code Cademy · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="terms.html#refunds">Refunds</a></span>
@@ -214,21 +202,27 @@
     const toAr = html.lang !== 'ar'; html.lang = toAr ? 'ar' : 'en'; html.dir = toAr ? 'rtl' : 'ltr';
     try{ localStorage.setItem('cc_ui_lang', toAr ? 'ar' : 'en'); }catch(e){}
   });
-  // sign-in menu: one dashboard per school
   const sb = document.getElementById('signBtn'), sm = document.getElementById('signMenu');
   sb.addEventListener('click', function(e){ e.stopPropagation(); const open = sm.hidden; sm.hidden = !open; sb.setAttribute('aria-expanded', String(open)); });
   document.addEventListener('click', function(e){ if(!sm.hidden && !e.target.closest('.dd')){ sm.hidden = true; sb.setAttribute('aria-expanded', 'false'); } });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !sm.hidden){ sm.hidden = true; sb.setAttribute('aria-expanded', 'false'); sb.focus(); } });
-  // mobile menu
   const bg = document.getElementById('burger'), links = document.getElementById('links');
   bg.addEventListener('click', function(){ const open = !links.classList.contains('open'); links.classList.toggle('open', open); bg.setAttribute('aria-expanded', String(open)); });
   links.addEventListener('click', function(e){ if(e.target.closest('a')){ links.classList.remove('open'); bg.setAttribute('aria-expanded', 'false'); } });
-  // reveal on scroll, scroll progress, shadow under the header
-  const io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); if(window.ccFx) ccFx.countUp(en.target); } }); }, { threshold: .12 }) : null;
-  document.querySelectorAll('.reveal, .stats').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); });
+  // the doors: the one under the pointer (or focused) opens wide
+  const doors = Array.prototype.slice.call(document.querySelectorAll('.door'));
+  function openDoor(d){ doors.forEach(function(x){ x.classList.toggle('open', x === d); }); }
+  doors.forEach(function(d){ d.addEventListener('pointerenter', function(){ openDoor(d); }); d.addEventListener('focusin', function(){ openDoor(d); });
+    d.addEventListener('click', function(e){ if(!e.target.closest('a') && !d.classList.contains('open')) openDoor(d); }); });
+  openDoor(doors[0]);
+  // light that follows the pointer in a door
+  doors.forEach(function(d){ d.addEventListener('pointermove', function(e){ const r = d.getBoundingClientRect(); d.style.setProperty('--mx', (e.clientX - r.left) + 'px'); d.style.setProperty('--my', (e.clientY - r.top) + 'px'); }); });
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); if(window.ccFx) ccFx.countUp(en.target); } }); }, { threshold: .15 }) : null;
+  document.querySelectorAll('.reveal').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); });
   const bar = document.getElementById('scrollProg'), nav = document.getElementById('nav');
-  window.addEventListener('scroll', function(){ const d = document.documentElement; bar.style.transform = 'scaleX(' + (d.scrollTop / Math.max(1, d.scrollHeight - d.clientHeight)) + ')'; nav.classList.toggle('shadow', d.scrollTop > 10); }, { passive: true });
-  window.addEventListener('load', function(){ if(window.ccFx) ccFx.tilt('.world, .feat'); });
+  function onScroll(){ const d = document.documentElement; bar.style.transform = 'scaleX(' + (d.scrollTop / Math.max(1, d.scrollHeight - d.clientHeight)) + ')'; nav.classList.toggle('solid', d.scrollTop > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  window.addEventListener('load', function(){ if(window.ccFx) ccFx.tilt('.cert-frame, .role, .tile'); });
 })();
 </script>
 </body>
