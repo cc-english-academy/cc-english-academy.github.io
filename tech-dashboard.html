@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coco Tech Lab — لوحة التحكم</title>
+<meta name="description" content="Coco Tech Lab dashboard for students, parents and teachers — Code Cademy Academy.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#140d26">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<script>
+(function(){ var l = null; try{ l = localStorage.getItem('cc_lang'); }catch(e){}
+  if(l === 'en'){ document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr'; } })();
+</script>
+<link rel="stylesheet" href="assets/css/track.css?v=0e087bf3">
+</head>
+<body data-track="tech">
+<header class="top"><div class="in">
+  <a class="brand" href="tech.html"><img src="assets/img/logo.jpg" alt=""><span><b>Coco Tech Lab</b><small>Code Cademy Academy</small></span></a>
+  <span class="sp"></span>
+  <span class="who" id="who"></span>
+  <a class="tbtn" id="backLink" href="tech.html"></a>
+  <button class="tbtn" id="langBtn" type="button"></button>
+  <button class="tbtn" id="signOut" type="button" hidden></button>
+</div></header>
+<div class="app"><nav class="tabs" id="tabs" hidden aria-label="Dashboard"></nav><main id="main"><div class="loading">⏳</div></main></div>
+<dialog id="modal"><div id="modalBody"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script defer src="assets/js/track.js?v=dbbe8f1d"></script>
+</body>
+</html>

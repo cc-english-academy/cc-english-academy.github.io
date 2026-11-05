@@ -48,6 +48,13 @@ Supabase Storage keys must be plain ASCII. File names such as
 The site now stores files under a safe key (`Conversation_Club/Beginner_A1-A2/<time>_<rand>_<name>.pdf`)
 and keeps the original name in `materials.file_name`, which is used as the download file name.
 
+## Tech Lab & French dashboards (`tech-dashboard.html`, `french-dashboard.html`)
+Separate from the English levels and clubs; same accounts (phone sign-in). Run `supabase/schema.sql` again once to add section 7.
+- **Students (Tech):** skill map of their tasks, code exercises run in the browser (JavaScript, Python) and checked against a hidden expected output, daily 🔥 challenge and streak, badges, skills radar, a shareable portfolio (`?portfolio=<id>`), monthly ranking, certificates with a QR code (`?verify=<id>`).
+- **Students (French):** passport with a city stamp per level, 🥐 5-minutes-a-day practice, word notebook with spaced repetition, pronunciation score (Chrome speech recognition), voice tasks, DELF readiness meter.
+- **Teachers:** activate paid requests (bank receipt / WhatsApp), publish projects, code exercises, quizzes and DELF mocks (answers kept hidden), voice tasks and live-class links; a board to mark work (drag between columns), skills radar per student, French sounds heat map, stamps, levels and certificates. The admin sets each track's price.
+- **Parents:** streak, points, marks and feedback, radar / passport and DELF meter for each linked child.
+
 ## Features
 - Roles: student / parent sign up themselves; teachers sign up as applicants and the admin approves them (Users & roles); admin is granted only by an admin
 - 9 levels (Level 1 … Level 9); each level opens after passing the exam of the one before
