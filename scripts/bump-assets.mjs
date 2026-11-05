@@ -6,8 +6,10 @@ import { createHash } from 'node:crypto';
 
 const pages = {
   'index.html': ['assets/css/site.css', 'assets/js/app.js', 'assets/js/lang.js'],
-  'tech-dashboard.html': ['assets/css/track.css', 'assets/js/track.js'],
-  'french-dashboard.html': ['assets/css/track.css', 'assets/js/track.js']
+  'tech-dashboard.html': ['assets/css/track.css', 'assets/js/fx.js', 'assets/js/track.js'],
+  'french-dashboard.html': ['assets/css/track.css', 'assets/js/fx.js', 'assets/js/track.js'],
+  'tech.html': ['assets/js/fx.js'],
+  'french.html': ['assets/js/fx.js']
 };
 for (const [page, files] of Object.entries(pages)) {
   let html = readFileSync(page, 'utf8');

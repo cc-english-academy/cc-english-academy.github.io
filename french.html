@@ -143,6 +143,12 @@ html[dir="rtl"] .bub.me{align-self:flex-start}
 @media(max-width:900px){.cult{grid-template-columns:1fr 1fr}}
 @media(max-width:460px){.cult{grid-template-columns:1fr}}
 
+.tr{position:relative}
+.tr.hot{outline:2.5px solid #c9a227;outline-offset:3px}
+.tr.soon{opacity:.85}
+.tr .ribbon{position:absolute;top:10px;inset-inline-end:-6px;background:#c9a227;color:#3e0f1b;font:800 .74rem Inter,Cairo,sans-serif;padding:3px 10px;border-radius:8px 0 0 8px}
+html[dir=rtl] .tr .ribbon{border-radius:0 8px 8px 0}
+.tr .soon-pill,.tr .tnote{display:inline-block;margin-top:8px;background:#fbefe3;color:#3e0f1b;border-radius:99px;padding:3px 10px;font-weight:700;font-size:.78rem}
 .join{background:linear-gradient(120deg,var(--deep),var(--navy));color:#fff;border-radius:30px;padding:38px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 .join h2{font-size:clamp(1.6rem,3vw,2.3rem)}
 .join p{opacity:.85;margin:6px 0 0}
@@ -151,6 +157,7 @@ html[dir="rtl"] .bub.me{align-self:flex-start}
 footer{text-align:center;color:var(--muted);font-size:.82rem;padding:30px 20px 50px}
 footer a{color:var(--maroon)}
 </style>
+<script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 </head>
 <body>
 
@@ -326,6 +333,12 @@ footer a{color:var(--maroon)}
     ['Intermédiaire', 'Intermediate', 'المتوسط', 'Share opinions, plan a trip', 'تقول رأيك وتخطط لرحلة'],
     ['Avancé', 'Upper-intermediate', 'فوق المتوسط', 'Debate, write emails, films', 'تناقش وتكتب إيميلات وتفهم الأفلام'],
     ['Expert', 'Advanced', 'المتقدم', 'Speak naturally, DELF B2+', 'تتكلم بطلاقة — DELF B2 وأعلى']];
+  const TRACK_IDS = ['kids', 'teens', 'adults', 'delf'];
+  let FCFG = {};
+  try{
+    fetch('https://orpknmkgfwmtroiqljzp.supabase.co/rest/v1/track_courses?track=eq.french&select=course,status,announce,note', { headers: { apikey: 'sb_publishable_x7AQ0xQl8qqOH3iDKqxddg_-7fbStUh' } })
+      .then(function(r){ return r.ok ? r.json() : []; }).then(function(rows){ FCFG = {}; (rows || []).forEach(function(x){ FCFG[x.course] = x; }); if(typeof render === 'function') render(); }).catch(function(){});
+  }catch(e){}
   const TRACKS = [
     ['#c8243c', '🧸', 'Enfants · 6–12', 'Kids · 6–12', 'الأطفال · ٦–١٢', 'Songs, games and stories in French.', 'أغاني وألعاب وقصص بالفرنساوي.'],
     ['#1f3a6e', '🎒', 'Ados · 13–17', 'Teens · 13–17', 'الشباب · ١٣–١٧', 'School French made easy, plus fun projects.', 'فرنساوي المدرسة بسهولة، ومشاريع ممتعة.'],
@@ -384,8 +397,11 @@ footer a{color:var(--maroon)}
     document.getElementById('levelList').innerHTML = LEVELS.map(function(l, i){
       return '<div class="lv"><div class="n">' + (i + 1) + '</div><b class="fr">Niveau ' + (i + 1) + ' · ' + esc(l[0]) + '</b><span>' + esc(T(l[3], l[4])) + '</span></div>';
     }).join('');
-    document.getElementById('trackList').innerHTML = TRACKS.map(function(k){
-      return '<div class="tr" style="--c:' + k[0] + '"><span class="em">' + k[1] + '</span><h3>' + esc(T(k[3], k[4])) + '</h3><p>' + esc(T(k[5], k[6])) + '</p></div>';
+    document.getElementById('trackList').innerHTML = TRACKS.map(function(k, i){
+      const f = FCFG[TRACK_IDS[i]] || {};
+      if(f.status === 'hidden') return '';
+      return '<div class="tr' + (f.announce ? ' hot' : '') + (f.status === 'soon' ? ' soon' : '') + '" style="--c:' + k[0] + '">' + (f.announce ? '<span class="ribbon">📣 ' + esc(T('New', 'جديد')) + '</span>' : '') + '<span class="em">' + k[1] + '</span><h3>' + esc(T(k[3], k[4])) + '</h3><p>' + esc(T(k[5], k[6])) + '</p>' +
+        (f.status === 'soon' ? '<small class="soon-pill">⏳ ' + esc(T('Coming soon', 'قريباً')) + '</small>' : '') + (f.note && (f.announce || f.status === 'soon') ? '<small class="tnote">📣 ' + esc(f.note) + '</small>' : '') + '</div>';
     }).join('');
     document.getElementById('sceneBtns').innerHTML = Object.keys(SCENES).map(function(k){
       return '<button type="button" data-scene="' + k + '" class="' + (k === scene ? 'on' : '') + '">' + SCENES[k].icon + ' <span class="fr">' + SCENES[k].name[0] + '</span> · ' + esc(SCENES[k].name[1]) + '</button>';
@@ -422,7 +438,7 @@ footer a{color:var(--maroon)}
     const s = SCENES[scene], tn = s.turns[turn], o = tn.opts[i];
     box.remove();
     bubble('bub me', '<div class="l1 fr">' + esc(o[0]) + '</div>');
-    if(o[1] === 'best'){ stars++; bubble('bub coco', '<div class="l1">✅ ' + esc(T('Parfait !', 'Parfait ! ممتاز!')) + '</div>'); }
+    if(o[1] === 'best'){ stars++; if(window.ccFx) ccFx.confetti({ n: 50, emoji: ['🥐', '⭐'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); bubble('bub coco', '<div class="l1">✅ ' + esc(T('Parfait !', 'Parfait ! ممتاز!')) + '</div>'); }
     else bubble('fix', '<b>' + (o[1] === 'ok' ? '👍 ' + esc(T('Good! Even better:', 'كويس! والأحلى:')) : '✏️ ' + esc(T('Say it like this:', 'قولها كده:'))) + '</b><span class="fr" style="font-size:1.05rem">' + esc(o[2]) + '</span> <button type="button" class="mini" data-say="' + esc(o[2]) + '">🔊</button><br><span>' + esc(o[3]) + '</span>');
     turn++;
     setTimeout(function(){
@@ -453,6 +469,7 @@ footer a{color:var(--maroon)}
       const spans = document.querySelectorAll('#sayTarget span'); let ok = 0;
       spans.forEach(function(sp){ const w = norm(sp.textContent.replace(/’/g, "'")); const hit = !w || heard.indexOf(w) !== -1; sp.className = hit ? 'ok' : 'miss'; if(hit) ok++; });
       const pct = Math.round(ok * 100 / spans.length);
+      if(pct >= 90 && window.ccFx) ccFx.confetti({ emoji: ['🌟', '🇫🇷'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] });
       document.getElementById('sayScore').textContent = (pct >= 90 ? '🌟 ' + T('Magnifique ! ', 'Magnifique ! رائع! ') : pct >= 60 ? '👍 ' + T('Très bien! Try the red words again. ', 'Très bien! جرّب الكلمات الحمرا تاني. ') : '💪 ' + T('Listen once more, then try slowly. ', 'اسمع تاني وجرّب ببطء. ')) + pct + '%';
     };
     rec.onerror = function(){ document.getElementById('sayScore').textContent = T('Allow the microphone, then try again.', 'اسمح بالمايك وجرّب تاني.'); };
