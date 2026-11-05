@@ -2248,3 +2248,77 @@ html[dir="rtl"] .ctopics button:hover{transform:translateX(-3px);}
 }
 /* looping animations rest while their section is off screen (app.js adds .offscreen) */
 .offscreen, .offscreen *, .offscreen *::before, .offscreen *::after{animation-play-state:paused !important;}
+/* ===== one academy, three worlds ===== */
+.more-grid.three{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.more-grid.three{grid-template-columns:1fr}}
+.more-card.en{color:#fff;background:radial-gradient(420px 240px at 100% 0,#9b2c45,transparent 60%),radial-gradient(380px 240px at 0 100%,#2D8C79,transparent 60%),var(--maroon-deep);box-shadow:0 30px 50px -30px rgba(62,15,27,.8)}
+.more-card.en .more-go{color:var(--cyan)}
+.more-card.en .more-tag{color:#ffd9df}
+/* ===== English games ===== */
+.en-games{padding:70px 0}
+.eg{background:#fff;border:1px solid var(--line);border-radius:30px;padding:26px;box-shadow:0 30px 60px -44px rgba(62,15,27,.55)}
+.eg-top{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.eg-top .kicker{margin-bottom:4px}
+.eg-top h2{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.3rem);margin:0;color:var(--maroon-deep)}
+.eg-top p{margin:4px 0 0;color:#6d5a5e}
+.eg-stars{font-weight:800;background:#fff6d6;border:1.5px solid #f0c44a;border-radius:999px;padding:8px 16px;white-space:nowrap}
+.eg-stars small{color:#7a6a5c;font-weight:700}
+.eg-stars.lvlup{animation:egLvl 1s}
+@keyframes egLvl{30%{transform:scale(1.25) rotate(-4deg)}60%{transform:scale(.95)}}
+.eg-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:900px){.eg-tabs{grid-template-columns:repeat(3,1fr)}}
+.eg-tabs button{border:1.5px solid var(--line);background:var(--paper);border-radius:18px;padding:12px 6px;cursor:pointer;font-family:inherit;color:var(--ink);text-align:center;transition:transform .15s,box-shadow .15s}
+.eg-tabs button:hover{transform:translateY(-3px);box-shadow:0 14px 24px -18px rgba(62,15,27,.6)}
+.eg-tabs .ic{display:block;font-size:1.7rem;line-height:1.2}
+.eg-tabs b{display:block;font-size:.9rem;line-height:1.25}
+.eg-tabs small{display:inline-block;margin-top:5px;background:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;color:#7a6a5c;font-weight:700}
+.eg-tabs button.on{border-color:var(--maroon);background:var(--maroon);color:#fff}
+.eg-tabs button.on small{color:var(--maroon)}
+.eg-stage{background:linear-gradient(180deg,var(--peach-soft),#fff);border-radius:22px;padding:22px;min-height:280px}
+.eg-stage h3{margin:0 0 4px;font-size:1.25rem;color:var(--maroon-deep)}
+.eg-stage .hint{margin:0 0 14px;color:#6d5a5e;font-size:.92rem}
+.eg-big{font-size:5rem;text-align:center;line-height:1.1;margin:6px 0 10px;animation:egPop .4s}
+@keyframes egPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.eg-opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.eg-opts.col{flex-direction:column;align-items:stretch}
+.eg-opts button{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:11px 16px;font:600 1rem var(--sans);cursor:pointer;color:var(--ink);text-align:start;transition:transform .12s}
+html[lang=ar] .eg-opts button.en-txt{direction:ltr;text-align:left}
+.eg-opts button:hover{border-color:var(--maroon);transform:translateY(-1px)}
+.eg-opts button.ok{background:#dcfbe9;border-color:#2fbf71}
+.eg-opts button.no{background:#ffe3e8;border-color:#ff6f8a}
+.eg-sent{font:600 1.25rem var(--sans);text-align:center;direction:ltr;background:#fff;border-radius:16px;padding:14px;margin-bottom:12px}
+.eg-sent u{text-decoration:none;border-bottom:3px dashed var(--maroon);padding:0 10px;color:var(--maroon)}
+.eg-tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:ltr;margin:10px 0}
+.eg-tile{width:48px;height:52px;border-radius:12px;border:0;background:var(--maroon);color:#fff;font:800 1.35rem var(--sans);cursor:pointer;box-shadow:0 5px 0 var(--maroon-deep);transition:transform .1s}
+.eg-tile:active{transform:translateY(3px);box-shadow:0 2px 0 var(--maroon-deep)}
+.eg-tile:disabled{opacity:.25;cursor:default}
+.eg-slots{display:flex;gap:6px;justify-content:center;direction:ltr;flex-wrap:wrap;min-height:56px}
+.eg-slots span{width:44px;height:52px;border-radius:12px;border:2px dashed rgba(92,26,40,.3);display:grid;place-items:center;font:800 1.35rem var(--sans);color:var(--maroon-deep);background:#fff}
+.eg-slots.good span{border:2px solid #2fbf71;background:#effcf4}
+.eg-slots.bad span{border:2px solid #ff6f8a;background:#fff3f5;animation:egShake .4s}
+@keyframes egShake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.eg-input{display:flex;gap:8px;max-width:420px;margin:10px auto}
+.eg-input input{flex:1;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;font:600 1.1rem var(--sans);direction:ltr;text-align:center}
+.eg-btn{border:0;border-radius:14px;padding:11px 18px;font:700 .95rem var(--sans);cursor:pointer;background:var(--maroon);color:#fff}
+.eg-btn.ghost{background:#fff;color:var(--maroon-deep);border:1.5px solid var(--line)}
+.eg-btn.listen{font-size:1.6rem;padding:14px 22px;border-radius:999px;display:block;margin:6px auto;animation:egPulse 2s infinite}
+@keyframes egPulse{0%{box-shadow:0 0 0 0 rgba(92,26,40,.35)}100%{box-shadow:0 0 0 18px transparent}}
+.eg-msg{min-height:1.4em;font-weight:700;margin:12px 0 0;text-align:center}
+.eg-foot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.eg-diff{display:flex;gap:6px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.eg-diff button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px;cursor:pointer;font:700 .88rem var(--sans)}
+.eg-diff button.on{background:var(--maroon-deep);color:#fff;border-color:var(--maroon-deep)}
+.eg-phrase{font:700 1.6rem var(--serif);text-align:center;color:var(--maroon-deep);margin:4px 0;direction:ltr}
+.eg-ex{text-align:center;color:#6d5a5e;font-style:italic;direction:ltr;margin:0 0 12px}
+@media(max-width:520px){.eg{padding:16px;border-radius:22px}.eg-stage{padding:16px}.eg-tabs b{font-size:.8rem}.eg-tile{width:40px;height:46px;font-size:1.15rem}.eg-slots span{width:38px;height:46px}.eg-big{font-size:4rem}}
+@media(prefers-reduced-motion:reduce){.eg-big,.eg-btn.listen,.eg-slots.bad span{animation:none}}
+/* small phones: keep the header inside the screen */
+@media(max-width:420px){
+  .nav-inner{gap:8px}
+  .brand{gap:8px}
+  .brand img{height:32px}
+  .brand span{font-size:1.02rem}
+  .nav-actions{gap:5px}
+  .lang-btn{padding:6px 9px}
+  .lang-btn .globe{display:none}
+}

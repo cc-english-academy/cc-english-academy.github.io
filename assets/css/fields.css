@@ -1,0 +1,16 @@
+/* The academy's three schools, one bar on every page: English · Français · Tech Lab */
+.fields-bar{background:#14171c;color:#fff;font-family:Inter,Cairo,system-ui,sans-serif;position:relative;z-index:60}
+html[lang=ar] .fields-bar{font-family:Cairo,Inter,system-ui,sans-serif}
+.fb-in{max-width:1240px;margin:0 auto;padding:6px 16px;display:flex;align-items:center;gap:14px}
+.fb-home{display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:800;font-size:.82rem;white-space:nowrap;opacity:.92}
+.fb-home img{width:24px;height:24px;border-radius:7px;object-fit:cover;background:#fff}
+.fb-tabs{display:flex;gap:6px;margin-inline-start:auto;overflow-x:auto;scrollbar-width:none}
+.fb-tabs::-webkit-scrollbar{display:none}
+.fb-tab{--c:#5FE0C8;position:relative;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;color:#e8e6ee;text-decoration:none;font-weight:700;font-size:.82rem;white-space:nowrap;border:1px solid rgba(255,255,255,.14);transition:background .2s,border-color .2s,transform .2s}
+.fb-tab i{font-style:normal}
+.fb-tab:hover{background:rgba(255,255,255,.08);transform:translateY(-1px)}
+.fb-tab.en-t{--c:#e0607a} .fb-tab.fr-t{--c:#c9a227} .fb-tab.it-t{--c:#7c5cff}
+.fb-tab.on{background:var(--c);border-color:var(--c);color:#fff;box-shadow:0 6px 16px -8px var(--c)}
+.fb-tab.fr-t.on{color:#2a1218}
+.fb-ar{display:none} html[lang=ar] .fb-ar{display:inline} html[lang=ar] .fb-en{display:none}
+@media(max-width:520px){.fb-home span{display:none}.fb-tab{padding:5px 10px;font-size:.78rem}.fb-in{gap:8px}}
