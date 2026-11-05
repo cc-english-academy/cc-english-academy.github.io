@@ -173,6 +173,61 @@ html[dir="rtl"] .stage{padding:24px 6% 24px 22%}
 .opts button.no{background:#ffe3e8;border-color:#ff6f8a}
 @media(max-width:760px){.chal{grid-template-columns:1fr}}
 
+/* games arcade */
+.arc-tag{display:inline-block;font:700 .75rem 'Space Grotesk',Cairo,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:4px}
+.arc{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:22px}
+.arc-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.arc-top h2{font-size:1.6rem;margin:0}
+.arc-top p{color:var(--muted);margin:2px 0 0}
+.arc-stars{font:700 1rem 'Space Grotesk',Cairo,sans-serif;background:#fff6d6;border:1.5px solid var(--sun);border-radius:999px;padding:7px 15px;white-space:nowrap}
+.arc-stars small{color:var(--muted);font-weight:700}
+.arc-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:16px}
+.arc-tabs button{border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:12px 8px;cursor:pointer;font-family:inherit;color:var(--ink);text-align:center;transition:transform .15s}
+.arc-tabs button:hover{transform:translateY(-2px)}
+.arc-tabs .ic{font-size:1.6rem;display:block;line-height:1.2}
+.arc-tabs b{display:block;font-size:.9rem;line-height:1.3}
+.arc-tabs small{display:inline-block;margin-top:5px;background:var(--paper);border-radius:999px;padding:1px 9px;font-size:.72rem;color:var(--muted);font-weight:700}
+.arc-tabs button.on{border-color:var(--violet);background:#f0ecff;box-shadow:0 10px 24px -16px rgba(124,92,255,.9)}
+.arc-stage{background:var(--paper);border-radius:20px;padding:20px;min-height:260px}
+.arc-stage h3{margin:0 0 4px;font-size:1.2rem}
+.arc-stage .hint{color:var(--muted);margin:0 0 14px;font-size:.92rem}
+.arc-row{display:flex;flex-wrap:wrap;gap:8px}
+.arc-card{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink);font-size:.95rem}
+.arc-card:hover{border-color:var(--violet)}
+.arc-slots{list-style:none;padding:0;margin:0 0 14px;display:grid;gap:6px}
+.arc-slots li{background:#fff;border:1.5px dashed var(--line);border-radius:12px;padding:8px 12px;min-height:42px;display:flex;gap:10px;align-items:center;font-weight:600}
+.arc-slots li b{background:var(--violet);color:#fff;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;font-size:.8rem;flex:none}
+.arc-slots li.filled{border-style:solid}
+.arc-slots.good li.filled{border-color:#2fbf71;background:#effcf4}
+.arc-slots.bad li.filled{border-color:#ff6f8a;background:#fff3f5}
+.bits{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:12px 0;direction:ltr}
+.bit{width:62px;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:10px 4px;cursor:pointer;text-align:center;font:700 .85rem 'Space Grotesk',sans-serif;color:var(--muted)}
+.bit .bulb{font-size:1.8rem;display:block;filter:grayscale(1) opacity(.4);transition:filter .2s}
+.bit i{display:block;font-style:normal;font-size:1.4rem;color:var(--ink)}
+.bit.on{background:#fff6d6;border-color:var(--sun)}
+.bit.on .bulb{filter:none}
+.big-n{font:700 2.6rem 'Space Grotesk',sans-serif;text-align:center;direction:ltr;margin:0}
+.sum{text-align:center;color:var(--muted);font-weight:700;direction:ltr}
+.bugcode{background:#140d26;border-radius:16px;padding:10px;direction:ltr;text-align:left;overflow-x:auto}
+.bugline{display:flex;gap:12px;width:100%;background:none;border:0;color:#e6e1ff;font:500 .92rem/1.6 'Space Grotesk',monospace;padding:5px 8px;border-radius:8px;cursor:pointer;text-align:left;white-space:pre;min-height:30px}
+.bugline span{color:#8c84b0;min-width:1.2em}
+.bugline:hover{background:rgba(255,255,255,.08)}
+.bugline.ok{background:rgba(47,191,113,.35)}
+.bugline.no{background:rgba(255,111,138,.35)}
+.scen{background:#fff;border-radius:16px;padding:16px;font-size:1.05rem;font-weight:600;border-inline-start:5px solid var(--violet);margin-bottom:6px}
+.opts.txt button{font-family:inherit}
+.arc-stage .code{margin-bottom:6px}
+.diff{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.diff button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px;cursor:pointer;font-family:inherit;font-weight:700;color:var(--ink)}
+.diff button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pwbox{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)}
+.pw{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:600 1rem 'Space Grotesk',sans-serif;direction:ltr;box-sizing:border-box;background:#fff}
+.pwbar{height:10px;border-radius:999px;background:#e6e1f5;margin:10px 0 6px;overflow:hidden}
+.pwbar i{display:block;height:100%;width:0;transition:width .3s,background .3s}
+.pwtips{margin:4px 0 0;padding-inline-start:18px;color:var(--muted);font-size:.88rem}
+.arc-foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.arc-foot .btn{padding:10px 18px;font-size:.92rem}
+@media(max-width:520px){.arc{padding:14px}.arc-stage{padding:14px}.arc-tabs{grid-template-columns:repeat(3,1fr)}.arc-tabs button{padding:10px 4px}.arc-tabs b{font-size:.8rem}.bits{gap:6px}.bit{width:46px;padding:8px 2px}.bit .bulb{font-size:1.4rem}}
 /* join */
 .join{background:linear-gradient(120deg,#2a1a5e,#0f4c47);color:#fff;border-radius:30px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .join h2{font-size:clamp(1.5rem,3vw,2.2rem)}
@@ -193,6 +248,7 @@ footer a{color:var(--violet)}
       <a href="#courses"><span class="en">Courses</span><span class="ar">الكورسات</span></a>
       <a href="#play"><span class="en">Try coding</span><span class="ar">جرّب البرمجة</span></a>
       <a href="#challenge"><span class="en">Challenge</span><span class="ar">التحدي</span></a>
+      <a href="#arcade"><span class="en">Games</span><span class="ar">الألعاب</span></a>
       <a href="#join"><span class="en">Join</span><span class="ar">اشترك</span></a>
       <a href="index.html"><span class="en">← Academy</span><span class="ar">الأكاديمية ←</span></a>
     </nav>
@@ -299,6 +355,23 @@ footer a{color:var(--violet)}
         <p class="msg" id="chalMsg" style="color:var(--ink)"></p>
       </div>
       <div class="code" id="chalCode"></div>
+    </div>
+  </div>
+</section>
+
+<section id="arcade" style="padding-top:0">
+  <div class="wrap">
+    <div class="arc reveal">
+      <div class="arc-top">
+        <div>
+          <span class="tag arc-tag"><span class="en">Coco's game arcade</span><span class="ar">صالة ألعاب كوكو</span></span>
+          <h2><span class="en">Play, think, learn tech</span><span class="ar">العب وفكّر واتعلم تقنية</span></h2>
+          <p><span class="en">Six free games for every age: kids, teens and grown-ups.</span><span class="ar">٦ ألعاب مجانية لكل الأعمار: أطفال وشباب وكبار.</span></p>
+        </div>
+        <div class="arc-stars" id="arcStars" aria-live="polite"></div>
+      </div>
+      <div class="arc-tabs" id="arcTabs" role="tablist"></div>
+      <div class="arc-stage" id="arcStage" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -572,7 +645,7 @@ footer a{color:var(--violet)}
     renderCatalog();
     const wa = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello! I would like a free trial class in Coco Tech Lab. Course: … Student age: …', 'السلام عليكم، عايز حصة تجريبية في Coco Tech Lab. الكورس: … سن الطالب: …'));
     document.getElementById('trialBtn').href = wa; document.getElementById('joinBtn').href = wa;
-    renderLevels(); drawBoard(); renderProg(); renderChallenge();
+    renderLevels(); drawBoard(); renderProg(); renderChallenge(); renderArcade();
   }
 
   // ----- Coco's maze: a tiny block-coding game -----
@@ -672,6 +745,217 @@ footer a{color:var(--violet)}
     b.classList.add(right ? 'ok' : 'no');
     document.getElementById('chalMsg').textContent = (right ? '✅ ' + T('Correct! ', 'صح! ') : '💡 ' + T('Not quite. ', 'مش بالظبط. ')) + T(c.why[0], c.why[1]);
   });
+
+  // ----- Coco's game arcade: six free games for every age -----
+  const pick = function(a){ return a[Math.floor(Math.random() * a.length)]; };
+  const shuffle = function(a){ a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
+  const L = function(x){ return Array.isArray(x) ? T(x[0], x[1]) : x; };
+  const GAMES = [
+    { id: 'steps', icon: '🧩', age: ['Age 5+', 'من ٥ سنين'], t: ['Order the steps', 'رتّب الخطوات'] },
+    { id: 'binary', icon: '💡', age: ['Age 8+', 'من ٨ سنين'], t: ['Binary bulbs', 'لمبات الباينري'] },
+    { id: 'cyber', icon: '🛡️', age: ['All ages', 'كل الأعمار'], t: ['Safe or risky?', 'آمن ولا خطر؟'] },
+    { id: 'bugs', icon: '🐞', age: ['Age 10+', 'من ١٠ سنين'], t: ['Bug hunt', 'اصطاد الغلطة'] },
+    { id: 'keys', icon: '⌨️', age: ['Age 10+', 'من ١٠ سنين'], t: ['Shortcut sprint', 'سباق الاختصارات'] },
+    { id: 'quiz', icon: '🧠', age: ['Easy → Hard', 'سهل ← صعب'], t: ['Tech quiz', 'مسابقة التقنية'] }
+  ];
+  const STEPS = [
+    ['🪥', ['Brush your teeth', 'اغسل سنانك'], [['Put toothpaste on the brush', 'Brush all your teeth', 'Rinse your mouth', 'Wash the brush'], ['حط معجون على الفرشة', 'افرش كل سنانك', 'اشطف بُقّك', 'اغسل الفرشة']]],
+    ['🥪', ['Make a sandwich', 'اعمل ساندوتش'], [['Take two slices of bread', 'Spread cheese on one slice', 'Put the other slice on top', 'Eat and enjoy!'], ['هات عيشتين توست', 'حط جبنة على واحدة', 'غطّيها بالتانية', 'كُل بالهنا!']]],
+    ['🌱', ['Plant a seed', 'ازرع بذرة'], [['Dig a small hole', 'Put the seed in', 'Cover it with soil', 'Water it'], ['احفر حفرة صغيرة', 'حط البذرة', 'غطّيها بالتراب', 'اسقيها مية']]],
+    ['📧', ['Send an email', 'ابعت إيميل'], [['Open your email', 'Write the address', 'Type the message', 'Press Send'], ['افتح الإيميل', 'اكتب العنوان', 'اكتب الرسالة', 'دوس إرسال']]],
+    ['🤖', ['Make Coco say hi 3 times', 'خلّي كوكو يقول هاي ٣ مرات'], [['Start the program', 'Repeat 3 times', 'Say "Hi!"', 'End the program'], ['ابدأ البرنامج', 'كرّر ٣ مرات', 'قول «هاي!»', 'نهّي البرنامج']]],
+    ['🌐', ['Publish a website', 'انشر موقع'], [['Plan the pages', 'Write the HTML', 'Add CSS style', 'Test it', 'Publish it online'], ['خطّط الصفحات', 'اكتب الـHTML', 'ضيف تنسيق CSS', 'جرّبه', 'انشره أونلاين']]]
+  ];
+  const CYBER = [
+    [['A message says: "You won a free iPhone! Click and enter your card number."', 'رسالة بتقول: «كسبت آيفون مجاناً! اضغط واكتب رقم الكارت.»'], 0, ['Real prizes never ask for your card. This is phishing: a trick to steal.', 'الجوايز الحقيقية عمرها ما تطلب الكارت. ده تصيّد (فيشينج) لسرقتك.']],
+    [['Your password is your name and birth year, like Sara2010.', 'الباسورد بتاعك اسمك وسنة ميلادك، زي Sara2010.'], 0, ['Easy to guess! Use a long phrase with numbers and symbols.', 'سهل يتخمّن! استخدم جملة طويلة فيها أرقام ورموز.']],
+    [['You turn on two-step verification (a code on your phone) for your email.', 'فعّلت التحقق بخطوتين (كود على موبايلك) للإيميل.'], 1, ['Great! Even if someone learns your password, they still need your phone.', 'ممتاز! حتى لو حد عرف الباسورد، هيحتاج موبايلك كمان.']],
+    [['A stranger in a game chat asks for your home address.', 'حد غريب في شات لعبة بيسألك عن عنوان بيتك.'], 0, ['Never share personal information online. Tell a grown-up.', 'أبداً متقولش معلوماتك الشخصية أونلاين. قول لحد كبير.']],
+    [['You install app updates from the official store.', 'بتنزّل تحديثات التطبيقات من المتجر الرسمي.'], 1, ['Updates fix security holes, so keep them on.', 'التحديثات بتقفل الثغرات الأمنية — خليها شغالة.']],
+    [['You use the same password for every website.', 'بتستخدم نفس الباسورد لكل المواقع.'], 0, ['If one site leaks, every account is open. Use a password manager.', 'لو موقع واحد اتسرّب، كل حساباتك تتفتح. استخدم مدير باسوردات.']],
+    [['A friend sends a file "photo.exe" you were not expecting.', 'صاحبك بعتلك ملف «photo.exe» من غير ما تستناه.'], 0, ['.exe is a program, not a photo. It could be a virus, so ask first.', 'ملف .exe ده برنامج مش صورة — ممكن يكون فيروس. اسأله الأول.']],
+    [['Before logging in, you check the address bar shows the real site name.', 'قبل ما تسجّل دخول، بتتأكد إن العنوان فوق هو اسم الموقع الحقيقي.'], 1, ['Smart! Fake sites copy the look but not the address.', 'شاطر! المواقع المزيفة بتقلّد الشكل لكن مش العنوان.']],
+    [['You lock your screen when you leave the computer.', 'بتقفل الشاشة لما تقوم من على الكمبيوتر.'], 1, ['Win + L locks Windows in one second.', 'Win + L بيقفل الويندوز في ثانية.']],
+    [['Someone calls "from the bank" and asks for the code sent to your phone.', 'حد بيتصل «من البنك» وبيطلب الكود اللي جالك على الموبايل.'], 0, ['Banks never ask for that code. Hang up!', 'البنك عمره ما يطلب الكود ده. اقفل السكة!']],
+    [['You connect to free café Wi-Fi and do online banking.', 'اتصلت بواي فاي مجاني في كافيه وفتحت حساب البنك.'], 0, ['Public Wi-Fi can be watched. Use mobile data for banking.', 'الواي فاي العام ممكن يتراقب. استخدم باقة الموبايل للبنك.']],
+    [['You back up your important files to the cloud.', 'بتعمل نسخة احتياطية لملفاتك المهمة على السحابة.'], 1, ['If your device breaks or gets a virus, your files are still safe.', 'لو الجهاز باظ أو جاله فيروس، ملفاتك لسه في أمان.']]
+  ];
+  const BUGS = [
+    [['name = input("Name? ")', 'print("Hello, " + name)', 'age = 10', 'print("Next year: " + age + 1)'], 3, ['You cannot add text and a number. Use str(age + 1).', 'مينفعش تجمع نص على رقم. استخدم str(age + 1).']],
+    [['count = 0', 'for i in range(3)', '    count = count + 1', 'print(count)'], 1, ['The for line needs a colon at the end: range(3):', 'سطر الـfor محتاج نقطتين في الآخر: range(3):']],
+    [['<h1>My page</h1>', '<p>Welcome to my site</p>', '<img src="cat.png" alt="A cat">', '<a href="about.html">About me</p>'], 3, ['The link opened with <a> but closed with </p>. Close it with </a>.', 'اللينك اتفتح بـ<a> واتقفل بـ</p>. لازم يتقفل بـ</a>.']],
+    [['let score = 0;', 'score = score + 5;', 'if (score = 10) {', '  console.log("Winner!");', '}'], 2, ['One = gives a value. To compare, use ===.', 'علامة = واحدة بتدّي قيمة. للمقارنة استخدم ===.']],
+    [['fruits = ["apple", "banana", "mango"]', 'print(fruits[0])', 'print(fruits[1])', 'print(fruits[3])'], 3, ['Lists start at 0, so the last item is fruits[2].', 'القوائم بتبدأ من صفر، فآخر عنصر هو fruits[2].']],
+    [['h1 {', '  color: navy;', '  font-size: 32;', '  text-align: center;', '}'], 2, ['Sizes need a unit, like 32px.', 'المقاسات محتاجة وحدة، زي 32px.']],
+    [['def greet(name):', '    print("Hi " + name)', '', 'greet()'], 3, ['greet needs a name: greet("Coco").', 'الدالة محتاجة اسم: greet("Coco").']],
+    [['=SUM(A1:A5', '=AVERAGE(B1:B5)', '=MAX(C1:C5)', '=A1*2'], 0, ['The bracket is not closed: =SUM(A1:A5)', 'القوس مش مقفول: =SUM(A1:A5)']]
+  ];
+  const KEYS = [
+    ['Ctrl + C', 'copy the selected text', 'تنسخ الكلام المتحدد'], ['Ctrl + V', 'paste', 'تلزق'], ['Ctrl + X', 'cut', 'تقص'],
+    ['Ctrl + Z', 'undo your last step', 'تتراجع عن آخر خطوة'], ['Ctrl + S', 'save the file', 'تحفظ الملف'], ['Ctrl + A', 'select everything', 'تحدد كل حاجة'],
+    ['Ctrl + B', 'make text bold', 'تخلّي الكلام عريض (Bold)'], ['Ctrl + F', 'find a word', 'تدوّر على كلمة'], ['Ctrl + P', 'print', 'تطبع'],
+    ['Ctrl + M', 'add a new slide in PowerPoint', 'تضيف شريحة جديدة في PowerPoint'], ['Alt + =', 'AutoSum in Excel', 'الجمع التلقائي في Excel'],
+    ['Alt + Tab', 'switch between open windows', 'تتنقل بين الشبابيك المفتوحة'], ['Win + L', 'lock the computer', 'تقفل الكمبيوتر'],
+    ['Ctrl + ;', 'type today\'s date in Excel', 'تكتب تاريخ النهارده في Excel'], ['F5', 'start the slide show in PowerPoint', 'تبدأ العرض في PowerPoint'],
+    ['Win + E', 'open File Explorer', 'تفتح مستكشف الملفات']
+  ];
+  // each question: [question, code or '', [right answer, ...wrong ones], why]
+  const QUIZ = {
+    easy: [
+      [['Which part is the computer\'s "brain"?', 'أنهي جزء هو «مخ» الكمبيوتر؟'], '', ['CPU', ['Monitor', 'الشاشة'], ['Mouse', 'الماوس'], ['Speaker', 'السماعة']], ['The CPU (processor) does all the thinking.', 'المعالج CPU هو اللي بيفكّر وبيحسب.']],
+      [['What do we call a mistake in a program?', 'الغلطة في البرنامج اسمها إيه؟'], '', [['A bug', 'باج (Bug)'], ['A byte', 'بايت'], ['A cloud', 'سحابة'], ['A mouse', 'ماوس']], ['A bug! Finding and fixing it is called debugging.', 'باج! ودوّرنا عليه وصلّحناه اسمه Debugging.']],
+      [['Which one is an input device?', 'أنهي واحد جهاز إدخال؟'], '', [['Keyboard', 'الكيبورد'], ['Speaker', 'السماعة'], ['Monitor', 'الشاشة'], ['Printer', 'الطابعة']], ['We put information in with the keyboard. The others give information out.', 'بندخّل المعلومة بالكيبورد — الباقي بيطلّع معلومات.']],
+      [['What does Wi-Fi let you do?', 'الواي فاي بيخليك تعمل إيه؟'], '', [['Connect to the internet without cables', 'تتصل بالإنترنت من غير سلك'], ['Print photos', 'تطبع صور'], ['Charge your phone', 'تشحن الموبايل'], ['Make the screen brighter', 'تنوّر الشاشة']], ['Wi-Fi sends the internet through the air using radio waves.', 'الواي فاي بيوصّل الإنترنت في الهوا بموجات الراديو.']],
+      [['What does Coco print?', 'كوكو هيطبع إيه؟'], 'print(3 + 4)', ['7', '34', '12', '3 + 4'], ['Python adds the numbers: 3 + 4 = 7.', 'بايثون بيجمع الأرقام: ٣ + ٤ = ٧.']],
+      [['Where are files saved so you can open them from any device?', 'الملفات بتتحفظ فين عشان تفتحها من أي جهاز؟'], '', [['In the cloud', 'على السحابة'], ['On the mouse', 'على الماوس'], ['In the keyboard', 'في الكيبورد'], ['On the screen', 'على الشاشة']], ['Cloud storage (like Google Drive or OneDrive) keeps files online.', 'التخزين السحابي (زي Google Drive وOneDrive) بيحفظ الملفات أونلاين.']]
+    ],
+    medium: [
+      [['What does Coco print?', 'كوكو هيطبع إيه؟'], 'stars = 0\nfor i in range(3):\n    stars = stars + 2\nprint(stars)', ['6', '3', '5', '2'], ['The loop runs 3 times and adds 2 each time: 2 + 2 + 2 = 6.', 'التكرار بيشتغل ٣ مرات وكل مرة بيزوّد ٢ = ٦.']],
+      [['What does Coco print?', 'كوكو هيطبع إيه؟'], 'x = 10\nx = x - 3\nx = x * 2\nprint(x)', ['14', '17', '7', '20'], ['10 − 3 = 7, then 7 × 2 = 14.', '١٠ − ٣ = ٧، وبعدين ٧ × ٢ = ١٤.']],
+      [['What does HTML do on a website?', 'الـHTML بيعمل إيه في الموقع؟'], '', [['Builds the content and structure', 'بيبني المحتوى والهيكل'], ['Stores passwords', 'بيخزن الباسوردات'], ['Cools the CPU', 'بيبرّد المعالج'], ['Sends SMS', 'بيبعت رسايل SMS']], ['HTML is the skeleton: headings, text, images and links.', 'الـHTML هو الهيكل: عناوين ونصوص وصور ولينكات.']],
+      [['1 byte = how many bits?', '١ بايت = كام بت؟'], '', ['8', '2', '10', '1024'], ['A byte is 8 bits, enough for one letter.', 'البايت = ٨ بت، تكفي لحرف واحد.']],
+      [['What does the console show?', 'الكونسول هيطلّع إيه؟'], 'let a = [1, 2, 3];\nconsole.log(a.length);', ['3', '2', '6', '[1, 2, 3]'], ['length counts the items: there are 3.', 'length بتعدّ العناصر: ٣.']],
+      [['In Excel, what does =SUM(A1:A3) do when A1..A3 are 2, 4, 6?', 'في Excel، =SUM(A1:A3) بتطلّع إيه لو الخلايا ٢ و٤ و٦؟'], '', ['12', '6', '246', '3'], ['SUM adds the cells: 2 + 4 + 6 = 12.', 'SUM بتجمع الخلايا: ٢ + ٤ + ٦ = ١٢.']]
+    ],
+    hard: [
+      [['What does Coco print?', 'كوكو هيطبع إيه؟'], 'x = [1, 2, 3, 4]\nprint(x[1] + x[-1])', ['6', '5', '3', '7'], ['x[1] is 2 and x[-1] is the last item, 4: 2 + 4 = 6.', 'x[1] = ٢ وx[-1] هو آخر عنصر = ٤، فالناتج ٦.']],
+      [['Which numbers are printed?', 'إيه الأرقام اللي هتتطبع؟'], 'for i in range(1, 6):\n    if i % 2 == 0:\n        print(i)', ['2, 4', '1, 3, 5', '2, 4, 6', '1, 2, 3, 4, 5'], ['range(1, 6) is 1–5, and % 2 == 0 keeps the even ones.', 'range(1, 6) من ١ لـ٥، و% 2 == 0 بيختار الزوجي بس.']],
+      [['What does the console show?', 'الكونسول هيطلّع إيه؟'], 'console.log("5" + 3);', ['53', '8', 'Error', '35'], ['"5" is text, so + joins them: "53".', '"5" نص، فعلامة + بتلزقهم: "53".']],
+      [['What is the binary number 101 in decimal?', 'الرقم الباينري 101 يساوي كام بالعشري؟'], '', ['5', '3', '101', '6'], ['101 = 4 + 0 + 1 = 5.', '101 = ٤ + ٠ + ١ = ٥.']],
+      [['What does an IP address identify?', 'عنوان الـIP بيحدد إيه؟'], '', [['A device on a network', 'جهاز على الشبكة'], ['The screen size', 'مقاس الشاشة'], ['A file type', 'نوع الملف'], ['The battery level', 'نسبة البطارية']], ['Like a home address, but for a device on the internet.', 'زي عنوان البيت — بس لجهاز على الإنترنت.']],
+      [['Which SQL command reads data from a table?', 'أنهي أمر SQL بيقرا البيانات من جدول؟'], '', ['SELECT', 'DELETE', 'DROP', 'PRINT'], ['SELECT * FROM students; reads the rows.', 'SELECT * FROM students; بيقرا الصفوف.']]
+    ]
+  };
+
+  let game = 'steps', stars = 0, st = {};
+  try{ stars = parseInt(localStorage.getItem('cc_arcade_stars'), 10) || 0; }catch(e){}
+  function rank(){
+    if(stars >= 50) return T('Tech hero', 'بطل التقنية') + ' 🏆';
+    if(stars >= 25) return T('Ethical hacker', 'هاكر أخلاقي') + ' 🕶️';
+    if(stars >= 10) return T('Coder', 'مبرمج') + ' 💻';
+    return T('Explorer', 'مستكشف') + ' 🧭';
+  }
+  function drawStars(){ document.getElementById('arcStars').innerHTML = '⭐ ' + stars + ' <small>· ' + esc(rank()) + '</small>'; }
+  function tone(good){
+    try{
+      const A = window.AudioContext || window.webkitAudioContext; if(!A) return;
+      const c = tone.c || (tone.c = new A()), o = c.createOscillator(), g = c.createGain();
+      o.frequency.value = good ? 880 : 220; o.type = good ? 'triangle' : 'sine';
+      g.gain.setValueAtTime(.12, c.currentTime); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .25);
+      o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + .26);
+    }catch(e){}
+  }
+  function win(){ stars++; try{ localStorage.setItem('cc_arcade_stars', String(stars)); }catch(e){} drawStars(); tone(true); }
+  const nextBtn = function(){ return '<button type="button" class="btn dark" data-act="next">' + esc(T('Next →', 'اللي بعده ←')) + '</button>'; };
+  const foot = function(msg, more){ return '<p class="msg" id="arcMsg">' + (msg || '') + '</p><div class="arc-foot">' + (more || '') + '</div>'; };
+  // a deck goes through every item once in random order, then reshuffles
+  function deal(len){ if(!st.deck || !st.deck.length) st.deck = shuffle(Array.from({ length: len }, function(_, i){ return i; })); st.cur = st.deck.pop(); st.done = false; }
+
+  function newRound(){
+    if(game === 'steps'){ deal(STEPS.length); st.order = shuffle(STEPS[st.cur][2][0].map(function(_, i){ return i; })); st.picked = []; }
+    else if(game === 'binary'){ st.n = 1 + Math.floor(Math.random() * 31); st.bits = [0, 0, 0, 0, 0]; st.done = false; }
+    else if(game === 'cyber') deal(CYBER.length);
+    else if(game === 'bugs') deal(BUGS.length);
+    else if(game === 'keys'){ deal(KEYS.length); const k = st.cur; st.opts = shuffle([k].concat(shuffle(KEYS.map(function(_, i){ return i; }).filter(function(i){ return i !== k; })).slice(0, 3))); }
+    else if(game === 'quiz'){ const pool = QUIZ[st.lv]; if(st.deckLv !== st.lv){ st.deck = null; st.deckLv = st.lv; } deal(pool.length); st.opts = shuffle(pool[st.cur][2].map(function(_, i){ return i; })); }
+  }
+  function renderArcade(){
+    document.getElementById('arcTabs').innerHTML = GAMES.map(function(g){
+      return '<button type="button" role="tab" aria-selected="' + (g.id === game) + '" data-game="' + g.id + '" class="' + (g.id === game ? 'on' : '') + '"><span class="ic">' + g.icon + '</span><b>' + esc(L(g.t)) + '</b><small>' + esc(L(g.age)) + '</small></button>';
+    }).join('');
+    drawStars();
+    const S = document.getElementById('arcStage');
+    if(game === 'steps'){
+      const task = STEPS[st.cur], steps = T(task[2][0], task[2][1]), full = st.picked.length === steps.length;
+      const good = full && st.picked.every(function(v, i){ return v === i; });
+      S.innerHTML = '<h3>' + task[0] + ' ' + esc(L(task[1])) + '</h3><p class="hint">' + esc(T('Computers follow steps in order: that is an algorithm! Tap the cards in the right order.', 'الكمبيوتر بيمشي على خطوات بالترتيب — ده اسمه خوارزمية! دوس على الكروت بالترتيب الصح.')) + '</p>' +
+        '<ol class="arc-slots' + (full ? (good ? ' good' : ' bad') : '') + '">' + steps.map(function(_, i){ const v = st.picked[i]; return '<li class="' + (v != null ? 'filled' : '') + '"><b>' + (i + 1) + '</b>' + (v != null ? esc(steps[v]) : '') + '</li>'; }).join('') + '</ol>' +
+        '<div class="arc-row">' + st.order.filter(function(i){ return st.picked.indexOf(i) === -1; }).map(function(i){ return '<button type="button" class="arc-card" data-act="pick" data-k="' + i + '">' + esc(steps[i]) + '</button>'; }).join('') + '</div>' +
+        foot(full ? (good ? '⭐ ' + esc(T('Perfect order! You think like a programmer.', 'ترتيب مظبوط! بتفكّر زي المبرمجين.')) : '🤔 ' + esc(T('Almost! Something is out of order. Try again.', 'قربت! في خطوة مش في مكانها. جرّب تاني.'))) : '',
+          full ? (good ? nextBtn() : '<button type="button" class="btn dark" data-act="reset">' + esc(T('Try again', 'جرّب تاني')) + '</button>') : (st.picked.length ? '<button type="button" class="btn ghostd" data-act="reset">' + esc(T('Start over', 'ابدأ من الأول')) + '</button>' : ''));
+    } else if(game === 'binary'){
+      const vals = [16, 8, 4, 2, 1], sum = st.bits.reduce(function(a, b, i){ return a + b * vals[i]; }, 0);
+      S.innerHTML = '<h3>' + esc(T('Make the number with light bulbs', 'كوّن الرقم باللمبات')) + '</h3><p class="hint">' + esc(T('Computers count with 0 (off) and 1 (on). Turn on bulbs until they add up to:', 'الكمبيوتر بيعدّ بـ0 (طافية) و1 (منوّرة). نوّر اللمبات لحد ما مجموعها يبقى:')) + '</p>' +
+        '<p class="big-n">' + st.n + '</p><div class="bits">' + vals.map(function(v, i){ return '<button type="button" class="bit' + (st.bits[i] ? ' on' : '') + '" data-act="bit" data-k="' + i + '" aria-pressed="' + !!st.bits[i] + '"><span class="bulb">💡</span><i>' + st.bits[i] + '</i>' + v + '</button>'; }).join('') + '</div>' +
+        '<p class="sum">' + st.bits.join('') + ' = ' + sum + '</p>' +
+        foot(st.done ? '⭐ ' + esc(T('Yes! ' + st.n + ' in binary is ' + st.bits.join('') + '.', 'برافو! ' + st.n + ' بالباينري = ' + st.bits.join('') + '.')) : (sum > st.n ? '💡 ' + esc(T('Too much: turn one off.', 'كتير — طفّي لمبة.')) : ''), st.done ? nextBtn() : '');
+    } else if(game === 'cyber'){
+      const c = CYBER[st.cur];
+      S.innerHTML = '<h3>' + esc(T('Is this safe or risky?', 'ده آمن ولا خطر؟')) + '</h3><p class="hint">' + esc(T('Think like a cyber-security expert.', 'فكّر زي خبير أمن سيبراني.')) + '</p>' +
+        '<div class="scen">' + esc(L(c[0])) + '</div><div class="opts txt">' +
+        '<button type="button" data-act="cy" data-k="1" class="' + (st.done ? (c[1] === 1 ? 'ok' : (st.ans === 1 ? 'no' : '')) : '') + '">✅ ' + esc(T('Safe', 'آمن')) + '</button>' +
+        '<button type="button" data-act="cy" data-k="0" class="' + (st.done ? (c[1] === 0 ? 'ok' : (st.ans === 0 ? 'no' : '')) : '') + '">⚠️ ' + esc(T('Risky', 'خطر')) + '</button></div>' +
+        foot(st.done ? (st.ans === c[1] ? '⭐ ' + esc(T('Correct! ', 'صح! ')) : '💡 ') + esc(L(c[2])) : '', st.done ? nextBtn() : '') +
+        '<div class="pwbox"><h3>🔐 ' + esc(T('Password power meter', 'مقياس قوة الباسورد')) + '</h3><p class="hint">' + esc(T('Try a made-up password (never your real one). Nothing is saved or sent.', 'جرّب باسورد من خيالك (مش الحقيقي). مفيش حاجة بتتحفظ أو تتبعت.')) + '</p>' +
+        '<input class="pw" id="pwIn" type="text" autocomplete="off" spellcheck="false" placeholder="' + esc(T('e.g. Coco-loves-3-mangos!', 'مثلاً Coco-loves-3-mangos!')) + '"><div class="pwbar"><i id="pwBar"></i></div><b id="pwLbl"></b><ul class="pwtips" id="pwTips"></ul></div>';
+      pwMeter();
+    } else if(game === 'bugs'){
+      const b = BUGS[st.cur];
+      S.innerHTML = '<h3>' + esc(T('One line has a bug. Tap it!', 'سطر واحد فيه غلطة. دوس عليه!')) + '</h3><p class="hint">' + esc(T('Real programmers spend lots of time hunting bugs.', 'المبرمجين الحقيقيين بيقضوا وقت كبير في اصطياد الغلطات.')) + '</p>' +
+        '<div class="bugcode">' + b[0].map(function(line, i){ return '<button type="button" class="bugline' + (st.done ? (i === b[1] ? ' ok' : (i === st.ans ? ' no' : '')) : '') + '" data-act="line" data-k="' + i + '"><span>' + (i + 1) + '</span>' + esc(line) + '</button>'; }).join('') + '</div>' +
+        foot(st.done ? (st.ans === b[1] ? '⭐ ' + esc(T('Bug caught! ', 'اصطدتها! ')) : '💡 ' + esc(T('The bug is on line ' + (b[1] + 1) + '. ', 'الغلطة في سطر ' + (b[1] + 1) + '. '))) + esc(L(b[2])) : '', st.done ? nextBtn() : '');
+    } else if(game === 'keys'){
+      const k = KEYS[st.cur];
+      S.innerHTML = '<h3>' + esc(T('Which shortcut will ' + k[1] + '?', 'أنهي اختصار ' + k[2] + '؟')) + '</h3><p class="hint">' + esc(T('Shortcuts save hours at school and at work.', 'الاختصارات بتوفّر ساعات في المدرسة والشغل.')) + '</p>' +
+        '<div class="opts">' + st.opts.map(function(i){ return '<button type="button" class="ltr' + (st.done ? (i === st.cur ? ' ok' : (i === st.ans ? ' no' : '')) : '') + '" data-act="opt" data-k="' + i + '">' + esc(KEYS[i][0]) + '</button>'; }).join('') + '</div>' +
+        foot(st.done ? (st.ans === st.cur ? '⭐ ' + esc(T('Fast fingers!', 'صوابع سريعة!')) : '💡 ' + esc(T('It is ' + k[0] + '. Try it now on your keyboard!', 'هو ' + k[0] + '. جرّبه دلوقتي على الكيبورد!'))) : '', st.done ? nextBtn() : '');
+    } else if(game === 'quiz'){
+      const q = QUIZ[st.lv][st.cur];
+      S.innerHTML = '<div class="diff">' + [['easy', '🟢', 'Easy', 'سهل'], ['medium', '🟡', 'Medium', 'متوسط'], ['hard', '🔴', 'Hard', 'صعب']].map(function(d){ return '<button type="button" data-act="lv" data-k="' + d[0] + '" class="' + (st.lv === d[0] ? 'on' : '') + '">' + d[1] + ' ' + esc(T(d[2], d[3])) + '</button>'; }).join('') + '</div>' +
+        '<h3>' + esc(L(q[0])) + '</h3>' + (q[1] ? '<div class="code">' + esc(q[1]) + '</div>' : '') +
+        '<div class="opts txt">' + st.opts.map(function(i){ return '<button type="button" class="' + (Array.isArray(q[2][i]) ? '' : 'ltr') + (st.done ? (i === 0 ? ' ok' : (i === st.ans ? ' no' : '')) : '') + '" data-act="opt" data-k="' + i + '">' + esc(L(q[2][i])) + '</button>'; }).join('') + '</div>' +
+        foot(st.done ? (st.ans === 0 ? '⭐ ' + esc(T('Correct! ', 'صح! ')) : '💡 ') + esc(L(q[3])) : '', st.done ? nextBtn() : '');
+    }
+  }
+  function pwMeter(){
+    const inp = document.getElementById('pwIn'); if(!inp) return;
+    inp.addEventListener('input', function(){
+      const p = inp.value, tips = [];
+      let s = 0;
+      if(p.length >= 8) s++; else tips.push(T('Use at least 8 characters (12+ is better).', 'استخدم ٨ حروف على الأقل (١٢ أحسن).'));
+      if(p.length >= 12) s++;
+      if(/[a-z]/.test(p) && /[A-Z]/.test(p)) s++; else tips.push(T('Mix small and CAPITAL letters.', 'اخلط حروف صغيرة وكبيرة.'));
+      if(/\d/.test(p)) s++; else tips.push(T('Add a number.', 'ضيف رقم.'));
+      if(/[^A-Za-z0-9]/.test(p)) s++; else tips.push(T('Add a symbol like ! - # @', 'ضيف رمز زي ! - # @'));
+      if(/password|123456|qwerty|111111|abc123|iloveyou/i.test(p)){ s = Math.min(s, 1); tips.unshift(T('That is one of the most guessed passwords!', 'ده من أكتر الباسوردات اللي بتتخمّن!')); }
+      const lv = !p ? -1 : s <= 1 ? 0 : s <= 3 ? 1 : s === 4 ? 2 : 3;
+      const names = [[T('Weak', 'ضعيف'), '#ff6f8a'], [T('OK', 'مقبول'), '#ffc64a'], [T('Strong', 'قوي'), '#21d4b4'], [T('Super strong', 'قوي جداً'), '#2fbf71']];
+      document.getElementById('pwBar').style.width = lv < 0 ? '0' : (lv + 1) * 25 + '%';
+      document.getElementById('pwBar').style.background = lv < 0 ? 'transparent' : names[lv][1];
+      document.getElementById('pwLbl').textContent = lv < 0 ? '' : names[lv][0];
+      document.getElementById('pwTips').innerHTML = p ? tips.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join('') : '';
+    });
+  }
+  document.getElementById('arcTabs').addEventListener('click', function(e){
+    const b = e.target.closest('[data-game]'); if(!b || b.dataset.game === game) return;
+    game = b.dataset.game; st = { lv: 'easy' }; newRound(); renderArcade();
+  });
+  document.getElementById('arcStage').addEventListener('click', function(e){
+    const b = e.target.closest('[data-act]'); if(!b) return;
+    const act = b.dataset.act, k = b.dataset.k;
+    if(act === 'next'){ newRound(); renderArcade(); return; }
+    if(act === 'reset'){ st.picked = []; renderArcade(); return; }
+    if(act === 'lv'){ st.lv = k; newRound(); renderArcade(); return; }
+    if(act === 'pick'){
+      st.picked.push(+k);
+      const n = STEPS[st.cur][2][0].length;
+      if(st.picked.length === n){ if(st.picked.every(function(v, i){ return v === i; })) win(); else tone(false); }
+      renderArcade(); return;
+    }
+    if(act === 'bit'){
+      if(st.done) return;
+      st.bits[+k] = st.bits[+k] ? 0 : 1;
+      if(st.bits.reduce(function(a, v, i){ return a + v * [16, 8, 4, 2, 1][i]; }, 0) === st.n){ st.done = true; win(); }
+      renderArcade(); return;
+    }
+    if(st.done) return;
+    st.ans = act === 'cy' || act === 'line' || act === 'opt' ? +k : null;
+    const right = game === 'cyber' ? st.ans === CYBER[st.cur][1] : game === 'bugs' ? st.ans === BUGS[st.cur][1] : game === 'keys' ? st.ans === st.cur : st.ans === 0;
+    st.done = true;
+    if(right) win(); else tone(false);
+    renderArcade();
+  });
+  st = { lv: 'easy' }; newRound();
 
   // gentle reveal on scroll
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: .12 }) : null;
