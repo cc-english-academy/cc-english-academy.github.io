@@ -36,11 +36,22 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=2bcb5a12">
+<link rel="stylesheet" href="assets/css/site.css?v=6739deb5">
+<link rel="stylesheet" href="assets/css/fields.css?v=daf01e8d">
 </head>
 <body>
 
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="fields-bar" role="navigation" aria-label="Code Cademy schools">
+  <div class="fb-in">
+    <a class="fb-home" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy Academy</span></a>
+    <div class="fb-tabs">
+      <a class="fb-tab en-t on" aria-current="page" href="index.html"><i>🇬🇧</i><span class="fb-en">English</span><span class="fb-ar">الإنجليزي</span></a>
+      <a class="fb-tab fr-t" href="french.html"><i>🇫🇷</i><span class="fb-en">Français</span><span class="fb-ar">الفرنساوي</span></a>
+      <a class="fb-tab it-t" href="tech.html"><i>💻</i><span class="fb-en">Tech Lab</span><span class="fb-ar">البرمجة و IT</span></a>
+    </div>
+  </div>
+</div>
 <header class="nav" id="siteNav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
@@ -54,8 +65,7 @@
       <a href="#sessions" class="nav-link"><span>Zoom Meetings</span></a>
       <a href="#plans" class="nav-link"><span>Plans</span></a>
       <a href="#club-library" class="nav-link"><span>Club Library</span></a>
-      <a href="tech.html" class="nav-link nav-new"><span>Tech Lab</span></a>
-      <a href="french.html" class="nav-link nav-new"><span>Français</span></a>
+      <a href="#games" class="nav-link nav-new"><span>Games</span></a>
       <a href="#footer" class="nav-link"><span>Contact</span></a>
     </nav>
     <div class="nav-actions">
@@ -86,8 +96,9 @@
     <a href="#sessions" class="nav-link">Zoom Meetings</a>
     <a href="#plans" class="nav-link">Plans</a>
     <a href="#club-library" class="nav-link">Club Library</a>
-    <a href="tech.html" class="nav-link">🤖 Coco Tech Lab</a>
+    <a href="#games" class="nav-link">🎮 Games</a>
     <a href="french.html" class="nav-link">🇫🇷 Le Club Français</a>
+    <a href="tech.html" class="nav-link">💻 Coco Tech Lab</a>
     <a href="#footer" class="nav-link">Contact</a>
     <button class="nav-link" id="navSignInBtnMobile" type="button" style="text-align:left;width:100%;background:none;border:none;border-bottom:1px solid var(--line);cursor:pointer;">Sign in / My Dashboard</button>
     <div class="nav-mobile-social">
@@ -368,11 +379,18 @@
 <section class="more-at" id="more">
   <div class="wrap">
     <div class="how-head reveal">
-      <div class="kicker">New at the academy</div>
-      <h2>Two new worlds to explore.</h2>
+      <div class="kicker">One academy</div>
+      <h2>Three worlds, one place.</h2>
     </div>
-    <div class="more-grid">
-      <a class="more-card tech reveal" href="tech.html">
+    <div class="more-grid three">
+      <a class="more-card en reveal" href="#english-immersion">
+        <span class="more-em">🇬🇧</span>
+        <span class="more-tag">Code Cademy English</span>
+        <b>English you live, not just study.</b>
+        <span class="more-p">9 levels, seven clubs, live Zoom classes, Coco the AI teacher and six English games for every age.</span>
+        <span class="more-go">Explore English →</span>
+      </a>
+      <a class="more-card tech reveal" href="tech.html" data-i="2">
         <span class="more-em">🤖</span>
         <span class="more-tag">Coco Tech Lab</span>
         <b>Programming &amp; IT courses.</b>
@@ -519,6 +537,10 @@
       <div class="watch-list" id="watchList"></div>
     </div>
   </div>
+</section>
+
+<section class="en-games flow-bg" id="games">
+  <div class="wrap"><div class="eg" id="enGames" aria-live="polite"></div></div>
 </section>
 
 <section class="ptest" id="level-test">
@@ -1550,7 +1572,9 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=60a29241"></script>
-<script defer src="assets/js/app.js?v=aaf62b26"></script>
+<script defer src="assets/js/lang.js?v=d8498a5f"></script>
+<script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
+<script defer src="assets/js/english-games.js?v=e75bfda3"></script>
+<script defer src="assets/js/app.js?v=22d47fcd"></script>
 </body>
 </html>

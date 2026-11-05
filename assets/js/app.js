@@ -5848,6 +5848,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       .replace(/[^\p{L}\p{N} ]/gu, ' ').replace(/\s+/g, ' ').trim();
   }
   const SEARCH_SECTIONS = [
+    ['#games', 'English games', 'ألعاب الإنجليزي', 'games game play fun kids words spelling grammar tenses idioms العاب لعبة ألعاب اطفال كلمات قواعد'],
     ['#top', 'Home', 'الرئيسية', 'home start الصفحه'],
     ['#english-immersion', 'English clubs', 'النوادي', 'clubs club نادي نوادي phonics reading writing grammar speaking conversation cinema صوتيات قراءه كتابه قواعد محادثه حوار سينما'],
     ['#levels', 'The 9 levels', 'المستويات التسعة', 'levels level مستوي مستويات'],
