@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Code Cademy — English Immersion Academy: live Zoom classes, seven English clubs, level exams with certificates, homework and a parent portal. In Arabic and English.">
+<title>Code Cademy Academy — English · Français · Tech</title>
+<meta name="description" content="Code Cademy Academy: English, French, and Programming & IT courses for every age. Live Zoom classes, Coco the AI coach, games, certificates, and dashboards for students, parents and teachers. An Approved CPD Provider.">
 <meta name="theme-color" content="#3E0F1B">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
@@ -12,1569 +13,225 @@
 <link rel="canonical" href="https://cc-english-academy.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Code Cademy">
-<meta property="og:title" content="Code Cademy English Academy">
-<meta property="og:description" content="Live Zoom classes, English clubs, level exams with certificates, homework and a parent portal.">
+<meta property="og:title" content="Code Cademy Academy — English · Français · Tech">
+<meta property="og:description" content="English, French, and Programming & IT for every age: live classes, an AI coach, games, certificates and dashboards.">
 <meta property="og:image" content="https://cc-english-academy.github.io/assets/img/og-image.jpg">
 <meta property="og:url" content="https://cc-english-academy.github.io/">
 <meta name="twitter:card" content="summary_large_image">
-<title>Code Cademy English Academy — أكاديمية لتعليم الإنجليزية</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
-/* Arabic visitors: right-to-left from the first paint, and the Arabic fonts are fetched only for them */
 (function(){
+  // old links to the English sections (index.html#plans, a password-reset link…) now live on english.html
+  var h = location.hash || '';
+  if(/access_token|type=recovery|^#(plans|sessions|club-library|english-immersion|watch|level-test|games|levels|paths|coco|footer)$/.test(h) || /[?&](join|signin)=/.test(location.search)){
+    location.replace('english.html' + location.search + h); return;
+  }
   var l = null; try{ l = localStorage.getItem('cc_lang'); }catch(e){}
-  if(!l && (navigator.language || '').toLowerCase().indexOf('ar') === 0) l = 'ar';
-  window.__arFonts = function(){
-    if(document.getElementById('arFonts')) return;
-    var k = document.createElement('link'); k.id = 'arFonts'; k.rel = 'stylesheet';
-    k.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap';
-    document.head.appendChild(k);
-  };
-  if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
+  if(!l && (navigator.language || '').toLowerCase().indexOf('ar') !== 0) l = 'en';
+  if(l === 'en'){ document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr'; }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=6739deb5">
-<link rel="stylesheet" href="assets/css/fields.css?v=daf01e8d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600;700;800&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/hub.css?v=f67f9314">
+<script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 </head>
 <body>
+<div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
 
-<div class="scroll-progress" id="scrollProgress"></div>
-<div class="fields-bar" role="navigation" aria-label="Code Cademy schools">
-  <div class="fb-in">
-    <a class="fb-home" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy Academy</span></a>
-    <div class="fb-tabs">
-      <a class="fb-tab en-t on" aria-current="page" href="index.html"><i>🇬🇧</i><span class="fb-en">English</span><span class="fb-ar">الإنجليزي</span></a>
-      <a class="fb-tab fr-t" href="french.html"><i>🇫🇷</i><span class="fb-en">Français</span><span class="fb-ar">الفرنساوي</span></a>
-      <a class="fb-tab it-t" href="tech.html"><i>💻</i><span class="fb-en">Tech Lab</span><span class="fb-ar">البرمجة و IT</span></a>
-    </div>
-  </div>
-</div>
-<header class="nav" id="siteNav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top">
-      <img src="assets/img/logo.jpg" alt="Code Cademy">
-      <span>Code Cademy</span>
-    </a>
-    <nav class="links" id="navLinks">
-      <a href="#top" class="nav-link"><span>Home</span></a>
-      <a href="#english-immersion" class="nav-link"><span>Clubs</span></a>
-      <a href="#watch" class="nav-link"><span>Watch &amp; Learn</span></a>
-      <a href="#sessions" class="nav-link"><span>Zoom Meetings</span></a>
-      <a href="#plans" class="nav-link"><span>Plans</span></a>
-      <a href="#club-library" class="nav-link"><span>Club Library</span></a>
-      <a href="#games" class="nav-link nav-new"><span>Games</span></a>
-      <a href="#footer" class="nav-link"><span>Contact</span></a>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span><b>Code Cademy</b><small><span class="en">Academy</span><span class="ar">أكاديمية</span></small></span></a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#top" class="on"><span class="en">Home</span><span class="ar">الرئيسية</span></a>
+      <a href="english.html" class="w en-w"><i>🇬🇧</i><span class="en">English</span><span class="ar">الإنجليزي</span></a>
+      <a href="french.html" class="w fr-w"><i>🇫🇷</i><span class="en">Français</span><span class="ar">الفرنساوي</span></a>
+      <a href="tech.html" class="w it-w"><i>💻</i><span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a>
+      <a href="#certs"><span class="en">Certificates</span><span class="ar">الشهادات</span></a>
+      <a href="#about"><span class="en">About</span><span class="ar">عن الأكاديمية</span></a>
+      <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
     </nav>
-    <div class="nav-actions">
-      <button class="icon-btn search-nav" type="button" data-open-search aria-label="Search the site" title="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-      </button>
-      <a class="icon-btn wa-nav" href="https://wa.me/966538840330" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M17.6 6.3A8.5 8.5 0 0 0 4.2 17l-.9 3.3 3.4-.9a8.5 8.5 0 0 0 12.9-7.4c0-2.3-.9-4.4-2-6.1zm-5.6 13a7 7 0 0 1-3.6-1l-.3-.1-2.5.7.7-2.4-.2-.3a7 7 0 1 1 5.9 3.1zm3.9-5.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1s-.6.7-.8.9-.4.2-.6.1a5.8 5.8 0 0 1-2.8-2.5c-.2-.4.2-.4.5-.7.2-.2.2-.4.1-.6L9 8.9c-.1-.2-.3-.2-.5-.2h-.4c-.2 0-.5.1-.7.4-.2.3-.7.8-.7 1.8s.7 2.1 1.4 2.8c1.4 1.5 2.6 2.1 4.2 2.3.5.1 1 0 1.3-.3.3-.2.7-.6.8-.9.1-.2.1-.5 0-.6z"/></svg>
-      </a>
-      <a class="icon-btn ig-nav" href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <span class="nav-sep" aria-hidden="true"></span>
-      <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / تغيير اللغة">
-        <span class="globe">🌐</span><span class="lang-code" id="langCode">العربية</span>
-      </button>
-      <button class="nav-cta" id="navSignInBtn" type="button">Sign in</button>
-      <a class="nav-cta" href="#plans">Start Learning</a>
-      <button class="nav-mobile-toggle" id="navToggle" aria-label="menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-mobile-panel" id="navMobilePanel">
-    <a href="#top" class="nav-link">Home</a>
-    <a href="#english-immersion" class="nav-link">Clubs</a>
-    <a href="#watch" class="nav-link">Watch &amp; Learn</a>
-    <a href="#sessions" class="nav-link">Zoom Meetings</a>
-    <a href="#plans" class="nav-link">Plans</a>
-    <a href="#club-library" class="nav-link">Club Library</a>
-    <a href="#games" class="nav-link">🎮 Games</a>
-    <a href="french.html" class="nav-link">🇫🇷 Le Club Français</a>
-    <a href="tech.html" class="nav-link">💻 Coco Tech Lab</a>
-    <a href="#footer" class="nav-link">Contact</a>
-    <button class="nav-link" id="navSignInBtnMobile" type="button" style="text-align:left;width:100%;background:none;border:none;border-bottom:1px solid var(--line);cursor:pointer;">Sign in / My Dashboard</button>
-    <div class="nav-mobile-social">
-      <a href="https://wa.me/966538840330" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
+    <div class="acts">
+      <button class="pill-btn" id="langBtn" type="button"><span class="en">العربية</span><span class="ar">English</span></button>
+      <div class="dd">
+        <button class="cta" id="signBtn" type="button" aria-expanded="false" aria-controls="signMenu"><span class="en">Sign in</span><span class="ar">الدخول</span> ▾</button>
+        <div class="dd-menu" id="signMenu" hidden>
+          <small><span class="en">Open your dashboard</span><span class="ar">افتح لوحة التحكم</span></small>
+          <a href="english.html?signin=1"><i>🇬🇧</i><span class="en">English dashboard</span><span class="ar">لوحة الإنجليزي</span></a>
+          <a href="french-dashboard.html"><i>🇫🇷</i><span class="en">French dashboard</span><span class="ar">لوحة الفرنساوي</span></a>
+          <a href="tech-dashboard.html"><i>💻</i><span class="en">Tech Lab dashboard</span><span class="ar">لوحة البرمجة و IT</span></a>
+        </div>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
-<section class="hero flow-bg" id="top">
-  <div class="hero-scene" aria-hidden="true">
-    <svg class="scene-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#FDF0E2"/><stop offset="0.55" stop-color="#FBE3CE"/><stop offset="1" stop-color="#F3E7DC"/>
-        </linearGradient>
-        <radialGradient id="sunG"><stop offset="0" stop-color="#FFE39A"/><stop offset="1" stop-color="#FFB86B" stop-opacity="0.25"/></radialGradient>
-        <linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEFE7"/><stop offset="1" stop-color="#C9E4DA"/></linearGradient>
-        <linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFDDD2"/><stop offset="1" stop-color="#A8CEC1"/></linearGradient>
-        <linearGradient id="screenG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2FB3A0"/><stop offset="1" stop-color="#1B6A60"/></linearGradient>
-      </defs>
-
-      <rect width="1440" height="900" fill="url(#skyG)"/>
-
-      <!-- soft drifting blobs -->
-      <g class="blobs">
-        <circle class="blob bl1" cx="240" cy="220" r="170" fill="#F7C9A6" opacity="0.35"/>
-        <circle class="blob bl2" cx="1130" cy="330" r="200" fill="#BFE3D6" opacity="0.35"/>
-        <circle class="blob bl3" cx="720" cy="140" r="130" fill="#FFD8B4" opacity="0.3"/>
-      </g>
-
-      <!-- sun -->
-      <g class="sun-wrap">
-        <circle cx="1235" cy="165" r="150" fill="url(#sunG)"/>
-        <circle cx="1235" cy="165" r="62" fill="#FFCE73"/>
-        <g class="rays" stroke="#FFCE73" stroke-width="7" stroke-linecap="round" opacity="0.65">
-          <line x1="1235" y1="55" x2="1235" y2="20"/>
-          <line x1="1235" y1="275" x2="1235" y2="310"/>
-          <line x1="1125" y1="165" x2="1090" y2="165"/>
-          <line x1="1345" y1="165" x2="1380" y2="165"/>
-          <line x1="1157" y1="87" x2="1132" y2="62"/>
-          <line x1="1313" y1="243" x2="1338" y2="268"/>
-          <line x1="1157" y1="243" x2="1132" y2="268"/>
-          <line x1="1313" y1="87" x2="1338" y2="62"/>
-        </g>
-      </g>
-
-      <!-- clouds -->
-      <g class="cloud c1" fill="#FFFFFF" opacity="0.72">
-        <ellipse cx="220" cy="140" rx="86" ry="36"/><ellipse cx="288" cy="126" rx="60" ry="30"/><ellipse cx="160" cy="130" rx="48" ry="26"/>
-      </g>
-      <g class="cloud c2" fill="#FFFFFF" opacity="0.6">
-        <ellipse cx="820" cy="96" rx="70" ry="28"/><ellipse cx="874" cy="86" rx="48" ry="24"/>
-      </g>
-      <g class="cloud c3" fill="#FFFFFF" opacity="0.5">
-        <ellipse cx="520" cy="240" rx="60" ry="24"/><ellipse cx="566" cy="232" rx="40" ry="19"/>
-      </g>
-
-      <!-- paper plane crossing the sky -->
-      <g class="plane">
-        <path d="M0 0 L46 16 L18 22 L12 44 L4 24 L-6 20 Z" fill="#5C1A28" opacity="0.5"/>
-        <path class="trail" d="M-10 18 C -70 6, -130 34, -190 18" stroke="#5C1A28" stroke-width="2.4" fill="none" stroke-dasharray="9 12" opacity="0.28"/>
-      </g>
-
-      <!-- rising learning icons -->
-      <g class="risers" font-size="38">
-        <text class="riser r1" x="150" y="880">📚</text>
-        <text class="riser r2" x="390" y="880">🔤</text>
-        <text class="riser r3" x="640" y="880">💡</text>
-        <text class="riser r4" x="910" y="880">🧩</text>
-        <text class="riser r5" x="1180" y="880">✏️</text>
-        <text class="riser r6" x="1310" y="880">🌐</text>
-      </g>
-
-      <!-- hills -->
-      <path class="hill-a" d="M0 700 C 220 620, 420 760, 680 700 C 940 640, 1180 740, 1440 690 L1440 900 L0 900 Z" fill="url(#hillA)"/>
-      <path class="hill-b" d="M0 780 C 260 720, 520 830, 820 776 C 1100 726, 1280 806, 1440 772 L1440 900 L0 900 Z" fill="url(#hillB)"/>
-
-      <!-- little trees -->
-      <g class="trees" opacity="0.75">
-        <g class="tree t1"><rect x="96" y="742" width="10" height="38" fill="#8A6A45"/><circle cx="101" cy="730" r="30" fill="#9AD1BC"/></g>
-        <g class="tree t2"><rect x="1336" y="756" width="9" height="34" fill="#8A6A45"/><circle cx="1340" cy="744" r="26" fill="#8FC8B2"/></g>
-        <g class="tree t3"><rect x="640" y="760" width="8" height="30" fill="#8A6A45"/><circle cx="644" cy="750" r="22" fill="#A6D8C4"/></g>
-      </g>
-
-      <!-- kids learning, low and soft so the copy stays readable -->
-      <g class="kids" opacity="0.92">
-        <!-- kid A -->
-        <g class="kid kA" transform="translate(250,606)">
-          <rect x="-4" y="126" width="230" height="16" rx="8" fill="#C98C4E"/>
-          <rect x="8" y="142" width="14" height="52" fill="#B4793D"/>
-          <rect x="196" y="142" width="14" height="52" fill="#B4793D"/>
-          <g class="body"><rect x="58" y="70" width="86" height="64" rx="28" fill="#5C1A28"/>
-            <circle cx="101" cy="42" r="34" fill="#F1C9A5"/>
-            <path d="M67 34 a34 34 0 0 1 68 0 q-34 -18 -68 0z" fill="#3A2318"/>
-            <circle class="eye" cx="90" cy="46" r="3.8" fill="#2A1A14"/>
-            <circle class="eye" cx="112" cy="46" r="3.8" fill="#2A1A14"/>
-            <path d="M92 58 q9 8 18 0" stroke="#2A1A14" stroke-width="3" fill="none" stroke-linecap="round"/>
-          </g>
-          <g class="laptop">
-            <rect x="52" y="86" width="104" height="42" rx="5" fill="#20303A"/>
-            <rect x="58" y="91" width="92" height="32" rx="3" fill="url(#screenG)"/>
-            <path class="code-line" d="M66 100 h34" stroke="#EAF7F3" stroke-width="3.4" stroke-linecap="round"/>
-            <path class="code-line l2" d="M66 110 h52" stroke="#FFD79A" stroke-width="3.4" stroke-linecap="round"/>
-          </g>
-        </g>
-
-        <!-- kid B -->
-        <g class="kid kB" transform="translate(1010,628)">
-          <rect x="-4" y="112" width="210" height="15" rx="7" fill="#C98C4E"/>
-          <rect x="8" y="127" width="13" height="46" fill="#B4793D"/>
-          <rect x="178" y="127" width="13" height="46" fill="#B4793D"/>
-          <g class="body"><rect x="54" y="60" width="80" height="58" rx="26" fill="#2D8C79"/>
-            <circle cx="94" cy="34" r="31" fill="#E8B58C"/>
-            <path d="M63 28 a31 31 0 0 1 62 0 q-12 -22 -31 -16 q-19 -6 -31 16z" fill="#1E1410"/>
-            <circle class="eye d1" cx="84" cy="38" r="3.6" fill="#2A1A14"/>
-            <circle class="eye d1" cx="104" cy="38" r="3.6" fill="#2A1A14"/>
-            <path d="M86 49 q8 7 16 0" stroke="#2A1A14" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-            <g class="wave"><rect x="130" y="64" width="14" height="38" rx="7" fill="#E8B58C"/></g>
-          </g>
-          <g class="book">
-            <path d="M52 92 l44 -12 44 12 -44 14 z" fill="#FBEFE3"/>
-            <path d="M52 92 v22 l44 14 v-22 z" fill="#E9D7C4"/>
-            <path d="M140 92 v22 l-44 14 v-22 z" fill="#D9C2AC"/>
-          </g>
-        </g>
-      </g>
-    </svg>
-
-    <!-- floating multilingual chat bubbles -->
-    <div class="chat-bubbles">
-      <span class="cb cb1">Hello!</span>
-      <span class="cb cb2">أهلاً!</span>
-      <span class="cb cb3">How are you?</span>
-      <span class="cb cb4">Well done!</span>
-      <span class="cb cb5">ABC</span>
-    </div>
-
-    <div class="scene-scrim"></div>
-    <div class="scene-grain"></div>
-  </div>
-
-  <div class="floaters" aria-hidden="true" id="floaters">
-    <span>📘</span><span>🧩</span><span>🔤</span><span>💡</span><span>🌐</span><span>✏️</span>
-  </div>
-
-  <div class="wrap hero-inner">
-   <div class="hero-copy">
-    <div class="hero-badge"><span class="pulse-dot"></span><span>Live English classes via Zoom Meeting</span></div>
-    <h1>Where English becomes<br><em class="hero-word" id="heroWord"><span class="hw-highlight" id="hwHighlight"></span><span class="hw-letters" id="hwLetters"></span></em></h1>
-    <p class="sub">English immersion clubs, Zoom Meetings with real teachers, and books that unlock level by level. Pick a club and start speaking from day one.</p>
-    <div class="hero-paths">
-      <a class="path-btn solid" href="#sessions">Book a Zoom Meeting</a>
-      <a class="path-btn ghost" href="#english-immersion">Explore the clubs</a>
-    </div>
-    <div class="stat-strip">
-      <div class="stat"><b class="count" data-target="7">0</b><span>English clubs</span></div>
-      <div class="stat"><b class="count" data-target="9">0</b><span>levels</span></div>
-    </div>
-   </div>
-    <div class="hero-phone">
-      <div class="hp-chip c1"><span class="dot"></span>Zoom Meeting</div>
-      <div class="hp-chip c2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>Level up!</div>
-      <div class="hp-chip c3">Hello!</div>
-      <div class="phone" id="heroPhone">
-        <video id="heroVideo" muted playsinline preload="metadata"></video>
-        <div class="phone-ui">
-          <button class="phone-sound" id="heroSound" type="button" aria-label="Sound on or off">
-            <svg class="ic-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9l5 6M21 9l-5 6" fill="none"/></svg>
-            <svg class="ic-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none"/></svg>
-          </button>
-          <div class="phone-cap"><span id="heroCapTitle">Farm Animals</span><div class="phone-dots" id="heroDots"></div></div>
-        </div>
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <span class="kick">✦ <span class="en">Code Cademy Academy · Approved CPD Provider</span><span class="ar">أكاديمية Code Cademy · معتمدة من CPD</span></span>
+      <h1><span class="en">One academy.<br><em>Three worlds.</em></span><span class="ar">أكاديمية واحدة.<br><em>تلات عوالم.</em></span></h1>
+      <p><span class="en">English, French, and Programming &amp; IT for every age: live Zoom classes with real teachers, Coco the AI coach, games, certificates, and a dashboard for students, parents and teachers.</span><span class="ar">إنجليزي وفرنساوي وبرمجة و IT لكل الأعمار: حصص Zoom لايف مع مدرسين حقيقيين، وكوكو المدرب الذكي، وألعاب، وشهادات، ولوحة تحكم للطلاب وأولياء الأمور والمعلمين.</span></p>
+      <div class="hero-btns">
+        <a class="btn main" href="#worlds"><span class="en">Choose your world</span><span class="ar">اختار عالمك</span> ↓</a>
+        <a class="btn ghost" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 <span class="en">Free trial class</span><span class="ar">حصة تجريبية مجانية</span></a>
       </div>
-      <a class="hp-more" href="#watch">Watch all lessons <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="orbit" aria-hidden="true">
+      <div class="core"><img src="assets/img/logo.jpg" alt=""></div>
+      <a class="planet p-en" href="english.html" tabindex="-1"><span>🇬🇧</span><b>English</b></a>
+      <a class="planet p-fr" href="french.html" tabindex="-1"><span>🇫🇷</span><b>Français</b></a>
+      <a class="planet p-it" href="tech.html" tabindex="-1"><span>💻</span><b>Tech Lab</b></a>
+      <i class="ring r1"></i><i class="ring r2"></i>
     </div>
   </div>
-</section>
-
-<section class="how flow-bg" id="paths">
   <div class="wrap">
-    <div class="how-head reveal">
-      <div class="kicker">How it works</div>
-      <h2>From “hello” to fluent, in four clear steps.</h2>
-      <p>Pick a club, book time with a real teacher, read at your level, and pass the exam to move up. That's the whole loop.</p>
-    </div>
-    <div class="how-grid">
-
-      <div class="how-card reveal" data-i="0">
-        <div class="how-img">
-          <img loading="lazy" decoding="async" data-club-photo="Conversation Club" alt="">
-          <span class="how-num">01</span>
-          <span class="how-chip"><b>7</b> clubs</span>
-        </div>
-        <div class="how-text">
-          <h4>Pick your club</h4>
-          <p>Phonics, Reading, Writing, Grammar, Speaking, Conversation or Cinema — seven clubs, one for every goal.</p>
-        </div>
-      </div>
-
-      <div class="how-card reveal" data-i="1">
-        <div class="how-img">
-          <img loading="lazy" decoding="async" src="assets/img/how-2.webp" alt="" style="object-position:50% 38%">
-          <span class="how-num">02</span>
-          <span class="zoom-bar"><i class="rec"></i>ZOOM MEETING</span>
-          <span class="zoom-ctrl" aria-hidden="true">
-            <i><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none"/></svg></i>
-            <i><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3z"/></svg></i>
-            <i class="end"><svg viewBox="0 0 24 24"><path d="M5 15c4-4 10-4 14 0l-2 3-3-1.5v-2c-2-.7-4-.7-6 0v2L7 18z"/></svg></i>
-          </span>
-        </div>
-        <div class="how-text">
-          <h4>Book a Zoom Meeting</h4>
-          <p>Choose a time your teacher has opened. Your Zoom Meeting link appears the moment you book.</p>
-        </div>
-      </div>
-
-      <div class="how-card reveal" data-i="2">
-        <div class="how-img">
-          <img loading="lazy" decoding="async" data-club-photo="Reading Club" alt="">
-          <span class="how-num">03</span>
-          <span class="how-chip lv"><em class="on"></em><em class="on"></em><em></em>A1 → C2</span>
-        </div>
-        <div class="how-text">
-          <h4>Learn level by level</h4>
-          <p>Read your club's books at your level — 9 levels, from Level 1 to Level 9.</p>
-        </div>
-      </div>
-
-      <div class="how-card reveal" data-i="3">
-        <div class="how-img">
-          <img loading="lazy" decoding="async" src="assets/img/how-4.webp" alt="" style="object-position:50% 36%">
-          <span class="how-num">04</span>
-          <span class="how-chip pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>70% — level unlocked</span>
-        </div>
-        <div class="how-text">
-          <h4>Pass and level up</h4>
-          <p>Score 70% or more on the level exam and the next level unlocks.</p>
-        </div>
-      </div>
-
-    </div>
+    <ul class="stats">
+      <li><b data-count="3">3</b><span class="en">schools</span><span class="ar">مجالات</span></li>
+      <li><b data-count="9">9</b><span class="en">English levels</span><span class="ar">مستويات إنجليزي</span></li>
+      <li><b data-count="6">6</b><span class="en">French levels</span><span class="ar">مستويات فرنساوي</span></li>
+      <li><b data-count="39">39</b><span class="en">tech courses</span><span class="ar">كورس برمجة و IT</span></li>
+      <li><b>CPD</b><span class="en">accredited</span><span class="ar">معتمدين</span></li>
+    </ul>
   </div>
 </section>
 
-<section class="levels-home" id="levels">
+<section class="worlds" id="worlds">
   <div class="wrap">
-    <div class="how-head reveal">
-      <div class="kicker">Our levels</div>
-      <h2>9 levels, one clear path.</h2>
-      <p>Every student moves from Level 1 to Level 9. Each level's exam opens the next one.</p>
-      <p class="lvb-hint">Press a level to see its books.</p>
+    <div class="head reveal"><span class="tag"><span class="en">Our schools</span><span class="ar">مجالاتنا</span></span>
+      <h2><span class="en">Pick a world and step inside.</span><span class="ar">اختار عالم وادخل جوّاه.</span></h2>
+      <p><span class="en">Each school has its own courses, games and dashboard.</span><span class="ar">كل مجال ليه كورساته وألعابه ولوحة التحكم بتاعته.</span></p></div>
+    <div class="w-grid">
+      <article class="world en-c reveal">
+        <span class="w-em">🇬🇧</span><span class="w-tag">Code Cademy English</span>
+        <h3><span class="en">English you live, not just study.</span><span class="ar">إنجليزي تعيشه، مش بس تذاكره.</span></h3>
+        <ul>
+          <li><span class="en">9 levels with an exam that unlocks the next</span><span class="ar">٩ مستويات، وامتحان كل مستوى بيفتح اللي بعده</span></li>
+          <li><span class="en">7 clubs: phonics, reading, writing, grammar, speaking, conversation, cinema</span><span class="ar">٧ نوادي: صوتيات وقراءة وكتابة وقواعد وتحدث ومحادثة وسينما</span></li>
+          <li><span class="en">Live Zoom classes, a club library and a free level test</span><span class="ar">حصص Zoom لايف ومكتبة النوادي واختبار مستوى مجاني</span></li>
+          <li><span class="en">6 English games for every age</span><span class="ar">٦ ألعاب إنجليزي لكل الأعمار</span></li>
+        </ul>
+        <div class="w-btns"><a class="btn light" href="english.html"><span class="en">Enter English</span><span class="ar">ادخل الإنجليزي</span> →</a><a class="btn line" href="english.html?signin=1"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+      </article>
+      <article class="world fr-c reveal" data-i="1">
+        <span class="w-em">🥐</span><span class="w-tag">Le Club Français</span>
+        <h3><span class="en">Bonjour ! French, the Paris way.</span><span class="ar">Bonjour! فرنساوي على الطريقة الباريسية.</span></h3>
+        <ul>
+          <li><span class="en">Kids, teens, adults and DELF preparation</span><span class="ar">أطفال وشباب وكبار وتحضير DELF</span></li>
+          <li><span class="en">Talk with Coco at a Paris café</span><span class="ar">اتكلم مع كوكو في كافيه باريسي</span></li>
+          <li><span class="en">Pronunciation coach and a smart word notebook</span><span class="ar">مدرب نطق وكشكول كلمات ذكي</span></li>
+          <li><span class="en">A passport with a city stamp for every level</span><span class="ar">باسبور فيه ختم مدينة لكل مستوى</span></li>
+        </ul>
+        <div class="w-btns"><a class="btn dark" href="french.html"><span class="en">Entrer · French</span><span class="ar">ادخل الفرنساوي</span> →</a><a class="btn line" href="french-dashboard.html"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+      </article>
+      <article class="world it-c reveal" data-i="2">
+        <span class="w-em">🤖</span><span class="w-tag">Coco Tech Lab</span>
+        <h3><span class="en">Programming &amp; IT for every age.</span><span class="ar">برمجة و IT لكل الأعمار.</span></h3>
+        <ul>
+          <li><span class="en">39 courses: kids coding, languages, web, IoT, IT, Office</span><span class="ar">٣٩ كورس: برمجة أطفال ولغات ومواقع وIoT وIT وOffice</span></li>
+          <li><span class="en">A one-minute explainer for every course</span><span class="ar">شرح في دقيقة لكل كورس</span></li>
+          <li><span class="en">Code exercises checked instantly and a shareable portfolio</span><span class="ar">تمارين كود بتتصحح فوراً ومعرض مشاريع</span></li>
+          <li><span class="en">A weekly challenge and 6 tech games</span><span class="ar">تحدي أسبوعي و٦ ألعاب تقنية</span></li>
+        </ul>
+        <div class="w-btns"><a class="btn light" href="tech.html"><span class="en">Enter the Tech Lab</span><span class="ar">ادخل البرمجة و IT</span> →</a><a class="btn line" href="tech-dashboard.html"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
+      </article>
     </div>
-    <div class="lv-ladder" id="homeLevels"></div>
-    <div class="lv-books" id="homeLevelBooks" hidden aria-live="polite"></div>
   </div>
 </section>
 
-<section class="accredit" id="accreditation">
-  <div class="wrap accredit-grid">
-    <a class="accredit-cert reveal" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener" aria-label="View the accreditation certificate (PDF)">
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="head reveal"><span class="tag"><span class="en">How we teach</span><span class="ar">إزاي بنعلّم</span></span>
+      <h2><span class="en">Real teachers. Smart tools. Visible progress.</span><span class="ar">مدرسين حقيقيين. أدوات ذكية. تقدّم واضح.</span></h2></div>
+    <div class="f-grid">
+      <div class="feat reveal"><i>🎥</i><h3><span class="en">Live classes</span><span class="ar">حصص لايف</span></h3><p><span class="en">Small groups on Zoom with real teachers, from home.</span><span class="ar">مجموعات صغيرة على Zoom مع مدرسين حقيقيين من البيت.</span></p></div>
+      <div class="feat reveal" data-i="1"><i>🤖</i><h3><span class="en">Coco, the AI coach</span><span class="ar">كوكو المدرب الذكي</span></h3><p><span class="en">Explains lessons, makes worksheets and practises with you any time.</span><span class="ar">بيشرح الدروس ويعمل أوراق شغل ويتمرن معاك في أي وقت.</span></p></div>
+      <div class="feat reveal" data-i="2"><i>🎮</i><h3><span class="en">Games for every age</span><span class="ar">ألعاب لكل الأعمار</span></h3><p><span class="en">Every school has its own games: learning feels like playing.</span><span class="ar">كل مجال ليه ألعابه — التعلم يبقى زي اللعب.</span></p></div>
+      <div class="feat reveal"><i>📊</i><h3><span class="en">Three dashboards</span><span class="ar">لوحات تحكم</span></h3><p><span class="en">Students see their path, parents follow progress, teachers mark and message.</span><span class="ar">الطالب يشوف طريقه، وولي الأمر يتابع، والمعلم يصحح ويراسل.</span></p></div>
+      <div class="feat reveal" data-i="1"><i>💬</i><h3><span class="en">Messages</span><span class="ar">رسايل</span></h3><p><span class="en">One conversation between the student, the parents and the teachers.</span><span class="ar">محادثة واحدة بين الطالب وأهله والمعلمين.</span></p></div>
+      <div class="feat reveal" data-i="2"><i>🎓</i><h3><span class="en">Certificates</span><span class="ar">شهادات</span></h3><p><span class="en">A certificate for every level and course, with a QR code anyone can check.</span><span class="ar">شهادة لكل مستوى وكورس، عليها QR أي حد يقدر يتأكد منه.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="certs" id="certs">
+  <div class="wrap cert-grid">
+    <a class="cert-img reveal" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener" aria-label="View the accreditation certificate (PDF)">
       <img loading="lazy" decoding="async" src="assets/img/cpd-accreditation.webp" width="900" height="636" alt="Code Cademy — Approved CPD Provider certificate">
     </a>
-    <div class="accredit-copy reveal" data-i="1">
-      <div class="kicker">Accredited academy</div>
-      <h2>An Approved CPD Provider.</h2>
-      <p>Code Cademy is an Approved CPD Provider and a member of CPD Accreditation International.</p>
-      <ul class="accredit-facts">
-        <li><small>Provider No.</small><b>CPD-10020</b></li>
-        <li><small>Since</small><b>28 Oct 2026</b></li>
-        <li><small>Valid until</small><b>28 Oct 2027</b></li>
+    <div class="cert-copy reveal" data-i="1">
+      <span class="tag"><span class="en">Accredited academy</span><span class="ar">أكاديمية معتمدة</span></span>
+      <h2><span class="en">An Approved CPD Provider.</span><span class="ar">مقدّم معتمد من CPD.</span></h2>
+      <p><span class="en">Code Cademy is an Approved CPD Provider and a member of CPD Accreditation International.</span><span class="ar">Code Cademy مقدّم معتمد من CPD وعضو في CPD Accreditation International.</span></p>
+      <ul class="facts">
+        <li><small><span class="en">Provider No.</span><span class="ar">رقم المقدّم</span></small><b>CPD-10020</b></li>
+        <li><small><span class="en">Since</span><span class="ar">من</span></small><b>28 Oct 2026</b></li>
+        <li><small><span class="en">Valid until</span><span class="ar">صالحة حتى</span></small><b>28 Oct 2027</b></li>
       </ul>
-      <a class="path-btn ghost" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener">View the certificate</a>
+      <div class="c-list">
+        <div><i>🇬🇧</i><span class="en">A certificate for every English level passed</span><span class="ar">شهادة لكل مستوى إنجليزي بتعدّيه</span></div>
+        <div><i>🇫🇷</i><span class="en">French certificates and DELF preparation</span><span class="ar">شهادات فرنساوي وتحضير DELF</span></div>
+        <div><i>💻</i><span class="en">Tech Lab certificates with a QR check</span><span class="ar">شهادات البرمجة و IT عليها QR للتأكد</span></div>
+      </div>
+      <a class="btn dark" href="assets/docs/cpd-accreditation.pdf" target="_blank" rel="noopener"><span class="en">View the certificate</span><span class="ar">شوف الشهادة</span></a>
     </div>
   </div>
 </section>
 
-<section class="more-at" id="more">
+<section class="dash" id="dashboards">
   <div class="wrap">
-    <div class="how-head reveal">
-      <div class="kicker">One academy</div>
-      <h2>Three worlds, one place.</h2>
-    </div>
-    <div class="more-grid three">
-      <a class="more-card en reveal" href="#english-immersion">
-        <span class="more-em">🇬🇧</span>
-        <span class="more-tag">Code Cademy English</span>
-        <b>English you live, not just study.</b>
-        <span class="more-p">9 levels, seven clubs, live Zoom classes, Coco the AI teacher and six English games for every age.</span>
-        <span class="more-go">Explore English →</span>
-      </a>
-      <a class="more-card tech reveal" href="tech.html" data-i="2">
-        <span class="more-em">🤖</span>
-        <span class="more-tag">Coco Tech Lab</span>
-        <b>Programming &amp; IT courses.</b>
-        <span class="more-p">Coding for kids, programming languages, web development, IoT, IT fields and Microsoft Office — with a short explainer for every course.</span>
-        <span class="more-go">Open the Tech Lab →</span>
-      </a>
-      <a class="more-card fr reveal" href="french.html" data-i="1">
-        <span class="more-em">🥐</span>
-        <span class="more-tag">Le Club Français</span>
-        <b>Bonjour ! French, the Paris way.</b>
-        <span class="more-p">Talk with Coco at a Paris café, practise your pronunciation and learn words in three languages.</span>
-        <span class="more-go">Open the French club →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="clubs flow-bg" id="english-immersion">
-  <div class="wrap">
-    <div class="clubs-head reveal">
-      <div class="kicker">English Immersion</div>
-      <h2>Learn by living it.</h2>
-      <p>Practical learning and real-life language use, built around seven specialized clubs.</p>
-    </div>
-    <div class="clubs-grid">
-      <div class="club-card reveal" data-i="0" data-club="Phonics Club">
-        <div class="club-photo">
-          <img src="assets/img/club-phonics.webp" alt="Phonics Club" loading="lazy">
-          <span class="club-num">01</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Phonics Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Master letter sounds and blends — the building blocks of confident reading.</p>
-          <div class="club-quote">“C‑A‑T… cat!”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
-      </div>
-      <div class="club-card reveal" data-i="1" data-club="Reading Club">
-        <div class="club-photo">
-          <img src="assets/img/club-reading.webp" alt="Reading Club" loading="lazy">
-          <span class="club-num">02</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Reading Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Build reading, phonics, vocabulary &amp; comprehension skills.</p>
-          <div class="club-quote">“She opened the letter, and everything changed.”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
-      </div>
-      <div class="club-card reveal" data-i="2" data-club="Writing Club">
-        <div class="club-photo">
-          <img src="assets/img/club-writing.webp" alt="Writing Club" loading="lazy">
-          <span class="club-num">03</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Writing Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Develop writing skills through guided and creative activities.</p>
-          <div class="club-quote">“Dear Mr Hassan, I'm writing about my order…”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
-      </div>
-      <div class="club-card reveal" data-i="3" data-club="Grammar Club">
-        <div class="club-photo">
-          <img src="assets/img/club-grammar.webp" alt="Grammar Club" loading="lazy">
-          <span class="club-num">04</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Grammar Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Learn and practice grammar through real-life examples.</p>
-          <div class="club-quote">“I've been waiting since eight.”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
-      </div>
-      <div class="club-card reveal" data-i="4" data-club="Speaking Club">
-        <div class="club-photo">
-          <img src="assets/img/club-speaking.webp" alt="Speaking Club" loading="lazy">
-          <span class="club-num">05</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Speaking Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Build confidence and express yourself naturally in English.</p>
-          <div class="club-quote">“Could I get a flat white, please?”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
-      </div>
-      <div class="club-card reveal" data-i="5" data-club="Conversation Club">
-        <div class="club-photo">
-          <img src="assets/img/club-conversation.webp" alt="Conversation Club" loading="lazy">
-          <span class="club-num">06</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Conversation Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Practice everyday conversations and communicate confidently.</p>
-          <div class="club-quote">“So what do you usually do on Fridays?”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
-      </div>
-      <div class="club-card reveal" data-i="6" data-club="Cinema Club">
-        <div class="club-photo">
-          <img src="assets/img/club-cinema.webp" alt="Cinema Club" loading="lazy">
-          <span class="club-num">07</span>
-          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
-          <h4 class="club-title-on-photo">Cinema Club</h4>
-        </div>
-        <div class="club-body">
-          <p>Watch, discuss and retell English stories through film.</p>
-          <div class="club-quote">“What do you think happens next?”</div>
-          <span class="club-view-link">View &amp; upload materials →</span>
-        </div>
+    <div class="dash-box reveal">
+      <div><span class="tag light"><span class="en">Students · Parents · Teachers</span><span class="ar">طلاب · أولياء أمور · معلمين</span></span>
+        <h2><span class="en">Already with us? Open your dashboard.</span><span class="ar">معانا بالفعل؟ افتح لوحة التحكم.</span></h2>
+        <p><span class="en">One phone number and password for every school.</span><span class="ar">رقم موبايل وباسورد واحد لكل المجالات.</span></p></div>
+      <div class="d-btns">
+        <a href="english.html?signin=1"><i>🇬🇧</i><span class="en">English</span><span class="ar">الإنجليزي</span></a>
+        <a href="french-dashboard.html"><i>🇫🇷</i><span class="en">Français</span><span class="ar">الفرنساوي</span></a>
+        <a href="tech-dashboard.html"><i>💻</i><span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="watch" id="watch">
-  <div class="wrap">
-    <div class="watch-head reveal">
-      <div class="kicker">Watch &amp; Learn</div>
-      <h2>Short English lessons you'll actually finish.</h2>
-      <p>Pick a lesson, watch it with sound, and tap any word to hear how it's said. Each one takes less than a minute.</p>
-    </div>
-    <div class="watch-grid">
-      <div class="watch-player reveal">
-        <div class="wp-frame">
-          <video id="wpVideo" controls playsinline preload="metadata"></video>
-        </div>
-        <div class="wp-meta">
-          <div class="wp-chips"><span class="wp-chip" id="wpTag">Vocabulary</span><span class="wp-chip alt" id="wpLevel">Level 1</span></div>
-          <h3 id="wpTitle">Farm Animals</h3>
-          <p class="wp-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none"/></svg><span>Tap a word to hear it</span></p>
-          <div class="wp-words" id="wpWords" translate="no"></div>
-          <div class="wp-nav">
-            <button class="sess-btn ghost" id="wpPrev" type="button">Previous</button>
-            <button class="sess-btn" id="wpNext" type="button">Next lesson</button>
-          </div>
-        </div>
-      </div>
-      <div class="watch-list" id="watchList"></div>
-    </div>
+<footer class="foot" id="contact">
+  <div class="wrap foot-grid">
+    <div><img src="assets/img/logo.jpg" alt="Code Cademy" class="foot-logo"><p><span class="en">Learn. Build. Grow.</span><span class="ar">اتعلم. ابني. اكبر.</span></p></div>
+    <div><h4><span class="en">Schools</span><span class="ar">المجالات</span></h4><a href="english.html">🇬🇧 <span class="en">English</span><span class="ar">الإنجليزي</span></a><a href="french.html">🇫🇷 <span class="en">Français</span><span class="ar">الفرنساوي</span></a><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></div>
+    <div><h4><span class="en">Start</span><span class="ar">ابدأ</span></h4><a href="english.html#level-test"><span class="en">Free English level test</span><span class="ar">اختبار مستوى إنجليزي مجاني</span></a><a href="english.html#plans"><span class="en">English plans</span><span class="ar">باقات الإنجليزي</span></a><a href="#certs"><span class="en">Certificates</span><span class="ar">الشهادات</span></a></div>
+    <div><h4><span class="en">Contact</span><span class="ar">تواصل معانا</span></h4><a href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 WhatsApp</a><a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">📷 Instagram</a></div>
   </div>
-</section>
-
-<section class="en-games flow-bg" id="games">
-  <div class="wrap"><div class="eg" id="enGames" aria-live="polite"></div></div>
-</section>
-
-<section class="ptest" id="level-test">
-  <div class="wrap ptest-grid">
-    <div class="ptest-copy reveal">
-      <div class="kicker">Free level test</div>
-      <h2>Not sure where to start? Find your level in 3 minutes.</h2>
-      <p>12 short questions, about 5 minutes. You get your level straight away — and the plan that fits it.</p>
-      <ul class="ptest-points">
-        <li>No account needed — it is free.</li>
-        <li>About 5 minutes.</li>
-        <li>Your result: your level from 1 to 9, with your mistakes explained.</li>
-      </ul>
-    </div>
-    <div class="ptest-card reveal" data-i="1" id="ptestCard">
-      <div id="ptStart" class="pt-pane">
-        <div class="pt-badge">12</div>
-        <h3>Ready when you are</h3>
-        <p>Choose the best answer for each sentence. Don't use a dictionary — we want to see what you know today.</p>
-        <button class="cta-solid" id="ptBegin" type="button">Start the test</button>
-      </div>
-      <div id="ptRun" class="pt-pane" hidden>
-        <div class="pt-top"><span id="ptCount">Question 1 of 12</span><span class="pt-bar"><i id="ptBar"></i></span><span class="pt-lvl" id="ptLvl" hidden>A2</span></div>
-        <div translate="no" class="pt-q">
-          <p id="ptQ"></p>
-          <div id="ptOpts" class="pt-opts"></div>
-        </div>
-      </div>
-      <div id="ptWrite" class="pt-pane" hidden>
-        <form id="ptWriteForm">
-          <div class="pt-top"><span>Last step: a little writing</span></div>
-          <p class="pt-wq">Write 3–5 sentences in English about yourself: your family, your day or what you like doing.</p>
-          <textarea id="ptText" rows="5" maxlength="1500" dir="ltr" placeholder="My name is … I live in … Every day I …"></textarea>
-          <p class="pt-werr" id="ptWriteErr" aria-live="polite"></p>
-          <div class="pt-cta"><button class="cta-solid" type="submit">See my level</button><button class="cta-ghost" type="button" id="ptSkip">Skip</button></div>
-        </form>
-      </div>
-      <div id="ptDone" class="pt-pane" hidden>
-        <div class="pt-result">
-          <div class="pt-badge ok" id="ptCefr">1</div>
-          <div><span class="pt-kick">Your estimated level</span><h3 id="ptLevel">Level 1</h3><span class="pt-score" id="ptScore">0/12 correct</span></div>
-        </div>
-        <div class="pt-scale" id="ptScale" aria-hidden="true"></div>
-        <p id="ptMsg"></p>
-        <div class="pt-wfb" id="ptWriteFb" hidden></div>
-        <details class="pt-review" id="ptReviewWrap"><summary id="ptReviewSum">Review your mistakes</summary><ol id="ptReview"></ol></details>
-        <div class="pt-cta">
-          <button class="cta-solid" id="ptJoin" type="button">Start learning at this level</button>
-          <a class="cta-ghost" href="#plans" id="ptPlans">See plans</a>
-          <button class="cta-ghost" id="ptRetry" type="button">Retake</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="plans flow-bg" id="plans">
-  <div class="wrap">
-    <div class="how-head reveal">
-      <div class="kicker">Services &amp; Plans</div>
-      <h2>Everything you need to speak English with confidence.</h2>
-      <p>One-to-one lessons, speaking clubs and a living-English curriculum — with your progress followed at every step.</p>
-    </div>
-
-    <div class="svc-grid">
-      <div class="svc reveal" data-i="0">
-        <div class="svc-img"><img loading="lazy" decoding="async" src="assets/img/service-1.webp" alt="" style="object-position:50% 30%"><span class="svc-n">01</span></div>
-        <div class="svc-text"><h4>Individual lessons</h4><p>Learning shaped around the student's level and needs, with progress follow-up.</p></div>
-      </div>
-      <div class="svc reveal" data-i="1">
-        <div class="svc-img"><img loading="lazy" decoding="async" data-club-photo="Conversation Club" alt=""><span class="svc-n">02</span></div>
-        <div class="svc-text"><h4>Conversation &amp; speaking clubs</h4><p>Practise English with others through dialogues and real-life situations.</p></div>
-      </div>
-      <div class="svc reveal" data-i="2">
-        <div class="svc-img"><img loading="lazy" decoding="async" data-club-photo="Reading Club" alt=""><span class="svc-n">03</span></div>
-        <div class="svc-text"><h4>Immersion curriculum</h4><p>Build listening, speaking, reading and writing through hands-on practice.</p></div>
-      </div>
-      <div class="svc reveal" data-i="3">
-        <div class="svc-img"><img loading="lazy" decoding="async" src="assets/img/service-4.webp" alt="" style="object-position:50% 40%"><span class="svc-n">04</span></div>
-        <div class="svc-text"><h4>Progress tracking</h4><p>Level assessments and a clear view of the student's growth throughout the program.</p></div>
-      </div>
-    </div>
-
-    <div class="plans-block">
-      <div class="plans-head reveal">
-        <h3>Level System</h3>
-        <p>Pay per lesson, or save when you book whole levels.</p>
-      </div>
-      <div class="price-grid">
-        <div class="price-card reveal" data-i="0">
-          <div class="pc-name">Single lesson</div>
-          <div class="pc-price"><b>$7</b><span>(25 SAR)</span></div>
-          <div class="pc-sub">One live lesson with a teacher</div>
-          <button class="pc-btn" type="button" data-plan="lesson">Choose</button>
-        </div>
-        <div class="price-card reveal" data-i="1">
-          <div class="pc-name">1 Level</div>
-          <div class="pc-price"><b>$80</b><span>(300 SAR)</span></div>
-          <div class="pc-sub">One full level of the program</div>
-          <button class="pc-btn" type="button" data-plan="level1">Choose</button>
-        </div>
-        <div class="price-card reveal" data-i="2">
-          <div class="pc-name">2 Levels</div>
-          <div class="pc-price"><b>$133</b><span>(500 SAR)</span></div>
-          <div class="pc-sub">Two levels</div>
-          <div class="pc-save">Save $27</div>
-          <button class="pc-btn" type="button" data-plan="level2">Choose</button>
-        </div>
-        <div class="price-card best reveal" data-i="3">
-          <div class="pc-tag">Best value</div>
-          <div class="pc-name">3 Levels</div>
-          <div class="pc-price"><b>$213</b><span>(800 SAR)</span></div>
-          <div class="pc-sub">Three levels of the program</div>
-          <div class="pc-save">Save $27</div>
-          <button class="pc-btn solid" type="button" data-plan="level3">Choose</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="immersion reveal">
-      <div class="im-main">
-        <div class="im-kick">Language Immersion Program</div>
-        <h3>Learn English by living it.</h3>
-        <ul class="im-list">
-          <li>Learn English through everyday life situations.</li>
-          <li>Practise conversation and speaking.</li>
-          <li>Build reading, writing and listening skills.</li>
-          <li>Hands-on activities, stories and practice.</li>
-          <li>Track the student's progress throughout the program.</li>
-        </ul>
-      </div>
-      <div class="im-buy">
-        <div class="im-len"><span>Program length</span><b>18 months</b></div>
-        <div class="pc-price"><b>$400</b><span>(1,500 SAR)</span></div>
-        <div class="im-per">about $22 a month</div>
-        <button class="pc-btn gold" type="button" data-plan="immersion">Join the program</button>
-      </div>
-    </div>
-
-    <div class="pay-strip reveal">
-      <div class="ps-title"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</div>
-      <div class="ps-methods">
-        <span class="ps-pill"><span class="pm-ico inst" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1.3"/><circle cx="12" cy="15" r="1.3"/><circle cx="16" cy="15" r="1.3"/></svg></span><span><b>Tamara</b><i>Pay in installments</i></span></span>
-        <span class="ps-pill"><span class="pm-ico visa" aria-hidden="true"><svg viewBox="0 0 60 20"><text x="30" y="16" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="17" font-weight="900" font-style="italic" letter-spacing="-.5" fill="#1A1F71">VISA</text><path d="M4 18.6h52" stroke="#F7B600" stroke-width="1.6"/></svg></span><span><b>Visa</b><i>Pay by card</i></span></span>
-      </div>
-      <p>You pay on the payment provider's own secure page — card details are never typed into this website.</p>
-    </div>
-  </div>
-</section>
-
-<section class="library flow-bg" id="club-library">
-  <div class="wrap">
-    <div class="library-panel reveal" style="text-align:center;padding:54px 36px;">
-      <div class="kicker">Club Library &amp; Progress</div>
-      <h3>Your own dashboard — books, attendance and progress, in one place.</h3>
-      <p style="max-width:560px;margin:0 auto 26px;">Sign in to reach a real, dedicated page for your club: materials to download, progress tracked over time, and announcements from your teacher — built for students and teachers alike.</p>
-      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-        <button class="lib-submit" id="openAuthBtnTeaser" type="button">Sign in</button>
-        <button class="lib-tab" id="openSignupBtnTeaser" type="button">Create an account</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="auth-page" id="authPage" hidden>
-  <div class="auth-brand">
-    <div class="auth-brand-top">
-      <span class="mark" style="background:rgba(255,255,255,.18);width:34px;height:34px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:0.85rem;">CC</span>
-      <span>Code Cademy</span>
-    </div>
-    <div class="auth-brand-mid">
-      <div class="auth-brand-quote">“Learn by living it — real clubs, real books, and progress you can actually see.”</div>
-      <ul class="auth-points">
-        <li><span>📚</span>Every club book, readable right here</li>
-        <li><span>📝</span>Level exams and printable certificates</li>
-        <li><span>💬</span>Parents and teachers, one tap apart</li>
-      </ul>
-      <div class="auth-float af1"><b>🔥 12</b><span>day reading streak</span></div>
-      <div class="auth-float af2"><b>🎓</b><span>Level 4 passed</span></div>
-    </div>
-
-    <div class="auth-brand-foot">Code Cademy · English Immersion Academy</div>
-  </div>
-  <div class="auth-panel">
-    <button class="auth-back-link" id="authBackLink" type="button">← Back to website</button>
-    <div class="auth-panel-inner">
-      <div class="auth-panel-head">
-        <h2 id="authPageTitle">Welcome back</h2>
-        <p id="authPageSub">Sign in to reach your dashboard.</p>
-      </div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="login" type="button">Sign in</button>
-        <button class="auth-tab" data-tab="signup" type="button">Sign up</button>
-      </div>
-
-      <form id="loginForm" class="auth-form">
-        <label>Phone number<input type="tel" id="loginEmail" required autocomplete="username" inputmode="tel" dir="ltr" placeholder="05xxxxxxxx · 01xxxxxxxxx"></label>
-        <label>Password<input type="password" id="loginPassword" required autocomplete="current-password"></label>
-        <p class="auth-hint">Students, parents and teachers of Code Cademy English academy sign in here with the phone number they registered. We never ask for card details here.</p>
-        <button type="submit" class="lib-submit">Sign in</button>
-        <button type="button" class="auth-forgot" id="forgotLink">Forgot your password?</button>
-        <p class="auth-error" id="loginError"></p>
-      </form>
-
-      <form id="forgotForm" class="auth-form" hidden>
-        <p class="auth-note">Message the academy on WhatsApp from your phone number, and the admin will set a new password for you.</p>
-        <a class="lib-submit auth-wa" id="forgotWa" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 Message the academy on WhatsApp</a>
-        <button type="button" class="auth-forgot" id="forgotBack">← Back to sign in</button>
-        <p class="auth-error" id="forgotMsg"></p>
-      </form>
-
-      <form id="resetForm" class="auth-form" hidden>
-        <p class="auth-note">Choose a new password for your account.</p>
-        <label>New password (6+ characters)<input type="password" id="resetPassword" required minlength="6" autocomplete="new-password"></label>
-        <label>Repeat the new password<input type="password" id="resetPassword2" required minlength="6" autocomplete="new-password"></label>
-        <button type="submit" class="lib-submit">Save new password</button>
-        <p class="auth-error" id="resetMsg"></p>
-      </form>
-
-      <form id="signupForm" class="auth-form" hidden>
-        <label>Full name<input type="text" id="suName" required></label>
-        <label>Phone number (you sign in with it)<input type="tel" id="suPhone" required inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx · 01xxxxxxxxx"></label>
-        <label>Password (6+ characters)<input type="password" id="suPassword" required minlength="6"></label>
-        <div class="field-label">I am a…</div>
-        <div class="role-pick" role="radiogroup" aria-label="I am a…">
-          <button type="button" class="role-opt active" data-role="student" role="radio" aria-checked="true"><span>🎒</span><b>Student</b><small>I want to learn</small></button>
-          <button type="button" class="role-opt" data-role="parent" role="radio" aria-checked="false"><span>👨‍👩‍👧</span><b>Parent</b><small>I follow my child</small></button>
-          <button type="button" class="role-opt" data-role="teacher" role="radio" aria-checked="false"><span>🧑‍🏫</span><b>Teacher</b><small>I teach at the academy</small></button>
-        </div>
-        <select id="suRole" hidden>
-          <option value="student">Student</option>
-          <option value="parent">Parent / guardian</option>
-          <option value="teacher">Teacher</option>
-        </select>
-        <p class="auth-hint" id="suTeacherHint" hidden>The academy admin approves teacher accounts. Create your account now — your teacher tools open as soon as you are approved.</p>
-
-        <label id="suClubWrap">Club
-          <select id="suClub">
-            <option value="Phonics Club">Phonics Club</option>
-            <option value="Reading Club">Reading Club</option>
-            <option value="Writing Club">Writing Club</option>
-            <option value="Grammar Club">Grammar Club</option>
-            <option value="Speaking Club">Speaking Club</option>
-            <option value="Conversation Club">Conversation Club</option>
-            <option value="Cinema Club">Cinema Club</option>
-          </select>
-        </label>
-        <label class="auth-consent"><input type="checkbox" id="suAgree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
-        <button type="submit" class="lib-submit">Create account</button>
-        <p class="auth-error" id="signupError"></p>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="dashboard-page" id="dashboardPage" hidden>
-  <div class="dash-top">
-    <div class="dash-top-left">
-      <div class="dash-avatar" id="dashAvatar">•</div>
-      <div class="dash-who"><b id="dashName">—</b><span id="dashRoleClub">—</span></div>
-    </div>
-    <div class="dash-top-actions">
-      <button class="dash-link-btn" id="backToSiteBtn" type="button">View website</button>
-      <button class="dash-link-btn" id="dashSignOutBtn" type="button">Sign out</button>
-    </div>
-  </div>
-  <div class="dash-body">
-    <nav class="dash-sidebar" aria-label="Dashboard">
-      <button class="dash-tab active" data-view="overview" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Overview</span></button>
-      <button class="dash-tab" data-view="materials" type="button" id="tabMaterials"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/></svg><span>Materials</span></button>
-      <button class="dash-tab" data-view="sessions" type="button" id="tabSessions"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg><span>Zoom Meetings</span></button>
-      <button class="dash-tab" data-view="homework" type="button" id="tabHomework"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><span>Homework</span></button>
-      <button class="dash-tab" data-view="messages" type="button" id="tabMessages"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Messages</span><b class="tab-badge" id="msgBadge" hidden>0</b></button>
-      <button class="dash-tab" data-view="children" type="button" id="tabChildren" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 20c.2-2.4 1.4-4.3 3.5-4.3 2 0 3 1.6 3 4.3"/></svg><span>My children</span></button>
-      <button class="dash-tab" data-view="myplan" type="button" id="tabMyPlan" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span>My Plan</span></button>
-      <button class="dash-tab" data-view="enroll" type="button" id="tabEnroll" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M17 7.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2 2.6 5 3.3 5 1.4 5 3.5-2.2 3.2-5 3.2-5-1.2-5-3.2"/></svg><span>Enrollments</span></button>
-      <button class="dash-tab" data-view="videos" type="button" id="tabVideos" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 9l5 3-5 3z"/></svg><span>Videos</span></button>
-      <button class="dash-tab" data-view="progress" type="button" id="tabProgress"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg><span>My Progress</span></button>
-      <button class="dash-tab" data-view="certdesign" type="button" id="tabCertDesign" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5 4.5 2.5L15 13.5"/></svg><span>Certificate design</span></button>
-      <button class="dash-tab" data-view="students" type="button" id="tabStudents" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg><span>Students</span></button>
-      <button class="dash-tab" data-view="notifications" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span>Notifications</span></button>
-      <button class="dash-tab" data-view="users" type="button" id="tabUsers" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M18.5 3.5l1 1 2-2"/></svg><span>Users & roles</span></button>
-      <button class="dash-tab" data-view="profile" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><span>Profile</span></button>
-    </nav>
-    <div class="dash-main">
-
-      <div class="dash-view" data-view="overview">
-        <h3>Welcome back, <span id="ovName">there</span>.</h3>
-        <p class="dash-sub" id="ovSub">Here's what's new in your club.</p>
-        <div class="next-step" id="ovNext" hidden></div>
-        <div class="dash-stats" id="ovStats"></div>
-        <div id="planBanner"></div>
-        <div id="ovNextSession"></div>
-        <div class="link-card" id="ovLinkCard" hidden>
-          <div>
-            <b>Connect your parent</b>
-            <span>Share this code so your parent can follow your progress and message your teachers.</span>
-          </div>
-          <button class="link-code" type="button" id="ovLinkCode" title="Copy">——————</button>
-        </div>
-        <div id="ovChildren"></div>
-        <div class="reading-hub" id="readingHub" hidden>
-          <div class="streak-card" id="streakCard">
-            <div class="streak-flame" aria-hidden="true">🔥</div>
-            <div>
-              <b id="streakDays">0</b>
-              <span id="streakLabel">day reading streak</span>
-            </div>
-            <div class="streak-week" id="streakWeek" aria-hidden="true"></div>
-          </div>
-          <div class="leader-card">
-            <h4 id="leaderTitle">Top readers this week</h4>
-            <ol class="leader-list" id="leaderList"></ol>
-          </div>
-        </div>
-        <div id="ovNotifPreview"></div>
-      </div>
-
-      <div class="dash-view" data-view="materials" hidden>
-        <h3 id="matHeading">Materials</h3>
-        <p class="dash-sub" id="matSub">Everything your teacher has added to your club.</p>
-        <form class="lib-form" id="libForm" hidden>
-          <div>
-            <label for="libClub">Club</label>
-            <select id="libClub" required>
-              <option value="Phonics Club">Phonics Club</option>
-              <option value="Reading Club">Reading Club</option>
-              <option value="Writing Club">Writing Club</option>
-              <option value="Grammar Club">Grammar Club</option>
-              <option value="Speaking Club">Speaking Club</option>
-              <option value="Conversation Club">Conversation Club</option>
-              <option value="Cinema Club">Cinema Club</option>
-            </select>
-          </div>
-          <div>
-            <label for="libLevel">Level</label>
-            <select id="libLevel" data-levels data-any-level></select>
-          </div>
-          <div class="full">
-            <label for="libTitle">Title</label>
-            <input id="libTitle" type="text" placeholder="e.g. Oxford Reading Tree — Level 3" required>
-          </div>
-          <div class="full">
-            <label for="libFile">File (PDF, image, or document)</label>
-            <label class="dropzone" id="dropzone" for="libFile">
-              <span class="dz-icon" aria-hidden="true">📚</span>
-              <span class="dz-text" id="dzText">Drag a book here, or click to choose a file</span>
-              <span class="dz-hint">PDF, Word, EPUB, PowerPoint or image · up to 50 MB · Arabic file names are fine</span>
-              <input id="libFile" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.epub,.ppt,.pptx,.mp3,.mp4" required>
-            </label>
-          </div>
-          <div class="full upload-status" id="uploadStatus" hidden>
-            <div class="up-bar"><i id="upBarFill"></i></div>
-            <span id="upMsg"></span>
-          </div>
-          <button type="submit" class="lib-submit" id="libSubmit">Upload to club</button>
-          <p class="lib-note">Students of this club and level who have paid for a plan can read the whole book at once; other students see only the first pages.</p>
-        </form>
-        <div class="protect-box" id="protectBox" hidden><span>🔒</span><p id="protectText"></p><button type="button" class="sess-btn" id="protectBtn">Protect books</button></div>
-        <div class="lib-tabs" id="libTabs" hidden>
-          <button class="lib-tab active" data-filter="all">All</button>
-          <button class="lib-tab" data-filter="Phonics Club">Phonics</button>
-          <button class="lib-tab" data-filter="Reading Club">Reading</button>
-          <button class="lib-tab" data-filter="Writing Club">Writing</button>
-          <button class="lib-tab" data-filter="Grammar Club">Grammar</button>
-          <button class="lib-tab" data-filter="Speaking Club">Speaking</button>
-          <button class="lib-tab" data-filter="Conversation Club">Conversation</button>
-          <button class="lib-tab" data-filter="Cinema Club">Cinema</button>
-        </div>
-
-        <div class="path" id="learnPath" hidden></div>
-
-        <div class="level-tabs" id="levelTabs">
-        </div>
-        <div class="lv-upbar" id="lvUpBar" hidden>
-          <div><b id="lvUpTitle">Level 1</b><span id="lvUpMeta"></span></div>
-          <button type="button" class="lib-submit" id="lvUpBtn">📤 Upload a book</button>
-        </div>
-
-        <div class="shelf-head" id="shelfHead" hidden>
-          <div><h4 id="shelfTitle">Books</h4><span id="shelfMeta"></span></div>
-        </div>
-        <div class="lib-search-wrap">
-          <input type="search" id="libSearch" class="lib-search" placeholder="Search books and materials…" aria-label="Search materials">
-        </div>
-        <div id="levelLockedMsg" class="locked-card" hidden><div>🔒</div><b id="lockedTitle">This level is locked</b><span id="lockedText">Finish the previous level and pass its exam to unlock this one.</span></div>
-        <div class="lib-grid" id="libGrid"></div>
-
-        <div class="exam-cta" id="examCTA" hidden>
-          <div class="exam-cta-icon" id="examCTAIcon">📝</div>
-          <div class="exam-cta-text"><b id="examCTATitle">Level exam</b><p id="examCTAText">Pass this level's exam to unlock the next one.</p></div>
-          <button class="btn-primary" id="startExamBtn" type="button">Start the exam</button>
-        </div>
-
-        <div class="quiz" id="examPanel" hidden>
-          <div class="quiz-top">
-            <h4 id="examTitle">Level exam</h4>
-            <button class="quiz-x" id="examCancel" type="button" aria-label="Close">✕</button>
-          </div>
-          <div class="quiz-progress"><i id="quizBar"></i></div>
-          <span class="quiz-count" id="quizCount"></span>
-          <div id="examQuestions"></div>
-          <div class="quiz-nav" id="quizNav">
-            <button class="btn-ghost" id="quizPrev" type="button">← Back</button>
-            <button class="btn-primary" id="quizNext" type="button">Next →</button>
-            <button class="btn-primary" id="submitExamBtn" type="button">Submit exam</button>
-          </div>
-          <div class="quiz-result" id="quizResult" hidden></div>
-          <p id="examResult" class="auth-error"></p>
-        </div>
-
-        <div class="teacher-exam-admin" id="examAdmin" hidden>
-          <h4>Add a question to this level's exam</h4>
-          <form class="lib-form" id="examQForm">
-            <div class="full">
-              <label for="eqQuestion">Question</label>
-              <input id="eqQuestion" type="text" placeholder="e.g. How do you greet someone new?" required>
-            </div>
-            <div><label for="eqOpt0">Option A (correct)</label><input id="eqOpt0" type="text" required></div>
-            <div><label for="eqOpt1">Option B</label><input id="eqOpt1" type="text" required></div>
-            <div><label for="eqOpt2">Option C</label><input id="eqOpt2" type="text" required></div>
-            <div><label for="eqOpt3">Option D</label><input id="eqOpt3" type="text" required></div>
-            <button type="submit" class="lib-submit">Add question</button>
-            <p class="lib-note">Option A is saved as the correct answer — put the right one there, options shuffle for students.</p>
-          </form>
-          <div class="csv-import">
-            <b>Add many questions at once</b>
-            <span>Upload a CSV file with 5 columns: question, correct answer, wrong 1, wrong 2, wrong 3 (first row = headers). Works with Excel → “Save as CSV UTF-8”.</span>
-            <div class="csv-row">
-              <label class="btn-ghost csv-pick">📄 Choose CSV file<input type="file" id="eqCsv" accept=".csv,text/csv" hidden></label>
-              <a class="csv-sample" id="eqCsvSample" href="#" download="exam-questions-sample.csv">Download a sample file</a>
-            </div>
-            <p class="lib-note" id="eqCsvMsg"></p>
-          </div>
-          <div id="examQList"></div>
-        </div>
-      </div>
-
-      <div class="dash-view" data-view="sessions" hidden>
-        <h3 id="sessHeading">Zoom Meetings</h3>
-        <p class="dash-sub" id="sessSub">Book a Zoom Meeting with your teacher.</p>
-        <div class="tz-note"><span>Times are shown in your local time zone:</span> <b id="tzName"></b></div>
-
-        <form class="lib-form" id="sessForm" hidden>
-          <div>
-            <label for="sessClub">Club</label>
-            <select id="sessClub" required>
-              <option value="Phonics Club">Phonics Club</option>
-              <option value="Reading Club">Reading Club</option>
-              <option value="Writing Club">Writing Club</option>
-              <option value="Grammar Club">Grammar Club</option>
-              <option value="Speaking Club">Speaking Club</option>
-              <option value="Conversation Club">Conversation Club</option>
-              <option value="Cinema Club">Cinema Club</option>
-            </select>
-          </div>
-          <div>
-            <label for="sessTitle">Topic</label>
-            <input id="sessTitle" type="text" placeholder="e.g. Ordering food — speaking practice" required>
-          </div>
-          <div>
-            <label for="sessStart">Date and time</label>
-            <input id="sessStart" type="datetime-local" required>
-          </div>
-          <div>
-            <label for="sessDuration">Length</label>
-            <select id="sessDuration">
-              <option value="30">30 minutes</option>
-              <option value="45" selected>45 minutes</option>
-              <option value="60">60 minutes</option>
-              <option value="90">90 minutes</option>
-            </select>
-          </div>
-          <div>
-            <label for="sessSeats">Seats</label>
-            <input id="sessSeats" type="number" min="1" max="100" value="8" required>
-          </div>
-          <div>
-            <label for="sessRepeat">Repeat</label>
-            <select id="sessRepeat">
-              <option value="1">Just once</option>
-              <option value="2">Every week · 2 weeks</option>
-              <option value="4">Every week · 4 weeks</option>
-              <option value="8">Every week · 8 weeks</option>
-              <option value="12">Every week · 12 weeks</option>
-            </select>
-          </div>
-          <div class="full">
-            <label for="sessZoom">Zoom Meeting link</label>
-            <input id="sessZoom" type="url" placeholder="https://zoom.us/j/..." required>
-          </div>
-          <button type="submit" class="lib-submit">Open this time for booking</button>
-          <p class="lib-note">Students in that club see the time right away. Your Zoom Meeting link stays hidden until a student books a seat. Students can cancel up to 2 hours before the start.</p>
-        </form>
-
-        <p class="sess-notice auth-error" id="sessNotice"></p>
-
-        <div id="sessPlan"></div>
-        <h4 class="sess-h" id="sessListHeading">Open times in your club</h4>
-        <div class="day-strip" id="sessDays" hidden></div>
-        <div class="sess-list" id="sessList"></div>
-        <h4 class="sess-h" id="myBookingsHeading">My bookings</h4>
-        <div class="sess-list" id="myBookings"></div>
-      </div>
-
-      <div class="dash-view" data-view="videos" hidden>
-        <h3>Video lessons</h3>
-        <p class="dash-sub">Upload a short video and it appears in the website's Watch &amp; Learn section right away.</p>
-        <form class="lib-form" id="vidForm">
-          <div class="full">
-            <label for="vidTitle">Title</label>
-            <input id="vidTitle" type="text" placeholder="e.g. Colors and shapes" required>
-          </div>
-          <div>
-            <label for="vidTag">Category</label>
-            <select id="vidTag">
-              <option value="Vocabulary">Vocabulary</option>
-              <option value="Speaking">Speaking</option>
-              <option value="Phonics">Phonics</option>
-              <option value="Grammar">Grammar</option>
-              <option value="Stories">Stories</option>
-              <option value="Culture">Culture</option>
-            </select>
-          </div>
-          <div>
-            <label for="vidLevel">Level</label>
-            <select id="vidLevel" data-levels></select>
-          </div>
-          <div class="full">
-            <label for="vidWords">Words or phrases (separate with commas)</label>
-            <input id="vidWords" type="text" placeholder="e.g. red, blue, green">
-          </div>
-          <div class="full">
-            <label for="vidFile">Video file (MP4)</label>
-            <input id="vidFile" type="file" accept="video/mp4,video/webm" required>
-          </div>
-          <button type="submit" class="lib-submit" id="vidSubmit">Upload video</button>
-          <p class="lib-note">Short vertical videos work best (under 30 seconds and under 20 MB). An MP4 recorded on your phone is fine.</p>
-        </form>
-        <p class="sess-notice auth-error" id="vidNotice"></p>
-        <h4 class="sess-h">Videos you've added</h4>
-        <div class="sess-list" id="vidList"></div>
-
-        <div class="ig-card" id="igCard" hidden>
-          <div class="ig-head">
-            <span class="ig-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
-            <div><b>Instagram → website</b><span>Videos you post on Instagram appear in Watch &amp; Learn automatically, every hour.</span></div>
-          </div>
-          <div class="ig-status" id="igStatus">Checking…</div>
-          <form class="ig-form" id="igForm">
-            <label for="igToken">Instagram access token</label>
-            <div class="ig-row">
-              <input id="igToken" type="password" autocomplete="off" placeholder="Paste the long token that starts with IG…" required>
-              <button class="lib-submit" type="submit">Save token</button>
-            </div>
-            <p class="lib-note">How to get the token (5 minutes, once): see <a href="https://github.com/cc-english-academy/cc-english-academy.github.io/blob/main/INSTAGRAM.md" target="_blank" rel="noopener">INSTAGRAM.md</a>. It renews itself — you won't need to paste it again.</p>
-            <p class="auth-error" id="igMsg"></p>
-          </form>
-        </div>
-      </div>
-
-      <div class="dash-view" data-view="homework" hidden>
-        <h3>Homework</h3>
-        <p class="dash-sub" id="hwSub">Your teacher's assignments for your club.</p>
-        <form class="lib-form" id="hwForm" hidden>
-          <div>
-            <label for="hwClub">Club</label>
-            <select id="hwClub">
-              <option value="Phonics Club">Phonics Club</option>
-              <option value="Reading Club">Reading Club</option>
-              <option value="Writing Club">Writing Club</option>
-              <option value="Grammar Club">Grammar Club</option>
-              <option value="Speaking Club">Speaking Club</option>
-              <option value="Conversation Club">Conversation Club</option>
-              <option value="Cinema Club">Cinema Club</option>
-            </select>
-          </div>
-          <div>
-            <label for="hwDue">Due date (optional)</label>
-            <input id="hwDue" type="date">
-          </div>
-          <div class="full">
-            <label for="hwTitle">Title</label>
-            <input id="hwTitle" type="text" placeholder="e.g. Describe your weekend in 5 sentences" required>
-          </div>
-          <div class="full">
-            <label for="hwText">Instructions</label>
-            <textarea id="hwText" rows="3" placeholder="What should the student do?"></textarea>
-          </div>
-          <div class="full">
-            <label>Files for the students (optional)</label>
-            <div id="hwFormAtt"></div>
-          </div>
-          <button type="submit" class="lib-submit">Give homework</button>
-        </form>
-        <p class="sess-notice auth-error" id="hwNotice"></p>
-        <div class="sess-list" id="hwList"></div>
-      </div>
-
-      <div class="dash-view" data-view="children" hidden>
-        <h3>My children</h3>
-        <p class="dash-sub">Follow reading, exams and teacher notes — and message the teachers directly.</p>
-        <form class="link-form" id="linkChildForm">
-          <label for="linkCode">Add a child with their 6-character code</label>
-          <div class="link-form-row">
-            <input id="linkCode" type="text" maxlength="6" autocomplete="off" placeholder="e.g. K7Q2ZP" required>
-            <button type="submit" class="lib-submit">Link child</button>
-          </div>
-          <p class="lib-note" id="linkMsg">Your child finds the code on their dashboard, under Overview or Profile.</p>
-        </form>
-        <div class="children-grid" id="childrenList"></div>
-      </div>
-
-      <div class="dash-view" data-view="messages" hidden>
-        <h3>Messages</h3>
-        <p class="dash-sub" id="msgSub">Talk with teachers, students and parents in one place.</p>
-        <div class="chat" id="chat">
-          <aside class="chat-list">
-            <input type="search" id="chatSearch" class="chat-search" placeholder="Search conversations…" aria-label="Search conversations">
-            <div id="chatInbox" class="chat-inbox"></div>
-          </aside>
-          <section class="chat-pane">
-            <header class="chat-head">
-              <button class="chat-back" id="chatBack" type="button" aria-label="Back">←</button>
-              <div class="chat-avatar" id="chatAvatar">?</div>
-              <div class="chat-who"><b id="chatTitle">Select a conversation</b><span id="chatMeta"></span></div>
-            </header>
-            <div class="chat-msgs" id="chatMsgs">
-              <div class="chat-empty">💬<span>Pick a conversation to start chatting.</span></div>
-            </div>
-            <form class="chat-compose" id="chatForm" hidden>
-              <label class="chat-private" id="chatPrivateWrap" hidden><input type="checkbox" id="chatPrivate"> <span>Private — only parents &amp; teachers see it</span></label>
-              <div class="chat-row">
-                <textarea id="chatInput" rows="1" maxlength="4000" placeholder="Write a message…" aria-label="Message"></textarea>
-                <button type="submit" class="chat-send" aria-label="Send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5L21 3l-8.5 18-2-7.5z"/></svg></button>
-              </div>
-            </form>
-          </section>
-        </div>
-      </div>
-
-      <div class="dash-view" data-view="myplan" hidden>
-        <h3>My plan</h3>
-        <p class="dash-sub">Your enrollment and payments.</p>
-        <div class="sess-list" id="myPlanBox"></div>
-        <button class="lib-submit" id="browsePlansBtn" type="button" style="max-width:240px;margin-top:20px">Browse plans</button>
-      </div>
-
-      <div class="dash-view" data-view="enroll" hidden>
-        <h3>Plans &amp; enrollments</h3>
-        <p class="dash-sub">Switch a student's plan on once the payment arrives, or stop it at any time. Students need an active plan to book a Zoom Meeting.</p>
-        <p class="sess-notice auth-error" id="enNotice"></p>
-        <div class="sess-list" id="enList"></div>
-        <div id="psBox" hidden>
-          <h4 class="sess-h">Plans: price, classes and validity</h4>
-          <p class="dash-sub">What each plan includes. Students see these on the website, and every plan you switch on gets these classes and end date. Leave “classes” empty for unlimited.</p>
-          <form class="lib-form" id="psForm"><div class="full ps-table" id="psFields"></div>
-            <button type="submit" class="lib-submit">Save plans</button></form>
-        </div>
-        <div id="bankBox" hidden>
-          <h4 class="sess-h">Bank transfer</h4>
-          <p class="dash-sub">The account students transfer to. They see these details at checkout, transfer, and upload the receipt — you see the receipt here and switch the plan on.</p>
-          <form class="lib-form" id="bankForm">
-            <div><label for="bkName">Bank</label><input id="bkName" maxlength="80" placeholder="Al Rajhi Bank"></div>
-            <div><label for="bkHolder">Account holder</label><input id="bkHolder" maxlength="120"></div>
-            <div class="full"><label for="bkIban">IBAN</label><input id="bkIban" maxlength="40" dir="ltr" placeholder="SA00 8000 0000 6080 1000 0000"></div>
-            <button type="submit" class="lib-submit">Save bank details</button>
-          </form>
-        </div>
-        <h4 class="sess-h">Payment links</h4>
-        <p class="dash-sub">Paste the Tamara and Visa payment link for each plan. Students are sent there after choosing how to pay. Leave a link blank and students are asked to pay over WhatsApp instead.</p>
-        <form class="lib-form" id="plForm">
-          <div class="full" id="plFields"></div>
-          <button type="submit" class="lib-submit">Save payment links</button>
-        </form>
-      </div>
-
-      <div class="dash-view" data-view="progress" hidden>
-        <h3>My progress</h3>
-        <p class="dash-sub">Attendance and notes your teacher has logged for you.</p>
-        <div id="progressList"></div>
-        <h4 class="sess-h" id="certHeading">Certificates</h4>
-        <div class="sess-list" id="certList"></div>
-      </div>
-
-      <div class="dash-view" data-view="certdesign" hidden>
-        <h3>Certificate design</h3>
-        <p class="dash-sub">Upload your own certificate artwork, then drag the name and date onto the right places. Students get the new design automatically when they pass a level.</p>
-        <div class="cd-tools">
-          <div>
-            <label for="cdClub">Use this design for</label>
-            <select id="cdClub">
-              <option value="*">All clubs</option>
-              <option value="Phonics Club">Phonics Club</option>
-              <option value="Reading Club">Reading Club</option>
-              <option value="Writing Club">Writing Club</option>
-              <option value="Grammar Club">Grammar Club</option>
-              <option value="Speaking Club">Speaking Club</option>
-              <option value="Conversation Club">Conversation Club</option>
-              <option value="Cinema Club">Cinema Club</option>
-            </select>
-          </div>
-          <div>
-            <label>Certificate image</label>
-            <label class="btn-ghost cd-pick">🖼️ <span>Choose image</span><input type="file" id="cdFile" accept="image/png,image/jpeg" hidden></label>
-            <small class="cd-hint">JPG or PNG, landscape, at least 1600 px wide</small>
-          </div>
-          <div>
-            <label for="cdColor">Text colour</label>
-            <input type="color" id="cdColor" value="#5C1A28">
-          </div>
-        </div>
-        <p class="cd-help">✋ Drag the labels on the preview — <b>Name</b>, <b>Date</b>, <b>Details</b> and <b>ID</b> — to where they should be printed.</p>
-        <div class="cd-stage" id="cdStage">
-          <canvas id="cdCanvas"></canvas>
-          <button type="button" class="cd-pin" data-pin="name" aria-label="Name"><span>Name</span></button>
-          <button type="button" class="cd-pin" data-pin="date" aria-label="Date"><span>Date</span></button>
-          <button type="button" class="cd-pin" data-pin="info" aria-label="Details"><span>Details</span></button>
-          <button type="button" class="cd-pin small" data-pin="id" aria-label="ID"><span>ID</span></button>
-        </div>
-        <div class="cd-actions">
-          <button class="lib-submit" id="cdSave" type="button">Save design</button>
-          <button class="btn-ghost" id="cdReset" type="button">Back to the default design</button>
-          <span class="cd-msg" id="cdMsg"></span>
-        </div>
-      </div>
-
-      <div class="dash-view" data-view="students" hidden>
-        <h3>Students &amp; progress</h3>
-        <p class="dash-sub">Add an attendance or progress note for any student.</p>
-        <form class="lib-form" id="progressForm">
-          <div class="full">
-            <label for="progStudent">Student</label>
-            <select id="progStudent"></select>
-          </div>
-          <div>
-            <label for="progStatus">Status</label>
-            <select id="progStatus">
-              <option value="Present">Present</option>
-              <option value="Absent">Absent</option>
-              <option value="Improved">Improved</option>
-              <option value="Needs practice">Needs practice</option>
-            </select>
-          </div>
-          <div>
-            <label for="progNote">Note</label>
-            <input id="progNote" type="text" placeholder="e.g. Great improvement in reading aloud">
-          </div>
-          <button type="submit" class="lib-submit">Add progress entry</button>
-        </form>
-        <div id="studentsList"></div>
-      </div>
-
-      <div class="dash-view" data-view="users" hidden>
-        <h3>Users &amp; roles</h3>
-        <p class="dash-sub">Only you can make someone a teacher. Teachers who sign up wait here until you approve them.</p>
-        <div id="teacherRequests"></div>
-        <div class="users-tools">
-          <input type="search" id="usersSearch" class="lib-search" placeholder="Search by name or email…" aria-label="Search users">
-          <div class="users-filter" id="usersFilter">
-            <button class="lib-tab active" data-role="all" type="button">All</button>
-            <button class="lib-tab" data-role="student" type="button">Students</button>
-            <button class="lib-tab" data-role="parent" type="button">Parents</button>
-            <button class="lib-tab" data-role="teacher" type="button">Teachers</button>
-          </div>
-        </div>
-        <div class="users-table" id="usersTable"></div>
-      </div>
-
-      <div class="dash-view" data-view="notifications" hidden>
-        <h3>Notifications</h3>
-        <p class="dash-sub" id="notifSub">Announcements from your teachers.</p>
-        <form class="lib-form" id="notifForm" hidden>
-          <div>
-            <label for="notifClub">Send to</label>
-            <select id="notifClub">
-              <option value="">All clubs</option>
-              <option value="Phonics Club">Phonics Club</option>
-              <option value="Reading Club">Reading Club</option>
-              <option value="Writing Club">Writing Club</option>
-              <option value="Grammar Club">Grammar Club</option>
-              <option value="Speaking Club">Speaking Club</option>
-              <option value="Conversation Club">Conversation Club</option>
-              <option value="Cinema Club">Cinema Club</option>
-            </select>
-          </div>
-          <div>
-            <label for="notifTitle">Title</label>
-            <input id="notifTitle" type="text" placeholder="e.g. No class this Friday" required>
-          </div>
-          <div class="full">
-            <label for="notifBody">Message</label>
-            <input id="notifBody" type="text" placeholder="Write the announcement…" required>
-          </div>
-          <button type="submit" class="lib-submit">Send notification</button>
-        </form>
-        <div id="notifList"></div>
-      </div>
-
-      <div class="dash-view" data-view="profile" hidden>
-        <h3>Profile</h3>
-        <p class="dash-sub">Your account details.</p>
-        <div class="profile-card">
-          <form id="profileForm" class="auth-form">
-            <label>Full name<input type="text" id="profName" required></label>
-            <label>Phone number (for signing in)<input type="tel" id="profPhone" required inputmode="tel" dir="ltr" placeholder="05xxxxxxxx"></label>
-            <label>Role<input type="text" id="profRole" disabled></label>
-            <label id="profClubWrap">Club<input type="text" id="profClub" disabled></label>
-            <label id="profCodeWrap" hidden>Parent link code<input type="text" id="profCode" disabled></label>
-            <button type="submit" class="lib-submit">Save changes</button>
-            <p class="auth-error" id="profileMsg"></p>
-          </form>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="checkoutModal" hidden>
-  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="coTitle">
-    <button class="modal-x" id="coClose" type="button" aria-label="Close">&times;</button>
-    <div id="coStep1">
-      <h3 id="coTitle">Checkout</h3>
-      <div class="co-summary">
-        <div><b id="coPlan"></b><span id="coDesc"></span></div>
-        <div class="co-price"><b id="coAmount"></b><span id="coAmountSar">SAR</span></div>
-      </div>
-      <p class="co-label">How would you like to pay?</p>
-      <label class="co-opt"><input type="radio" name="coMethod" value="tamara" checked><span class="pm-ico inst" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1.3"/><circle cx="12" cy="15" r="1.3"/><circle cx="16" cy="15" r="1.3"/></svg></span>
-        <span><b>Tamara</b><i>Split the payment into installments (subject to Tamara's approval)</i></span></label>
-      <label class="co-opt"><input type="radio" name="coMethod" value="visa"><span class="pm-ico visa" aria-hidden="true"><svg viewBox="0 0 60 20"><text x="30" y="16" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="17" font-weight="900" font-style="italic" letter-spacing="-.5" fill="#1A1F71">VISA</text><path d="M4 18.6h52" stroke="#F7B600" stroke-width="1.6"/></svg></span>
-        <span><b>Visa</b><i>Pay by card on a secure payment page</i></span></label>
-      <label class="co-opt"><input type="radio" name="coMethod" value="bank"><span class="pm-ico bank" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg></span>
-        <span><b>Bank transfer</b><i>Transfer to the academy's Al Rajhi account, then upload the receipt</i></span></label>
-      <label class="auth-consent co-consent"><input type="checkbox" id="coAgree"> <span>I agree to the <a href="terms.html#refunds" target="_blank" rel="noopener">Terms &amp; refund policy</a>.</span></label>
-      <p class="auth-error" id="coError"></p>
-      <button class="lib-submit" id="coPay" type="button">Continue to payment</button>
-      <p class="co-note">You pay on the payment provider's secure page — card details are never typed into this website.</p>
-    </div>
-    <div id="coStep2" hidden>
-      <div class="co-done"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-      <h3>Request received</h3>
-      <p id="coMsg"></p>
-      <div id="coBank" hidden></div>
-      <div class="co-actions">
-        <a class="lib-submit" id="coPayLink" href="#" target="_blank" rel="noopener" hidden>Open the payment page</a>
-        <a class="sess-btn ghost" id="coWa" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
-        <button class="sess-btn ghost" id="coDone" type="button">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="reportModal" hidden>
-  <div class="modal-box wide" role="dialog" aria-modal="true">
-    <button class="modal-x" id="rpClose" type="button" aria-label="Close">&times;</button>
-    <div id="reportSheet" class="report-sheet"></div>
-    <div class="co-actions rp-actions">
-      <button class="lib-submit" id="rpPrint" type="button">Print / Save as PDF</button>
-      <button class="sess-btn ghost" id="rpWa" type="button">Send to parent on WhatsApp</button>
-    </div>
-  </div>
-</div>
-
-
-<section class="sessions" id="sessions">
-  <div class="wrap sessions-grid">
-    <div class="sessions-copy reveal">
-      <div class="kicker">Zoom Meeting</div>
-      <h2>Book a Zoom Meeting with your teacher.</h2>
-      <p class="sess-lead">Teachers open their available times first. You pick a slot that suits you, book your seat, and your Zoom Meeting link appears — with a one-click add to your calendar.</p>
-      <ul class="sess-points">
-        <li>Teachers publish their real availability — you only ever see times that can actually be booked.</li>
-        <li>Every seat is counted, so a session is never overbooked.</li>
-        <li>Your Zoom Meeting link unlocks the moment you book, and stays private until then.</li>
-        <li>Times show in your own time zone, wherever you are.</li>
-      </ul>
-      <div class="sess-cta">
-        <button class="cta-solid" id="sessSignInBtn" type="button">Sign in to book</button>
-        <button class="cta-ghost" id="sessSignupBtn" type="button">Create an account</button>
-      </div>
-    </div>
-    <div class="sess-mock reveal" data-i="1" id="sessMock" aria-hidden="true">
-      <div class="sess-mock-head"><b>Conversation Club</b><span>Preview</span></div>
-      <p class="sess-mock-sub">This week · example times</p>
-      <div id="sessMockDemo">
-      <div class="mock-slot">
-        <div class="md"><b>Sun</b><span>7:00 PM</span></div>
-        <div class="mi"><b>Ordering food — speaking practice</b><span>45 min · 3 seats left</span></div>
-        <div class="mb">Book</div>
-      </div>
-      <div class="mock-slot booked">
-        <div class="md"><b>Tue</b><span>5:30 PM</span></div>
-        <div class="mi"><b>Describing your day</b><span>45 min · 1 seat left</span></div>
-        <div class="mb">Booked ✓</div>
-      </div>
-      <div class="mock-slot">
-        <div class="md"><b>Thu</b><span>8:00 PM</span></div>
-        <div class="mi"><b>Movie night: talking about films</b><span>60 min · 5 seats left</span></div>
-        <div class="mb">Book</div>
-      </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-<footer id="footer">
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand">
-        <img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy">
-        <p>Learn. Build. Grow.</p>
-      </div>
-      <div><h5>English Clubs</h5><ul><li><a href="#english-immersion">Phonics</a></li><li><a href="#english-immersion">Reading</a></li><li><a href="#english-immersion">Writing</a></li><li><a href="#english-immersion">Grammar</a></li><li><a href="#english-immersion">Speaking</a></li><li><a href="#english-immersion">Conversation</a></li><li><a href="#english-immersion">Cinema</a></li></ul></div>
-      <div><h5>Learning</h5><ul><li><a href="#sessions">Zoom Meetings</a></li><li><a href="#club-library">Club Library</a></li><li><a href="#level-test">Free Level Test</a></li></ul></div>
-      <div><h5>Business</h5><ul><li><a href="https://wa.me/966538840330" target="_blank" rel="noopener">Collaboration</a></li><li><a href="https://wa.me/966538840330" target="_blank" rel="noopener">Content Licensing</a></li><li><a href="https://wa.me/966538840330">DM us</a></li></ul></div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 Code Cademy · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="terms.html#refunds">Refunds</a></span>
-      <span class="footer-indep">Code Cademy is an independent English-language academy. It is not affiliated with Codecademy.com or any other company.</span>
-      <span>Facebook · Instagram · WhatsApp</span>
-    </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Code Cademy · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="terms.html#refunds">Refunds</a></span>
+    <span class="indep">Code Cademy is an independent academy. It is not affiliated with Codecademy.com or any other company.</span>
   </div>
 </footer>
 
-<div class="mobile-cta" id="mobileCta"><a class="mc-solid" href="#sessions">Book a Zoom Meeting</a><button class="mc-ghost" id="mcSignIn" type="button">Sign in</button></div>
+<a class="wa-float" href="https://wa.me/966538840330" aria-label="WhatsApp" target="_blank" rel="noopener"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.6 6.3A8.5 8.5 0 0 0 4.2 17l-.9 3.3 3.4-.9a8.5 8.5 0 0 0 12.9-7.4c0-2.3-.9-4.4-2-6.1zm-5.6 13a7 7 0 0 1-3.6-1l-.3-.1-2.5.7.7-2.4-.2-.3a7 7 0 1 1 5.9 3.1zm3.9-5.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a5.7 5.7 0 0 1-2.8-2.5c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.2 9.5 9.5 0 0 0 3.6 3.2c1.4.6 1.9.6 2.6.5.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1l-.5-.3z"/></svg></a>
 
-<a class="wa-float" href="https://wa.me/966538840330" aria-label="WhatsApp" target="_blank">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.6 6.3A8.5 8.5 0 0 0 4.2 17l-.9 3.3 3.4-.9a8.5 8.5 0 0 0 12.9-7.4c0-2.3-.9-4.4-2-6.1zm-5.6 13a7 7 0 0 1-3.6-1l-.3-.1-2.5.7.7-2.4-.2-.3a7 7 0 1 1 5.9 3.1zm3.9-5.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1s-.6.7-.8.9-.4.2-.6.1a5.8 5.8 0 0 1-2.8-2.5c-.2-.4.2-.4.5-.7.2-.2.2-.4.1-.6L9 8.9c-.1-.2-.3-.2-.5-.2h-.4c-.2 0-.5.1-.7.4-.2.3-.7.8-.7 1.8s.7 2.1 1.4 2.8c1.4 1.5 2.6 2.1 4.2 2.3.5.1 1 0 1.3-.3.3-.2.7-.6.8-.9.1-.2.1-.5 0-.6z"/></svg>
-</a>
-
-<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
-  <div class="reader-bar">
-    <b id="readerTitle">Book</b>
-    <div class="reader-actions">
-      <a id="readerDownload" class="reader-btn" href="#" target="_blank" rel="noopener">Download</a>
-      <button id="readerClose" class="reader-btn" type="button" aria-label="Close">✕</button>
-    </div>
-  </div>
-  <div class="reader-lock" id="readerLock" hidden><span id="readerLockText"></span><button type="button" class="reader-btn solid" id="readerPlan">Choose a plan</button></div>
-  <div class="reader-body" id="readerBody"></div>
-</div>
-<div class="toasts" id="toasts" aria-live="polite"></div>
-
-<!-- Coco, the robot English buddy -->
-<button type="button" class="coco-launcher" id="cocoLauncher" aria-label="Coco, your AI English teacher">
-  <svg class="coco-mini" viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="12" x2="60" y2="27" stroke="#F3C9A8" stroke-width="4" stroke-linecap="round"/>
-      <circle class="c-bulb" cx="60" cy="10" r="6" fill="#58e1d4"/>
-      <rect class="c-ear" x="5" y="52" width="13" height="26" rx="6" fill="#F3C9A8"/>
-      <rect class="c-ear" x="102" y="52" width="13" height="26" rx="6" fill="#F3C9A8"/>
-      <rect x="14" y="26" width="92" height="78" rx="28" fill="url(#cocoHead)"/>
-      <rect x="25" y="40" width="70" height="50" rx="20" fill="#1b0c11"/>
-      <g class="c-eyes">
-        <ellipse class="c-eye" cx="47" cy="60" rx="7" ry="8.5" fill="#7ff3e6"/>
-        <ellipse class="c-eye" cx="73" cy="60" rx="7" ry="8.5" fill="#7ff3e6"/>
-        <path class="c-arc" d="M39 62 Q47 52 55 62 M65 62 Q73 52 81 62" stroke="#7ff3e6" stroke-width="4" fill="none" stroke-linecap="round"/>
-      </g>
-      <circle cx="36" cy="75" r="4" fill="#ff8fa3" opacity=".55"/><circle cx="84" cy="75" r="4" fill="#ff8fa3" opacity=".55"/>
-      <path class="c-smile" d="M50 74 Q60 83 70 74" stroke="#7ff3e6" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-      <path class="c-flat" d="M52 77 L68 77" stroke="#7ff3e6" stroke-width="3.5" stroke-linecap="round"/>
-      <ellipse class="c-open" cx="60" cy="77" rx="6" ry="5" fill="#7ff3e6"/></svg>
-  <span class="coco-hint">Hi! I’m Coco — want a lesson?</span>
-</button>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="cocoHead" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8A2E43"/><stop offset="1" stop-color="#3E0F1B"/></linearGradient>
-  </defs>
-</svg>
-<div class="ss-overlay" id="siteSearch" hidden>
-  <div class="ss-box" role="dialog" aria-modal="true" aria-label="Search the site">
-    <div class="ss-bar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-      <input type="search" id="siteSearchInput" dir="auto" autocomplete="off" placeholder="Search lessons, books, clubs, plans…" aria-label="Search">
-      <button type="button" class="ss-x" data-close-search aria-label="Close">✕</button>
-    </div>
-    <div class="ss-results" id="siteSearchResults"></div>
-  </div>
-</div>
-
-<section class="coco" id="coco" hidden role="dialog" aria-label="Coco, your AI English teacher">
-  <header class="coco-head">
-    <div class="coco-bot" id="cocoBot" data-mood="happy">
-      <span class="coco-ring"></span>
-      <svg viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="12" x2="60" y2="27" stroke="#F3C9A8" stroke-width="4" stroke-linecap="round"/>
-      <circle class="c-bulb" cx="60" cy="10" r="6" fill="#58e1d4"/>
-      <rect class="c-ear" x="5" y="52" width="13" height="26" rx="6" fill="#F3C9A8"/>
-      <rect class="c-ear" x="102" y="52" width="13" height="26" rx="6" fill="#F3C9A8"/>
-      <rect x="14" y="26" width="92" height="78" rx="28" fill="url(#cocoHead)"/>
-      <rect x="25" y="40" width="70" height="50" rx="20" fill="#1b0c11"/>
-      <g class="c-eyes">
-        <ellipse class="c-eye" cx="47" cy="60" rx="7" ry="8.5" fill="#7ff3e6"/>
-        <ellipse class="c-eye" cx="73" cy="60" rx="7" ry="8.5" fill="#7ff3e6"/>
-        <path class="c-arc" d="M39 62 Q47 52 55 62 M65 62 Q73 52 81 62" stroke="#7ff3e6" stroke-width="4" fill="none" stroke-linecap="round"/>
-      </g>
-      <circle cx="36" cy="75" r="4" fill="#ff8fa3" opacity=".55"/><circle cx="84" cy="75" r="4" fill="#ff8fa3" opacity=".55"/>
-      <path class="c-smile" d="M50 74 Q60 83 70 74" stroke="#7ff3e6" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-      <path class="c-flat" d="M52 77 L68 77" stroke="#7ff3e6" stroke-width="3.5" stroke-linecap="round"/>
-      <ellipse class="c-open" cx="60" cy="77" rx="6" ry="5" fill="#7ff3e6"/></svg>
-      <span class="coco-heart">💖</span><span class="coco-think">…</span><span class="coco-sparks">✨</span>
-    </div>
-    <div class="coco-id">
-      <b>Coco</b>
-      <span>Your English teacher · <em><bdi id="cocoLevel" dir="ltr">Level 1</bdi></em></span>
-      <span class="coco-meta"><i id="cocoStars">⭐ 0</i><button type="button" id="cocoJar" title="My word jar">🫙 <i id="cocoJarN">0</i></button><i id="cocoLeft"></i></span>
-    </div>
-    <div class="coco-actions">
-      <button type="button" id="cocoSound" title="Coco’s voice on/off">🔊</button>
-      <button type="button" id="cocoClose" aria-label="Close">✕</button>
-    </div>
-  </header>
-  <nav class="coco-tabs">
-    <button type="button" data-coco-mode="assist" hidden>🤖 <span>Assistant</span></button>
-    <button type="button" data-coco-mode="learn" class="on">🧑‍🏫 <span>Lesson</span></button>
-    <button type="button" data-coco-mode="talk">💬 <span>Talk</span></button>
-    <button type="button" data-coco-mode="play">🎭 <span>Role-play</span></button>
-    <button type="button" data-coco-mode="say">🎤 <span>Say it</span></button>
-  </nav>
-  <div class="coco-log" id="cocoLog" aria-live="polite" translate="no"></div>
-  <form class="coco-form" id="cocoForm">
-    <button type="button" class="coco-mic" id="cocoMic" title="Speak">🎤</button>
-    <textarea id="cocoInput" rows="1" dir="ltr" placeholder="Write or speak in English…" maxlength="600"></textarea>
-    <button type="submit" class="coco-send" aria-label="Send">➤</button>
-  </form>
-</section>
-
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=d8498a5f"></script>
-<script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
-<script defer src="assets/js/english-games.js?v=e75bfda3"></script>
-<script defer src="assets/js/app.js?v=22d47fcd"></script>
+<script>
+(function(){
+  const html = document.documentElement;
+  document.getElementById('langBtn').addEventListener('click', function(){
+    const toAr = html.lang !== 'ar'; html.lang = toAr ? 'ar' : 'en'; html.dir = toAr ? 'rtl' : 'ltr';
+    try{ localStorage.setItem('cc_lang', toAr ? 'ar' : 'en'); }catch(e){}
+  });
+  // sign-in menu: one dashboard per school
+  const sb = document.getElementById('signBtn'), sm = document.getElementById('signMenu');
+  sb.addEventListener('click', function(e){ e.stopPropagation(); const open = sm.hidden; sm.hidden = !open; sb.setAttribute('aria-expanded', String(open)); });
+  document.addEventListener('click', function(e){ if(!sm.hidden && !e.target.closest('.dd')){ sm.hidden = true; sb.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !sm.hidden){ sm.hidden = true; sb.setAttribute('aria-expanded', 'false'); sb.focus(); } });
+  // mobile menu
+  const bg = document.getElementById('burger'), links = document.getElementById('links');
+  bg.addEventListener('click', function(){ const open = !links.classList.contains('open'); links.classList.toggle('open', open); bg.setAttribute('aria-expanded', String(open)); });
+  links.addEventListener('click', function(e){ if(e.target.closest('a')){ links.classList.remove('open'); bg.setAttribute('aria-expanded', 'false'); } });
+  // reveal on scroll, scroll progress, shadow under the header
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); if(window.ccFx) ccFx.countUp(en.target); } }); }, { threshold: .12 }) : null;
+  document.querySelectorAll('.reveal, .stats').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); });
+  const bar = document.getElementById('scrollProg'), nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){ const d = document.documentElement; bar.style.transform = 'scaleX(' + (d.scrollTop / Math.max(1, d.scrollHeight - d.clientHeight)) + ')'; nav.classList.toggle('shadow', d.scrollTop > 10); }, { passive: true });
+  window.addEventListener('load', function(){ if(window.ccFx) ccFx.tilt('.world, .feat'); });
+})();
+</script>
 </body>
 </html>

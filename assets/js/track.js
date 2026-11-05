@@ -1182,7 +1182,7 @@
   // =====================================================================
   VIEWS.children = function(){
     const kids = D.kids || [];
-    if(!kids.length){ main.innerHTML = emptyCard('👨‍👩‍👧', T('Link your child first: in the academy dashboard, enter your child’s link code.', 'اربط ابنك الأول: من لوحة الأكاديمية اكتب كود الربط بتاع ابنك.'), '<a class="btn main" href="index.html">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
+    if(!kids.length){ main.innerHTML = emptyCard('👨‍👩‍👧', T('Link your child first: in the academy dashboard, enter your child’s link code.', 'اربط ابنك الأول: من لوحة الأكاديمية اكتب كود الربط بتاع ابنك.'), '<a class="btn main" href="english.html?signin=1">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
     main.innerHTML = '<div class="head"><h2>👨‍👩‍👧 ' + esc(T('My children', 'أولادي')) + '</h2></div>' + kids.map(function(k){
       const en = (D.enrolls || []).filter(function(e){ return e.student_id === k.id; });
       const act = (D.act || []).filter(function(a){ return a.student_id === k.id; }), subs = (D.subs || []).filter(function(s){ return s.student_id === k.id; });
@@ -1235,7 +1235,7 @@
       }).join('') : '<p class="muted small">' + esc(T('Students appear here once they join a course.', 'الطلاب بيظهروا هنا أول ما يشتركوا.')) + '</p>') + '</aside>';
     }
     if(r === 'parent' && (D.kids || []).length > 1) side = '<div class="chips">' + D.kids.map(function(k){ return '<button type="button" data-act="thread" data-id="' + k.id + '" class="' + (k.id === thread ? 'on' : '') + '">' + esc(k.full_name) + (unreadIn(k.id) ? ' · ' + unreadIn(k.id) : '') + '</button>'; }).join('') + '</div>';
-    if(r === 'parent' && !(D.kids || []).length){ main.innerHTML = emptyCard('💬', T('Link your child first from the academy dashboard.', 'اربط ابنك الأول من لوحة الأكاديمية.'), '<a class="btn main" href="index.html">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
+    if(r === 'parent' && !(D.kids || []).length){ main.innerHTML = emptyCard('💬', T('Link your child first from the academy dashboard.', 'اربط ابنك الأول من لوحة الأكاديمية.'), '<a class="btn main" href="english.html?signin=1">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
     const who = r === 'teacher' ? pname(thread) : r === 'parent' ? (D.kids.find(function(k){ return k.id === thread; }) || {}).full_name : T('Your teachers', 'المعلمين');
     const canPrivate = r !== 'student';
     main.innerHTML = '<div class="head"><h2>💬 ' + esc(T('Messages', 'الرسايل')) + '</h2><p class="muted">' + esc(r === 'student' ? T('Talk to your teachers. Your parents can read this conversation too.', 'اتكلم مع المعلمين — وأهلك يقدروا يشوفوا المحادثة كمان.') : T('One conversation per student, with the student, their parents and the teachers.', 'محادثة لكل طالب، بينه وبين أهله والمعلمين.')) + '</p></div>' +

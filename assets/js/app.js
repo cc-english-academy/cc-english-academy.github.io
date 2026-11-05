@@ -5974,6 +5974,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     refreshSession();
   });
   if(/type=recovery/.test(location.hash)){ recoveryMode = true; openAuth('reset'); }
+  // the academy home page sends "Sign in" here as english.html?signin=1
+  if(/[?&]signin=1/.test(location.search)){
+    sb.auth.getSession().then(function(r){ if(!(r.data && r.data.session)) openAuth('login'); });
+    try{ history.replaceState(null, '', location.pathname + location.hash); }catch(e){}
+  }
   refreshSession();
 })();
 const counters = document.querySelectorAll('.count');
