@@ -300,7 +300,7 @@
   $('tabs').addEventListener('click', function(e){ const b = e.target.closest('[data-view]'); if(b) go(b.dataset.view); });
   $('langBtn').addEventListener('click', function(){
     const toAr = !ar(); html.lang = toAr ? 'ar' : 'en'; html.dir = toAr ? 'rtl' : 'ltr';
-    try{ localStorage.setItem('cc_lang', toAr ? 'ar' : 'en'); }catch(e){}
+    try{ localStorage.setItem('cc_ui_lang', toAr ? 'ar' : 'en'); }catch(e){}
     renderChrome(); if(view) render(); else if(guestView) guestView();
   });
   $('signOut').addEventListener('click', async function(){ await sb.auth.signOut(); me = null; view = null; D = {}; renderChrome(); showAuth(); });

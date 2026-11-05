@@ -25,8 +25,8 @@
 <script>
 /* Arabic visitors: right-to-left from the first paint, and the Arabic fonts are fetched only for them */
 (function(){
-  var l = null; try{ l = localStorage.getItem('cc_lang'); }catch(e){}
-  if(!l && (navigator.language || '').toLowerCase().indexOf('ar') === 0) l = 'ar';
+  var l = null; try{ l = localStorage.getItem('cc_ui_lang'); }catch(e){}
+  if(l !== 'en') l = 'ar'; // Arabic unless the visitor chose English
   window.__arFonts = function(){
     if(document.getElementById('arFonts')) return;
     var k = document.createElement('link'); k.id = 'arFonts'; k.rel = 'stylesheet';
@@ -1540,9 +1540,9 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=d8498a5f"></script>
+<script defer src="assets/js/lang.js?v=4566a0da"></script>
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 <script defer src="assets/js/english-games.js?v=e75bfda3"></script>
-<script defer src="assets/js/app.js?v=83f70ac2"></script>
+<script defer src="assets/js/app.js?v=a11f495a"></script>
 </body>
 </html>

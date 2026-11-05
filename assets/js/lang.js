@@ -852,7 +852,6 @@
     if(window.__refreshHeroWords) window.__refreshHeroWords(lang);
     if(window.__refreshDynamicText) window.__refreshDynamicText();
 
-    try{ localStorage.setItem('cc_lang', lang); }catch(e){}
 
     /* keep content added later (library cards, etc.) translated too */
     if(toAr && window.MutationObserver){
@@ -875,15 +874,16 @@
 
   if(langBtn){
     langBtn.addEventListener('click', function(){
-      setLang(html.getAttribute('lang') === 'ar' ? 'en' : 'ar');
+      const next = html.getAttribute('lang') === 'ar' ? 'en' : 'ar';
+      try{ localStorage.setItem('cc_ui_lang', next); }catch(e){}
+      setLang(next);
     });
   }
 
   /* remember the visitor's choice */
   let saved = null;
-  try{ saved = localStorage.getItem('cc_lang'); }catch(e){}
-  if(!saved && (navigator.language || '').toLowerCase().indexOf('ar') === 0) saved = 'ar';
-  setLang(saved === 'ar' ? 'ar' : 'en');
+  try{ saved = localStorage.getItem('cc_ui_lang'); }catch(e){}
+  setLang(saved === 'en' ? 'en' : 'ar'); // Arabic unless the visitor chose English
 })();
 
 
