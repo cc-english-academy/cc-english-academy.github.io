@@ -162,3 +162,35 @@ html[lang=ar] .tag{letter-spacing:0;font-size:.88rem}
 .wa-float{position:fixed;bottom:18px;inset-inline-end:18px;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.5);z-index:50}
 @media(prefers-reduced-motion:reduce){.core,.planet{animation:none}.reveal{opacity:1;transform:none;transition:none}.world,.feat{transform:none!important}}
 @media(max-width:420px){.brand span{display:none}.wrap.nav-in{padding:0 12px}}
+/* ===== neutral academy identity: the three schools stand side by side ===== */
+:root{--maroon:#1b1a2e;--deep:#1b1a2e}
+.hero{background:radial-gradient(520px 360px at 12% 18%,rgba(200,36,60,.16),transparent 70%),radial-gradient(520px 360px at 55% 0%,rgba(201,162,39,.2),transparent 70%),radial-gradient(560px 380px at 95% 40%,rgba(124,92,255,.2),transparent 70%),linear-gradient(180deg,#f7f6fb,var(--paper))}
+.kick{color:var(--deep)}
+.hero h1{color:var(--deep)}
+.btn.main{background:linear-gradient(90deg,#c8243c,#c9a227 50%,#7c5cff);background-size:200% 100%;transition:background-position .5s,transform .15s}
+.btn.main:hover{background-position:100% 0}
+.cta{background:var(--deep)}
+.cta:hover{background:#2b2944}
+.tag{color:#5b5873}
+.head h2,.feat h3,.cert-copy h2{color:var(--deep)}
+.stats b{background:linear-gradient(90deg,#c8243c,#c9a227,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.facts b{color:var(--deep)}
+.portals{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.portal{position:relative;display:flex;flex-direction:column;gap:6px;border-radius:24px;padding:22px 16px 18px;text-decoration:none;min-height:230px;justify-content:flex-end;overflow:hidden;box-shadow:0 24px 44px -28px rgba(0,0,0,.55);transition:transform .25s,box-shadow .25s}
+.portal:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 34px 60px -30px rgba(0,0,0,.6)}
+.po-em{font-size:2.6rem;line-height:1;position:absolute;top:18px;inset-inline-start:16px;transition:transform .3s}
+.portal:hover .po-em{transform:scale(1.15) rotate(-6deg)}
+.portal b{font-size:1.25rem}
+.portal small{opacity:.85;font-weight:600}
+.portal i{font-style:normal;font-weight:800;font-size:1.2rem;position:absolute;top:18px;inset-inline-end:16px;opacity:.8}
+html[dir=rtl] .portal i{transform:scaleX(-1)}
+.po-en{color:#fff;background:radial-gradient(240px 160px at 100% 0,#c8243c,transparent 70%),#5C1A28}
+.po-fr{color:#3E0F1B;background:linear-gradient(180deg,#fbf6ee,#efd9b4)}
+.po-fr::before{content:'';position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,#1f3a6e 0 22px,#fff 22px 44px,#c8243c 44px 66px)}
+.po-it{color:#fff;background:radial-gradient(240px 160px at 100% 0,#7c5cff,transparent 70%),radial-gradient(200px 140px at 0 100%,#0f5b56,transparent 70%),#140d26}
+.en-c{background:radial-gradient(420px 240px at 100% 0,#c8243c,transparent 60%),#5C1A28}
+.dash-box{background:radial-gradient(400px 240px at 0 0,rgba(200,36,60,.45),transparent 65%),radial-gradient(400px 240px at 50% 100%,rgba(201,162,39,.35),transparent 65%),radial-gradient(400px 240px at 100% 0,rgba(124,92,255,.5),transparent 65%),#1b1a2e}
+.scroll-prog{background:linear-gradient(90deg,#c8243c,#c9a227,#7c5cff)}
+@media(max-width:860px){.portals{max-width:560px;margin:0 auto;width:100%}}
+@media(max-width:520px){.portals{grid-template-columns:1fr;gap:10px}.portal{min-height:0;flex-direction:row;align-items:center;justify-content:flex-start;padding:16px;gap:12px}.po-em{position:static;font-size:2rem}.portal b{font-size:1.1rem}.portal small{margin-inline-start:auto;font-size:.8rem}.portal i{position:static}}
+@media(prefers-reduced-motion:reduce){.portal,.portal:hover{transform:none}}
