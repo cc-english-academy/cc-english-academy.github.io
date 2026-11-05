@@ -492,7 +492,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   let currentProfile = null;
   let currentEmail = '';
   let materialsFilter = 'all';
-  let wantDashboard = true; // remembers whether a signed-in visitor asked to "view website"
+  // the English page shows the English school first; the dashboard opens when asked ("My Dashboard", english.html?signin=1 or #dashboard)
+  let wantDashboard = /[?&]signin=1/.test(location.search) || location.hash === '#dashboard';
   let pendingClub = null; // a club clicked on the public page before signing in
   // 9 levels (Level 1 … Level 9); a student opens the next level by passing the exam of the one before.
   // Behind the scenes each level has an English grade, used only to pitch Coco's lessons and the AI at the right difficulty.
