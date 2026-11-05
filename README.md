@@ -54,6 +54,9 @@ Separate from the English levels and clubs; same accounts (phone sign-in). Run `
 - **Students (French):** passport with a city stamp per level, 🥐 5-minutes-a-day practice, word notebook with spaced repetition, pronunciation score (Chrome speech recognition), voice tasks, DELF readiness meter.
 - **Teachers:** activate paid requests (bank receipt / WhatsApp), publish projects, code exercises, quizzes and DELF mocks (answers kept hidden), voice tasks and live-class links; a board to mark work (drag between columns), skills radar per student, French sounds heat map, stamps, levels and certificates. The admin sets each track's price.
 - **Parents:** streak, points, marks and feedback, radar / passport and DELF meter for each linked child.
+- **Messages:** one conversation per student and track (student, parents, teachers), live, with private parent–teacher notes, quick replies and a 🔔 bell.
+- **Course manager (teachers):** set each course open, coming soon or hidden, and announce it with a note. `tech.html` / `french.html` and the join form follow it.
+- **Fun layer:** XP levels, Coco tips, a 3-week activity strip, confetti on wins (`assets/js/fx.js`, off when the device asks for less motion).
 
 ## Features
 - Roles: student / parent sign up themselves; teachers sign up as applicants and the admin approves them (Users & roles); admin is granted only by an admin
