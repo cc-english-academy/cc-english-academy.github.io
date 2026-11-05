@@ -5,7 +5,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
 const pages = {
-  'index.html': ['assets/css/site.css', 'assets/css/fields.css', 'assets/js/app.js', 'assets/js/lang.js', 'assets/js/fx.js', 'assets/js/english-games.js'],
+  'index.html': ['assets/css/hub.css', 'assets/js/fx.js'],
+  'english.html': ['assets/css/site.css', 'assets/css/fields.css', 'assets/js/app.js', 'assets/js/lang.js', 'assets/js/fx.js', 'assets/js/english-games.js'],
   'tech-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js'],
   'french-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js'],
   'tech.html': ['assets/css/fields.css', 'assets/js/fx.js'],

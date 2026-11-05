@@ -48,6 +48,11 @@ Supabase Storage keys must be plain ASCII. File names such as
 The site now stores files under a safe key (`Conversation_Club/Beginner_A1-A2/<time>_<rand>_<name>.pdf`)
 and keeps the original name in `materials.file_name`, which is used as the download file name.
 
+## Site map
+- `index.html`: the academy home page (about, the three schools, certificates, dashboards). It forwards old English links such as `index.html#plans` to `english.html`.
+- `english.html`: Code Cademy English (clubs, Zoom, plans, library, games, level test) and the English dashboard (`english.html?signin=1` opens the sign-in).
+- `french.html` + `french-dashboard.html`, `tech.html` + `tech-dashboard.html`.
+
 ## Tech Lab & French dashboards (`tech-dashboard.html`, `french-dashboard.html`)
 Separate from the English levels and clubs; same accounts (phone sign-in). Run `supabase/schema.sql` again once to add section 7.
 - **Students (Tech):** skill map of their tasks, code exercises run in the browser (JavaScript, Python) and checked against a hidden expected output, daily 🔥 challenge and streak, badges, skills radar, a shareable portfolio (`?portfolio=<id>`), monthly ranking, certificates with a QR code (`?verify=<id>`).
