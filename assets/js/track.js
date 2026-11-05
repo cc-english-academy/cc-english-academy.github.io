@@ -327,7 +327,7 @@
     view = null; renderChrome();
     const login = authMode === 'login';
     main.innerHTML = '<div class="auth">' +
-      '<div class="auth-side"><span class="mascot">' + (FR ? '🥐' : '🤖') + '</span><h1>' + esc(FR ? T('Your French journey, in one place', 'رحلتك في الفرنساوي في مكان واحد') : T('Your tech journey, in one place', 'رحلتك في التقنية في مكان واحد')) + '</h1>' +
+      '<div class="auth-side">' + (FR ? '<span class="mascot">🥐</span>' : '<div class="auth-vid"><video src="assets/video/tech-class.mp4" poster="assets/img/tech-class-poster.jpg" autoplay muted loop playsinline aria-label="' + esc(T('A Coco Tech Lab class', 'حصة في Coco Tech Lab')) + '"></video><span><i></i> LIVE</span></div>') + '<h1>' + esc(FR ? T('Your French journey, in one place', 'رحلتك في الفرنساوي في مكان واحد') : T('Your tech journey, in one place', 'رحلتك في التقنية في مكان واحد')) + '</h1>' +
         '<ul>' + (FR ? [['🛂', 'A passport with a stamp for every level', 'باسبور فيه ختم لكل مستوى'], ['🎙️', 'Pronunciation score with your voice', 'درجة نطق بصوتك'], ['📒', 'A smart word notebook', 'كشكول كلمات ذكي'], ['📈', 'Your DELF readiness meter', 'مؤشر جاهزيتك لـDELF']]
           : [['🗺️', 'A skill map that lights up as you learn', 'خريطة مهارات بتنوّر وإنت بتتعلم'], ['💻', 'Code exercises checked instantly', 'تمارين كود بتتصحح فوراً'], ['🗂️', 'A portfolio you can share', 'معرض مشاريع تشاركه مع الناس'], ['🔥', 'Daily challenge & streaks', 'تحدي يومي وسلسلة أيام']])
           .map(function(x){ return '<li><span>' + x[0] + '</span>' + esc(T(x[1], x[2])) + '</li>'; }).join('') + '</ul>' +
