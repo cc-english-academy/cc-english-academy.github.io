@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coco Tech Lab — كورسات البرمجة والتقنية</title>
-<meta name="description" content="Coco Tech Lab by Code Cademy Academy: coding for kids, programming languages, web development, IoT, IT fields and Microsoft Office courses — with a short explainer for every course.">
+<meta name="description" content="Coco Tech Lab by Code Cademy: coding for kids, programming languages, web development, IoT, IT fields and Microsoft Office courses — with a short explainer for every course.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -230,11 +230,12 @@ html[dir="rtl"] .stage{padding:24px 6% 24px 22%}
 @media(max-width:520px){.arc{padding:14px}.arc-stage{padding:14px}.arc-tabs{grid-template-columns:repeat(3,1fr)}.arc-tabs button{padding:10px 4px}.arc-tabs b{font-size:.8rem}.bits{gap:6px}.bit{width:46px;padding:8px 2px}.bit .bulb{font-size:1.4rem}}
 /* ===== bright AI & coding layer ===== */
 body{background:radial-gradient(1200px 600px at 100% 0,rgba(124,92,255,.08),transparent 60%),radial-gradient(900px 600px at 0 40%,rgba(33,212,180,.08),transparent 60%),var(--paper)}
-.hero{background:radial-gradient(900px 520px at 85% 0%,rgba(124,92,255,.75),transparent 60%),radial-gradient(700px 480px at 0% 100%,rgba(33,212,180,.55),transparent 60%),radial-gradient(600px 400px at 60% 110%,rgba(255,111,165,.5),transparent 60%),linear-gradient(160deg,#170f3a,#0d1f3f 55%,#12093a);background-size:140% 140%;animation:aurora 18s ease-in-out infinite alternate}
+.hero{background:radial-gradient(900px 520px at 85% 0%,rgba(124,92,255,.75),transparent 60%),radial-gradient(700px 480px at 0% 100%,rgba(33,212,180,.55),transparent 60%),radial-gradient(600px 400px at 60% 110%,rgba(255,111,165,.5),transparent 60%),linear-gradient(160deg,#170f3a,#0d1f3f 55%,#12093a)}
 @keyframes aurora{to{background-position:100% 60%}}
 .neural{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
 .grid-floor{position:absolute;left:-20%;right:-20%;bottom:-2px;height:45%;z-index:0;pointer-events:none;background:linear-gradient(transparent 0,rgba(33,212,180,.0) 0),repeating-linear-gradient(90deg,rgba(127,243,230,.18) 0 1px,transparent 1px 70px),repeating-linear-gradient(0deg,rgba(127,243,230,.18) 0 1px,transparent 1px 46px);transform:perspective(420px) rotateX(62deg);transform-origin:50% 100%;-webkit-mask:linear-gradient(transparent,#000 70%);mask:linear-gradient(transparent,#000 70%);animation:floor 6s linear infinite}
 @keyframes floor{to{background-position:0 0,0 0,0 46px}}
+@media(max-width:860px){.grid-floor{animation:none}.device{animation:none}.orbit-ring{animation:none}}
 .hero .wrap{position:relative;z-index:1}
 .term{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:rgba(10,6,30,.55);border:1px solid rgba(127,243,230,.35);border-radius:12px;padding:8px 14px;font:600 .95rem 'Space Grotesk',monospace;color:#c9fff7;direction:ltr;box-shadow:0 0 30px -10px #21d4b4}
 .term b{color:#21d4b4}
@@ -286,6 +287,17 @@ html[dir=rtl] .pipe::after{left:auto;right:10%;animation-name:packetR}
 .ask-out:empty::before{content:'…';opacity:.5}
 .ask-out code{display:block;text-align:left;margin:6px 0;font-family:'Space Grotesk',monospace;color:#7ff3e6;direction:ltr;unicode-bidi:isolate}
 .ask-go{margin-top:14px}
+.ask-form{display:flex;gap:8px;margin-bottom:12px}
+.ask-form input{flex:1;border:1px solid rgba(127,243,230,.35);background:rgba(0,0,0,.35);color:#fff;border-radius:14px;padding:12px 14px;font:inherit;min-width:0}
+.ask-form input::placeholder{color:#a9a1d6}
+.ask-form input:focus{outline:2px solid #21d4b4;outline-offset:1px}
+.ask-form button{width:48px;border:0;border-radius:14px;background:linear-gradient(135deg,#7c5cff,#21d4b4);color:#fff;font-size:1.1rem;cursor:pointer}
+html[dir=rtl] .ask-form button{transform:scaleX(-1)}
+.ask-chips button.new::after{content:' ✨'}
+.ask-chips button.more{border-style:dashed;background:transparent}
+.ask-sug{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;background:rgba(255,198,74,.12);border:1px solid rgba(255,198,74,.4);border-radius:14px;padding:12px 14px}
+.ask-sug span{flex:1;min-width:200px}
+
 /* courses glow */
 .course::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:2px;background:linear-gradient(135deg,var(--c),#21d4b4,#ff6fa5);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s;pointer-events:none}
 .course:hover::before{opacity:1}
@@ -329,14 +341,14 @@ footer a{color:var(--violet)}
 </style>
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 <link rel="stylesheet" href="assets/css/fields.css?v=daf01e8d">
-<link rel="stylesheet" href="assets/css/school.css?v=26fe9f70">
+<link rel="stylesheet" href="assets/css/school.css?v=50df7c48">
 <script defer src="assets/js/school.js?v=a0a78fc7"></script>
 </head>
 <body data-school="tech">
 <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
 <div class="fields-bar" role="navigation" aria-label="Code Cademy schools">
   <div class="fb-in">
-    <a class="fb-home" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy Academy</span></a>
+    <a class="fb-home" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy</span></a>
     <div class="fb-tabs">
       <a class="fb-tab en-t" href="english.html"><i>🇬🇧</i><span class="fb-en">English</span><span class="fb-ar">الإنجليزي</span></a>
       <a class="fb-tab fr-t" href="french.html"><i>🇫🇷</i><span class="fb-en">Français</span><span class="fb-ar">الفرنساوي</span></a>
@@ -347,7 +359,7 @@ footer a{color:var(--violet)}
 
 <header class="sc-nav" id="scNav">
   <div class="sc-in">
-    <a class="sc-brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span><b>Coco Tech Lab</b><small>Code Cademy Academy</small></span></a>
+    <a class="sc-brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span><b>Coco Tech Lab</b><small>Code Cademy</small></span></a>
     <nav class="sc-links" aria-label="Sections">
       <a href="#ai"><span class="en">🤖 AI world</span><span class="ar">🤖 عالم AI</span></a>
       <a href="#courses"><span class="en">Courses</span><span class="ar">الكورسات</span></a>
@@ -391,7 +403,7 @@ footer a{color:var(--violet)}
     </div>
     <div class="vid-stage">
       <div class="device">
-        <video id="heroVid" src="assets/video/tech-class.mp4" poster="assets/img/tech-class-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="A Coco Tech Lab class: a student coding with a live teacher"></video>
+        <video id="heroVid" src="assets/video/tech-class.mp4" poster="assets/img/tech-class-poster.jpg" muted loop playsinline preload="none" aria-label="A Coco Tech Lab class: a student coding with a live teacher"></video>
         <span class="live-pill"><i></i> LIVE · <span class="en">real class</span><span class="ar">حصة حقيقية</span></span>
         <button class="snd" id="vidSound" type="button" aria-label="Sound on / off">🔇</button>
         <button class="big-play" id="vidFull" type="button" aria-label="Watch full screen">⤢</button>
@@ -431,8 +443,10 @@ footer a{color:var(--violet)}
     </div>
     <div class="ask reveal">
       <div class="ask-head"><span class="ask-face">🤖</span><div><b>Coco AI</b><small><span class="en">Pick a question and watch Coco think.</span><span class="ar">اختار سؤال وشوف كوكو بيفكّر إزاي.</span></small></div></div>
+      <form class="ask-form" id="askForm" autocomplete="off"><input id="askIn" maxlength="300" dir="auto"><button type="submit" aria-label="Ask">➤</button></form>
       <div class="ask-chips" id="askChips"></div>
       <div class="ask-out" id="askOut" aria-live="polite"></div>
+      <div class="ask-sug" id="askSug" hidden></div>
       <div class="ask-go"><a class="btn main" href="#courses" data-find="AI">🧠 <span class="en">See the AI courses</span><span class="ar">شوف كورسات الذكاء الاصطناعي</span></a></div>
     </div>
   </div>
@@ -554,10 +568,10 @@ footer a{color:var(--violet)}
     <div class="sc-ftop">
       <div class="sc-fbrand"><img src="assets/img/logo.jpg" alt="Code Cademy"><b>Coco Tech Lab</b><p><span class="en">Build the future, one course at a time.</span><span class="ar">ابني المستقبل… كورس ورا كورس.</span></p></div>
       <div><h5><span class="en">Learn</span><span class="ar">اتعلم</span></h5><ul><li><a href="#courses"><span class="en">39 courses</span><span class="ar">٣٩ كورس</span></a></li><li><a href="#play"><span class="en">Coco’s maze</span><span class="ar">متاهة كوكو</span></a></li><li><a href="#challenge"><span class="en">Weekly challenge</span><span class="ar">تحدي الأسبوع</span></a></li><li><a href="#arcade"><span class="en">6 tech games</span><span class="ar">٦ ألعاب تقنية</span></a></li></ul></div>
-      <div><h5><span class="en">Schools</span><span class="ar">المجالات</span></h5><ul><li><a href="index.html">🏠 <span class="en">Academy home</span><span class="ar">الأكاديمية</span></a></li><li><a href="english.html">🇬🇧 <span class="en">English</span><span class="ar">الإنجليزي</span></a></li><li><a href="french.html">🇫🇷 <span class="en">Français</span><span class="ar">الفرنساوي</span></a></li><li><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></li></ul></div>
+      <div><h5><span class="en">Schools</span><span class="ar">المجالات</span></h5><ul><li><a href="index.html">🏠 <span class="en">Home</span><span class="ar">الرئيسية</span></a></li><li><a href="english.html">🇬🇧 <span class="en">English</span><span class="ar">الإنجليزي</span></a></li><li><a href="french.html">🇫🇷 <span class="en">Français</span><span class="ar">الفرنساوي</span></a></li><li><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></li></ul></div>
       <div><h5><span class="en">Contact</span><span class="ar">تواصل</span></h5><ul><li><a href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 WhatsApp</a></li><li><a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">📷 Instagram</a></li><li><a href="tech-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></li></ul></div>
     </div>
-    <div class="sc-fbot"><span>© 2026 Code Cademy · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="terms.html#refunds">Refunds</a></span><span><span class="en">Code Cademy is an independent academy. It is not affiliated with Codecademy.com or any other company.</span><span class="ar">Code Cademy أكاديمية مستقلة، وليست تابعة لموقع Codecademy.com ولا لأي شركة تانية.</span></span></div>
+    <div class="sc-fbot"><span>© 2026 Code Cademy · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="terms.html#refunds">Refunds</a></span><span><span class="en">Code Cademy is independent. It is not affiliated with Codecademy.com or any other company.</span><span class="ar">Code Cademy مستقلة، وليست تابعة لموقع Codecademy.com ولا لأي شركة تانية.</span></span></div>
   </div>
 </footer>
 <div class="sc-mcta"><a class="solid" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 <span class="en">Free trial class</span><span class="ar">حصة تجريبية مجانية</span></a><a class="ghost" href="tech-dashboard.html">🎓</a></div>
@@ -571,7 +585,7 @@ footer a{color:var(--violet)}
   const esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   const WA = '966538840330';
 
-  // language: shares the academy's choice (cc_ui_lang)
+  // language: shares Code Cademy's choice (cc_ui_lang)
   document.getElementById('langBtn').addEventListener('click', function(){
     const toAr = !ar();
     html.lang = toAr ? 'ar' : 'en'; html.dir = toAr ? 'rtl' : 'ltr';
@@ -586,7 +600,8 @@ footer a{color:var(--violet)}
     { id: 'web', icon: '🌐', c: '#21d4b4', en: 'Web development', ar: 'برمجة المواقع' },
     { id: 'iot', icon: '📡', c: '#ff8f5a', en: 'IoT & electronics', ar: 'إنترنت الأشياء IoT' },
     { id: 'it', icon: '🛡️', c: '#3fa9ff', en: 'IT fields', ar: 'مجالات الـIT' },
-    { id: 'office', icon: '📊', c: '#2fbf71', en: 'Microsoft Office', ar: 'كورسات Office' }
+    { id: 'office', icon: '📊', c: '#2fbf71', en: 'Microsoft Office', ar: 'كورسات Office' },
+    { id: 'ai', icon: '🤖', c: '#ff6fa5', en: 'AI & data', ar: 'الذكاء الاصطناعي والبيانات' }
   ];
   const LV = { b: ['Beginner', 'مبتدئ'], m: ['Intermediate', 'متوسط'], a: ['Advanced', 'متقدم'], k: ['Kids', 'أطفال'] };
   const COURSES = [
@@ -683,10 +698,22 @@ footer a{color:var(--violet)}
   // the teacher's course manager (tech-dashboard.html → Courses): hidden / coming soon / announced
   let CFG = {};
   const cstat = function(id){ return (CFG[id] || {}).status || 'open'; };
+  const SBR = 'https://orpknmkgfwmtroiqljzp.supabase.co/rest/v1/', SBK = 'sb_publishable_x7AQ0xQl8qqOH3iDKqxddg_-7fbStUh';
   function loadCourseCfg(){
     try{
-      fetch('https://orpknmkgfwmtroiqljzp.supabase.co/rest/v1/track_courses?track=eq.tech&select=course,status,announce,note', { headers: { apikey: 'sb_publishable_x7AQ0xQl8qqOH3iDKqxddg_-7fbStUh' } })
-        .then(function(r){ return r.ok ? r.json() : []; }).then(function(rows){ CFG = {}; (rows || []).forEach(function(x){ CFG[x.course] = x; }); renderCatalog(); renderAnn(); }).catch(function(){});
+      fetch(SBR + 'track_courses?track=eq.tech&select=*', { headers: { apikey: SBK } })
+        .then(function(r){ return r.ok ? r.json() : []; }).then(function(rows){
+          CFG = {}; (rows || []).forEach(function(x){ CFG[x.course] = x; });
+          // courses the teachers added in the dashboard (Courses → Add a new course)
+          for(let i = COURSES.length - 1; i >= 0; i--) if(COURSES[i][7]) COURSES.splice(i, 1);
+          (rows || []).filter(function(x){ return x.custom; }).forEach(function(x){
+            const en = x.name_en || x.name_ar, a = x.name_ar || x.name_en, def = ['A new course at Coco Tech Lab.', 'كورس جديد في Coco Tech Lab.'];
+            COURSES.push([x.cat || 'it', x.course, x.icon || '✨', x.kids ? 1 : 0, x.lvl || 'b',
+              [en, x.desc_en || x.desc_ar || def[0], x.why_en || x.why_ar || def[0], x.build_en || x.build_ar || '—'],
+              [a, x.desc_ar || x.desc_en || def[1], x.why_ar || x.why_en || def[1], x.build_ar || x.build_en || '—'], true]);
+          });
+          renderCatalog(); renderAnn();
+        }).catch(function(){});
     }catch(e){}
   }
   function renderAnn(){
@@ -703,7 +730,7 @@ footer a{color:var(--violet)}
   });
   function renderCatalog(){
     document.getElementById('cats').innerHTML = '<button type="button" data-cat="all" class="' + (cat === 'all' ? 'on' : '') + '">✨ ' + esc(T('All', 'الكل')) + ' <small>' + COURSES.filter(function(x){ return cstat(x[1]) !== 'hidden'; }).length + '</small></button>' +
-      CATS.map(function(c){ const n = COURSES.filter(function(x){ return x[0] === c.id && cstat(x[1]) !== 'hidden'; }).length;
+      CATS.map(function(c){ const n = COURSES.filter(function(x){ return x[0] === c.id && cstat(x[1]) !== 'hidden'; }).length; if(!n) return '';
         return '<button type="button" data-cat="' + c.id + '" class="' + (cat === c.id ? 'on' : '') + '">' + c.icon + ' ' + esc(T(c.en, c.ar)) + ' <small>' + n + '</small></button>'; }).join('');
     const box = document.getElementById('courseSearch');
     box.placeholder = '🔎 ' + T('Search a course… e.g. Python, Excel, robots', 'دوّر على كورس… مثلاً Python أو Excel أو روبوت');
@@ -1141,8 +1168,8 @@ footer a{color:var(--violet)}
   (function neural(){
     const cv = document.getElementById('neural'); if(!cv || !cv.getContext) return;
     const ctx = cv.getContext('2d'), hero = cv.parentElement; let W, H, pts = [], mouse = { x: -999, y: -999 };
-    function size(){ const r = hero.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
-      const n = Math.round(Math.min(70, W * H / 16000)); pts = Array.from({ length: n }, function(){ return { x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: 1.2 + Math.random() * 2.2, c: ['#7ff3e6', '#c9bcff', '#ffd36e', '#ff9ec4'][Math.floor(Math.random() * 4)] }; }); }
+    function size(){ const r = hero.getBoundingClientRect(), small = r.width < 760, d = small ? 1 : Math.min(1.5, window.devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+      const n = Math.round(Math.min(small ? 26 : 55, W * H / 18000)); pts = Array.from({ length: n }, function(){ return { x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35, r: 1.2 + Math.random() * 2.2, c: ['#7ff3e6', '#c9bcff', '#ffd36e', '#ff9ec4'][Math.floor(Math.random() * 4)] }; }); }
     function frame(){
       ctx.clearRect(0, 0, W, H);
       for(let i = 0; i < pts.length; i++){ const p = pts[i];
@@ -1151,9 +1178,13 @@ footer a{color:var(--violet)}
         for(let j = i + 1; j < pts.length; j++){ const q = pts[j], d2 = (p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y);
           if(d2 < 15000){ ctx.strokeStyle = 'rgba(201,188,255,' + (1 - d2 / 15000) * .45 + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); } }
         ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 10; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); ctx.shadowBlur = 0; }
-      if(!calmFx) requestAnimationFrame(frame);
+      if(!calmFx && awake) requestAnimationFrame(frame); else running = false;
     }
-    size(); frame(); window.addEventListener('resize', size);
+    let awake = true, running = false;
+    function wake(){ if(awake && !running && !calmFx){ running = true; requestAnimationFrame(frame); } }
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ awake = es[0].isIntersecting && !document.hidden; wake(); }).observe(hero);
+    document.addEventListener('visibilitychange', function(){ awake = !document.hidden; wake(); });
+    size(); running = true; frame(); window.addEventListener('resize', size);
     hero.addEventListener('pointermove', function(e){ const r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
     hero.addEventListener('pointerleave', function(){ mouse.x = mouse.y = -999; });
   })();
@@ -1171,13 +1202,13 @@ footer a{color:var(--violet)}
   (function video(){
     const v = document.getElementById('heroVid'), snd = document.getElementById('vidSound'), full = document.getElementById('vidFull'), dev = v && v.parentElement;
     if(!v) return;
-    if(calmFx){ v.removeAttribute('autoplay'); v.pause(); }
     snd.addEventListener('click', function(){ v.muted = !v.muted; snd.textContent = v.muted ? '🔇' : '🔊'; if(!v.muted) v.play().catch(function(){}); });
     full.addEventListener('click', function(){ v.muted = false; snd.textContent = '🔊'; v.play().catch(function(){}); const f = v.requestFullscreen || v.webkitEnterFullscreen || v.webkitRequestFullscreen; if(f) try{ f.call(v); }catch(e){} });
     // the device leans toward the pointer
     if(!calmFx && matchMedia('(hover: hover)').matches) dev.addEventListener('pointermove', function(e){ const r = dev.getBoundingClientRect(); dev.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 16).toFixed(1) + 'deg'); dev.style.setProperty('--rx', ((.5 - (e.clientY - r.top) / r.height) * 12).toFixed(1) + 'deg'); });
     // play only while it is on screen (saves battery and data)
-    if('IntersectionObserver' in window && !calmFx) new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting) v.play().catch(function(){}); else v.pause(); }); }, { threshold: .2 }).observe(v);
+    if(!('IntersectionObserver' in window)){ if(!calmFx) v.play().catch(function(){}); }
+    else if(!calmFx) new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting) v.play().catch(function(){}); else v.pause(); }); }, { threshold: .2 }).observe(v);
   })();
   // Coco AI: ready-made answers, typed out like a chatbot (free, no AI cost)
   const ASK = [
@@ -1185,21 +1216,59 @@ footer a{color:var(--violet)}
     [['Write a Python loop', 'اكتبلي loop بالبايثون'], ['Sure! This prints 1 to 3:\n<code>for i in range(1, 4):\n    print(i)</code>\nA loop repeats a step so you don’t write it again and again. 🔁', 'أكيد! ده بيطبع من ١ لـ٣:\n<code>for i in range(1, 4):\n    print(i)</code>\nالـloop بيكرر الخطوة عشان متكتبهاش كل مرة. 🔁']],
     [['How does a self-driving car see?', 'العربية اللي بتسوق نفسها بتشوف إزاي؟'], ['Cameras and sensors send pictures to an AI model. It learned from millions of examples to spot cars, people and signs, then decides: slow down, stop, or turn. 🚗', 'الكاميرات والحساسات بتبعت صور لنموذج ذكاء اصطناعي، اتعلم من ملايين الأمثلة يعرف العربيات والناس والإشارات، وبعدين يقرر: يهدّي، يقف، أو يلف. 🚗']],
     [['Which course should I start with?', 'أبدأ بأنهي كورس؟'], ['Age 5–8: ScratchJr. Age 8–12: Scratch or Robots. Teens: Python, then web or AI. Adults: Excel, Python or Cybersecurity. Not sure? Book a free trial and we’ll help! 🎯', 'من ٥ لـ٨: ScratchJr. من ٨ لـ١٢: Scratch أو الروبوتات. الشباب: Python وبعدين المواقع أو الذكاء الاصطناعي. الكبار: Excel أو Python أو الأمن السيبراني. محتار؟ احجز حصة تجريبية وإحنا نساعدك! 🎯']],
+    [['What is coding?', 'يعني إيه برمجة؟'], ['Coding is giving a computer clear step-by-step instructions. Games, apps, websites and robots all run on code that people wrote! 💻', 'البرمجة إنك تدّي الكمبيوتر أوامر واضحة خطوة بخطوة. الألعاب والتطبيقات والمواقع والروبوتات كلها شغالة بكود حد كتبه! 💻']],
+    [['Is coding hard for kids?', 'البرمجة صعبة على الأطفال؟'], ['Not at all! Kids start with blocks in ScratchJr and Scratch: drag, drop and play. By 10–12 many move to Python. It feels like building with LEGO. 🧱', 'خالص! الأطفال بيبدأوا بالبلوكات في ScratchJr وScratch: اسحب وحط والعب. ومن ١٠–١٢ سنة كتير منهم بيبدأ Python. إحساسها زي اللعب بالليجو. 🧱']],
+    [['How long does it take to learn Python?', 'Python بياخد قد إيه عشان أتعلمه؟'], ['About 2–3 months of steady practice for the basics (variables, loops, functions). Then you build projects: games, bots, data. Practice 20 minutes a day beats 3 hours once a week! ⏱️', 'حوالي ٢–٣ شهور تمرين منتظم للأساسيات (متغيرات وloops وfunctions). وبعدين تبني مشاريع: ألعاب وبوتات وبيانات. ٢٠ دقيقة كل يوم أحسن من ٣ ساعات مرة في الأسبوع! ⏱️']],
+    [['What is a website made of?', 'الموقع بيتعمل من إيه؟'], ['Three friends: <code>HTML</code> builds the content, <code>CSS</code> makes it beautiful, and <code>JavaScript</code> makes it move and react. 🌐', 'تلات أصحاب: <code>HTML</code> بيبني المحتوى، و<code>CSS</code> بيحلّيه، و<code>JavaScript</code> بيخليه يتحرك ويتفاعل. 🌐']],
+    [['What is cybersecurity?', 'يعني إيه أمن سيبراني؟'], ['Protecting computers, accounts and data from attackers: strong passwords, updates, spotting phishing and testing systems the ethical way. Experts are needed everywhere. 🛡️', 'حماية الأجهزة والحسابات والبيانات من الهاكرز: باسوردات قوية، وتحديثات، وكشف رسايل النصب، واختبار الأنظمة بطريقة أخلاقية. الخبرا مطلوبين في كل مكان. 🛡️']],
+    [['What can I build with Arduino?', 'أعمل إيه بالـArduino؟'], ['A night light that turns on in the dark, a plant that tells you it is thirsty, a mini robot car or a smart alarm. Code + wires = magic! 💡', 'نور بيشتغل لوحده في الضلمة، زرعة بتقولك إنها عطشانة، عربية روبوت صغيرة، أو جرس إنذار ذكي. كود + أسلاك = سحر! 💡']],
+    [['Do I need a laptop?', 'محتاج لابتوب؟'], ['For most courses, yes: any normal laptop or desktop works. Little ones can start ScratchJr on a tablet. Not sure? Ask us before you buy anything. 💬', 'لأغلب الكورسات أيوه، وأي لابتوب أو كمبيوتر عادي يمشي. الصغيرين ممكن يبدأوا ScratchJr على تابلت. محتار؟ اسألنا قبل ما تشتري حاجة. 💬']],
+    [['What is a chatbot?', 'يعني إيه شات بوت؟'], ['A program you can talk to. Simple ones follow rules; smart ones use AI language models trained on lots of text. In our AI course you build your own! 🤖', 'برنامج بتكلمه. البسيط بيمشي بقواعد، والذكي بيستخدم نماذج لغة اتدربت على نصوص كتير. وفي كورس الذكاء الاصطناعي بتعمل واحد بتاعك! 🤖']],
     [['Can AI make mistakes?', 'الذكاء الاصطناعي ممكن يغلط؟'], ['Yes! AI guesses from what it learned, so it can be wrong. That’s why we always check its answers, and why people who understand AI are needed everywhere. 🧠', 'أيوه! الذكاء الاصطناعي بيخمّن من اللي اتعلمه، فممكن يغلط. عشان كده لازم نراجع إجاباته — وعشان كده اللي فاهمين الـAI مطلوبين في كل مكان. 🧠']]
   ];
-  let askTimer = null, askI = -1;
+  let askTimer = null, askI = -1, askAll = false;
   function renderAsk(){
-    document.getElementById('askChips').innerHTML = ASK.map(function(a, i){ return '<button type="button" data-ask="' + i + '" class="' + (i === askI ? 'on' : '') + '">' + esc(T(a[0][0], a[0][1])) + '</button>'; }).join('');
+    const n = askAll ? ASK.length : Math.min(6, ASK.length);
+    document.getElementById('askChips').innerHTML = ASK.slice(0, n).map(function(a, i){ return '<button type="button" data-ask="' + i + '" class="' + (i === askI ? 'on' : '') + (a[2] ? ' new' : '') + '">' + esc(T(a[0][0], a[0][1])) + '</button>'; }).join('') +
+      (ASK.length > 6 ? '<button type="button" class="more" data-more>' + esc(askAll ? T('Less ▴', 'أقل ▴') : T('More questions (' + (ASK.length - 6) + ') ▾', 'أسئلة كمان (' + (ASK.length - 6) + ') ▾')) + '</button>' : '');
+    const inp = document.getElementById('askIn'); if(inp) inp.placeholder = T('Ask Coco about coding, IT or AI…', 'اسأل كوكو عن البرمجة أو الـIT أو الذكاء الاصطناعي…');
   }
-  document.getElementById('askChips').addEventListener('click', function(e){
-    const b = e.target.closest('[data-ask]'); if(!b) return;
-    askI = +b.dataset.ask; renderAsk();
+  // questions the teachers answered in the dashboard join Coco's list
+  try{ fetch(SBR + 'track_faq?track=eq.tech&status=eq.published&select=q_en,q_ar,a_en,a_ar&order=created_at.desc&limit=60', { headers: { apikey: SBK } })
+    .then(function(r){ return r.ok ? r.json() : []; }).then(function(rows){ (rows || []).forEach(function(x){ const q = [x.q_en || x.q_ar, x.q_ar || x.q_en], a = [esc(x.a_en || x.a_ar), esc(x.a_ar || x.a_en)]; if(q[0] && a[0]) ASK.push([q, a, true]); }); renderAsk(); }).catch(function(){}); }catch(e){}
+  const normQ = function(t){ return String(t).toLowerCase().replace(/[إأآا]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[^a-z0-9\u0600-\u06ff ]+/g, ' ').split(/\s+/).filter(function(w){ return w.length > 2; }); };
+  function answer(i){
+    askI = i; renderAsk();
     const out = document.getElementById('askOut'), full = T(ASK[askI][1][0], ASK[askI][1][1]);
+    document.getElementById('askSug').hidden = true;
     clearInterval(askTimer); out.innerHTML = '';
     // type plain text, then show the formatted answer (with code) at the end
     const plain = full.replace(/<[^>]+>/g, ''); let k = 0;
     if(calmFx){ out.innerHTML = full; return; }
     askTimer = setInterval(function(){ k += 2; out.textContent = plain.slice(0, k); if(k >= plain.length){ clearInterval(askTimer); out.innerHTML = full; } }, 18);
+  }
+  document.getElementById('askChips').addEventListener('click', function(e){
+    if(e.target.closest('[data-more]')){ askAll = !askAll; renderAsk(); return; }
+    const b = e.target.closest('[data-ask]'); if(b) answer(+b.dataset.ask);
+  });
+  document.getElementById('askForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const q = document.getElementById('askIn').value.trim(); if(q.length < 3) return;
+    const words = normQ(q); let best = -1, score = 0;
+    ASK.forEach(function(a, i){ const k = normQ(a[0][0] + ' ' + a[0][1]); const hit = words.filter(function(w){ return k.some(function(x){ return x.indexOf(w) === 0 || w.indexOf(x) === 0; }); }).length / Math.max(1, words.length); if(hit > score){ score = hit; best = i; } });
+    if(best >= 0 && score >= .5){ answer(best); return; }
+    clearInterval(askTimer); askI = -1; renderAsk();
+    document.getElementById('askOut').textContent = T('🤔 Coco doesn’t know this one yet.', '🤔 كوكو لسه ميعرفش إجابة السؤال ده.');
+    const sug = document.getElementById('askSug'); sug.hidden = false; sug.dataset.q = q;
+    sug.innerHTML = '<span>' + esc(T('Send it to our teachers? Once they answer, Coco will know it for everyone.', 'نبعته للمدرسين؟ أول ما يجاوبوا، كوكو هيعرفه ويجاوب الكل.')) + '</span><button type="button" class="btn main" id="askSend">💡 ' + esc(T('Suggest this question', 'اقترح السؤال ده')) + '</button>';
+  });
+  document.getElementById('askSug').addEventListener('click', function(e){
+    const b = e.target.closest('#askSend'); if(!b) return;
+    const sug = document.getElementById('askSug'); b.disabled = true;
+    fetch(SBR + 'rpc/suggest_question', { method: 'POST', headers: { apikey: SBK, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_track: 'tech', p_question: sug.dataset.q }) })
+      .then(function(r){ return r.ok ? r : r.json().then(function(j){ throw new Error(j.message || 'error'); }); })
+      .then(function(){ sug.innerHTML = '<span>✅ ' + esc(T('Thanks! Our teachers will answer it soon.', 'شكراً! المدرسين هيجاوبوا عليه قريب.')) + '</span>'; document.getElementById('askIn').value = ''; if(window.ccFx) ccFx.burstFrom(sug, { emoji: ['💡'] }); })
+      .catch(function(err){ b.disabled = false; sug.querySelector('span').textContent = '⚠️ ' + (err.message && !/fetch/i.test(err.message) ? err.message : T('Could not send. Try again.', 'مقدرناش نبعته — جرّب تاني.')); });
   });
   document.querySelectorAll('[data-find]').forEach(function(a){ a.addEventListener('click', function(){ const box = document.getElementById('courseSearch'); cat = 'all'; box.value = a.dataset.find; renderCatalog(); }); });
 

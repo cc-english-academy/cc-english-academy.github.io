@@ -1,5 +1,5 @@
 // Coco Tech Lab & Le Club Français dashboards: one engine, two personalities.
-// The page sets <body data-track="tech|french">. Same accounts as the academy (phone sign-in).
+// The page sets <body data-track="tech|french">. Same accounts as Code Cademy (phone sign-in).
 (function(){
   'use strict';
   const TRACK = document.body.dataset.track === 'french' ? 'french' : 'tech';
@@ -60,6 +60,7 @@
     ["outlook", "office", "📧", "Outlook & Teams", "Outlook وTeams"],
     ["icdl", "office", "🏅", "ICDL preparation", "تحضير ICDL"]
   ];
+  TECH_CATS.push(['ai', '🤖', 'AI & data', 'الذكاء الاصطناعي والبيانات']);
   const FR_COURSES = [['kids', '🧸', 'Kids · 6–12', 'الأطفال · ٦–١٢'], ['teens', '🎒', 'Teens · 13–17', 'الشباب · ١٣–١٧'], ['adults', '☕', 'Adults', 'الكبار'], ['delf', '🎓', 'DELF prep', 'تحضير DELF']];
   // the passport: one city stamp per level
   const FR_LEVELS = [
@@ -256,12 +257,19 @@
   async function loadShared(){
     const cfg = await sel(sb.from('track_courses').select('*').eq('track', TRACK));
     D.cfg = {}; cfg.forEach(function(c){ D.cfg[c.course] = c; });
+    mergeCustom();
     let q = sb.from('track_messages').select('*').eq('track', TRACK).order('created_at', { ascending: false }).limit(1500);
     const r = ROLE();
     if(r === 'student') q = q.eq('student_id', me.id);
     if(r === 'parent'){ const ids = (D.kids || []).map(function(k){ return k.id; }); if(!ids.length){ D.msgs = []; D.reads = {}; return; } q = q.in('student_id', ids); }
     D.msgs = (await sel(q)).reverse();
     D.reads = {}; (await sel(sb.from('track_chat_reads').select('*').eq('user_id', me.id).eq('track', TRACK))).forEach(function(x){ D.reads[x.student_id] = x.last_read_at; });
+  }
+  // courses a teacher added (track_courses.custom) sit next to the built-in ones everywhere
+  function mergeCustom(){
+    if(FR) return;
+    for(let i = TECH_COURSES.length - 1; i >= 0; i--) if(TECH_COURSES[i][5]) TECH_COURSES.splice(i, 1);
+    Object.keys(D.cfg || {}).forEach(function(k){ const c = D.cfg[k]; if(c.custom) TECH_COURSES.push([c.course, c.cat || 'it', c.icon || '✨', c.name_en || c.name_ar, c.name_ar || c.name_en, true]); });
   }
   const unreadIn = function(sid){ const t = D.reads && D.reads[sid]; return (D.msgs || []).filter(function(m){ return m.student_id === sid && m.sender_id !== me.id && (!t || m.created_at > t); }).length; };
   const unreadAll = function(){ const ids = new Set((D.msgs || []).map(function(m){ return m.student_id; })); let n = 0; ids.forEach(function(id){ n += unreadIn(id); }); return n; };
@@ -273,7 +281,7 @@
       ['speak', '🎙️', 'Pronunciation', 'النطق'], ['delf', '📈', 'DELF meter', 'مؤشر DELF'], ['msgs', '💬', 'Messages', 'الرسايل'], ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']]
       : [['home', '🏠', 'Home', 'الرئيسية'], ['map', '🗺️', 'Skill map', 'خريطة المهارات'], ['tasks', '📝', 'Tasks', 'المهام'], ['portfolio', '🗂️', 'Portfolio', 'معرض المشاريع'], ['msgs', '💬', 'Messages', 'الرسايل'],
       ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']],
-    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسايل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الكورسات']].concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
+    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسايل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الكورسات']].concat(FR ? [] : [['faq', '❓', 'Coco questions', 'أسئلة كوكو']]).concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
       .concat([['rank', '🏆', 'Ranking', 'الترتيب']]),
     parent: [['children', '👨‍👩‍👧', 'My children', 'أولادي'], ['msgs', '💬', 'Messages', 'الرسايل']]
   };
@@ -320,7 +328,7 @@
   document.addEventListener('submit', function(e){ const f = e.target; if(f.dataset && FORMS[f.dataset.form]){ e.preventDefault(); FORMS[f.dataset.form](f); } });
   async function busy(btn, fn){ if(btn){ btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = '…'; } try{ return await fn(); } catch(err){ toast(errText(err), true); } finally { if(btn && btn.isConnected){ btn.disabled = false; btn.textContent = btn.dataset.t; } } }
 
-  // ---------- sign in / sign up (same accounts as the academy) ----------
+  // ---------- sign in / sign up (same accounts as Code Cademy) ----------
   let authMode = 'login';
   function showAuth(note){
     guestView = function(){ showAuth(note); };
@@ -331,7 +339,7 @@
         '<ul>' + (FR ? [['🛂', 'A passport with a stamp for every level', 'باسبور فيه ختم لكل مستوى'], ['🎙️', 'Pronunciation score with your voice', 'درجة نطق بصوتك'], ['📒', 'A smart word notebook', 'كشكول كلمات ذكي'], ['📈', 'Your DELF readiness meter', 'مؤشر جاهزيتك لـDELF']]
           : [['🗺️', 'A skill map that lights up as you learn', 'خريطة مهارات بتنوّر وإنت بتتعلم'], ['💻', 'Code exercises checked instantly', 'تمارين كود بتتصحح فوراً'], ['🗂️', 'A portfolio you can share', 'معرض مشاريع تشاركه مع الناس'], ['🔥', 'Daily challenge & streaks', 'تحدي يومي وسلسلة أيام']])
           .map(function(x){ return '<li><span>' + x[0] + '</span>' + esc(T(x[1], x[2])) + '</li>'; }).join('') + '</ul>' +
-        '<p class="muted small">' + esc(T('Already have an academy account? Use the same phone number and password.', 'عندك حساب في الأكاديمية؟ استخدم نفس الرقم والباسورد.')) + '</p></div>' +
+        '<p class="muted small">' + esc(T('Already have a Code Cademy account? Use the same phone number and password.', 'عندك حساب في Code Cademy؟ استخدم نفس الرقم والباسورد.')) + '</p></div>' +
       '<div class="card auth-card"><div class="seg"><button type="button" data-act="authMode" data-m="login" class="' + (login ? 'on' : '') + '">' + esc(T('Sign in', 'تسجيل الدخول')) + '</button><button type="button" data-act="authMode" data-m="signup" class="' + (!login ? 'on' : '') + '">' + esc(T('New account', 'حساب جديد')) + '</button></div>' +
         (note ? '<p class="note">' + esc(note) + '</p>' : '') +
         '<form data-form="' + (login ? 'login' : 'signup') + '" class="form">' +
@@ -341,7 +349,7 @@
           '<label>' + esc(T('Password', 'الباسورد')) + '<input name="password" type="password" required minlength="6" autocomplete="' + (login ? 'current-password' : 'new-password') + '" dir="ltr"></label>' +
           '<p class="err" id="authErr"></p><button class="btn main wide" type="submit">' + esc(login ? T('Sign in', 'دخول') : T('Create my account', 'اعمل حسابي')) + '</button>' +
           (login ? '<a class="muted small center" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello, I forgot my password. My phone number is: ', 'السلام عليكم، نسيت الباسورد. رقمي: ')) + '">' + esc(T('Forgot your password? Message us', 'نسيت الباسورد؟ كلّمنا')) + '</a>'
-            : '<p class="muted small">' + esc(T('Teachers: create your account on the academy site, then the admin approves it.', 'المعلمين: اعملوا الحساب من موقع الأكاديمية والمدير يوافق عليه.')) + '</p>') +
+            : '<p class="muted small">' + esc(T('Teachers: create your account on Code Cademy site, then the admin approves it.', 'المعلمين: اعملوا الحساب من موقع Code Cademy والمدير يوافق عليه.')) + '</p>') +
         '</form></div></div>';
   }
   ACT.authMode = function(b){ authMode = b.dataset.m; showAuth(); };
@@ -1168,7 +1176,7 @@
   VIEWS.settings = async function(){
     const st = await loadSettings(); if(view !== 'settings') return;
     main.innerHTML = '<div class="head"><h2>⚙️ ' + esc(T('Settings', 'الإعدادات')) + '</h2></div><form data-form="price" class="card form"><label>' + esc(FR ? T('French course price (SAR / month)', 'سعر كورس الفرنساوي (ريال / شهر)') : T('Tech Lab course price (SAR / month)', 'سعر كورسات Tech Lab (ريال / شهر)')) +
-      '<input name="price" inputmode="decimal" maxlength="20" value="' + esc(st[TRACK + '_price'] || '') + '"></label><p class="muted small">' + esc(T('The bank details (Al Rajhi IBAN) come from the academy admin dashboard.', 'بيانات البنك (آيبان الراجحي) بتيجي من لوحة المدير في موقع الأكاديمية.')) + '</p><button class="btn main" type="submit">' + esc(T('Save', 'حفظ')) + '</button></form>';
+      '<input name="price" inputmode="decimal" maxlength="20" value="' + esc(st[TRACK + '_price'] || '') + '"></label><p class="muted small">' + esc(T('The bank details (Al Rajhi IBAN) come from Code Cademy admin dashboard.', 'بيانات البنك (آيبان الراجحي) بتيجي من لوحة المدير في موقع Code Cademy.')) + '</p><button class="btn main" type="submit">' + esc(T('Save', 'حفظ')) + '</button></form>';
   };
   FORMS.price = function(f){
     busy(f.querySelector('[type=submit]'), async function(){
@@ -1182,7 +1190,7 @@
   // =====================================================================
   VIEWS.children = function(){
     const kids = D.kids || [];
-    if(!kids.length){ main.innerHTML = emptyCard('👨‍👩‍👧', T('Link your child first: in the academy dashboard, enter your child’s link code.', 'اربط ابنك الأول: من لوحة الأكاديمية اكتب كود الربط بتاع ابنك.'), '<a class="btn main" href="english.html?signin=1">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
+    if(!kids.length){ main.innerHTML = emptyCard('👨‍👩‍👧', T('Link your child first: in Code Cademy dashboard, enter your child’s link code.', 'اربط ابنك الأول: من لوحة الإنجليزي اكتب كود الربط بتاع ابنك.'), '<a class="btn main" href="english.html?signin=1">' + esc(T('Open Code Cademy dashboard', 'افتح لوحة الإنجليزي')) + '</a>'); return; }
     main.innerHTML = '<div class="head"><h2>👨‍👩‍👧 ' + esc(T('My children', 'أولادي')) + '</h2></div>' + kids.map(function(k){
       const en = (D.enrolls || []).filter(function(e){ return e.student_id === k.id; });
       const act = (D.act || []).filter(function(a){ return a.student_id === k.id; }), subs = (D.subs || []).filter(function(s){ return s.student_id === k.id; });
@@ -1235,7 +1243,7 @@
       }).join('') : '<p class="muted small">' + esc(T('Students appear here once they join a course.', 'الطلاب بيظهروا هنا أول ما يشتركوا.')) + '</p>') + '</aside>';
     }
     if(r === 'parent' && (D.kids || []).length > 1) side = '<div class="chips">' + D.kids.map(function(k){ return '<button type="button" data-act="thread" data-id="' + k.id + '" class="' + (k.id === thread ? 'on' : '') + '">' + esc(k.full_name) + (unreadIn(k.id) ? ' · ' + unreadIn(k.id) : '') + '</button>'; }).join('') + '</div>';
-    if(r === 'parent' && !(D.kids || []).length){ main.innerHTML = emptyCard('💬', T('Link your child first from the academy dashboard.', 'اربط ابنك الأول من لوحة الأكاديمية.'), '<a class="btn main" href="english.html?signin=1">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
+    if(r === 'parent' && !(D.kids || []).length){ main.innerHTML = emptyCard('💬', T('Link your child first from Code Cademy dashboard.', 'اربط ابنك الأول من لوحة الإنجليزي.'), '<a class="btn main" href="english.html?signin=1">' + esc(T('Open Code Cademy dashboard', 'افتح لوحة الإنجليزي')) + '</a>'); return; }
     const who = r === 'teacher' ? pname(thread) : r === 'parent' ? (D.kids.find(function(k){ return k.id === thread; }) || {}).full_name : T('Your teachers', 'المعلمين');
     const canPrivate = r !== 'student';
     main.innerHTML = '<div class="head"><h2>💬 ' + esc(T('Messages', 'الرسايل')) + '</h2><p class="muted">' + esc(r === 'student' ? T('Talk to your teachers. Your parents can read this conversation too.', 'اتكلم مع المعلمين — وأهلك يقدروا يشوفوا المحادثة كمان.') : T('One conversation per student, with the student, their parents and the teachers.', 'محادثة لكل طالب، بينه وبين أهله والمعلمين.')) + '</p></div>' +
@@ -1321,6 +1329,7 @@
     const groups = FR ? [['fr', '🇫🇷', 'French courses', 'كورسات الفرنساوي']] : TECH_CATS;
     main.innerHTML = '<div class="head"><h2>📣 ' + esc(T('Course manager', 'إدارة الكورسات')) + '</h2><p class="muted">' + esc(T('Choose what visitors see on the course page and what students can join. Announce a course to put it in the spotlight with a note (dates, offers…).', 'اختار الطلاب والزوار يشوفوا إيه في صفحة الكورسات ويشتركوا في إيه. أعلن عن كورس عشان يظهر في الواجهة مع ملاحظة (مواعيد، عروض…).')) + '</p></div>' +
       '<div class="stats"><div class="stat"><i>✅</i><b data-count="' + st.open + '">' + st.open + '</b><span>' + esc(T('open', 'متاح')) + '</span></div><div class="stat"><i>⏳</i><b data-count="' + st.soon + '">' + st.soon + '</b><span>' + esc(T('coming soon', 'قريباً')) + '</span></div><div class="stat"><i>🙈</i><b data-count="' + st.hidden + '">' + st.hidden + '</b><span>' + esc(T('hidden', 'مخفي')) + '</span></div><div class="stat fire"><i>📣</i><b data-count="' + st.ann + '">' + st.ann + '</b><span>' + esc(T('announced', 'معلن عنه')) + '</span></div></div>' +
+      (FR ? '' : '<details class="card add-course"' + (addOpen ? ' open' : '') + '><summary>➕ ' + esc(T('Add a new course', 'ضيف كورس جديد')) + '</summary>' + courseForm(null) + '</details>') +
       '<div class="row gap wrap cm-bar"><input type="search" class="search" id="cmSearch" value="' + esc(cmQ) + '" placeholder="' + esc(T('Search a course', 'دوّر على كورس')) + '"><div class="chips">' +
         [['all', '📋', 'All', 'الكل'], ['open', '✅', 'Open', 'متاح'], ['soon', '⏳', 'Soon', 'قريباً'], ['hidden', '🙈', 'Hidden', 'مخفي'], ['ann', '📣', 'Announced', 'معلن عنه']].map(function(c){ return '<button type="button" data-act="cmF" data-f="' + c[0] + '" class="' + (cmF === c[0] ? 'on' : '') + '">' + c[1] + ' ' + esc(T(c[2], c[3])) + '</button>'; }).join('') +
         '</div><a class="btn ghost sm" href="' + (FR ? 'french.html' : 'tech.html#courses') + '" target="_blank" rel="noopener">👀 ' + esc(T('See the course page', 'شوف صفحة الكورسات')) + '</a></div>' +
@@ -1332,7 +1341,7 @@
         return '<h3 class="sec">' + g[1] + ' ' + esc(T(g[2], g[3])) + '</h3><div class="list">' + list.map(function(c){
           const cfg = (D.cfg || {})[c[0]] || {}, s = cfg.status || 'open';
           const n = (D.enrolls || []).filter(function(e){ return e.course === c[0] && e.status !== 'pending'; }).length;
-          return '<div class="item col cm s-' + s + '"><div class="row between wrap"><span><b>' + c[2] + ' ' + esc(T(c[3], c[4])) + '</b><small>' + n + ' ' + esc(T('students', 'طالب')) + '</small></span>' +
+          return '<div class="item col cm s-' + s + '"><div class="row between wrap"><span><b>' + c[2] + ' ' + esc(T(c[3], c[4])) + (cfg.custom ? ' <span class="pill">' + esc(T('added by you', 'إنت ضفته')) + '</span>' : '') + '</b><small>' + n + ' ' + esc(T('students', 'طالب')) + (cfg.custom ? ' · <button type="button" class="link" data-act="editCourse" data-c="' + c[0] + '">✏️ ' + esc(T('Edit', 'تعديل')) + '</button> · <button type="button" class="link danger" data-act="delCourse" data-c="' + c[0] + '">🗑 ' + esc(T('Delete', 'حذف')) + '</button>' : '') + '</small></span>' +
             '<span class="seg3">' + [['open', '✅', 'Open', 'متاح'], ['soon', '⏳', 'Soon', 'قريباً'], ['hidden', '🙈', 'Hidden', 'مخفي']].map(function(o){ return '<button type="button" data-act="cstat" data-c="' + c[0] + '" data-s="' + o[0] + '" class="' + (s === o[0] ? 'on' : '') + '">' + o[1] + ' ' + esc(T(o[2], o[3])) + '</button>'; }).join('') + '</span></div>' +
             '<div class="row gap wrap"><label class="switch-l"><span class="switch"><input type="checkbox" data-ann="' + c[0] + '"' + (cfg.announce ? ' checked' : '') + (s === 'hidden' ? ' disabled' : '') + '><i></i></span> 📣 ' + esc(T('Announce', 'أعلن')) + '</label>' +
             '<input class="note-in grow" data-note="' + c[0] + '" maxlength="200" value="' + esc(cfg.note || '') + '" placeholder="' + esc(T('Note shown with the announcement, e.g. “Starts 1 Dec · 20% off”', 'ملاحظة مع الإعلان، مثلاً «يبدأ ١ ديسمبر · خصم ٢٠٪»')) + '"></div></div>';
@@ -1340,6 +1349,77 @@
       }).join('');
   };
   ACT.cmF = function(b){ cmF = b.dataset.f; render(); };
+  let addOpen = false;
+  function courseForm(c){
+    c = c || {};
+    const v = function(k){ return esc(c[k] || ''); };
+    return '<form data-form="course" class="form"' + (c.course ? ' data-id="' + esc(c.course) + '"' : '') + '><div class="grid2">' +
+      '<label>' + esc(T('Name (English)', 'الاسم (إنجليزي)')) + '<input name="name_en" maxlength="120" value="' + v('name_en') + '" dir="ltr" placeholder="e.g. AI art for kids"></label>' +
+      '<label>' + esc(T('Name (Arabic)', 'الاسم (عربي)')) + '<input name="name_ar" maxlength="120" value="' + v('name_ar') + '" dir="rtl" placeholder="مثلاً: فن الذكاء الاصطناعي للأطفال"></label></div>' +
+      '<div class="grid3 tight"><label>' + esc(T('Icon', 'الأيقونة')) + '<input name="icon" maxlength="8" value="' + (v('icon') || '✨') + '"></label>' +
+      '<label>' + esc(T('Field', 'المجال')) + '<select name="cat">' + TECH_CATS.map(function(k){ return '<option value="' + k[0] + '"' + ((c.cat || 'it') === k[0] ? ' selected' : '') + '>' + k[1] + ' ' + esc(T(k[2], k[3])) + '</option>'; }).join('') + '</select></label>' +
+      '<label>' + esc(T('Level', 'المستوى')) + '<select name="lvl">' + [['b', 'Beginner', 'مبتدئ'], ['m', 'Intermediate', 'متوسط'], ['a', 'Advanced', 'متقدم']].map(function(l){ return '<option value="' + l[0] + '"' + ((c.lvl || 'b') === l[0] ? ' selected' : '') + '>' + esc(T(l[1], l[2])) + '</option>'; }).join('') + '</select></label></div>' +
+      '<div class="grid2"><label>' + esc(T('What it is (English)', 'عن الكورس (إنجليزي)')) + '<textarea name="desc_en" rows="2" maxlength="400" dir="ltr">' + v('desc_en') + '</textarea></label>' +
+      '<label>' + esc(T('What it is (Arabic)', 'عن الكورس (عربي)')) + '<textarea name="desc_ar" rows="2" maxlength="400" dir="rtl">' + v('desc_ar') + '</textarea></label>' +
+      '<label>' + esc(T('Why it matters (English)', 'ليه مهم (إنجليزي)')) + '<input name="why_en" maxlength="300" value="' + v('why_en') + '" dir="ltr"></label>' +
+      '<label>' + esc(T('Why it matters (Arabic)', 'ليه مهم (عربي)')) + '<input name="why_ar" maxlength="300" value="' + v('why_ar') + '" dir="rtl"></label>' +
+      '<label>' + esc(T('Students will build (English)', 'الطالب هيعمل (إنجليزي)')) + '<input name="build_en" maxlength="200" value="' + v('build_en') + '" dir="ltr"></label>' +
+      '<label>' + esc(T('Students will build (Arabic)', 'الطالب هيعمل (عربي)')) + '<input name="build_ar" maxlength="200" value="' + v('build_ar') + '" dir="rtl"></label></div>' +
+      '<div class="row gap wrap"><label class="opt"><input type="checkbox" name="kids"' + (c.kids ? ' checked' : '') + '> 🧸 ' + esc(T('Good for kids', 'مناسب للأطفال')) + '</label>' +
+      (c.course ? '' : '<label class="opt"><input type="checkbox" name="announce" checked> 📣 ' + esc(T('Announce it on the course page', 'أعلن عنه في صفحة الكورسات')) + '</label>') + '</div>' +
+      '<div class="row gap"><button class="btn main" type="submit">' + esc(c.course ? T('Save changes', 'احفظ التعديلات') : T('Add the course', 'ضيف الكورس')) + '</button>' + (c.course ? '<button class="btn ghost" type="button" data-close>' + esc(T('Cancel', 'إلغاء')) + '</button>' : '') + '</div></form>';
+  }
+  FORMS.course = function(f){
+    const val = function(k){ return f[k] ? f[k].value.trim() : ''; };
+    if(!val('name_en') && !val('name_ar')){ toast(T('Write the course name first.', 'اكتب اسم الكورس الأول.'), true); return; }
+    const id = f.dataset.id || ('c-' + ((val('name_en') || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30) || 'course') + '-' + Date.now().toString(36).slice(-4));
+    const patch = { custom: true, cat: f.cat.value, icon: val('icon') || '✨', lvl: f.lvl.value, kids: f.kids.checked,
+      name_en: val('name_en') || null, name_ar: val('name_ar') || null, desc_en: val('desc_en') || null, desc_ar: val('desc_ar') || null,
+      why_en: val('why_en') || null, why_ar: val('why_ar') || null, build_en: val('build_en') || null, build_ar: val('build_ar') || null };
+    if(!f.dataset.id){ patch.status = 'open'; patch.announce = !!(f.announce && f.announce.checked); }
+    busy(f.querySelector('[type=submit]'), async function(){
+      await saveCourse(id, patch); mergeCustom(); addOpen = false; closeModal();
+      if(patch.announce) party(null, { emoji: ['📣', '✨'] });
+      toast(f.dataset.id ? T('Saved ✓', 'اتحفظ ✓') : T('Course added ✓ It is on the course page now.', 'الكورس اتضاف ✓ وظاهر في صفحة الكورسات دلوقتي.')); render();
+    });
+  };
+  ACT.editCourse = function(b){ const c = (D.cfg || {})[b.dataset.c]; if(c) openModal('<h3>✏️ ' + esc(T('Edit course', 'تعديل الكورس')) + '</h3>' + courseForm(c), true); };
+  ACT.delCourse = function(b){
+    const id = b.dataset.c, n = (D.enrolls || []).filter(function(e){ return e.course === id; }).length;
+    if(!confirm(n ? T('Students are in this course. Hide it instead? (OK = delete anyway)', 'فيه طلاب في الكورس ده. الأحسن تخفيه — موافق = احذفه برضه') : T('Delete this course?', 'تحذف الكورس ده؟'))) return;
+    busy(b, async function(){ const r = await sb.from('track_courses').delete().eq('track', TRACK).eq('course', id); if(r.error) throw r.error; delete D.cfg[id]; mergeCustom(); toast(T('Deleted', 'اتحذف')); render(); });
+  };
+
+  // ----- teacher (Tech): Coco's question bank -----
+  VIEWS.faq = async function(){
+    main.innerHTML = '<div class="loading">❓</div>';
+    const rows = await sel(sb.from('track_faq').select('*').eq('track', TRACK).order('created_at', { ascending: false }).limit(300));
+    if(view !== 'faq') return;
+    D.faq = rows;
+    const pend = rows.filter(function(r){ return r.status === 'pending'; }), pub = rows.filter(function(r){ return r.status === 'published'; });
+    const form = function(r){ return '<form data-form="faq" data-id="' + (r ? r.id : '') + '" class="form"><div class="grid2">' +
+      '<label>' + esc(T('Question (English)', 'السؤال (إنجليزي)')) + '<input name="q_en" maxlength="300" dir="ltr" value="' + esc(r ? (r.q_en || (/[a-z]/i.test(r.question) ? r.question : '')) : '') + '"></label>' +
+      '<label>' + esc(T('Question (Arabic)', 'السؤال (عربي)')) + '<input name="q_ar" maxlength="300" dir="rtl" value="' + esc(r ? (r.q_ar || (/[\u0600-\u06ff]/.test(r.question) ? r.question : '')) : '') + '"></label>' +
+      '<label>' + esc(T('Coco’s answer (English)', 'إجابة كوكو (إنجليزي)')) + '<textarea name="a_en" rows="3" maxlength="1500" dir="ltr">' + esc(r && r.a_en || '') + '</textarea></label>' +
+      '<label>' + esc(T('Coco’s answer (Arabic)', 'إجابة كوكو (عربي)')) + '<textarea name="a_ar" rows="3" maxlength="1500" dir="rtl">' + esc(r && r.a_ar || '') + '</textarea></label></div>' +
+      '<div class="row gap wrap"><button class="btn main" type="submit">✅ ' + esc(T('Publish', 'انشر')) + '</button>' + (r ? '<button class="btn ghost" type="button" data-act="delFaq" data-id="' + r.id + '">🗑 ' + esc(T('Delete', 'حذف')) + '</button>' + (r.status === 'published' ? '<button class="btn ghost" type="button" data-act="unpubFaq" data-id="' + r.id + '">🙈 ' + esc(T('Unpublish', 'إخفاء')) + '</button>' : '') : '') + '</div></form>'; };
+    main.innerHTML = '<div class="head"><h2>❓ ' + esc(T('Coco’s questions', 'أسئلة كوكو')) + '</h2><p class="muted">' + esc(T('Visitors of the Tech Lab page suggest questions. Answer them here: once published, Coco answers them on the page for everyone.', 'زوار صفحة البرمجة بيقترحوا أسئلة. جاوب عليها هنا — وأول ما تنشرها، كوكو بيجاوب عليها في الصفحة للكل.')) + '</p></div>' +
+      '<div class="stats"><div class="stat fire"><i>📥</i><b>' + pend.length + '</b><span>' + esc(T('waiting for an answer', 'مستنية إجابة')) + '</span></div><div class="stat"><i>✅</i><b>' + pub.length + '</b><span>' + esc(T('published', 'منشورة')) + '</span></div></div>' +
+      '<details class="card add-course"><summary>➕ ' + esc(T('Add a question yourself', 'ضيف سؤال بنفسك')) + '</summary>' + form(null) + '</details>' +
+      (pend.length ? '<h3 class="sec">📥 ' + esc(T('Suggested by visitors', 'اقتراحات الزوار')) + '</h3>' + pend.map(function(r){ return '<div class="card faq-q"><p class="fq">“' + esc(r.question) + '” <small class="muted">' + esc(fmtDate(r.created_at)) + '</small></p>' + form(r) + '</div>'; }).join('') : '') +
+      (pub.length ? '<h3 class="sec">✅ ' + esc(T('Published', 'المنشورة')) + '</h3><div class="list">' + pub.map(function(r){ return '<details class="item col"><summary><b>' + esc(T(r.q_en || r.q_ar || r.question, r.q_ar || r.q_en || r.question)) + '</b></summary>' + form(r) + '</details>'; }).join('') + '</div>' : '') +
+      (!pend.length && !pub.length ? emptyCard('🤖', T('No questions yet. They will appear here when visitors suggest them.', 'لسه مفيش أسئلة — هتظهر هنا لما الزوار يقترحوا.')) : '');
+  };
+  FORMS.faq = function(f){
+    const row = { q_en: f.q_en.value.trim() || null, q_ar: f.q_ar.value.trim() || null, a_en: f.a_en.value.trim() || null, a_ar: f.a_ar.value.trim() || null, status: 'published' };
+    if(!(row.q_en || row.q_ar) || !(row.a_en || row.a_ar)){ toast(T('Write the question and Coco’s answer (in at least one language).', 'اكتب السؤال وإجابة كوكو (بلغة واحدة على الأقل).'), true); return; }
+    busy(f.querySelector('[type=submit]'), async function(){
+      const r = f.dataset.id ? await sb.from('track_faq').update(row).eq('id', +f.dataset.id) : await sb.from('track_faq').insert(Object.assign({ track: TRACK, question: row.q_en || row.q_ar }, row));
+      if(r.error) throw r.error; toast(T('Published ✓ Coco knows it now.', 'اتنشر ✓ كوكو بقى عارفه.')); party(null, { emoji: ['🤖', '✅'] }); render();
+    });
+  };
+  ACT.delFaq = function(b){ if(!confirm(T('Delete this question?', 'تحذف السؤال ده؟'))) return; busy(b, async function(){ const r = await sb.from('track_faq').delete().eq('id', +b.dataset.id); if(r.error) throw r.error; render(); }); };
+  ACT.unpubFaq = function(b){ busy(b, async function(){ const r = await sb.from('track_faq').update({ status: 'pending' }).eq('id', +b.dataset.id); if(r.error) throw r.error; render(); }); };
   main.addEventListener('input', function(e){ if(e.target.id !== 'cmSearch') return; cmQ = e.target.value; const pos = e.target.selectionStart; render(); const n = $('cmSearch'); n.focus(); n.setSelectionRange(pos, pos); });
   async function saveCourse(course, patch){
     const cur0 = (D.cfg || {})[course] || { track: TRACK, course: course, status: 'open', announce: false, note: null };
