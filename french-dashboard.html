@@ -15,7 +15,7 @@
 (function(){ var l = null; try{ l = localStorage.getItem('cc_lang'); }catch(e){}
   if(l === 'en'){ document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr'; } })();
 </script>
-<link rel="stylesheet" href="assets/css/track.css?v=0e087bf3">
+<link rel="stylesheet" href="assets/css/track.css?v=28203356">
 </head>
 <body data-track="french">
 <header class="top"><div class="in">
@@ -23,6 +23,7 @@
   <span class="sp"></span>
   <span class="who" id="who"></span>
   <a class="tbtn" id="backLink" href="french.html"></a>
+  <button class="tbtn bell" id="bell" type="button" hidden></button>
   <button class="tbtn" id="langBtn" type="button"></button>
   <button class="tbtn" id="signOut" type="button" hidden></button>
 </div></header>
@@ -30,6 +31,7 @@
 <dialog id="modal"><div id="modalBody"></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/track.js?v=dbbe8f1d"></script>
+<script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
+<script defer src="assets/js/track.js?v=af27f9da"></script>
 </body>
 </html>

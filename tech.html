@@ -228,6 +228,32 @@ html[dir="rtl"] .stage{padding:24px 6% 24px 22%}
 .arc-foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
 .arc-foot .btn{padding:10px 18px;font-size:.92rem}
 @media(max-width:520px){.arc{padding:14px}.arc-stage{padding:14px}.arc-tabs{grid-template-columns:repeat(3,1fr)}.arc-tabs button{padding:10px 4px}.arc-tabs b{font-size:.8rem}.bits{gap:6px}.bit{width:46px;padding:8px 2px}.bit .bulb{font-size:1.4rem}}
+/* creative layer: tilt + glow cards, announcements, scroll progress */
+.scroll-prog{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--violet),var(--pink));transform-origin:0 50%;transform:scaleX(0);z-index:60}
+html[dir=rtl] .scroll-prog{transform-origin:100% 50%}
+.course{position:relative;transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .2s,box-shadow .2s}
+.course::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.55),transparent 60%);opacity:0;transition:opacity .2s}
+.course:hover::after{opacity:1}
+.course:hover{box-shadow:0 26px 50px -30px var(--c)}
+.course.hot{outline:2.5px solid var(--sun);outline-offset:2px}
+.course.soon{background:repeating-linear-gradient(135deg,#fff 0 14px,#fbf9ff 14px 28px)}
+.course.flash{animation:cflash 1.4s}
+@keyframes cflash{0%,60%{box-shadow:0 0 0 6px var(--sun)}100%{box-shadow:none}}
+.ribbon{position:absolute;top:12px;inset-inline-end:-6px;background:linear-gradient(90deg,var(--sun),#ff9a3c);color:var(--ink);font:800 .75rem 'Space Grotesk',Cairo,sans-serif;padding:4px 10px;border-radius:8px 0 0 8px;box-shadow:0 6px 14px -8px rgba(0,0,0,.5);z-index:1}
+html[dir=rtl] .ribbon{border-radius:0 8px 8px 0}
+.cnote{background:#fff6d6;border-radius:10px;padding:6px 10px;font-size:.84rem;font-weight:700;margin-top:8px}
+.ann-bar{display:flex;align-items:center;gap:10px;background:linear-gradient(100deg,#2a1a5e,#7c5cff 55%,#21d4b4);color:#fff;border-radius:18px;padding:10px 12px;margin:0 0 14px;overflow:hidden}
+.ann-k{font:800 .9rem 'Space Grotesk',Cairo,sans-serif;white-space:nowrap}
+.ann-track{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.ann-track::-webkit-scrollbar{display:none}
+.ann{flex:none;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;border-radius:12px;padding:7px 12px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.ann:hover{background:rgba(255,255,255,.26)}
+.soon-pill{background:var(--sun);color:var(--ink);border-radius:99px;padding:1px 7px;font-weight:800}
+#arcade{margin-top:22px}
+.arc-tabs button{transform:perspective(600px) rotateX(var(--rx,0)) rotateY(var(--ry,0))}
+.arc-stars.lvlup{animation:lvl 1s}
+@keyframes lvl{0%,100%{transform:scale(1)}30%{transform:scale(1.3) rotate(-4deg)}60%{transform:scale(.95)}}
+@media(prefers-reduced-motion:reduce){.course,.arc-tabs button{transform:none!important}.course.flash,.arc-stars.lvlup{animation:none}}
 /* join */
 .join{background:linear-gradient(120deg,#2a1a5e,#0f4c47);color:#fff;border-radius:30px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .join h2{font-size:clamp(1.5rem,3vw,2.2rem)}
@@ -238,8 +264,10 @@ footer a{color:var(--violet)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
+<script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 </head>
 <body>
+<div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap">
@@ -248,7 +276,6 @@ footer a{color:var(--violet)}
       <a href="#courses"><span class="en">Courses</span><span class="ar">الكورسات</span></a>
       <a href="#play"><span class="en">Try coding</span><span class="ar">جرّب البرمجة</span></a>
       <a href="#challenge"><span class="en">Challenge</span><span class="ar">التحدي</span></a>
-      <a href="#arcade"><span class="en">Games</span><span class="ar">الألعاب</span></a>
       <a href="#join"><span class="en">Join</span><span class="ar">اشترك</span></a>
       <a href="tech-dashboard.html"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a>
       <a href="index.html"><span class="en">← Academy</span><span class="ar">الأكاديمية ←</span></a>
@@ -306,6 +333,7 @@ footer a{color:var(--violet)}
     <div class="head reveal"><span class="tag"><span class="en">The courses</span><span class="ar">الكورسات</span></span>
       <h2><span class="en">Pick a field, find your course.</span><span class="ar">اختار المجال، ولاقي كورسك.</span></h2>
       <p><span class="en">Press ▶ on any course for a one-minute explainer from Coco.</span><span class="ar">اضغط ▶ على أي كورس عشان كوكو يشرحهولك في دقيقة.</span></p></div>
+    <div class="ann-bar" id="annBar" hidden></div>
     <div class="cats" id="cats"></div>
     <input type="search" class="csearch" id="courseSearch" dir="auto" autocomplete="off">
     <div class="courses" id="courseList"></div>
@@ -347,6 +375,9 @@ footer a{color:var(--violet)}
 
 <section id="challenge" style="padding-top:0">
   <div class="wrap">
+    <div class="head reveal"><span class="tag"><span class="en">Challenge zone</span><span class="ar">منطقة التحدي</span></span>
+      <h2><span class="en">The weekly challenge + six games</span><span class="ar">تحدي الأسبوع + ٦ ألعاب</span></h2>
+      <p><span class="en">For every age. Collect ⭐ and level up from Explorer to Tech hero.</span><span class="ar">لكل الأعمار — جمّع ⭐ واترقّى من مستكشف لبطل التقنية.</span></p></div>
     <div class="chal reveal">
       <div>
         <span class="head" style="text-align:start;margin:0"><span class="tag"><span class="en">Challenge of the week</span><span class="ar">تحدي الأسبوع</span></span></span>
@@ -357,12 +388,7 @@ footer a{color:var(--violet)}
       </div>
       <div class="code" id="chalCode"></div>
     </div>
-  </div>
-</section>
-
-<section id="arcade" style="padding-top:0">
-  <div class="wrap">
-    <div class="arc reveal">
+    <div class="arc reveal" id="arcade">
       <div class="arc-top">
         <div>
           <span class="tag arc-tag"><span class="en">Coco's game arcade</span><span class="ar">صالة ألعاب كوكو</span></span>
@@ -536,29 +562,54 @@ footer a{color:var(--violet)}
   const norm = function(x){ return String(x || '').toLowerCase().replace(/[ً-ٟ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي'); };
   let cat = 'all';
   function waFor(name){ return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello! I would like to join the "' + name + '" course at Coco Tech Lab. Student age: …', 'السلام عليكم، عايز أشترك في كورس «' + name + '» في Coco Tech Lab. سن الطالب: …')); }
+  // the teacher's course manager (tech-dashboard.html → Courses): hidden / coming soon / announced
+  let CFG = {};
+  const cstat = function(id){ return (CFG[id] || {}).status || 'open'; };
+  function loadCourseCfg(){
+    try{
+      fetch('https://orpknmkgfwmtroiqljzp.supabase.co/rest/v1/track_courses?track=eq.tech&select=course,status,announce,note', { headers: { apikey: 'sb_publishable_x7AQ0xQl8qqOH3iDKqxddg_-7fbStUh' } })
+        .then(function(r){ return r.ok ? r.json() : []; }).then(function(rows){ CFG = {}; (rows || []).forEach(function(x){ CFG[x.course] = x; }); renderCatalog(); renderAnn(); }).catch(function(){});
+    }catch(e){}
+  }
+  function renderAnn(){
+    const bar = document.getElementById('annBar');
+    const list = COURSES.filter(function(c){ const f = CFG[c[1]]; return f && f.announce && f.status !== 'hidden'; });
+    bar.hidden = !list.length; if(!list.length) return;
+    bar.innerHTML = '<span class="ann-k">📣 ' + esc(T('Just announced', 'اتعلن حالاً')) + '</span><div class="ann-track">' + list.map(function(c){ const x = info(c), f = CFG[x.id];
+      return '<button type="button" class="ann" data-goto="' + x.id + '">' + x.icon + ' <b>' + esc(x.t[0]) + '</b>' + (f.status === 'soon' ? ' <small class="soon-pill">' + esc(T('soon', 'قريباً')) + '</small>' : '') + (f.note ? ' <small>· ' + esc(f.note) + '</small>' : '') + '</button>'; }).join('') + '</div>';
+  }
+  document.getElementById('annBar').addEventListener('click', function(e){
+    const b = e.target.closest('[data-goto]'); if(!b) return;
+    cat = 'all'; document.getElementById('courseSearch').value = ''; renderCatalog();
+    const el = document.getElementById('c-' + b.dataset.goto); if(el){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+  });
   function renderCatalog(){
-    document.getElementById('cats').innerHTML = '<button type="button" data-cat="all" class="' + (cat === 'all' ? 'on' : '') + '">✨ ' + esc(T('All', 'الكل')) + ' <small>' + COURSES.length + '</small></button>' +
-      CATS.map(function(c){ const n = COURSES.filter(function(x){ return x[0] === c.id; }).length;
+    document.getElementById('cats').innerHTML = '<button type="button" data-cat="all" class="' + (cat === 'all' ? 'on' : '') + '">✨ ' + esc(T('All', 'الكل')) + ' <small>' + COURSES.filter(function(x){ return cstat(x[1]) !== 'hidden'; }).length + '</small></button>' +
+      CATS.map(function(c){ const n = COURSES.filter(function(x){ return x[0] === c.id && cstat(x[1]) !== 'hidden'; }).length;
         return '<button type="button" data-cat="' + c.id + '" class="' + (cat === c.id ? 'on' : '') + '">' + c.icon + ' ' + esc(T(c.en, c.ar)) + ' <small>' + n + '</small></button>'; }).join('');
     const box = document.getElementById('courseSearch');
     box.placeholder = '🔎 ' + T('Search a course… e.g. Python, Excel, robots', 'دوّر على كورس… مثلاً Python أو Excel أو روبوت');
     const words = norm(box.value).split(/\s+/).filter(Boolean);
     const list = COURSES.filter(function(c){
+      if(cstat(c[1]) === 'hidden') return false;
       if(cat !== 'all' && c[0] !== cat) return false;
       if(!words.length) return true;
       const hay = norm(c[5].join(' ') + ' ' + c[6].join(' ') + ' ' + catOf(c[0]).en + ' ' + catOf(c[0]).ar);
       return words.every(function(w){ return hay.indexOf(w) !== -1; });
     });
     document.getElementById('courseList').innerHTML = list.length ? list.map(function(c){
-      const x = info(c), k = catOf(x.cat);
-      return '<article class="course" style="--c:' + k.c + '">' +
+      const x = info(c), k = catOf(x.cat), cf = CFG[x.id] || {}, soon = cf.status === 'soon';
+      return '<article class="course' + (cf.announce ? ' hot' : '') + (soon ? ' soon' : '') + '" id="c-' + x.id + '" style="--c:' + k.c + '">' +
+        (cf.announce ? '<span class="ribbon">📣 ' + esc(T('New', 'جديد')) + '</span>' : '') +
         '<div class="ch"><span class="ci">' + x.icon + '</span><span class="cl">' + esc(T(x.lv[0], x.lv[1])) + '</span></div>' +
         '<small class="cc">' + k.icon + ' ' + esc(T(k.en, k.ar)) + '</small>' +
         '<h3>' + esc(x.t[0]) + '</h3><p>' + esc(x.t[1]) + '</p>' +
         '<div class="cwhy"><b>💡 ' + esc(T('Why it matters', 'ليه مهم؟')) + '</b>' + esc(x.t[2]) + '</div>' +
         '<div class="cbuild">🛠️ <b>' + esc(T('You will build:', 'هتعمل:')) + '</b> ' + esc(x.t[3]) + '</div>' +
+        (cf.note && (cf.announce || soon) ? '<div class="cnote">📣 ' + esc(cf.note) + '</div>' : '') +
         '<div class="cbtns"><button type="button" class="btn dark" data-play="' + x.id + '">▶ ' + esc(T('Watch the explainer', 'شاهد الشرح')) + '</button>' +
-        '<a class="btn ghostd" href="' + esc(waFor(x.t[0])) + '" target="_blank" rel="noopener">💬 ' + esc(T('Book', 'احجز')) + '</a></div></article>';
+        (soon ? '<a class="btn ghostd" href="' + esc('https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello! Tell me when "' + x.t[0] + '" opens at Coco Tech Lab.', 'السلام عليكم، بلّغوني لما كورس «' + x.t[0] + '» يفتح في Coco Tech Lab.'))) + '" target="_blank" rel="noopener">⏳ ' + esc(T('Coming soon · notify me', 'قريباً · بلّغني')) + '</a>'
+          : '<a class="btn ghostd" href="' + esc(waFor(x.t[0])) + '" target="_blank" rel="noopener">💬 ' + esc(T('Book', 'احجز')) + '</a>') + '</div></article>';
     }).join('') : '<p class="none">' + esc(T('No course matches — try another word.', 'مفيش كورس بالاسم ده — جرّب كلمة تانية.')) + '</p>';
   }
   document.getElementById('cats').addEventListener('click', function(e){ const b = e.target.closest('[data-cat]'); if(b){ cat = b.dataset.cat; renderCatalog(); } });
@@ -644,7 +695,7 @@ footer a{color:var(--violet)}
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !vid.hidden) closeVideo(); });
 
   function render(){
-    renderCatalog();
+    renderCatalog(); renderAnn();
     const wa = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello! I would like a free trial class in Coco Tech Lab. Course: … Student age: …', 'السلام عليكم، عايز حصة تجريبية في Coco Tech Lab. الكورس: … سن الطالب: …'));
     document.getElementById('trialBtn').href = wa; document.getElementById('joinBtn').href = wa;
     renderLevels(); drawBoard(); renderProg(); renderChallenge(); renderArcade();
@@ -720,6 +771,7 @@ footer a{color:var(--violet)}
     chips.forEach(function(c){ c.classList.remove('run'); });
     if(ok){
       if(m[pos.y][pos.x] === 'G'){
+        if(window.ccFx) ccFx.confetti({ emoji: ['⭐', '🤖'], n: 140 });
         msg.textContent = T('⭐ You did it! You just wrote a program with ' + prog.length + ' blocks.', '⭐ برافو! كتبت برنامج من ' + prog.length + ' أوامر.') + (lvl < MAZES.length - 1 ? T(' Try the next level →', ' جرّب المرحلة اللي بعدها ←') : T(' You finished every level! 🏆', ' خلّصت كل المراحل! 🏆'));
         if(window.speechSynthesis){ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance('I did it!'); u.lang = 'en-US'; speechSynthesis.speak(u); }
       } else msg.textContent = T('Coco stopped before the star. Add more blocks!', 'كوكو وقف قبل النجمة. ضيف أوامر كمان!');
@@ -745,6 +797,7 @@ footer a{color:var(--violet)}
     const b = e.target.closest('[data-o]'); if(!b) return;
     const c = CHALS[week], right = b.dataset.o === c.ok;
     b.classList.add(right ? 'ok' : 'no');
+    if(right && window.ccFx) ccFx.burstFrom(b, { emoji: ['✅', '⭐'] });
     document.getElementById('chalMsg').textContent = (right ? '✅ ' + T('Correct! ', 'صح! ') : '💡 ' + T('Not quite. ', 'مش بالظبط. ')) + T(c.why[0], c.why[1]);
   });
 
@@ -847,7 +900,9 @@ footer a{color:var(--violet)}
       o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + .26);
     }catch(e){}
   }
-  function win(){ stars++; try{ localStorage.setItem('cc_arcade_stars', String(stars)); }catch(e){} drawStars(); tone(true); }
+  function win(){ stars++; try{ localStorage.setItem('cc_arcade_stars', String(stars)); }catch(e){} drawStars(); tone(true);
+    if(window.ccFx){ const st0 = document.getElementById('arcStars'); ccFx.burstFrom(document.querySelector('#arcStage .ok, #arcStage .bit.on, #arcStage .arc-slots') || st0, { emoji: ['⭐'], n: stars % 10 === 0 ? 160 : 50 }); }
+    if(stars === 10 || stars === 25 || stars === 50){ const s1 = document.getElementById('arcStars'); s1.classList.remove('lvlup'); void s1.offsetWidth; s1.classList.add('lvlup'); } }
   const nextBtn = function(){ return '<button type="button" class="btn dark" data-act="next">' + esc(T('Next →', 'اللي بعده ←')) + '</button>'; };
   const foot = function(msg, more){ return '<p class="msg" id="arcMsg">' + (msg || '') + '</p><div class="arc-foot">' + (more || '') + '</div>'; };
   // a deck goes through every item once in random order, then reshuffles
@@ -964,6 +1019,10 @@ footer a{color:var(--violet)}
   document.querySelectorAll('.reveal').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); });
 
   render();
+  loadCourseCfg();
+  if(window.ccFx) ccFx.tilt('.course, .arc-tabs button, .why');
+  const scrollBar = document.getElementById('scrollProg');
+  window.addEventListener('scroll', function(){ const h = document.documentElement; scrollBar.style.transform = 'scaleX(' + (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) + ')'; }, { passive: true });
 })();
 </script>
 </body>

@@ -71,12 +71,18 @@
     ['Strasbourg', '🏰', 'Advanced', 'المتقدم', 'C1', 'Speak naturally, DELF B2+', 'تتكلم بطلاقة — DELF B2 وأعلى']];
   const COURSES = FR ? FR_COURSES.map(function(c){ return [c[0], 'fr', c[1], c[2], c[3]]; }) : TECH_COURSES;
   function courseName(id){ const c = COURSES.find(function(x){ return x[0] === id; }); return c ? c[2] + ' ' + T(c[3], c[4]) : (id || T('All courses', 'كل الكورسات')); }
-  function courseOptions(sel, withAll){
+  // the teacher's course manager: open (default) / soon / hidden, plus "announce"
+  const cstat = function(id){ return ((D.cfg || {})[id] || {}).status || 'open'; };
+  function courseOptions(sel, withAll, forJoin){
+    const opt = function(id, label){
+      const st = cstat(id); if(forJoin && st === 'hidden') return '';
+      return '<option value="' + id + '"' + (sel === id ? ' selected' : '') + (forJoin && st === 'soon' ? ' disabled' : '') + '>' + label + (forJoin && st === 'soon' ? ' · ' + esc(T('coming soon', 'قريباً')) : '') + (!forJoin && st !== 'open' ? ' (' + esc(st === 'soon' ? T('soon', 'قريباً') : T('hidden', 'مخفي')) + ')' : '') + '</option>';
+    };
     let h = withAll ? '<option value="">' + esc(T('All courses', 'كل الكورسات')) + '</option>' : '';
-    if(FR) return h + FR_COURSES.map(function(c){ return '<option value="' + c[0] + '"' + (sel === c[0] ? ' selected' : '') + '>' + c[1] + ' ' + esc(T(c[2], c[3])) + '</option>'; }).join('');
+    if(FR) return h + FR_COURSES.map(function(c){ return opt(c[0], c[1] + ' ' + esc(T(c[2], c[3]))); }).join('');
     return h + TECH_CATS.map(function(cat){
-      return '<optgroup label="' + esc(cat[1] + ' ' + T(cat[2], cat[3])) + '">' + TECH_COURSES.filter(function(c){ return c[1] === cat[0]; }).map(function(c){
-        return '<option value="' + c[0] + '"' + (sel === c[0] ? ' selected' : '') + '>' + esc(T(c[3], c[4])) + '</option>'; }).join('') + '</optgroup>';
+      const inner = TECH_COURSES.filter(function(c){ return c[1] === cat[0]; }).map(function(c){ return opt(c[0], esc(T(c[3], c[4]))); }).join('');
+      return inner ? '<optgroup label="' + esc(cat[1] + ' ' + T(cat[2], cat[3])) + '">' + inner + '</optgroup>' : '';
     }).join('');
   }
   const KINDS = {
@@ -247,21 +253,33 @@
       }
     }
   }
+  async function loadShared(){
+    const cfg = await sel(sb.from('track_courses').select('*').eq('track', TRACK));
+    D.cfg = {}; cfg.forEach(function(c){ D.cfg[c.course] = c; });
+    let q = sb.from('track_messages').select('*').eq('track', TRACK).order('created_at', { ascending: false }).limit(1500);
+    const r = ROLE();
+    if(r === 'student') q = q.eq('student_id', me.id);
+    if(r === 'parent'){ const ids = (D.kids || []).map(function(k){ return k.id; }); if(!ids.length){ D.msgs = []; D.reads = {}; return; } q = q.in('student_id', ids); }
+    D.msgs = (await sel(q)).reverse();
+    D.reads = {}; (await sel(sb.from('track_chat_reads').select('*').eq('user_id', me.id).eq('track', TRACK))).forEach(function(x){ D.reads[x.student_id] = x.last_read_at; });
+  }
+  const unreadIn = function(sid){ const t = D.reads && D.reads[sid]; return (D.msgs || []).filter(function(m){ return m.student_id === sid && m.sender_id !== me.id && (!t || m.created_at > t); }).length; };
+  const unreadAll = function(){ const ids = new Set((D.msgs || []).map(function(m){ return m.student_id; })); let n = 0; ids.forEach(function(id){ n += unreadIn(id); }); return n; };
   async function refreshActivity(){ D.act = await sel(sb.from('track_activity').select('day, points').eq('track', TRACK).eq('student_id', me.id)); }
 
   // ---------- chrome: header, tabs ----------
   const TABS = {
     student: FR ? [['home', '🏠', 'Home', 'الرئيسية'], ['passport', '🛂', 'Passport', 'الباسبور'], ['tasks', '📝', 'Tasks', 'المهام'], ['words', '📒', 'My words', 'كشكول الكلمات'],
-      ['speak', '🎙️', 'Pronunciation', 'النطق'], ['delf', '📈', 'DELF meter', 'مؤشر DELF'], ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']]
-      : [['home', '🏠', 'Home', 'الرئيسية'], ['map', '🗺️', 'Skill map', 'خريطة المهارات'], ['tasks', '📝', 'Tasks', 'المهام'], ['portfolio', '🗂️', 'Portfolio', 'معرض المشاريع'],
+      ['speak', '🎙️', 'Pronunciation', 'النطق'], ['delf', '📈', 'DELF meter', 'مؤشر DELF'], ['msgs', '💬', 'Messages', 'الرسايل'], ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']]
+      : [['home', '🏠', 'Home', 'الرئيسية'], ['map', '🗺️', 'Skill map', 'خريطة المهارات'], ['tasks', '📝', 'Tasks', 'المهام'], ['portfolio', '🗂️', 'Portfolio', 'معرض المشاريع'], ['msgs', '💬', 'Messages', 'الرسايل'],
       ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']],
-    teacher: [['students', '👥', 'Students', 'الطلاب'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات']].concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
+    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسايل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الكورسات']].concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
       .concat([['rank', '🏆', 'Ranking', 'الترتيب']]),
-    parent: [['children', '👨‍👩‍👧', 'My children', 'أولادي']]
+    parent: [['children', '👨‍👩‍👧', 'My children', 'أولادي'], ['msgs', '💬', 'Messages', 'الرسايل']]
   };
   function tabsFor(){
     const r = ROLE(); let t = (TABS[r] || []).slice();
-    if(r === 'student' && !activeEnrolls().length) t = t.filter(function(x){ return x[0] === 'home' || x[0] === 'join'; });
+    if(r === 'student' && !activeEnrolls().length) t = t.filter(function(x){ return x[0] === 'home' || x[0] === 'join' || (x[0] === 'msgs' && (D.enrolls || []).length); });
     if(r === 'teacher' && me.role === 'admin') t.push(['settings', '⚙️', 'Settings', 'الإعدادات']);
     return t;
   }
@@ -274,7 +292,9 @@
     const tabs = me ? tabsFor() : [];
     $('tabs').hidden = !tabs.length;
     document.querySelector('.app').classList.toggle('solo', !tabs.length);
-    $('tabs').innerHTML = tabs.map(function(t){ return '<button type="button" data-view="' + t[0] + '" class="' + (view === t[0] || (view === 'task' && t[0] === 'tasks') ? 'on' : '') + '"><span>' + t[1] + '</span>' + esc(T(t[2], t[3])) + '</button>'; }).join('');
+    const badge = { msgs: me ? unreadAll() : 0, tasks: me ? newTasks().length : 0 };
+    $('tabs').innerHTML = tabs.map(function(t){ return '<button type="button" data-view="' + t[0] + '" class="' + (view === t[0] || (view === 'task' && t[0] === 'tasks') ? 'on' : '') + '"><span>' + t[1] + '</span>' + esc(T(t[2], t[3])) + (badge[t[0]] ? '<i class="nb">' + badge[t[0]] + '</i>' : '') + '</button>'; }).join('');
+    const bell = $('bell'); if(bell){ const n = me ? badge.msgs + badge.tasks : 0; bell.hidden = !me; bell.innerHTML = '🔔' + (n ? '<i class="nb">' + n + '</i>' : ''); bell.setAttribute('aria-label', T('Notifications', 'الإشعارات') + (n ? ' (' + n + ')' : '')); }
     document.title = (FR ? 'Le Club Français' : 'Coco Tech Lab') + ' — ' + T('Dashboard', 'لوحة التحكم');
   }
   $('tabs').addEventListener('click', function(e){ const b = e.target.closest('[data-view]'); if(b) go(b.dataset.view); });
@@ -286,7 +306,12 @@
   $('signOut').addEventListener('click', async function(){ await sb.auth.signOut(); me = null; view = null; D = {}; renderChrome(); showAuth(); });
   let guestView = null;
   function go(v){ view = v; try{ history.replaceState(null, '', '#' + v); }catch(e){} renderChrome(); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  function render(){ const f = VIEWS[view]; main.innerHTML = ''; if(f) f(); }
+  function render(){
+    const f = VIEWS[view]; main.innerHTML = '';
+    if(view === 'tasks' || view === 'map') markTasksSeen();
+    if(f) Promise.resolve(f()).then(function(){ main.classList.remove('enter'); void main.offsetWidth; main.classList.add('enter'); if(window.ccFx) ccFx.countUp(main); });
+  }
+  const party = function(el, o){ if(window.ccFx){ if(el) ccFx.burstFrom(el, o); else ccFx.confetti(o); } };
   const VIEWS = {};
   const ACT = {};
   main.addEventListener('click', function(e){ const b = e.target.closest('[data-act]'); if(b && ACT[b.dataset.act]){ e.preventDefault(); ACT[b.dataset.act](b, e); } });
@@ -380,7 +405,8 @@
     }
     if(!prof){ showAuth(T('We could not open your account. Please try again.', 'مقدرناش نفتح حسابك. حاول تاني.')); return; }
     me = prof; guestView = null;
-    await loadAll();
+    await loadAll(); await loadShared(); startLive();
+    try{ if(ROLE() === 'student' && !localStorage.getItem(seenKey())) localStorage.setItem(seenKey(), new Date().toISOString()); }catch(e){}
     const tabs = tabsFor().map(function(t){ return t[0]; });
     const want = (location.hash || '').slice(1);
     go(tabs.indexOf(want) !== -1 ? want : (fresh && ROLE() === 'student' ? 'join' : tabs[0]));
@@ -433,12 +459,51 @@
   }
   const taskOf = function(id){ return (D.tasks || []).find(function(t){ return t.id === id; }); };
 
+  // ----- the fun layer: XP levels, Coco's tips, the activity strip, announcements, new-task alerts -----
+  const RANKS = FR ? [['Tourist', 'سائح', '🧳'], ['Traveller', 'مسافر', '🚆'], ['Explorer', 'مستكشف', '🧭'], ['Café regular', 'زبون الكافيه', '☕'], ['Parisian', 'باريسي', '🗼'], ['Francophone', 'فرانكوفوني', '🎩'], ['Maître', 'الأستاذ', '👑']]
+    : [['Rookie', 'مبتدئ', '🐣'], ['Explorer', 'مستكشف', '🧭'], ['Builder', 'بنّاء', '🧱'], ['Coder', 'مبرمج', '💻'], ['Hacker (the good kind)', 'هاكر أخلاقي', '🕶️'], ['Engineer', 'مهندس', '⚙️'], ['Architect', 'معماري', '🏗️'], ['Legend', 'أسطورة', '🏆']];
+  function xpOf(act, subs){ return act.reduce(function(x, a){ return x + (a.points || 0); }, 0) + subs.reduce(function(x, s){ return x + Math.floor((s.score != null ? s.score : (s.auto_score || 0)) / 10) + (s.auto_passed ? 5 : 0); }, 0); }
+  function levelOf(xp){ const n = Math.floor(xp / 100); return { n: n + 1, into: xp % 100, xp: xp, rank: RANKS[Math.min(n, RANKS.length - 1)] }; }
+  function xpRing(lv){
+    const C = 2 * Math.PI * 34, off = C * (1 - lv.into / 100);
+    return '<div class="xp" title="' + esc(lv.xp + ' XP') + '"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34" class="xp-bg"/><circle cx="40" cy="40" r="34" class="xp-fg" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '"/></svg>' +
+      '<div class="xp-in"><small>' + esc(T('Level', 'مستوى')) + '</small><b>' + lv.n + '</b></div><div class="xp-cap">' + lv.rank[2] + ' ' + esc(T(lv.rank[0], lv.rank[1])) + '<small>' + (100 - lv.into) + ' XP ' + esc(T('to the next level', 'للمستوى الجاي')) + '</small></div></div>';
+  }
+  const TIPS = FR ? [['Say one French sentence out loud today. Your mouth learns too!', 'قول جملة فرنساوي بصوت عالي النهارده — بُقّك بيتعلم كمان!'], ['Stick sticky notes with French names on things at home.', 'الزق ورق عليه أسامي الحاجات بالفرنساوي في البيت.'],
+      ['Watch 5 minutes of a French cartoon with subtitles.', 'اتفرج ٥ دقايق كرتون فرنساوي بالترجمة.'], ['Words you review just before forgetting stay forever. Open your notebook!', 'الكلمة اللي بتراجعها قبل ما تنساها بتفضل معاك — افتح كشكولك!'], ['Bonjour + merci + s’il vous plaît = instant good impression 😉', 'Bonjour + merci + s’il vous plaît = انطباع حلو على طول 😉']]
+    : [['Stuck? Explain your code to a teddy bear. It really works (rubber-duck debugging)!', 'واقف؟ اشرح الكود لدبدوب — دي طريقة حقيقية اسمها Rubber duck!'], ['Small steps: make it work, then make it pretty.', 'خطوة خطوة: خليه يشتغل الأول، وبعدين حلّيه.'],
+      ['Ctrl + Z is every programmer’s best friend.', 'Ctrl + Z صاحب كل مبرمج.'], ['Read the error message slowly. It usually tells you the line!', 'اقرا رسالة الخطأ بهدوء — غالباً بتقولك رقم السطر!'], ['Share a project on your portfolio. Your family will be proud!', 'شارك مشروع في معرضك — أهلك هيفرحوا بيك!']];
+  let tipI = Math.floor(Math.random() * 5);
+  function cocoBubble(){ const t = TIPS[tipI % TIPS.length]; return '<button type="button" class="coco-tip" data-act="tip" title="' + esc(T('Another tip', 'نصيحة تانية')) + '"><span class="coco-face">' + (FR ? '🥐' : '🤖') + '</span><span class="bub">' + esc(T(t[0], t[1])) + '</span></button>'; }
+  ACT.tip = function(b){ tipI++; const t = TIPS[tipI % TIPS.length]; const bub = b.querySelector('.bub'); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); bub.textContent = T(t[0], t[1]); };
+  function activityStrip(days){
+    const set = {}; (D.act || []).forEach(function(a){ set[a.day] = (set[a.day] || 0) + (a.points || 0); });
+    let cells = ''; for(let i = 20; i >= 0; i--){ const d = addDays(todayStr(), -i), v = set[d] || 0; cells += '<i class="lv' + (v ? Math.min(3, 1 + Math.floor(v / 4)) : 0) + (i === 0 ? ' today' : '') + '" title="' + esc(d + ' · ' + v + ' ⭐') + '"></i>'; }
+    return '<div class="card strip"><div class="row between"><b>' + esc(T('Your last 3 weeks', 'آخر ٣ أسابيع')) + '</b><small class="muted">' + esc(T('best streak: ', 'أطول سلسلة: ') + bestStreak(days)) + '</small></div><div class="cells">' + cells + '</div></div>';
+  }
+  function announceStrip(){
+    const list = Object.keys(D.cfg || {}).map(function(k){ return D.cfg[k]; }).filter(function(c){ return c.announce && c.status !== 'hidden'; });
+    if(!list.length) return '';
+    return '<div class="announce" role="region" aria-label="' + esc(T('New courses', 'كورسات جديدة')) + '"><span class="ann-k">📣 ' + esc(T('New', 'جديد')) + '</span><div class="ann-list">' + list.map(function(c){
+      return '<button type="button" class="ann" data-act="go" data-v="join" data-c="' + esc(c.course) + '"><b>' + esc(courseName(c.course)) + '</b>' + (c.status === 'soon' ? '<span class="pill warn">' + esc(T('coming soon', 'قريباً')) + '</span>' : '') + (c.note ? '<small>' + esc(c.note) + '</small>' : '') + '</button>'; }).join('') + '</div></div>';
+  }
+  const seenKey = function(){ return 'cc_seen_' + TRACK + '_' + (me && me.id); };
+  function newTasks(){
+    if(ROLE() !== 'student') return [];
+    let seen = null; try{ seen = localStorage.getItem(seenKey()); }catch(e){}
+    if(!seen) return [];
+    return (D.tasks || []).filter(function(t){ return t.created_at > seen; });
+  }
+  function markTasksSeen(){ if(ROLE() === 'student') try{ localStorage.setItem(seenKey(), new Date().toISOString()); }catch(e){} }
+
   VIEWS.home = function(){
     if(ROLE() !== 'student') return;
     const act = activeEnrolls();
     const pending = (D.enrolls || []).filter(function(e){ return e.status === 'pending'; });
-    let h = '<div class="hello"><div><h1>' + esc(T('Hi ' + firstName(me.full_name) + ' 👋', 'أهلاً ' + firstName(me.full_name) + ' 👋')) + '</h1><p class="muted">' +
-      esc(act.length ? act.map(function(e){ return courseName(e.course); }).join(' · ') : T('Pick a course to start.', 'اختار كورس عشان تبدأ.')) + '</p></div></div>';
+    const xp = xpOf(D.act || [], D.subs || []), lv = levelOf(xp);
+    let h = '<div class="hello"><div class="grow"><h1>' + esc(T('Hi ' + firstName(me.full_name) + ' 👋', 'أهلاً ' + firstName(me.full_name) + ' 👋')) + '</h1><p class="muted">' +
+      esc(act.length ? act.map(function(e){ return courseName(e.course); }).join(' · ') : T('Pick a course to start.', 'اختار كورس عشان تبدأ.')) + '</p>' + cocoBubble() + '</div>' +
+      (act.length ? xpRing(lv) : '') + '</div>' + announceStrip();
     if(!act.length){
       h += pending.length ? '<div class="card"><h3>⏳ ' + esc(T('Your request is waiting', 'طلبك مستني التفعيل')) + '</h3><p>' + esc(T('As soon as the payment is confirmed, your teacher activates the course and everything opens here.', 'أول ما الدفع يتأكد، المعلم بيفعّل الكورس وكل حاجة تفتح هنا.')) + '</p><button class="btn main" data-act="go" data-v="join">' + esc(T('See payment details', 'شوف تفاصيل الدفع')) + '</button></div>'
         : '<div class="card hero-join"><span class="mascot">' + (FR ? '🥐' : '🤖') + '</span><h3>' + esc(T('Start your first course', 'ابدأ أول كورس')) + '</h3><p>' + esc(FR ? T('Choose Kids, Teens, Adults or DELF prep.', 'اختار أطفال أو شباب أو كبار أو تحضير DELF.') : T('39 courses: kids coding, languages, web, IoT, IT and Office.', '٣٩ كورس: برمجة أطفال ولغات ومواقع وIoT وIT وOffice.')) + '</p><button class="btn main" data-act="go" data-v="join">' + esc(T('Choose a course', 'اختار كورس')) + '</button></div>';
@@ -448,10 +513,11 @@
     const tasks = myTasks(), done = tasks.filter(function(t){ return isDone(subFor(t.id)); }).length;
     const pts = monthPoints(D.act || [], D.subs || []);
     h += '<div class="stats">' +
-      '<div class="stat fire"><i>' + (FR ? '🥐' : '🔥') + '</i><b>' + st + '</b><span>' + esc(T('day streak', 'يوم ورا بعض')) + '</span></div>' +
-      '<div class="stat"><i>⭐</i><b>' + pts + '</b><span>' + esc(T('points this month', 'نقطة الشهر ده')) + '</span></div>' +
-      (FR ? '<div class="stat"><i>🛂</i><b>' + (D.stamps || []).length + '/6</b><span>' + esc(T('passport stamps', 'ختم في الباسبور')) + '</span></div>'
-        : '<div class="stat"><i>✅</i><b>' + done + '/' + tasks.length + '</b><span>' + esc(T('tasks done', 'مهمة خلصت')) + '</span></div>') + '</div>';
+      '<div class="stat fire"><i>' + (FR ? '🥐' : '🔥') + '</i><b data-count="' + st + '">' + st + '</b><span>' + esc(T('day streak', 'يوم ورا بعض')) + '</span></div>' +
+      '<div class="stat"><i>⭐</i><b data-count="' + pts + '">' + pts + '</b><span>' + esc(T('points this month', 'نقطة الشهر ده')) + '</span></div>' +
+      (FR ? '<div class="stat"><i>🛂</i><b data-count="' + (D.stamps || []).length + '" data-suffix="/6">' + (D.stamps || []).length + '/6</b><span>' + esc(T('passport stamps', 'ختم في الباسبور')) + '</span></div>'
+        : '<div class="stat"><i>✅</i><b data-count="' + done + '" data-suffix="/' + tasks.length + '">' + done + '/' + tasks.length + '</b><span>' + esc(T('tasks done', 'مهمة خلصت')) + '</span></div>') + '</div>' +
+      activityStrip(days);
     h += liveCard(nextLive(D.tasks));
     h += FR ? fiveMinCard() : dailyCard();
     const next = tasks.find(function(t){ return !subFor(t.id); });
@@ -486,6 +552,7 @@
     const q = DAILY[dailyIdx()], i = +b.dataset.i, right = i === q[4];
     document.querySelectorAll('[data-act=daily]').forEach(function(x){ x.disabled = true; if(+x.dataset.i === q[4]) x.classList.add('ok'); });
     if(!right) b.classList.add('no');
+    if(right) party(b, { emoji: ['⭐', '🔥'] });
     $('dailyMsg').textContent = (right ? '✅ ' + T('Correct! +3 points. ', 'صح! +٣ نقط. ') : '💡 ' + T('+1 point for trying. ', '+١ نقطة عشان حاولت. ')) + T(q[5], q[6]);
     const r = await sb.rpc('track_checkin', { p_track: TRACK, p_points: right ? 3 : 1 });
     if(r.error) toast(errText(r.error), true); else { await refreshActivity(); setTimeout(function(){ if(view === 'home') render(); }, 2600); }
@@ -516,7 +583,7 @@
   ACT.fiveAns = async function(b){ await reviewWord(five.words[five.i], b.dataset.k === '1'); five.i++; five.flip = false; fiveStep(); };
   ACT.fiveDone = async function(b){
     await busy(b, async function(){ const r = await sb.rpc('track_checkin', { p_track: TRACK, p_points: 3 }); if(r.error) throw r.error; });
-    closeModal(); await refreshActivity(); toast(T('Bravo! +3 points 🥐', 'برافو! +٣ نقط 🥐')); render();
+    closeModal(); await refreshActivity(); party(null, { emoji: ['🥐', '🇫🇷', '⭐'], n: 140, colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); toast(T('Bravo! +3 points 🥐', 'برافو! +٣ نقط 🥐')); render();
   };
   ACT.say = function(b){ speak(b.dataset.t, b.dataset.l || 'fr-FR'); };
   async function reviewWord(w, knew){
@@ -608,7 +675,7 @@
     const t = taskOf(cur), n = (t.questions || []).length, ans = [];
     for(let i = 0; i < n; i++){ const c = f.querySelector('input[name=q' + i + ']:checked'); ans.push(c ? +c.value : null); }
     if(ans.some(function(a){ return a === null; })){ toast(T('Answer every question first.', 'جاوب على كل الأسئلة الأول.'), true); return; }
-    busy(f.querySelector('[type=submit]'), async function(){ const row = await submit(cur, 'submitted', { p_answers: ans }); toast(T('Score: ', 'النتيجة: ') + (row && row.auto_score != null ? row.auto_score + '%' : '✓')); render(); });
+    busy(f.querySelector('[type=submit]'), async function(){ const row = await submit(cur, 'submitted', { p_answers: ans }); if(row && row.auto_score >= 80) party(null, { emoji: ['🎉', '⭐'], n: 130 }); toast(T('Score: ', 'النتيجة: ') + (row && row.auto_score != null ? row.auto_score + '%' : '✓')); render(); });
   };
 
   // ----- running code in the browser (a worker, so a loop can't freeze the page) -----
@@ -640,6 +707,7 @@
     busy(b, async function(){
       const r = await runInIde();
       const row = await submit(cur, 'submitted', { p_content: $('codeIn').value, p_output: r.err ? (r.out || '') + '\n' + r.err : (r.out || '') });
+      if(row && row.auto_passed) party(null, { emoji: ['⭐', '💻', '✅'], n: 140 });
       toast(row && row.auto_passed ? T('✅ Correct! Submitted.', '✅ صح! واتسلّم.') : T('Submitted. The output is not the expected one yet.', 'اتسلّم — بس الناتج لسه مش المطلوب.'), !(row && row.auto_passed));
       render();
     });
@@ -731,7 +799,7 @@
     const st = await loadSettings(); if(view !== 'join') return;
     const price = st[TRACK + '_price'];
     const mine = D.enrolls || [];
-    let h = '<div class="head"><h2>➕ ' + esc(T('Courses & payment', 'الكورسات والدفع')) + '</h2></div>';
+    let h = '<div class="head"><h2>➕ ' + esc(T('Courses & payment', 'الكورسات والدفع')) + '</h2></div>' + announceStrip().replace(/data-act="go" data-v="join"/g, 'data-act="pickCourse"');
     if(mine.length) h += '<div class="list">' + mine.map(function(e){
       const badge = { pending: ['⏳', 'Waiting for payment', 'مستني الدفع', 'warn'], active: ['✅', 'Active', 'شغال', 'good'], done: ['🎓', 'Completed', 'خلص', 'good'] }[e.status || 'pending'] || ['⏳', 'Waiting for payment', 'مستني الدفع', 'warn'];
       if(!e.status) e.status = 'pending';
@@ -745,7 +813,7 @@
       return x + '</div>';
     }).join('') + '</div>';
     h += '<div class="card"><h3>' + esc(T('Join a new course', 'اشترك في كورس جديد')) + '</h3>' + (price ? '<p class="price">' + esc(price) + ' <small>' + esc(T('SAR / month', 'ريال / شهر')) + '</small></p>' : '') +
-      '<form data-form="enroll" class="form"><label>' + esc(T('Course', 'الكورس')) + '<select name="course" required>' + courseOptions('', false) + '</select></label>' +
+      '<form data-form="enroll" class="form"><label>' + esc(T('Course', 'الكورس')) + '<select name="course" required>' + courseOptions('', false, true) + '</select></label>' +
       '<fieldset class="pay"><legend>' + esc(T('How will you pay?', 'هتدفع إزاي؟')) + '</legend><label><input type="radio" name="method" value="bank" checked> 🏦 ' + esc(T('Bank transfer (Al Rajhi)', 'تحويل بنكي (الراجحي)')) + '</label><label><input type="radio" name="method" value="whatsapp"> 💬 ' + esc(T('Talk to us on WhatsApp', 'نتكلم على واتساب')) + '</label></fieldset>' +
       '<button class="btn main" type="submit">' + esc(T('Send my request', 'ابعت طلبي')) + '</button></form></div>';
     main.innerHTML = h;
@@ -822,7 +890,7 @@
   let rv = null;
   ACT.review = function(){ rv = { list: dueWords().slice(0, 20), i: 0, flip: false, ok: 0 }; reviewStep(); };
   function reviewStep(){
-    if(rv.i >= rv.list.length){ openModal('<div class="five center"><span class="big">🎉</span><h3>' + esc(T('Done! ' + rv.ok + ' of ' + rv.list.length + ' remembered.', 'خلصت! افتكرت ' + rv.ok + ' من ' + rv.list.length + '.')) + '</h3><button class="btn main" data-close>' + esc(T('Close', 'إغلاق')) + '</button></div>'); if(view === 'words') render(); return; }
+    if(rv.i >= rv.list.length){ if(rv.ok) party(null, { emoji: ['🧠', '📒'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); openModal('<div class="five center"><span class="big">🎉</span><h3>' + esc(T('Done! ' + rv.ok + ' of ' + rv.list.length + ' remembered.', 'خلصت! افتكرت ' + rv.ok + ' من ' + rv.list.length + '.')) + '</h3><button class="btn main" data-close>' + esc(T('Close', 'إغلاق')) + '</button></div>'); if(view === 'words') render(); return; }
     const w = rv.list[rv.i];
     openModal('<div class="five"><small class="muted">' + (rv.i + 1) + ' / ' + rv.list.length + '</small><div class="flash' + (rv.flip ? ' flip' : '') + '"><b lang="fr">' + esc(w.word) + '</b>' + (rv.flip ? '<span>' + esc(w.meaning) + '</span>' : '') + '</div><div class="row gap center"><button class="btn ghost" data-act="say" data-t="' + esc(w.word) + '">🔊</button>' +
       (rv.flip ? '<button class="btn bad" data-act="rvAns" data-k="0">' + esc(T('I forgot', 'نسيتها')) + '</button><button class="btn main" data-act="rvAns" data-k="1">' + esc(T('I knew it', 'عارفها')) + '</button>' : '<button class="btn main" data-act="rvFlip">' + esc(T('Show meaning', 'وريني المعنى')) + '</button>') + '</div></div>');
@@ -862,6 +930,7 @@
       got = true;
       const alts = Array.prototype.map.call(e.results[0], function(a){ return a.transcript; });
       const score = Math.max.apply(null, alts.map(function(a){ return pronScore(a, p[0]); }));
+      if(score >= 85) party(b, { emoji: ['🎯', '🇫🇷'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] });
       if(out) out.innerHTML = '<b class="' + (score >= 80 ? 'okc' : score >= 55 ? 'mid' : 'noc') + '">' + score + '%</b> · ' + esc(T('Coco heard: ', 'كوكو سمع: ')) + '<i dir="ltr">' + esc(alts[0]) + '</i>' + (score < 70 ? ' · ' + esc(T('Tip: ', 'نصيحة: ') + L(SOUND_TIPS[p[3][0]] || ['', ''])) : ' 🎉');
       const ins = await sb.from('fr_pron').insert({ phrase: p[0], score: score, sounds: p[3] }).select().single();
       if(!ins.error && ins.data){ D.pron = [ins.data].concat(D.pron || []); if(score >= 70) sb.rpc('track_checkin', { p_track: TRACK, p_points: 1 }).then(function(){ refreshActivity(); }); }
@@ -939,7 +1008,7 @@
     const sid = b.dataset.s, lv = +b.dataset.l, has = (D.stamps || []).some(function(x){ return x.student_id === sid && x.level === lv; });
     busy(b, async function(){
       if(has){ const r = await sb.from('fr_stamps').delete().eq('student_id', sid).eq('level', lv); if(r.error) throw r.error; D.stamps = D.stamps.filter(function(x){ return !(x.student_id === sid && x.level === lv); }); }
-      else { const r = await sb.from('fr_stamps').insert({ student_id: sid, level: lv }).select().single(); if(r.error) throw r.error; D.stamps.push(r.data); toast(FR_LEVELS[lv - 1][1] + ' ' + T('Stamp given!', 'الختم اتدّى!')); }
+      else { const r = await sb.from('fr_stamps').insert({ student_id: sid, level: lv }).select().single(); if(r.error) throw r.error; D.stamps.push(r.data); party(b, { emoji: [FR_LEVELS[lv - 1][1]] }); toast(FR_LEVELS[lv - 1][1] + ' ' + T('Stamp given!', 'الختم اتدّى!')); }
       render();
     });
   };
@@ -948,7 +1017,7 @@
     if(!confirm(T('Issue the certificate for ' + pname(e.student_id) + ' and mark the course completed?', 'تطلّع شهادة لـ' + pname(e.student_id) + ' وتعلّم الكورس إنه خلص؟'))) return;
     busy(b, async function(){
       const r = await sb.from('track_certificates').insert({ student_id: e.student_id, track: TRACK, course: e.course, student_name: pname(e.student_id) }).select().single();
-      if(r.error) throw r.error; D.certs.push(r.data); await updEnroll(e.id, { status: 'done' }); toast(T('Certificate issued 🎓', 'الشهادة طلعت 🎓')); render();
+      if(r.error) throw r.error; D.certs.push(r.data); await updEnroll(e.id, { status: 'done' }); party(null, { emoji: ['🎓'] }); toast(T('Certificate issued 🎓', 'الشهادة طلعت 🎓')); render();
     });
   };
   ACT.radar = function(b){
@@ -1138,6 +1207,159 @@
       if(live) h += '<p class="muted small">📡 ' + esc(T('Next live class: ', 'الحصة الجاية: ') + live.title + ' · ' + fmtDate(live.starts_at, true)) + '</p>';
       return h + '</div>';
     }).join('');
+  };
+
+  // =====================================================================
+  // MESSAGES: one conversation per student, with their parents and the teachers
+  // =====================================================================
+  let thread = null, privNote = false;
+  function threadsForTeacher(){
+    const ids = new Set((D.enrolls || []).map(function(e){ return e.student_id; }));
+    (D.msgs || []).forEach(function(m){ ids.add(m.student_id); });
+    return Array.from(ids).map(function(id){
+      const ms = (D.msgs || []).filter(function(m){ return m.student_id === id; }), last = ms[ms.length - 1];
+      return { id: id, name: pname(id), last: last, unread: unreadIn(id) };
+    }).sort(function(a, b){ return String(b.last ? b.last.created_at : '').localeCompare(String(a.last ? a.last.created_at : '')); });
+  }
+  VIEWS.msgs = function(){
+    const r = ROLE();
+    if(r === 'student') thread = me.id;
+    if(r === 'parent' && (!thread || !(D.kids || []).some(function(k){ return k.id === thread; }))) thread = (D.kids || [])[0] ? D.kids[0].id : null;
+    let side = '';
+    if(r === 'teacher'){
+      if(!thread){ const l0 = threadsForTeacher(); if(l0.length) thread = l0[0].id; }
+      if(thread) D.reads[thread] = new Date().toISOString();
+      const list = threadsForTeacher();
+      side = '<aside class="inbox">' + (list.length ? list.map(function(x){
+        return '<button type="button" class="ib' + (x.id === thread ? ' on' : '') + '" data-act="thread" data-id="' + x.id + '"><span class="av">' + esc(firstName(x.name).charAt(0)) + '</span><span class="grow"><b>' + esc(x.name) + '</b><small dir="auto">' + esc(x.last ? (x.last.private ? '🔒 ' : '') + x.last.body.slice(0, 60) : T('No messages yet', 'لسه مفيش رسايل')) + '</small></span>' + (x.unread ? '<i class="nb">' + x.unread + '</i>' : '') + '</button>';
+      }).join('') : '<p class="muted small">' + esc(T('Students appear here once they join a course.', 'الطلاب بيظهروا هنا أول ما يشتركوا.')) + '</p>') + '</aside>';
+    }
+    if(r === 'parent' && (D.kids || []).length > 1) side = '<div class="chips">' + D.kids.map(function(k){ return '<button type="button" data-act="thread" data-id="' + k.id + '" class="' + (k.id === thread ? 'on' : '') + '">' + esc(k.full_name) + (unreadIn(k.id) ? ' · ' + unreadIn(k.id) : '') + '</button>'; }).join('') + '</div>';
+    if(r === 'parent' && !(D.kids || []).length){ main.innerHTML = emptyCard('💬', T('Link your child first from the academy dashboard.', 'اربط ابنك الأول من لوحة الأكاديمية.'), '<a class="btn main" href="index.html">' + esc(T('Open the academy dashboard', 'افتح لوحة الأكاديمية')) + '</a>'); return; }
+    const who = r === 'teacher' ? pname(thread) : r === 'parent' ? (D.kids.find(function(k){ return k.id === thread; }) || {}).full_name : T('Your teachers', 'المعلمين');
+    const canPrivate = r !== 'student';
+    main.innerHTML = '<div class="head"><h2>💬 ' + esc(T('Messages', 'الرسايل')) + '</h2><p class="muted">' + esc(r === 'student' ? T('Talk to your teachers. Your parents can read this conversation too.', 'اتكلم مع المعلمين — وأهلك يقدروا يشوفوا المحادثة كمان.') : T('One conversation per student, with the student, their parents and the teachers.', 'محادثة لكل طالب، بينه وبين أهله والمعلمين.')) + '</p></div>' +
+      '<div class="chat-wrap' + (r === 'teacher' ? ' with-inbox' : '') + '">' + (r === 'teacher' ? side : '') + '<section class="chat">' + (r === 'parent' ? side : '') +
+      (thread ? '<header class="chat-h"><b>' + esc(who || '') + '</b><small class="muted">' + esc(FR ? 'Le Club Français' : 'Coco Tech Lab') + '</small></header><div class="bubbles" id="bubbles">' + bubblesHtml(thread) + '</div>' +
+        '<form data-form="msg" class="composer">' + (canPrivate ? '<label class="priv" title="' + esc(T('Only parents and teachers see it', 'الأهل والمعلمين بس يشوفوها')) + '"><input type="checkbox" name="priv"' + (privNote ? ' checked' : '') + '> 🔒 ' + esc(T('Private note', 'ملاحظة خاصة')) + '</label>' : '') +
+        '<div class="quick">' + quickReplies().map(function(q){ return '<button type="button" data-act="quick" data-t="' + esc(q) + '">' + esc(q) + '</button>'; }).join('') + '</div>' +
+        '<div class="row gap"><textarea name="body" rows="1" maxlength="4000" required placeholder="' + esc(T('Write a message…', 'اكتب رسالة…')) + '"></textarea><button class="btn main" type="submit" aria-label="' + esc(T('Send', 'إرسال')) + '">➤</button></div></form>'
+        : emptyCard('💬', T('No conversation yet.', 'لسه مفيش محادثات.'))) + '</section></div>';
+    scrollChat(); markRead(thread);
+    const ta = main.querySelector('.composer textarea');
+    if(ta){ ta.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); ta.form.requestSubmit(); } }); ta.addEventListener('input', function(){ ta.style.height = 'auto'; ta.style.height = Math.min(140, ta.scrollHeight) + 'px'; }); }
+  };
+  function quickReplies(){
+    const r = ROLE();
+    if(r === 'teacher') return [T('Great work! 🌟', 'شغل ممتاز! 🌟'), T('Please hand in your task 📝', 'سلّم المهمة لو سمحت 📝'), T('See you in the live class 📡', 'أشوفك في الحصة 📡')];
+    if(r === 'parent') return [T('Thank you! 🙏', 'شكراً! 🙏'), T('How is my child doing?', 'ابني عامل إيه؟')];
+    return [T('I need help 🙋', 'محتاج مساعدة 🙋'), T('I finished! ✅', 'خلّصت! ✅'), T('Thank you! 🙏', 'شكراً! 🙏')];
+  }
+  function bubblesHtml(sid){
+    const ms = (D.msgs || []).filter(function(m){ return m.student_id === sid; });
+    if(!ms.length) return '<p class="muted center small chat-empty">' + esc(T('Say hello 👋', 'قول أهلاً 👋')) + '</p>';
+    let lastDay = '';
+    return ms.map(function(m){
+      const day = String(m.created_at).slice(0, 10), mine = m.sender_id === me.id;
+      const sep = day !== lastDay ? '<div class="day">' + esc(fmtDate(m.created_at)) + '</div>' : ''; lastDay = day;
+      const role = { teacher: T('Teacher', 'معلم'), parent: T('Parent', 'ولي أمر'), student: T('Student', 'طالب') }[m.sender_role] || '';
+      return sep + '<div class="bub-row' + (mine ? ' me' : '') + '"><div class="bubble' + (m.private ? ' private' : '') + ' r-' + esc(m.sender_role || '') + '">' + (mine ? '' : '<small class="from">' + esc(firstName(m.sender_name) + ' · ' + role) + '</small>') +
+        (m.private ? '<small class="from">🔒 ' + esc(T('private: parents & teachers', 'خاصة: الأهل والمعلمين')) + '</small>' : '') + '<p dir="auto">' + esc(m.body).replace(/\n/g, '<br>') + '</p><time>' + esc(new Date(m.created_at).toLocaleTimeString(ar() ? 'ar-EG' : 'en-GB', { hour: 'numeric', minute: '2-digit' })) + '</time></div></div>';
+    }).join('');
+  }
+  function scrollChat(){ const b = $('bubbles'); if(b) b.scrollTop = b.scrollHeight; }
+  async function markRead(sid){
+    if(!sid) return;
+    const now = new Date().toISOString(); D.reads[sid] = now;
+    await sb.from('track_chat_reads').upsert({ user_id: me.id, track: TRACK, student_id: sid, last_read_at: now });
+    renderChrome();
+  }
+  ACT.thread = function(b){ thread = b.dataset.id; render(); };
+  ACT.quick = function(b){ const ta = main.querySelector('.composer textarea'); if(ta){ ta.value = b.dataset.t; ta.focus(); } };
+  FORMS.msg = function(f){
+    const body = f.body.value.trim(); if(!body || !thread) return;
+    privNote = !!(f.priv && f.priv.checked);
+    busy(f.querySelector('[type=submit]'), async function(){
+      const r = await sb.from('track_messages').insert({ track: TRACK, student_id: thread, body: body, private: privNote }).select().single();
+      if(r.error) throw r.error;
+      if(!D.msgs.some(function(m){ return m.id === r.data.id; })) D.msgs.push(Object.assign({ sender_id: me.id, sender_name: me.full_name, sender_role: ROLE(), created_at: new Date().toISOString() }, r.data));
+      f.body.value = ''; $('bubbles').innerHTML = bubblesHtml(thread); scrollChat(); markRead(thread);
+    });
+  };
+  // live: new messages arrive without reloading
+  let live = null;
+  function startLive(){
+    try{
+      if(live) sb.removeChannel(live);
+      live = sb.channel('track-msgs-' + TRACK).on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'track_messages', filter: 'track=eq.' + TRACK }, function(p){
+        const m = p.new; if(!m || (D.msgs || []).some(function(x){ return x.id === m.id; })) return;
+        D.msgs.push(m);
+        if(view === 'msgs' && m.student_id === thread){ const b = $('bubbles'); if(b){ b.innerHTML = bubblesHtml(thread); scrollChat(); markRead(thread); } }
+        else { renderChrome(); if(m.sender_id !== me.id) toast('💬 ' + firstName(m.sender_name) + ': ' + m.body.slice(0, 60)); }
+      }).subscribe();
+    }catch(e){}
+  }
+
+  // the bell: unread messages and new tasks
+  $('bell').addEventListener('click', function(){
+    const items = [];
+    const ids = new Set((D.msgs || []).map(function(m){ return m.student_id; }));
+    ids.forEach(function(id){ const n = unreadIn(id); if(n) items.push(['💬', T(n + ' new message' + (n > 1 ? 's' : ''), n + ' رسالة جديدة') + (ROLE() === 'student' ? '' : ' · ' + (ROLE() === 'parent' ? ((D.kids || []).find(function(k){ return k.id === id; }) || {}).full_name : pname(id))), 'msgs', id]); });
+    newTasks().forEach(function(t){ items.push([(KINDS[t.kind] || ['📄'])[0], T('New: ', 'جديد: ') + t.title, 'tasks', null]); });
+    openModal('<h3>🔔 ' + esc(T('Notifications', 'الإشعارات')) + '</h3>' + (items.length ? '<div class="list">' + items.map(function(x){ return '<button type="button" class="item" data-act="bellGo" data-v="' + x[2] + '" data-id="' + (x[3] || '') + '"><span class="ic">' + x[0] + '</span><span class="grow"><b>' + esc(x[1]) + '</b></span></button>'; }).join('') + '</div>'
+      : '<p class="muted">' + esc(T('You’re all caught up ✨', 'مفيش جديد ✨')) + '</p>') + '<button class="btn ghost" data-close>' + esc(T('Close', 'إغلاق')) + '</button>');
+  });
+  ACT.bellGo = function(b){ closeModal(); if(b.dataset.id) thread = b.dataset.id; go(b.dataset.v); };
+
+  // =====================================================================
+  // TEACHER: the course manager (open / coming soon / hidden, and announce)
+  // =====================================================================
+  let cmF = 'all', cmQ = '';
+  VIEWS.courses = function(){
+    const st = { open: 0, soon: 0, hidden: 0, ann: 0 };
+    COURSES.forEach(function(c){ st[cstat(c[0])]++; if(((D.cfg || {})[c[0]] || {}).announce) st.ann++; });
+    const groups = FR ? [['fr', '🇫🇷', 'French courses', 'كورسات الفرنساوي']] : TECH_CATS;
+    main.innerHTML = '<div class="head"><h2>📣 ' + esc(T('Course manager', 'إدارة الكورسات')) + '</h2><p class="muted">' + esc(T('Choose what visitors see on the course page and what students can join. Announce a course to put it in the spotlight with a note (dates, offers…).', 'اختار الطلاب والزوار يشوفوا إيه في صفحة الكورسات ويشتركوا في إيه. أعلن عن كورس عشان يظهر في الواجهة مع ملاحظة (مواعيد، عروض…).')) + '</p></div>' +
+      '<div class="stats"><div class="stat"><i>✅</i><b data-count="' + st.open + '">' + st.open + '</b><span>' + esc(T('open', 'متاح')) + '</span></div><div class="stat"><i>⏳</i><b data-count="' + st.soon + '">' + st.soon + '</b><span>' + esc(T('coming soon', 'قريباً')) + '</span></div><div class="stat"><i>🙈</i><b data-count="' + st.hidden + '">' + st.hidden + '</b><span>' + esc(T('hidden', 'مخفي')) + '</span></div><div class="stat fire"><i>📣</i><b data-count="' + st.ann + '">' + st.ann + '</b><span>' + esc(T('announced', 'معلن عنه')) + '</span></div></div>' +
+      '<div class="row gap wrap cm-bar"><input type="search" class="search" id="cmSearch" value="' + esc(cmQ) + '" placeholder="' + esc(T('Search a course', 'دوّر على كورس')) + '"><div class="chips">' +
+        [['all', '📋', 'All', 'الكل'], ['open', '✅', 'Open', 'متاح'], ['soon', '⏳', 'Soon', 'قريباً'], ['hidden', '🙈', 'Hidden', 'مخفي'], ['ann', '📣', 'Announced', 'معلن عنه']].map(function(c){ return '<button type="button" data-act="cmF" data-f="' + c[0] + '" class="' + (cmF === c[0] ? 'on' : '') + '">' + c[1] + ' ' + esc(T(c[2], c[3])) + '</button>'; }).join('') +
+        '</div><a class="btn ghost sm" href="' + (FR ? 'french.html' : 'tech.html#courses') + '" target="_blank" rel="noopener">👀 ' + esc(T('See the course page', 'شوف صفحة الكورسات')) + '</a></div>' +
+      groups.map(function(g){
+        const q = normFr(cmQ);
+        const list = COURSES.filter(function(c){ const f = (D.cfg || {})[c[0]] || {};
+          return c[1] === g[0] && (cmF === 'all' || (cmF === 'ann' ? f.announce : (f.status || 'open') === cmF)) && (!q || normFr(c[3] + ' ' + c[4]).indexOf(q) !== -1); });
+        if(!list.length) return '';
+        return '<h3 class="sec">' + g[1] + ' ' + esc(T(g[2], g[3])) + '</h3><div class="list">' + list.map(function(c){
+          const cfg = (D.cfg || {})[c[0]] || {}, s = cfg.status || 'open';
+          const n = (D.enrolls || []).filter(function(e){ return e.course === c[0] && e.status !== 'pending'; }).length;
+          return '<div class="item col cm s-' + s + '"><div class="row between wrap"><span><b>' + c[2] + ' ' + esc(T(c[3], c[4])) + '</b><small>' + n + ' ' + esc(T('students', 'طالب')) + '</small></span>' +
+            '<span class="seg3">' + [['open', '✅', 'Open', 'متاح'], ['soon', '⏳', 'Soon', 'قريباً'], ['hidden', '🙈', 'Hidden', 'مخفي']].map(function(o){ return '<button type="button" data-act="cstat" data-c="' + c[0] + '" data-s="' + o[0] + '" class="' + (s === o[0] ? 'on' : '') + '">' + o[1] + ' ' + esc(T(o[2], o[3])) + '</button>'; }).join('') + '</span></div>' +
+            '<div class="row gap wrap"><label class="switch-l"><span class="switch"><input type="checkbox" data-ann="' + c[0] + '"' + (cfg.announce ? ' checked' : '') + (s === 'hidden' ? ' disabled' : '') + '><i></i></span> 📣 ' + esc(T('Announce', 'أعلن')) + '</label>' +
+            '<input class="note-in grow" data-note="' + c[0] + '" maxlength="200" value="' + esc(cfg.note || '') + '" placeholder="' + esc(T('Note shown with the announcement, e.g. “Starts 1 Dec · 20% off”', 'ملاحظة مع الإعلان، مثلاً «يبدأ ١ ديسمبر · خصم ٢٠٪»')) + '"></div></div>';
+        }).join('') + '</div>';
+      }).join('');
+  };
+  ACT.cmF = function(b){ cmF = b.dataset.f; render(); };
+  main.addEventListener('input', function(e){ if(e.target.id !== 'cmSearch') return; cmQ = e.target.value; const pos = e.target.selectionStart; render(); const n = $('cmSearch'); n.focus(); n.setSelectionRange(pos, pos); });
+  async function saveCourse(course, patch){
+    const cur0 = (D.cfg || {})[course] || { track: TRACK, course: course, status: 'open', announce: false, note: null };
+    const row = Object.assign({}, cur0, patch, { track: TRACK, course: course, updated_at: new Date().toISOString() });
+    if(row.status === 'hidden') row.announce = false;
+    const r = await sb.from('track_courses').upsert(row);
+    if(r.error) throw r.error;
+    D.cfg[course] = row; return row;
+  }
+  ACT.cstat = function(b){ busy(null, async function(){ await saveCourse(b.dataset.c, { status: b.dataset.s }); toast(T('Saved ✓', 'اتحفظ ✓')); render(); }); };
+  main.addEventListener('change', function(e){
+    const a = e.target.closest('[data-ann]'), n = e.target.closest('[data-note]');
+    if(a) busy(null, async function(){ await saveCourse(a.dataset.ann, { announce: a.checked }); if(a.checked) party(a, { emoji: ['📣'] }); toast(a.checked ? T('Announced 📣', 'اتعلن 📣') : T('Announcement removed', 'الإعلان اتشال')); render(); });
+    if(n) busy(null, async function(){ await saveCourse(n.dataset.note, { note: n.value.trim() || null }); toast(T('Note saved ✓', 'الملاحظة اتحفظت ✓')); });
+  });
+  ACT.pickCourse = function(b){
+    const sel0 = main.querySelector('select[name=course]'); if(!sel0) return;
+    const o = Array.prototype.find.call(sel0.options, function(x){ return x.value === b.dataset.c; });
+    if(!o || o.disabled){ toast(T('This course opens soon. Message us to be the first to know!', 'الكورس ده هيفتح قريب — كلّمنا عشان تعرف أول واحد!')); return; }
+    sel0.value = b.dataset.c; sel0.scrollIntoView({ block: 'center', behavior: 'smooth' }); sel0.focus();
   };
 
   // ---------- go ----------
