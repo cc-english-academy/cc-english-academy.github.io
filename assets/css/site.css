@@ -2322,3 +2322,10 @@ html[lang=ar] .eg-opts button.en-txt{direction:ltr;text-align:left}
   .lang-btn{padding:6px 9px}
   .lang-btn .globe{display:none}
 }
+/* ===== lighter page =====
+   - the full-screen paper grain was re-blended on every scroll frame: removed
+   - the moving section gradients repainted large areas non-stop: now still
+   - sections below the fold are not rendered until they come near the screen */
+body::before{display:none!important}
+.flow-bg{animation:none!important;background-size:100% 100%!important}
+main>section,body>section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 900px}

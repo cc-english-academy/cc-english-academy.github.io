@@ -571,7 +571,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       forgot: t('Reset your password', 'استعادة كلمة المرور'), reset: t('Choose a new password', 'اختر كلمة مرور جديدة') })[mode];
     authPageSub.textContent = ({ login: t('Sign in to reach your dashboard.', 'سجّل الدخول للوصول إلى لوحة التحكم.'),
       signup: t('Join as a student, a parent or a teacher — it takes a minute.', 'انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.'),
-      forgot: t('The academy will set a new one for you.', 'الأكاديمية هتعملك كلمة مرور جديدة.'),
+      forgot: t('Code Cademy will set a new one for you.', 'Code Cademy هتعملك كلمة مرور جديدة.'),
       reset: t('Almost done — pick a password you’ll remember.', 'خطوة أخيرة — اختر كلمة مرور تتذكرها.') })[mode];
   }
   function openAuth(mode){
@@ -613,7 +613,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   });
 
   // ---------- forgot / reset password ----------
-  // accounts have no email, so a forgotten password goes through the academy: the admin sets a new one
+  // accounts have no email, so a forgotten password goes through Code Cademy: the admin sets a new one
   document.getElementById('forgotLink').addEventListener('click', function(){
     const ph = normPhone(document.getElementById('loginEmail').value);
     document.getElementById('forgotWa').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(
@@ -939,7 +939,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       document.getElementById('ovLinkCard').hidden = true;
       readingHub.hidden = true;
       if(planBanner) planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">' + t('Teacher account', 'حساب معلم') + '</span><h4>' +
-        t('Waiting for the academy to approve you', 'بانتظار موافقة الأكاديمية') + '</h4><p>' +
+        t('Waiting for Code Cademy to approve you', 'بانتظار موافقة Code Cademy') + '</h4><p>' +
         t('The admin has your request. Once approved, sign in again and your teacher tools (books, classes, homework, students) will be here.',
           'طلبك وصل للمدير. بعد الموافقة سجّل الدخول مرة أخرى وستجد أدوات المعلم هنا (الكتب، الحصص، الواجبات، الطلاب).') + '</p></div></div>';
       if(wantDashboard) openDashboard();
@@ -1200,7 +1200,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Choose a plan', 'اختر خطة') + '</button></div>'
         : planState === 'pending'
         ? '<div class="sess-plan wait"><span>⏳</span><div><b>' + t('Your plan is waiting for activation', 'خطتك في انتظار التفعيل') + '</b><p>' +
-          t('You can book as soon as the academy confirms your payment.', 'يمكنك الحجز بمجرد أن تؤكد الأكاديمية الدفع.') + '</p></div></div>'
+          t('You can book as soon as Code Cademy confirms your payment.', 'يمكنك الحجز بمجرد أن تؤكد Code Cademy الدفع.') + '</p></div></div>'
         : '';
 
       const open = all.filter(function(s){ return !mine[s.id] && new Date(s.starts_at).getTime() > now; });
@@ -1552,7 +1552,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const STATUS_LABEL = { pending: 'Waiting for payment', active: 'Active', stopped: 'Stopped', rejected: 'Rejected' };
   function payMethodName(m){ return m === 'tamara' ? 'Tamara' : m === 'visa' ? 'Visa' : m === 'bank' ? t('Bank transfer', 'تحويل بنكي') : 'WhatsApp'; }
 
-  // ---------- bank transfer: the academy's account (the admin fills it in) and the student's receipt ----------
+  // ---------- bank transfer: Code Cademy's account (the admin fills it in) and the student's receipt ----------
   let bankInfo = {};
   async function loadBankInfo(){
     const { data } = await sb.from('academy_settings').select('key, value').in('key', ['bank_name', 'bank_holder', 'bank_iban']);
@@ -1569,7 +1569,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       '<div class="bank-row"><span>IBAN</span><b dir="ltr" class="bank-iban">' + esc(fmtIban(bankInfo.bank_iban)) + '</b><button type="button" class="sess-btn ghost" data-copy-iban>' + esc(t('Copy', 'نسخ')) + '</button></div>' +
       '<div class="bank-row"><span>' + esc(t('Amount', 'المبلغ')) + '</span><b>' + esc(fmtPrice(e.amount)) + '</b></div>' +
       '<p class="bank-note">' + esc(t('Write your name in the transfer note, then upload a photo of the receipt here.', 'اكتب اسمك في ملاحظة التحويل، وبعدين ارفع صورة الإيصال هنا.')) + '</p>' +
-      (e.receipt_path ? '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as the academy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما الأكاديمية تراجعه.')) + '</p>'
+      (e.receipt_path ? '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as Code Cademy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما Code Cademy تراجعه.')) + '</p>'
         : '<div class="bank-up"><input type="file" accept="image/*,.pdf" data-receipt-file><button type="button" class="lib-submit" data-receipt="' + e.id + '">📎 ' + esc(t('Send the receipt', 'ابعت الإيصال')) + '</button></div><p class="bank-msg" aria-live="polite"></p>') +
       '</div>';
   }
@@ -1590,7 +1590,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const up = await sb.storage.from('receipts').upload(path, file, { contentType: file.type || undefined });
     const res = up.error ? up : await sb.rpc('attach_receipt', { p_enrollment: Number(b.dataset.receipt), p_path: path });
     if(res.error){ b.disabled = false; msg.textContent = friendlyErrorMessage(res.error); return; }
-    box.querySelector('.bank-up').outerHTML = '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as the academy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما الأكاديمية تراجعه.')) + '</p>';
+    box.querySelector('.bank-up').outerHTML = '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as Code Cademy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما Code Cademy تراجعه.')) + '</p>';
     msg.textContent = '';
     await loadMyPlan();
   });
@@ -4997,7 +4997,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
     }catch(err){ fail(err); }
   }
-  // a short, friendly report in Arabic (the academy's parents) with the key numbers
+  // a short, friendly report in Arabic (Code Cademy's parents) with the key numbers
   function cocoReportText(r, days){
     const L = [];
     L.push('📊 تقرير كوكو — ' + (r.name || '') + ' (آخر ' + days + ' يوم)');
@@ -5482,7 +5482,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       (bad > 0 ? '<p><small>⚠️ ' + esc(t(bad + ' question line(s) skipped — each needs: question | right | wrong.', 'اتساب ' + bad + ' سطر أسئلة — كل سطر محتاج: السؤال | الصح | غلط.')) + '</small></p>' : ''));
   }
 
-  // ---- worksheets: printable exercises for a lesson, with the academy's logo and colours ----
+  // ---- worksheets: printable exercises for a lesson, with Code Cademy's logo and colours ----
   // With the AI on, Claude writes a fresh worksheet on any topic; otherwise it is built from the 36 written lessons.
   async function cocoWorksheetData(topic, level){
     if(!cocoAiOff && currentProfile){
@@ -5524,7 +5524,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const key = ws.sections.map(function(sec, si){
       return '<div class="key"><b>' + (si + 1) + '. ' + e(sec.title_en) + '</b><ol>' + (sec.items || []).map(function(it){ return '<li>' + e(it.answer) + '</li>'; }).join('') + '</ol></div>';
     }).join('');
-    const foot = '<footer><img src="' + logo + '" alt=""><span>© ' + year + ' Code Cademy — All rights reserved · جميع الحقوق محفوظة لأكاديمية Code Cademy</span></footer>';
+    const foot = '<footer><img src="' + logo + '" alt=""><span>© ' + year + ' Code Cademy — All rights reserved · جميع الحقوق محفوظة لـ Code Cademy</span></footer>';
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>' + e(ws.title) + ' — Code Cademy</title>' +
       '<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;600&family=Cairo:wght@400;600&display=swap" rel="stylesheet">' +
       '<style>' +
@@ -5975,7 +5975,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     refreshSession();
   });
   if(/type=recovery/.test(location.hash)){ recoveryMode = true; openAuth('reset'); }
-  // the academy home page sends "Sign in" here as english.html?signin=1
+  // Code Cademy home page sends "Sign in" here as english.html?signin=1
   if(/[?&]signin=1/.test(location.search)){
     sb.auth.getSession().then(function(r){ if(!(r.data && r.data.session)) openAuth('login'); });
     try{ history.replaceState(null, '', location.pathname + location.hash); }catch(e){}

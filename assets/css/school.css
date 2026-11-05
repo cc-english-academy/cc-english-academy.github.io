@@ -101,3 +101,6 @@ body[data-school] > footer:not(.sc-foot){display:none}
 @media(prefers-reduced-motion:reduce){.sc-track{animation:none}.btn.main,.btn.ghost,.sc-cta{transform:none!important}}
 @media(max-width:560px){.sc-acts .sc-cta .en,.sc-acts .sc-cta .ar{display:none!important}.sc-acts .sc-cta{padding:9px 11px;font-size:1rem}.sc-brand img{width:36px;height:36px}}
 .sc-stats b{direction:ltr;unicode-bidi:isolate;text-align:start}
+/* lighter: sections below the fold render when they come near the screen; no blur behind the stats */
+body[data-school]>section{content-visibility:auto;contain-intrinsic-size:auto 900px}
+.sc-stats li{backdrop-filter:none}
