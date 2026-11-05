@@ -9,8 +9,8 @@ const pages = {
   'english.html': ['assets/css/site.css', 'assets/css/fields.css', 'assets/js/app.js', 'assets/js/lang.js', 'assets/js/fx.js', 'assets/js/english-games.js'],
   'tech-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js'],
   'french-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js'],
-  'tech.html': ['assets/css/fields.css', 'assets/js/fx.js'],
-  'french.html': ['assets/css/fields.css', 'assets/js/fx.js']
+  'tech.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js'],
+  'french.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js']
 };
 for (const [page, files] of Object.entries(pages)) {
   let html = readFileSync(page, 'utf8');
