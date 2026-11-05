@@ -159,8 +159,10 @@ footer a{color:var(--maroon)}
 </style>
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 <link rel="stylesheet" href="assets/css/fields.css?v=daf01e8d">
+<link rel="stylesheet" href="assets/css/school.css?v=26fe9f70">
+<script defer src="assets/js/school.js?v=a0a78fc7"></script>
 </head>
-<body>
+<body data-school="french">
 <div class="fields-bar" role="navigation" aria-label="Code Cademy schools">
   <div class="fb-in">
     <a class="fb-home" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy Academy</span></a>
@@ -172,19 +174,34 @@ footer a{color:var(--maroon)}
   </div>
 </div>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span><b>Le Club Français</b><small><span class="en">by Code Cademy English Academy</span><span class="ar">من أكاديمية Code Cademy</span></small></span></a>
-    <nav>
+<header class="sc-nav" id="scNav">
+  <div class="sc-in">
+    <a class="sc-brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span><b>Le Club Français</b><small>Code Cademy Academy</small></span></a>
+    <nav class="sc-links" aria-label="Sections">
       <a href="#niveaux"><span class="en">Levels</span><span class="ar">المستويات</span></a>
-      <a href="#cafe"><span class="en">🎮 Games: Café with Coco</span><span class="ar">🎮 ألعاب: كافيه كوكو</span></a>
+      <a href="#cafe"><span class="en">🎮 Café with Coco</span><span class="ar">🎮 كافيه كوكو</span></a>
       <a href="#dis"><span class="en">Say it</span><span class="ar">قولها</span></a>
       <a href="#mots"><span class="en">Words</span><span class="ar">الكلمات</span></a>
       <a href="#culture"><span class="en">Culture</span><span class="ar">الثقافة</span></a>
-      <a href="french-dashboard.html"><span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a>
-      <a href="index.html"><span class="en">← Academy</span><span class="ar">الأكاديمية ←</span></a>
+      <a href="#join"><span class="en">Join</span><span class="ar">اشترك</span></a>
     </nav>
-    <button class="tbtn" id="langBtn" type="button"><span class="en">العربية</span><span class="ar">English</span></button>
+    <div class="sc-acts">
+      <a class="sc-icon wa" href="https://wa.me/966538840330" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.5 8.5 0 0 0 4.2 17l-.9 3.3 3.4-.9a8.5 8.5 0 0 0 12.9-7.4c0-2.3-.9-4.4-2-6.1zm-5.6 13a7 7 0 0 1-3.6-1l-.3-.1-2.5.7.7-2.4-.2-.3a7 7 0 1 1 5.9 3.1zm3.9-5.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a5.7 5.7 0 0 1-2.8-2.5c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.2 9.5 9.5 0 0 0 3.6 3.2c1.4.6 1.9.6 2.6.5.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1l-.5-.3z"/></svg></a>
+      <a class="sc-icon ig" href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+      <span class="sc-sep" aria-hidden="true"></span>
+      <button class="sc-lang" id="langBtn" type="button"><span class="globe">🌐</span><span class="en">العربية</span><span class="ar">English</span></button>
+      <a class="sc-cta" href="french-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a>
+      <button class="sc-burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="sc-panel">
+    <a href="#niveaux"><span class="en">Levels</span><span class="ar">المستويات</span></a>
+    <a href="#cafe"><span class="en">🎮 Café with Coco</span><span class="ar">🎮 كافيه كوكو</span></a>
+    <a href="#dis"><span class="en">Say it</span><span class="ar">قولها</span></a>
+    <a href="#mots"><span class="en">Words</span><span class="ar">الكلمات</span></a>
+    <a href="#culture"><span class="en">Culture</span><span class="ar">الثقافة</span></a>
+    <a href="#join"><span class="en">Join</span><span class="ar">اشترك</span></a>
+    <a href="french-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a>
   </div>
 </header>
 <div class="awning" aria-hidden="true"></div>
@@ -200,6 +217,7 @@ footer a{color:var(--maroon)}
         <a class="btn main" href="#cafe">☕ <span class="en">Talk with Coco at the café</span><span class="ar">اتكلم مع كوكو في الكافيه</span></a>
         <a class="btn ghost" id="trialBtn" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 <span class="en">Free trial class</span><span class="ar">حصة تجريبية مجانية</span></a>
       </div>
+      <ul class="sc-stats"><li><b data-count="6">6</b><span class="en">levels</span><span class="ar">مستويات</span></li><li><b data-count="4">4</b><span class="en">tracks for every age</span><span class="ar">مسارات لكل الأعمار</span></li><li><b data-count="3">3</b><span class="en">café scenes</span><span class="ar">مشاهد كافيه</span></li><li><b>DELF</b><span class="en">preparation</span><span class="ar">تحضير</span></li></ul>
     </div>
     <svg class="paris" viewBox="0 0 300 300" aria-hidden="true">
       <circle cx="150" cy="150" r="140" fill="#f3e3cc"/>
@@ -224,6 +242,7 @@ footer a{color:var(--maroon)}
     <button class="say" id="pdjSay" type="button" aria-label="Listen">🔊</button>
   </div>
 </div>
+<div class="sc-ticker" style="margin-top:34px" aria-hidden="true"><div class="sc-track"><span>Bonjour</span><span>Merci</span><span>S’il vous plaît</span><span>Un croissant</span><span>Paris</span><span>Bonne journée</span><span>Ça va ?</span><span>DELF A1 → B2</span><span>À bientôt</span><span>Enchanté</span><span>Bonjour</span><span>Merci</span><span>S’il vous plaît</span><span>Un croissant</span><span>Paris</span><span>Bonne journée</span><span>Ça va ?</span><span>DELF A1 → B2</span><span>À bientôt</span><span>Enchanté</span></div></div>
 
 <section id="niveaux">
   <div class="wrap">
@@ -279,7 +298,7 @@ footer a{color:var(--maroon)}
   </div>
 </section>
 
-<section style="padding-top:0">
+<section id="join" style="padding-top:0">
   <div class="wrap">
     <div class="join">
       <div><h2><span class="en">Your first French class is free.</span><span class="ar">أول حصة فرنساوي ببلاش.</span></h2>
@@ -292,10 +311,19 @@ footer a{color:var(--maroon)}
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Code Cademy English Academy · <a href="index.html"><span class="en">Academy home</span><span class="ar">الأكاديمية</span></a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
-  <p><span class="en">Code Cademy is an independent academy. It is not affiliated with Codecademy.com or any other company.</span><span class="ar">Code Cademy أكاديمية مستقلة، وليست تابعة لموقع Codecademy.com ولا لأي شركة أخرى.</span></p>
+<footer class="sc-foot" id="contact">
+  <div class="sc-fin">
+    <div class="sc-ftop">
+      <div class="sc-fbrand"><img src="assets/img/logo.jpg" alt="Code Cademy"><b>Le Club Français</b><p><span class="en">French, the way Paris speaks it.</span><span class="ar">فرنساوي… كأنك في باريس.</span></p></div>
+      <div><h5><span class="en">Learn</span><span class="ar">اتعلم</span></h5><ul><li><a href="#niveaux"><span class="en">The 6 levels</span><span class="ar">المستويات الستة</span></a></li><li><a href="#cafe"><span class="en">Café with Coco</span><span class="ar">كافيه كوكو</span></a></li><li><a href="#dis"><span class="en">Pronunciation</span><span class="ar">النطق</span></a></li><li><a href="#mots"><span class="en">Words in 3 languages</span><span class="ar">كلمات بـ٣ لغات</span></a></li></ul></div>
+      <div><h5><span class="en">Schools</span><span class="ar">المجالات</span></h5><ul><li><a href="index.html">🏠 <span class="en">Academy home</span><span class="ar">الأكاديمية</span></a></li><li><a href="english.html">🇬🇧 <span class="en">English</span><span class="ar">الإنجليزي</span></a></li><li><a href="french.html">🇫🇷 <span class="en">Français</span><span class="ar">الفرنساوي</span></a></li><li><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></li></ul></div>
+      <div><h5><span class="en">Contact</span><span class="ar">تواصل</span></h5><ul><li><a href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 WhatsApp</a></li><li><a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">📷 Instagram</a></li><li><a href="french-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></li></ul></div>
+    </div>
+    <div class="sc-fbot"><span>© 2026 Code Cademy · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="terms.html#refunds">Refunds</a></span><span><span class="en">Code Cademy is an independent academy. It is not affiliated with Codecademy.com or any other company.</span><span class="ar">Code Cademy أكاديمية مستقلة، وليست تابعة لموقع Codecademy.com ولا لأي شركة تانية.</span></span></div>
+  </div>
 </footer>
+<div class="sc-mcta"><a class="solid" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 <span class="en">Free trial class</span><span class="ar">حصة تجريبية مجانية</span></a><a class="ghost" href="french-dashboard.html">🎓</a></div>
+<a class="sc-wa" href="https://wa.me/966538840330" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.6 6.3A8.5 8.5 0 0 0 4.2 17l-.9 3.3 3.4-.9a8.5 8.5 0 0 0 12.9-7.4c0-2.3-.9-4.4-2-6.1zm-5.6 13a7 7 0 0 1-3.6-1l-.3-.1-2.5.7.7-2.4-.2-.3a7 7 0 1 1 5.9 3.1zm3.9-5.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a5.7 5.7 0 0 1-2.8-2.5c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.2 9.5 9.5 0 0 0 3.6 3.2c1.4.6 1.9.6 2.6.5.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1l-.5-.3z"/></svg>
 
 <script>
 (function(){
