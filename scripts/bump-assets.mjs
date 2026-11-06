@@ -9,6 +9,7 @@ const pages = {
   'english.html': ['assets/css/site.css', 'assets/css/fields.css', 'assets/js/app.js', 'assets/js/lang.js', 'assets/js/fx.js', 'assets/js/english-games.js'],
   'tech-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js'],
   'french-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js'],
+  'french-app.html': ['assets/css/fields.css'],
   'tech.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js'],
   'french.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js', 'assets/css/french-learn.css', 'assets/js/french-learn.js']
 };

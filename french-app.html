@@ -1,0 +1,819 @@
+<!doctype html><html lang="fr"><head><meta charset=utf8>
+<meta name="description" content="J'ADORE Français by Code Cademy: an interactive French app with 59 lessons — basics, vocabulary, grammar and conversation, with sound, pictures, dialogues and exercises.">
+<meta name="theme-color" content="#6A1330">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fields.css?v=daf01e8d">
+<style>.jd-back{position:fixed;bottom:16px;inset-inline-start:16px;z-index:90;display:inline-flex;align-items:center;gap:6px;background:#6A1330;color:#FBEDE2;text-decoration:none;font:800 13px Nunito,system-ui,sans-serif;border-radius:999px;padding:10px 16px;box-shadow:0 12px 26px -10px rgba(106,19,48,.7)}.jd-back:hover{background:#8E2647}</style><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="fields-bar" role="navigation" aria-label="Code Cademy schools">
+  <div class="fb-in">
+    <a class="fb-home" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy</span></a>
+    <div class="fb-tabs">
+      <a class="fb-tab en-t" href="english.html"><i>🇬🇧</i><span class="fb-en">English</span><span class="fb-ar">الإنجليزي</span></a>
+      <a class="fb-tab fr-t on" aria-current="page" href="french.html"><i>🇫🇷</i><span class="fb-en">Français</span><span class="fb-ar">الفرنساوي</span></a>
+      <a class="fb-tab it-t" href="tech.html"><i>💻</i><span class="fb-en">Tech Lab</span><span class="fb-ar">البرمجة و IT</span></a>
+    </div>
+  </div>
+</div>
+<a class="jd-back" href="french.html">← Le Club Français</a>
+
+<title>J'ADORE Français</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@500;700;800;900&display=swap">
+<style>
+/* Layout: burgundy masthead like the book cover, then a level path, then a grid of lesson tiles; a lesson opens as its own page. */
+:root{
+  --bg:#FBF3EC; --paper:#FFFDFB; --cream:#F6E4D6; --wine:#6A1330; --wine-2:#8E2647;
+  --on-wine:#FBEDE2; --fg:#2A1218; --muted:#7B5B62; --line:#EBD6CB; --gold:#C38A2E;
+  --ok:#23824B; --ok-bg:#E3F4EA; --bad:#B8322C; --bad-bg:#FBE6E3; --accent:#8E2647;
+  --display:"Playfair Display", Georgia, "Times New Roman", serif;
+  --body:"Nunito", "Segoe UI", system-ui, sans-serif;
+  --emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1A0D11; --paper:#251419; --cream:#331C23; --wine:#4C0C21; --wine-2:#E07A98;
+  --on-wine:#FBE7EA; --fg:#F6E7EA; --muted:#C4A3AB; --line:#43272F; --gold:#E3B15A;
+  --ok:#5CCB8A; --ok-bg:#163223; --bad:#F08178; --bad-bg:#3A1716; --accent:#F097B1; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1A0D11; --paper:#251419; --cream:#331C23; --wine:#4C0C21; --wine-2:#E07A98;
+  --on-wine:#FBE7EA; --fg:#F6E7EA; --muted:#C4A3AB; --line:#43272F; --gold:#E3B15A;
+  --ok:#5CCB8A; --ok-bg:#163223; --bad:#F08178; --bad-bg:#3A1716; --accent:#F097B1; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.emo,.pic{font-family:var(--emoji)}
+
+/* Masthead */
+.mast{background:var(--wine);color:var(--on-wine)}
+.mast .wrap{padding-block:30px 52px}
+.hero{display:flex;align-items:center;justify-content:center;gap:clamp(20px,5vw,56px)}
+.htxt{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;min-width:0}
+.cover{width:clamp(150px,22vw,230px);height:auto;aspect-ratio:768/1376;max-width:100%;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 0 3px color-mix(in srgb,var(--on-wine) 30%,transparent);transform:rotate(-2deg);flex:none}
+@media (max-width:640px){.hero{flex-direction:column;gap:18px}.cover{width:150px}}
+.logo{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:900;letter-spacing:.06em;font-size:13px}
+.logo svg{width:56px;height:46px}
+.mast h1{font-family:var(--display);font-weight:900;font-size:clamp(48px,11vw,92px);line-height:1;margin:6px 0 0;letter-spacing:.01em}
+.mast p{margin:0;font-family:var(--display);font-size:clamp(17px,3.4vw,22px);max-width:30ch;text-wrap:balance;opacity:.92}
+.tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.tool{background:transparent;border:1.5px solid color-mix(in srgb,var(--on-wine) 45%,transparent);color:var(--on-wine);border-radius:999px;padding:6px 14px;font-weight:800;font-size:14px}
+.tool[aria-pressed="true"]{background:var(--on-wine);color:var(--wine)}
+.voice-warn{background:var(--bad-bg);color:var(--bad);border-radius:12px;padding:10px 14px;margin-top:16px;font-weight:700;font-size:14px}
+
+/* Levels path */
+.levels{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:-22px}
+.lv{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:10px 8px;text-align:center;display:flex;flex-direction:column;gap:2px;align-items:center;min-width:0}
+.lv b{font-family:var(--display);font-size:26px;line-height:1;color:var(--accent)}
+.lv small{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.lv span{font-size:12.5px;font-weight:700;line-height:1.2}
+.lv[aria-pressed="true"]{background:var(--wine);border-color:var(--wine);color:var(--on-wine)}
+.lv[aria-pressed="true"] b,.lv[aria-pressed="true"] small{color:var(--on-wine)}
+@media (max-width:700px){.levels{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 14px}
+.tab{border:none;background:var(--cream);border-radius:999px;padding:8px 16px;font-weight:800;font-size:15px}
+.tab[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.tab i{font-style:normal;opacity:.6;font-weight:700;margin-left:4px}
+
+.secname{font-family:var(--display);font-size:24px;margin:22px 0 10px;display:flex;align-items:baseline;gap:10px}
+.secname small{font-family:var(--body);font-size:14px;color:var(--muted);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.card{display:flex;gap:12px;align-items:center;text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:12px;min-width:0;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card .ic{flex:none;width:52px;height:52px;border-radius:14px;background:var(--cream);display:grid;place-items:center;font-size:28px}
+.card .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.card .tt{font-weight:800;line-height:1.25}
+.card .mt{font-size:12.5px;color:var(--muted);font-weight:700;display:flex;gap:6px;align-items:center}
+.stars{color:var(--gold);letter-spacing:1px}
+.empty{color:var(--muted);padding:30px 0}
+footer{color:var(--muted);font-size:13px;text-align:center;padding-block:40px 30px}
+
+/* Lesson */
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--wine);color:var(--on-wine)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--wine)}
+.top .wrap{display:flex;align-items:center;gap:10px;padding-block:10px}
+.top .tool,.back{white-space:nowrap;flex:none}
+.back{border:none;background:color-mix(in srgb,var(--on-wine) 16%,transparent);border-radius:999px;padding:6px 14px;font-weight:800}
+.top .crumb{font-weight:800;font-size:14px;opacity:.85;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top .sp{flex:1}
+.lhead{display:flex;gap:16px;align-items:center;padding-block:26px 8px}
+.lhead .big{font-size:58px;line-height:1;flex:none}
+.lhead h2{font-family:var(--display);font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0;text-wrap:balance}
+.lhead .meta{color:var(--muted);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.say{border:none;background:var(--cream);border-radius:999px;width:40px;height:40px;display:inline-grid;place-items:center;font-size:18px;flex:none}
+.say:hover{background:var(--line)}
+.intro{display:flex;gap:10px;align-items:flex-start;background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;font-size:18px;font-weight:700;max-width:760px}
+.intro p{margin:0;flex:1;min-width:0}
+.block{margin-top:34px}
+.bh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.bh h3{font-family:var(--display);font-size:26px;margin:0}
+.play{border:none;background:var(--wine);color:var(--on-wine);border-radius:999px;padding:8px 16px;font-weight:800;font-size:14px}
+.play.stop{background:var(--bad)}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.word{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--paper);border:1.5px solid var(--line);border-radius:18px;padding:16px 10px 12px;text-align:center;min-width:0}
+.word:hover{border-color:var(--accent)}
+.word.on{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 35%,transparent)}
+.word .pic{font-size:46px;line-height:1.1;min-height:56px;display:grid;place-items:center}
+.word .w{font-weight:900;font-size:19px;line-height:1.2;overflow-wrap:anywhere}
+.word .s{font-size:13.5px;color:var(--muted);font-weight:600;line-height:1.3}
+.swatch{display:inline-block;width:52px;height:52px;border-radius:50%;border:2px solid var(--line)}
+.num{font-family:var(--display);font-weight:900;font-size:44px;color:var(--accent)}
+.letter .w{font-family:var(--display);font-size:34px}
+
+/* scene for prepositions */
+.scene{position:relative;width:96px;height:64px;font-size:30px;display:block}
+.scene .bx,.scene .ct{position:absolute;line-height:1}
+.scene .bx{left:33px;top:26px}
+.scene .ct{left:33px;top:26px;transition:all .2s}
+.s-dans .ct{font-size:18px;left:39px;top:34px;z-index:2}
+.s-sur .ct{top:-2px}
+.s-sous .ct{top:42px;font-size:20px;left:38px}
+.s-sous .bx{top:6px}
+.s-devant .ct{left:42px;top:34px;z-index:2;font-size:34px}
+.s-derriere .ct{left:22px;top:12px;font-size:22px;z-index:0}.s-derriere .bx{z-index:1}
+.s-cote .bx{left:14px}.s-cote .ct{left:52px}
+.s-entre .bx{left:0}.s-entre .b2{left:64px}.s-entre .ct{left:32px}
+.s-loin .bx{left:-6px}.s-loin .ct{left:74px;font-size:20px;top:34px}
+
+/* rules */
+.rules{display:grid;gap:12px;max-width:820px}
+.rule{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:16px}
+.rule h4{margin:0 0 4px;font-size:18px;font-weight:900;color:var(--accent)}
+.rule .rp{display:flex;gap:10px;align-items:flex-start}
+.rule .rp p{margin:0;flex:1;min-width:0;font-size:16.5px;font-weight:600}
+.exs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:none;background:var(--cream);border-radius:12px;padding:8px 12px;font-weight:800;text-align:left}
+.chip .pic{font-size:22px}
+.chip:hover{background:var(--line)}
+.tbl{overflow-x:auto;margin-top:14px;max-width:820px}
+table{border-collapse:separate;border-spacing:0;min-width:100%;background:var(--paper);border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:16px}
+th{background:var(--cream);font-weight:900}
+tr:last-child td{border-bottom:none}
+td button{border:none;background:none;padding:0;font-weight:700;text-align:left}
+td button:hover{color:var(--accent)}
+td:first-child{color:var(--muted);font-weight:800}
+
+/* dialogue */
+.dlg{display:flex;flex-direction:column;gap:10px;max-width:760px}
+.line{display:flex;gap:10px;align-items:flex-end;border:none;background:none;padding:0;text-align:left;max-width:88%}
+.line.r{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.av{flex:none;width:44px;height:44px;border-radius:50%;background:var(--cream);display:grid;place-items:center;font-size:24px}
+.bub{background:var(--paper);border:1.5px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 14px;min-width:0}
+.line.r .bub{border-radius:18px 18px 4px 18px;background:var(--cream)}
+.bub small{display:block;font-size:12px;font-weight:900;color:var(--accent);letter-spacing:.04em}
+.bub span{font-weight:700;font-size:17px}
+.line.on .bub{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 35%,transparent)}
+.bub .pic{font-size:26px;margin-right:6px}
+
+/* quiz */
+.quiz{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:20px;max-width:760px}
+.qbar{height:8px;border-radius:99px;background:var(--cream);overflow:hidden;margin-bottom:16px}
+.qbar i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qtop{display:flex;justify-content:space-between;color:var(--muted);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.qprompt{display:flex;flex-direction:column;align-items:center;gap:10px;margin:14px 0 18px;text-align:center}
+.qprompt .pic{font-size:72px;line-height:1.1}
+.qprompt .qt{font-size:22px;font-weight:800;text-wrap:balance}
+.qprompt .bigsay{width:72px;height:72px;font-size:32px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.opt{border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:14px 12px;font-weight:800;font-size:18px;min-height:64px;display:grid;place-items:center;text-align:center}
+.opt .pic{font-size:44px}
+.opt:hover{border-color:var(--accent)}
+.opt.good{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);animation:shake .35s}
+.opt:disabled{cursor:default}
+.fb{min-height:28px;text-align:center;font-weight:900;font-size:18px;margin-top:12px}
+.fb.good{color:var(--ok)}.fb.bad{color:var(--bad)}
+.qnav{display:flex;justify-content:center;margin-top:8px}
+.result{text-align:center;padding:10px 0}
+.result .rs{font-size:46px;color:var(--gold);letter-spacing:4px}
+.result h4{font-family:var(--display);font-size:30px;margin:6px 0}
+.start{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:10px}
+.start .pic{font-size:54px}
+.next-lesson{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:40px;padding-bottom:50px}
+.nl{border:1.5px solid var(--line);background:var(--paper);border-radius:14px;padding:10px 14px;font-weight:800;max-width:48%;text-align:left}
+.nl small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.nl.n{text-align:right;margin-left:auto}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:520px){.lhead .big{font-size:44px}.words{grid-template-columns:repeat(2,minmax(0,1fr))}.word .pic{font-size:40px}.line{max-width:96%}.nl{max-width:100%}}
+</style>
+
+<div id="app"></div>
+
+<script>
+// J'ADORE — Code Cademy · contenu A0 → A2
+// items: "mot|image|exemple" · dlg: "Personnage|réplique|image?" · ex: [question, image, bonne réponse, faux1, faux2...]
+const SECTIONS = [
+  {id:"bases", t:"Les bases", e:"🧩"},
+  {id:"vocab", t:"Vocabulaire", e:"🗂️"},
+  {id:"gram", t:"Grammaire", e:"✏️"},
+  {id:"conv", t:"Conversation", e:"💬"}
+];
+const LEVELS = [
+  {n:1, cefr:"A1.1", t:"Premiers pas"},
+  {n:2, cefr:"A1.1", t:"Je découvre"},
+  {n:3, cefr:"A1.2", t:"Je parle"},
+  {n:4, cefr:"A1.2", t:"Je me débrouille"},
+  {n:5, cefr:"A2.1", t:"Je raconte"},
+  {n:6, cefr:"A2.2", t:"Je voyage"}
+];
+const LESSONS = [
+// ───────────── LES BASES ─────────────
+{id:"alphabet", sec:"bases", lvl:1, e:"🔤", t:"L'alphabet", intro:"Il y a 26 lettres. Les voyelles sont : a, e, i, o, u, y. Les autres lettres sont des consonnes.", q:"txt",
+ items:["A|🍍|A comme ananas","B|🚤|B comme bateau","C|🥕|C comme carotte","D|🐬|D comme dauphin","E|🐘|E comme éléphant","F|🌸|F comme fleur","G|🦒|G comme girafe","H|🚁|H comme hélicoptère","I|🏝️|I comme île","J|🧃|J comme jus","K|🥝|K comme kiwi","L|🦁|L comme lion","M|🏠|M comme maison","N|☁️|N comme nuage","O|🍊|O comme orange","P|🍎|P comme pomme","Q|4️⃣|Q comme quatre","R|🤖|R comme robot","S|🐍|S comme serpent","T|🐢|T comme tortue","U|🏭|U comme usine","V|🚲|V comme vélo","W|🚃|W comme wagon","X|🎹|X comme xylophone","Y|🧘|Y comme yoga","Z|🦓|Z comme zèbre"]},
+{id:"accents", sec:"bases", lvl:2, e:"🎵", t:"Les accents", intro:"Les accents changent le son ou le sens d'un mot. Écoute bien !", q:"txt",
+ items:["é|☕|L'accent aigu : le café","è|👩‍👧|L'accent grave : la mère","ê|🌲|L'accent circonflexe : la forêt","à|🏠|L'accent grave : à la maison","ù|❓|L'accent grave : où ?","î|🏝️|L'accent circonflexe : l'île","ô|🏥|L'accent circonflexe : l'hôpital","ç|👦|La cédille : le garçon","ë|🎄|Le tréma : Noël"]},
+{id:"salutations", sec:"bases", lvl:1, e:"👋", t:"Les salutations", intro:"Pour dire bonjour et au revoir.",
+ items:["Bonjour|☀️|Bonjour, madame !","Bonsoir|🌙|Bonsoir, monsieur !","Salut|👋|Salut, Léa !","Au revoir|🚶|Au revoir et à demain !","À bientôt|📅|À bientôt, mon ami !","Bonne nuit|😴|Bonne nuit, maman !","Ça va ?|🙂|Ça va ? Ça va bien, merci !","Merci|🙏|Merci beaucoup !","S'il te plaît|🤲|Un jus, s'il te plaît.","De rien|😊|Merci ! De rien.","Pardon|😅|Oh, pardon !"],
+ sp:{"Léa":"👧","Adam":"👦"},
+ dlg:["Léa|Bonjour, Adam ! Ça va ?","Adam|Ça va bien, merci. Et toi ?","Léa|Très bien ! Au revoir, Adam.","Adam|Au revoir, Léa. À bientôt !"]},
+{id:"presenter", sec:"bases", lvl:1, e:"🙋", t:"Se présenter", intro:"Pour dire ton nom, ton âge et où tu habites.", q:"txt",
+ items:["Je m'appelle Léa.|👧|Je m'appelle Léa.","J'ai huit ans.|🎂|J'ai huit ans.","J'habite à Paris.|🏠|J'habite à Paris.","J'aime le football.|⚽|J'aime le football.","Comment tu t'appelles ?|❓|Comment tu t'appelles ?","Quel âge as-tu ?|🎈|Quel âge as-tu ?","Où habites-tu ?|📍|Où habites-tu ?","Enchanté !|🤝|Enchanté !"],
+ sp:{"Léa":"👧","Sami":"🧒"},
+ dlg:["Sami|Bonjour ! Comment tu t'appelles ?","Léa|Je m'appelle Léa. Et toi ?","Sami|Je m'appelle Sami. Quel âge as-tu ?","Léa|J'ai huit ans. Où habites-tu ?","Sami|J'habite à Riyad. Enchanté !","Léa|Enchantée !"],
+ ex:[["Comment tu t'appelles ?","","Je m'appelle Sami.","J'ai huit ans.","J'habite à Riyad."],["Quel âge as-tu ?","","J'ai neuf ans.","Je m'appelle Léa.","Bonjour !"],["Où habites-tu ?","","J'habite à Djeddah.","J'ai sept ans.","Merci !"]]},
+{id:"nombres", sec:"bases", lvl:1, e:"🔢", t:"Les nombres",  intro:"On compte de 0 à 100 !",
+ items:["zéro|0","un|1","deux|2","trois|3","quatre|4","cinq|5","six|6","sept|7","huit|8","neuf|9","dix|10","onze|11","douze|12","treize|13","quatorze|14","quinze|15","seize|16","dix-sept|17","dix-huit|18","dix-neuf|19","vingt|20","trente|30","quarante|40","cinquante|50","soixante|60","soixante-dix|70","quatre-vingts|80","quatre-vingt-dix|90","cent|100"]},
+{id:"jours", sec:"bases", lvl:2, e:"📆", t:"Les jours de la semaine", intro:"Une semaine a sept jours. En français, les jours s'écrivent avec une minuscule.", q:"txt",
+ items:["lundi|🎒|Lundi, je vais à l'école.","mardi|🏊|Mardi, je nage.","mercredi|🎨|Mercredi, je dessine.","jeudi|🎹|Jeudi, je joue du piano.","vendredi|🍕|Vendredi, on mange une pizza.","samedi|⚽|Samedi, je joue au foot.","dimanche|👨‍👩‍👧|Dimanche, je suis en famille."],
+ ex:[["Après lundi, c'est…","","mardi","jeudi","dimanche"],["Avant samedi, c'est…","","vendredi","mercredi","lundi"],["Le dernier jour de la semaine, c'est…","","dimanche","lundi","mardi"]]},
+{id:"mois", sec:"bases", lvl:2, e:"🗓️", t:"Les mois de l'année", intro:"Une année a douze mois.", q:"txt",
+ items:["janvier|❄️|En janvier, il fait froid.","février|💝|Février est un mois court.","mars|🌱|En mars, les plantes poussent.","avril|🌷|En avril, il y a des fleurs.","mai|🌼|Mon anniversaire est en mai.","juin|🍓|En juin, on mange des fraises.","juillet|☀️|En juillet, il fait chaud.","août|🏖️|En août, je vais à la plage.","septembre|🎒|En septembre, c'est la rentrée.","octobre|🍂|En octobre, les feuilles tombent.","novembre|🌧️|En novembre, il pleut.","décembre|🎄|En décembre, il y a Noël."],
+ ex:[["Le premier mois de l'année, c'est…","","janvier","juin","mars"],["Après juillet, c'est…","","août","juin","septembre"],["Le dernier mois de l'année, c'est…","","décembre","novembre","janvier"]]},
+{id:"saisons", sec:"bases", lvl:2, e:"🍂", t:"Les saisons", intro:"Il y a quatre saisons : au printemps, en été, en automne, en hiver.",
+ items:["le printemps|🌸|Au printemps, il y a des fleurs.","l'été|☀️|En été, il fait chaud.","l'automne|🍁|En automne, les feuilles tombent.","l'hiver|⛄|En hiver, il fait froid."],
+ ex:[["Il neige et il fait froid. C'est…","❄️","l'hiver","l'été","le printemps"],["Il fait chaud, je vais à la plage. C'est…","🏖️","l'été","l'hiver","l'automne"],["On dit : ___ printemps.","","au","en","à la"],["On dit : ___ hiver.","","en","au","à"]]},
+{id:"heure", sec:"bases", lvl:3, e:"🕐", t:"L'heure et la date", intro:"Pour demander l'heure : Quelle heure est-il ? Pour la date : Quel jour sommes-nous ?", q:"txt",
+ items:["Il est une heure.|🕐|Il est une heure.","Il est deux heures.|🕑|Il est deux heures.","Il est trois heures et demie.|🕞|Il est trois heures et demie.","Il est quatre heures et quart.|🕓|Il est quatre heures et quart.","Il est cinq heures moins le quart.|🕓|Il est cinq heures moins le quart.","Il est midi.|🕛|Il est midi, on mange !","Il est minuit.|🌙|Il est minuit, je dors.","le matin|🌅|Le matin, je vais à l'école.","l'après-midi|🌤️|L'après-midi, je joue.","le soir|🌆|Le soir, je lis.","Quelle heure est-il ?|❓|Quelle heure est-il ?","Aujourd'hui, c'est le 5 mai.|📅|Aujourd'hui, c'est le 5 mai."],
+ ex:[["Il est 12 h, c'est…","🕛","midi","minuit","le soir"],["3 h 30 : il est trois heures…","🕞","et demie","et quart","moins le quart"],["Pour demander l'heure, on dit…","","Quelle heure est-il ?","Quel âge as-tu ?","Où est l'heure ?"],["Le 1er janvier se dit : le… janvier","","premier","un","première"]]},
+{id:"couleurs", sec:"bases", lvl:1, e:"🎨", t:"Les couleurs", intro:"De quelle couleur est-ce ?",
+ items:["rouge|#D62828|La pomme est rouge.","bleu|#1E5BB8|La mer est bleue.","vert|#2E9E4F|L'arbre est vert.","jaune|#F2C230|Le soleil est jaune.","orange|#F07A1A|L'orange est orange.","violet|#7D3C98|Le raisin est violet.","rose|#F49AC1|La fleur est rose.","marron|#7B4A2A|Le chocolat est marron.","noir|#151515|Le chat est noir.","blanc|#FFFFFF|La neige est blanche.","gris|#8C8C8C|L'éléphant est gris."]},
+{id:"pays", sec:"bases", lvl:3, e:"🌍", t:"Les pays", intro:"On dit : en France (pays féminin), au Canada (pays masculin), aux États-Unis (pluriel).", q:"txt",
+ items:["la France|🗼|J'habite en France.","l'Espagne|💃|Je vais en Espagne.","l'Italie|🍕|La pizza vient d'Italie.","l'Allemagne|🥨|Il habite en Allemagne.","l'Angleterre|💂|Elle parle anglais en Angleterre.","les États-Unis|🗽|Nous allons aux États-Unis.","le Canada|🍁|Il fait froid au Canada.","le Brésil|⚽|On joue au foot au Brésil.","le Japon|🗾|J'aime le Japon.","la Chine|🐼|Le panda vit en Chine.","l'Égypte|🐫|Je viens d'Égypte.","l'Arabie saoudite|🌴|J'habite en Arabie saoudite.","le Maroc|🫖|On boit du thé au Maroc."],
+ ex:[["J'habite ___ France.","","en","au","aux"],["Il va ___ Canada.","","au","en","aux"],["Nous allons ___ États-Unis.","","aux","au","en"],["La tour Eiffel est en…","🗼","France","Italie","Chine"]]},
+
+// ───────────── VOCABULAIRE ─────────────
+{id:"famille", sec:"vocab", lvl:1, e:"👨‍👩‍👧", t:"La famille", q:"txt",
+ items:["le père|👨|C'est mon père.","la mère|👩|C'est ma mère.","le frère|👦|J'ai un frère.","la sœur|👧|J'ai une sœur.","le grand-père|👴|Mon grand-père est gentil.","la grand-mère|👵|Ma grand-mère fait des gâteaux.","le bébé|👶|Le bébé dort.","l'oncle|🧔|Mon oncle habite à Djeddah.","la tante|👩‍🦱|Ma tante est professeur.","le cousin, la cousine|🧒|Mon cousin a dix ans.","les parents|👫|Mes parents travaillent.","la famille|👨‍👩‍👧‍👦|J'aime ma famille."]},
+{id:"corps", sec:"vocab", lvl:2, e:"🧍", t:"Le corps",
+ items:["la tête|🙂|J'ai mal à la tête.","les yeux|👀|J'ai les yeux marron.","le nez|👃|Le clown a un nez rouge.","la bouche|👄|Ouvre la bouche !","l'oreille|👂|J'écoute avec mes oreilles.","les dents|🦷|Je me brosse les dents.","les cheveux|💇|Elle a les cheveux longs.","le bras|💪|Lève le bras !","la main|✋|Donne-moi la main.","la jambe|🦵|Il a de grandes jambes.","le pied|🦶|Je joue au foot avec le pied."]},
+{id:"vetements", sec:"vocab", lvl:3, e:"👕", t:"Les vêtements",
+ items:["le t-shirt|👕|Je porte un t-shirt bleu.","le pantalon|👖|Mon pantalon est noir.","la robe|👗|Elle porte une jolie robe.","le short|🩳|En été, je porte un short.","la chemise|👔|Papa porte une chemise.","la veste|🧥|Il fait froid, mets ta veste !","les chaussures|👟|J'ai de nouvelles chaussures.","les chaussettes|🧦|Mes chaussettes sont rouges.","le chapeau|👒|Maman a un grand chapeau.","la casquette|🧢|Ma casquette est verte.","l'écharpe|🧣|En hiver, je mets une écharpe.","les gants|🧤|J'ai froid aux mains, je mets mes gants."]},
+{id:"nourriture", sec:"vocab", lvl:3, e:"🍽️", t:"La nourriture",
+ items:["le pain|🥖|J'achète du pain.","le fromage|🧀|J'aime le fromage.","le lait|🥛|Je bois du lait.","l'œuf|🥚|Je mange un œuf.","le riz|🍚|Le riz est délicieux.","les pâtes|🍝|J'adore les pâtes !","le poulet|🍗|Le poulet est chaud.","le poisson|🐟|Le vendredi, on mange du poisson.","la soupe|🍲|La soupe est chaude.","la salade|🥗|Je mange de la salade.","le gâteau|🎂|Un gâteau pour mon anniversaire !","l'eau|💧|Je bois de l'eau.","le jus|🧃|Un jus d'orange, s'il te plaît.","la pizza|🍕|On mange une pizza ce soir."]},
+{id:"fruits", sec:"vocab", lvl:2, e:"🍎", t:"Les fruits et les légumes",
+ items:["la pomme|🍎|La pomme est rouge.","la banane|🍌|La banane est jaune.","la fraise|🍓|J'adore les fraises.","l'orange|🍊|Je bois un jus d'orange.","le raisin|🍇|Le raisin est violet.","la pastèque|🍉|En été, je mange de la pastèque.","la cerise|🍒|Les cerises sont petites.","la carotte|🥕|Le lapin mange une carotte.","la tomate|🍅|La tomate est rouge.","la pomme de terre|🥔|J'aime les pommes de terre.","le concombre|🥒|Le concombre est vert.","le brocoli|🥦|Le brocoli est bon pour la santé.","le maïs|🌽|Le maïs est jaune."]},
+{id:"animaux", sec:"vocab", lvl:1, e:"🐾", t:"Les animaux",
+ items:["le chat|🐱|Le chat dit miaou.","le chien|🐶|Le chien dit ouaf !","l'oiseau|🐦|L'oiseau chante.","le poisson|🐠|Le poisson nage.","le lapin|🐰|Le lapin saute.","le cheval|🐴|Le cheval court vite.","la vache|🐮|La vache dit meuh.","le mouton|🐑|Le mouton est blanc.","le canard|🦆|Le canard dit coin-coin.","le lion|🦁|Le lion est fort.","l'éléphant|🐘|L'éléphant est grand.","le singe|🐒|Le singe mange une banane.","la girafe|🦒|La girafe a un long cou."]},
+{id:"maison", sec:"vocab", lvl:3, e:"🏠", t:"La maison et les meubles",
+ items:["la maison|🏠|Ma maison est grande.","la cuisine|🍳|Maman cuisine dans la cuisine.","la chambre|🧸|Ma chambre est jolie.","le salon|📺|On regarde la télé dans le salon.","la salle de bain|🛁|Je me lave dans la salle de bain.","le jardin|🌳|Je joue dans le jardin.","la porte|🚪|Ferme la porte, s'il te plaît.","la fenêtre|🪟|J'ouvre la fenêtre.","le lit|🛏️|Je dors dans mon lit.","la chaise|🪑|Assieds-toi sur la chaise.","le canapé|🛋️|Le chat dort sur le canapé.","la lampe|💡|J'allume la lampe.","le miroir|🪞|Je me regarde dans le miroir."]},
+{id:"ecole", sec:"vocab", lvl:2, e:"🏫", t:"L'école",
+ items:["l'école|🏫|Je vais à l'école.","le professeur|🧑‍🏫|Le professeur est gentil.","l'élève|🧑‍🎓|Je suis un bon élève.","le livre|📕|J'ouvre mon livre.","le cahier|📒|J'écris dans mon cahier.","le stylo|🖊️|J'ai un stylo bleu.","le crayon|✏️|Je dessine avec un crayon.","la règle|📏|Ma règle est longue.","les ciseaux|✂️|Je coupe avec les ciseaux.","le sac|🎒|Mon sac est lourd.","l'ordinateur|💻|En classe, on a un ordinateur."]},
+{id:"professions", sec:"vocab", lvl:4, e:"🧑‍⚕️", t:"Les professions et les métiers", intro:"Beaucoup de métiers ont une forme masculine et une forme féminine.",
+ items:["le médecin|🧑‍⚕️|Elle est médecin à l'hôpital.","le professeur|🧑‍🏫|Mon père est professeur.","le cuisinier, la cuisinière|🧑‍🍳|Le cuisinier fait un bon plat.","le policier, la policière|👮|Le policier aide les gens.","le pompier|🧑‍🚒|Le pompier éteint le feu.","le pilote|🧑‍✈️|Le pilote conduit l'avion.","l'agriculteur, l'agricultrice|🧑‍🌾|L'agriculteur travaille à la ferme.","le boulanger, la boulangère|🥖|La boulangère fait du pain.","le chanteur, la chanteuse|🧑‍🎤|La chanteuse chante bien.","le mécanicien, la mécanicienne|🧑‍🔧|Le mécanicien répare la voiture.","l'artiste|🧑‍🎨|L'artiste peint un tableau.","le dentiste|🦷|Le dentiste regarde mes dents."]},
+{id:"transports", sec:"vocab", lvl:4, e:"🚗", t:"Les transports", intro:"On dit : en voiture, en bus, en avion… mais à vélo et à pied !",
+ items:["la voiture|🚗|Je vais à l'école en voiture.","le bus|🚌|Je prends le bus.","le train|🚆|Le train est rapide.","l'avion|✈️|Je voyage en avion.","le vélo|🚲|Je vais au parc à vélo.","le bateau|⛵|Le bateau est sur la mer.","le métro|🚇|À Paris, on prend le métro.","le taxi|🚕|Le taxi est jaune.","la moto|🏍️|La moto fait du bruit.","le camion|🚚|Le camion est grand.","à pied|🚶|Je vais à l'école à pied."],
+ ex:[["Je vais à l'école ___ bus.","🚌","en","à","au"],["Je vais au parc ___ vélo.","🚲","à","en","au"],["Nous voyageons ___ avion.","✈️","en","à","au"]]},
+{id:"ville", sec:"vocab", lvl:4, e:"🏙️", t:"Les lieux de la ville",
+ items:["la rue|🛣️|J'habite dans cette rue.","le parc|🌳|Je joue au parc.","l'hôpital|🏥|Le médecin travaille à l'hôpital.","la banque|🏦|Papa va à la banque.","la poste|🏤|J'envoie une lettre à la poste.","le supermarché|🛒|On fait les courses au supermarché.","la boulangerie|🥐|J'achète un croissant à la boulangerie.","le restaurant|🍽️|On mange au restaurant.","la pharmacie|💊|J'achète des médicaments à la pharmacie.","la gare|🚉|Le train arrive à la gare.","le musée|🏛️|On visite le musée.","la bibliothèque|📚|Je lis à la bibliothèque.","le cinéma|🎬|On regarde un film au cinéma.","la mosquée|🕌|La mosquée est belle."]},
+{id:"loisirs", sec:"vocab", lvl:4, e:"⚽", t:"Les loisirs", q:"",
+ items:["jouer au football|⚽|J'aime jouer au football.","jouer aux jeux vidéo|🎮|Je joue aux jeux vidéo le samedi.","nager|🏊|J'adore nager.","dessiner|🎨|Ma sœur aime dessiner.","lire|📖|Je lis un livre.","chanter|🎤|Elle chante très bien.","danser|💃|On danse ensemble !","faire du vélo|🚴|Je fais du vélo au parc.","cuisiner|🍳|Papa aime cuisiner.","regarder la télé|📺|Je regarde la télé le soir.","écouter de la musique|🎧|J'écoute de la musique.","jouer du piano|🎹|Je joue du piano."]},
+{id:"emotions", sec:"vocab", lvl:3, e:"😊", t:"Les émotions", intro:"Pour une fille, on ajoute souvent -e : content → contente.",
+ items:["content, contente|😊|Je suis content !","triste|😢|Elle est triste.","en colère|😠|Il est en colère.","fatigué, fatiguée|😴|Je suis fatigué.","surpris, surprise|😮|Oh ! Je suis surprise !","malade|🤒|Je suis malade.","calme|😌|Le bébé est calme.","timide|😳|Mon frère est timide.","avoir peur|😱|J'ai peur du noir.","fier, fière|😎|Je suis fière de toi !"]},
+{id:"meteo", sec:"vocab", lvl:4, e:"🌦️", t:"La météo", intro:"Pour demander : Quel temps fait-il ?",
+ items:["Il fait beau.|☀️|Il fait beau, allons au parc !","Il fait chaud.|🥵|En été, il fait chaud.","Il fait froid.|🥶|En hiver, il fait froid.","Il pleut.|🌧️|Il pleut, prends ton parapluie.","Il neige.|🌨️|Il neige, on fait un bonhomme de neige !","Il y a du vent.|💨|Il y a du vent aujourd'hui.","Il y a des nuages.|☁️|Le ciel est gris, il y a des nuages.","Il y a de l'orage.|⛈️|Il y a de l'orage, reste à la maison.","Il y a un arc-en-ciel.|🌈|Regarde, il y a un arc-en-ciel !"]},
+{id:"quotidien", sec:"vocab", lvl:5, e:"⏰", t:"Les activités quotidiennes", intro:"Beaucoup de ces verbes sont pronominaux : je me lève, tu te lèves, il se lève…",
+ items:["se réveiller|⏰|Je me réveille à sept heures.","se lever|🛏️|Je me lève tout de suite.","se laver|🚿|Je me lave le matin.","se brosser les dents|🦷|Je me brosse les dents.","s'habiller|👕|Je m'habille vite.","prendre le petit-déjeuner|🥐|Je prends le petit-déjeuner avec ma famille.","aller à l'école|🏫|Je vais à l'école en bus.","déjeuner|🍽️|À midi, je déjeune.","faire ses devoirs|📝|Je fais mes devoirs.","jouer|🧸|Après l'école, je joue.","dîner|🍲|Le soir, on dîne ensemble.","se coucher|😴|Je me couche à neuf heures."]},
+{id:"voyages", sec:"vocab", lvl:6, e:"🧳", t:"Les voyages",
+ items:["la valise|🧳|Je fais ma valise.","le passeport|🛂|N'oublie pas ton passeport !","le billet|🎫|J'ai mon billet d'avion.","l'aéroport|🛫|On arrive à l'aéroport.","l'hôtel|🏨|L'hôtel est près de la plage.","la plage|🏖️|On joue sur la plage.","la montagne|⛰️|On marche à la montagne.","la carte|🗺️|Regarde la carte !","l'appareil photo|📷|Je prends des photos.","le sac à dos|🎒|Mon sac à dos est prêt.","les vacances|🌴|Vive les vacances !"]},
+{id:"technologies", sec:"vocab", lvl:5, e:"💻", t:"Les technologies",
+ items:["l'ordinateur|💻|Je travaille sur l'ordinateur.","le téléphone portable|📱|Maman a un téléphone portable.","le clavier|⌨️|J'écris avec le clavier.","la souris|🖱️|Je clique avec la souris.","l'écran|🖥️|L'écran est grand.","l'imprimante|🖨️|J'imprime mon dessin.","le casque|🎧|J'écoute avec mon casque.","la batterie|🔋|La batterie est vide !","internet|🌐|Je cherche sur internet.","le message|💬|J'envoie un message.","la photo|📸|Je prends une photo.","le robot|🤖|Le robot parle !"]},
+
+// ───────────── GRAMMAIRE ─────────────
+{id:"genre", sec:"gram", lvl:1, e:"⚖️", t:"Masculin et féminin",
+ rules:[
+  {h:"Masculin ou féminin ?", p:"En français, chaque nom est masculin ou féminin.", ex:["le garçon|👦","la fille|👧","le soleil|☀️","la lune|🌙"]},
+  {h:"Le féminin : + e", p:"Souvent, pour le féminin, on ajoute -e.", ex:["un ami → une amie|🧑‍🤝‍🧑","un cousin → une cousine|🧒","un Français → une Française|🗼"]},
+  {h:"Attention !", p:"Certaines fins de mots changent : -eur → -euse, -ien → -ienne, -er → -ère.", ex:["un chanteur → une chanteuse|🎤","un musicien → une musicienne|🎻","un boulanger → une boulangère|🥖"]}
+ ],
+ ex:[["___ garçon","👦","le","la"],["___ fille","👧","la","le"],["un ami → une ___","","amie","ami","amis"],["un chanteur → une ___","🎤","chanteuse","chanteure","chanteur"],["un musicien → une ___","🎻","musicienne","musiciene","musicien"],["___ maison","🏠","la","le"],["___ soleil","☀️","le","la"],["un boulanger → une ___","🥖","boulangère","boulangeuse","boulangerie"]]},
+{id:"nombre", sec:"gram", lvl:1, e:"🔢", t:"Singulier et pluriel",
+ rules:[
+  {h:"Le pluriel : + s", p:"Pour le pluriel, on ajoute souvent -s.", ex:["un chat → des chats|🐱","la pomme → les pommes|🍎"]},
+  {h:"-eau → -eaux · -al → -aux", p:"Les mots en -eau prennent -x. Les mots en -al deviennent -aux.", ex:["un bateau → des bateaux|⛵","un gâteau → des gâteaux|🎂","un cheval → des chevaux|🐴"]},
+  {h:"Pas de changement", p:"Les mots qui finissent par -s, -x ou -z ne changent pas.", ex:["un bus → des bus|🚌","une souris → des souris|🐭","un nez → des nez|👃"]},
+  {h:"Écoute bien !", p:"Le -s du pluriel ne se prononce pas. On entend la différence avec le mot avant : le chat, les chats.", ex:["le chat, les chats|🐱"]}
+ ],
+ ex:[["un chat → des ___","🐱","chats","chat","chatx"],["un bateau → des ___","⛵","bateaux","bateaus","bateau"],["un cheval → des ___","🐴","chevaux","chevals","chevales"],["une souris → des ___","🐭","souris","souriss","sourix"],["la fleur → les ___","🌸","fleurs","fleur","fleurx"],["un gâteau → des ___","🎂","gâteaux","gâteaus","gâteau"],["Les ___ sont rouges.","🍎","pommes","pomme"]]},
+{id:"defini", sec:"gram", lvl:1, e:"🅻", t:"Le, la, les",
+ rules:[
+  {h:"Les articles définis", p:"le devant un nom masculin, la devant un nom féminin, les devant un nom au pluriel.", ex:["le chien|🐶","la pomme|🍎","les chats|🐱"]},
+  {h:"l' devant une voyelle", p:"Devant une voyelle ou un h muet, le et la deviennent l'.", ex:["l'école|🏫","l'avion|✈️","l'hôtel|🏨"]},
+  {h:"Quand ?", p:"On utilise le, la, les pour une chose précise ou pour dire ce qu'on aime.", ex:["J'aime le chocolat.|🍫","Le livre de Léa est rouge.|📕"]}
+ ],
+ table:[["","Masculin","Féminin"],["Singulier","le · l'","la · l'"],["Pluriel","les","les"]],
+ ex:[["___ chien","🐶","le","la","les","l'"],["___ pomme","🍎","la","le","les","l'"],["___ école","🏫","l'","le","la","les"],["___ enfants","🧒","les","le","la","l'"],["___ arbre","🌳","l'","le","la","les"],["___ voiture","🚗","la","le","les","l'"],["___ livres","📚","les","le","la","l'"],["J'aime ___ chocolat.","🍫","le","la","les"]]},
+{id:"indefini", sec:"gram", lvl:2, e:"🅤", t:"Un, une, des",
+ rules:[
+  {h:"Les articles indéfinis", p:"un devant un nom masculin, une devant un nom féminin, des devant un nom au pluriel.", ex:["un chat|🐱","une banane|🍌","des fleurs|🌸"]},
+  {h:"Quand ?", p:"On utilise un, une, des pour une chose qu'on ne connaît pas encore, ou pour compter.", ex:["J'ai un chien.|🐶","Il y a des oiseaux dans le jardin.|🐦"]},
+  {h:"Le ou un ?", p:"Un chat : n'importe quel chat. Le chat : ce chat-là, le chat de la maison.", ex:["Je vois un chat. Le chat est noir.|🐈‍⬛"]}
+ ],
+ table:[["","Masculin","Féminin"],["Singulier","un","une"],["Pluriel","des","des"]],
+ ex:[["___ chat","🐱","un","une","des"],["___ banane","🍌","une","un","des"],["___ livres","📚","des","un","une"],["___ voiture","🚗","une","un","des"],["___ crayon","✏️","un","une","des"],["Il y a ___ oiseaux.","🐦","des","un","une"],["J'ai ___ sœur.","👧","une","un","des"]]},
+{id:"pronoms", sec:"gram", lvl:2, e:"👥", t:"Les pronoms personnels",
+ rules:[
+  {h:"Qui parle ?", p:"je, tu, il, elle, nous, vous, ils, elles.", ex:["Je suis Adam.|🙋","Tu es mon ami.|👉","Il est grand. Elle est petite.|👦","Nous jouons.|👫","Vous êtes gentils.|👨‍👩‍👧","Ils jouent. Elles chantent.|👭"]},
+  {h:"j' devant une voyelle", p:"Devant une voyelle, je devient j'.", ex:["J'aime les chats.|🐱","J'ai dix ans.|🎂"]},
+  {h:"Tu ou vous ?", p:"Tu pour un ami ou un enfant. Vous pour plusieurs personnes, ou pour être poli avec un adulte.", ex:["Tu viens, Sami ?|🧒","Vous allez bien, madame ?|👩"]},
+  {h:"Ils ou elles ?", p:"Elles seulement pour un groupe de filles. Ils pour les garçons ou pour un groupe mixte.", ex:["Léa et Sara : elles|👭","Adam et Léa : ils|👫"]},
+  {h:"On", p:"À l'oral, on veut souvent dire nous.", ex:["On joue au parc ?|🌳"]}
+ ],
+ table:[["Singulier","Pluriel"],["je · j'","nous"],["tu","vous"],["il · elle · on","ils · elles"]],
+ ex:[["Léa → ___","👧","elle","il"],["Adam → ___","👦","il","elle"],["Léa et Sara → ___","👭","elles","ils"],["Adam et Léa → ___","👫","ils","elles"],["Moi et toi → ___","","nous","vous"],["___ aime le chocolat.","🍫","J'","Je"],["Madame, ___ êtes gentille.","👩","vous","tu"]]},
+{id:"etre", sec:"gram", lvl:2, e:"🌟", t:"Le verbe être",
+ rules:[
+  {h:"Être", p:"Le verbe être sert à dire qui on est, comment on est, d'où on vient.", ex:["Je suis Adam.|🙋","Tu es grand.|🦒","Elle est française.|🗼","Nous sommes contents.|😊","C'est mon ami.|🧑‍🤝‍🧑"]}
+ ],
+ table:[["Pronom","Être"],["je","suis"],["tu","es"],["il · elle · on","est"],["nous","sommes"],["vous","êtes"],["ils · elles","sont"]],
+ ex:[["Je ___ content.","😊","suis","es","est"],["Tu ___ gentil.","","es","suis","sont"],["Il ___ médecin.","🧑‍⚕️","est","es","êtes"],["Nous ___ amis.","🧑‍🤝‍🧑","sommes","sont","êtes"],["Vous ___ prêts ?","","êtes","est","sommes"],["Elles ___ à l'école.","🏫","sont","est","sommes"]]},
+{id:"avoir", sec:"gram", lvl:3, e:"🎁", t:"Le verbe avoir",
+ rules:[
+  {h:"Avoir", p:"Le verbe avoir sert à dire ce qu'on possède.", ex:["J'ai un chat.|🐱","Nous avons une grande maison.|🏠"]},
+  {h:"L'âge", p:"En français, on dit son âge avec avoir.", ex:["J'ai neuf ans.|🎂","Quel âge as-tu ?|🎈"]},
+  {h:"Expressions", p:"avoir faim, avoir soif, avoir peur, avoir chaud, avoir froid.", ex:["J'ai faim !|🤤","Tu as soif ?|🥤","Il a peur.|😱","J'ai froid.|🥶"]},
+  {h:"Écoute bien !", p:"ils sont (avec le son s) et ils ont (avec le son z) : ce n'est pas pareil !", ex:["Ils sont grands.|🦒","Ils ont un chien.|🐶"]}
+ ],
+ table:[["Pronom","Avoir"],["j'","ai"],["tu","as"],["il · elle · on","a"],["nous","avons"],["vous","avez"],["ils · elles","ont"]],
+ ex:[["J'___ un frère.","👦","ai","as","a"],["Tu ___ quel âge ?","🎂","as","ai","a"],["Elle ___ faim.","🤤","a","as","ont"],["Nous ___ un chien.","🐶","avons","avez","ont"],["Vous ___ soif ?","🥤","avez","avons","a"],["Ils ___ peur.","😱","ont","sont","a"],["J'ai dix ___.","🎂","ans","heures","fois"]]},
+{id:"verbes", sec:"gram", lvl:3, e:"🏃", t:"Les verbes de base en -er",
+ rules:[
+  {h:"Les verbes en -er", p:"Beaucoup de verbes finissent par -er : parler, aimer, jouer, manger, regarder, habiter, écouter, danser.", ex:["parler|🗣️","jouer|⚽","manger|🍽️","regarder|👀","écouter|🎧","danser|💃"]},
+  {h:"Les terminaisons", p:"On enlève -er et on ajoute : -e, -es, -e, -ons, -ez, -ent.", ex:["Je parle français.|🗣️","Nous jouons au foot.|⚽","Ils regardent la télé.|📺"]},
+  {h:"Écoute bien !", p:"parle, parles et parlent se prononcent pareil !", ex:["il parle, ils parlent|🗣️"]},
+  {h:"Attention", p:"Avec manger, on écrit : nous mangeons.", ex:["Nous mangeons une pizza.|🍕"]}
+ ],
+ table:[["Pronom","Parler","Aimer"],["je · j'","parle","aime"],["tu","parles","aimes"],["il · elle · on","parle","aime"],["nous","parlons","aimons"],["vous","parlez","aimez"],["ils · elles","parlent","aiment"]],
+ ex:[["Je ___ français.","🗣️","parle","parles","parlons"],["Tu ___ au foot.","⚽","joues","joue","jouez"],["Nous ___ la télé.","📺","regardons","regardez","regardent"],["Vous ___ à Paris ?","🗼","habitez","habitons","habite"],["Ils ___ la musique.","🎧","aiment","aime","aimons"],["Elle ___ bien.","💃","danse","danses","dansent"],["Nous ___ une pomme.","🍎","mangeons","mangons","mangez"]]},
+{id:"present", sec:"gram", lvl:4, e:"⏱️", t:"Le présent : aller, faire, prendre, vouloir",
+ rules:[
+  {h:"Le présent", p:"On utilise le présent pour une action maintenant, ou une habitude.", ex:["Maintenant, je mange.|🍽️","Tous les jours, je vais à l'école.|🏫"]},
+  {h:"Quatre verbes très utiles", p:"Ces verbes sont irréguliers : il faut les apprendre par cœur !", ex:["Je vais au parc.|🌳","Tu fais du sport ?|🏃","Nous prenons le bus.|🚌","Elle veut une glace.|🍦"]}
+ ],
+ table:[["Pronom","Aller","Faire","Prendre","Vouloir"],["je","vais","fais","prends","veux"],["tu","vas","fais","prends","veux"],["il · elle · on","va","fait","prend","veut"],["nous","allons","faisons","prenons","voulons"],["vous","allez","faites","prenez","voulez"],["ils · elles","vont","font","prennent","veulent"]],
+ ex:[["Je ___ à l'école.","🏫","vais","vas","va"],["Tu ___ du sport ?","🏃","fais","fait","faites"],["Nous ___ le bus.","🚌","prenons","prenez","prennent"],["Vous ___ vos devoirs.","📝","faites","faisez","font"],["Ils ___ au parc.","🌳","vont","allons","vas"],["Elle ___ une glace.","🍦","veut","veux","voulez"],["Je ___ un jus.","🧃","prends","prend","prenons"]]},
+{id:"phrase", sec:"gram", lvl:3, e:"🧱", t:"La phrase simple",
+ rules:[
+  {h:"L'ordre des mots", p:"Une phrase simple : sujet + verbe + complément.", ex:["Léa mange une pomme.|🍎","Le chat dort.|😴","Nous aimons le football.|⚽"]},
+  {h:"Majuscule et point", p:"La phrase commence par une majuscule et finit par un point.", ex:["Mon frère joue au parc.|🌳"]},
+  {h:"Où ? Quand ?", p:"On peut ajouter où et quand, souvent à la fin ou au début.", ex:["Je joue au parc le samedi.|🌳","Le matin, je bois du lait.|🥛"]}
+ ],
+ ex:[["Choisis la bonne phrase.","🍎","Léa mange une pomme.","Mange Léa une pomme.","Une pomme Léa mange."],["Choisis la bonne phrase.","😴","Le chat dort.","Dort le chat.","Chat le dort."],["Choisis la bonne phrase.","⚽","Nous aimons le football.","Nous le football aimons.","Aimons nous le football."],["Choisis la bonne phrase.","📖","Mon père lit un livre.","Un livre lit mon père.","Lit mon père un livre."],["Choisis la bonne phrase.","🌳","Je joue au parc le samedi.","Je au parc joue le samedi.","Joue je le samedi au parc."]]},
+{id:"negation", sec:"gram", lvl:4, e:"🚫", t:"La négation",
+ rules:[
+  {h:"ne … pas", p:"Pour dire non, on met ne avant le verbe et pas après le verbe.", ex:["Je mange. Je ne mange pas.|🙅","Il est triste. Il n'est pas triste.|🙂"]},
+  {h:"n' devant une voyelle", p:"Devant une voyelle, ne devient n'.", ex:["Je n'aime pas les épinards.|🥬","Elle n'a pas faim.|🙅"]},
+  {h:"pas de", p:"Après la négation, un, une, des deviennent de ou d'.", ex:["J'ai un chat. Je n'ai pas de chat.|🐱","Il y a des nuages. Il n'y a pas de nuages.|☁️"]},
+  {h:"ne … jamais · ne … plus", p:"jamais : à aucun moment. plus : c'est fini.", ex:["Je ne mange jamais de bonbons.|🍬","Il ne pleut plus.|🌤️"]}
+ ],
+ ex:[["Je joue. → ?","","Je ne joue pas.","Je joue ne pas.","Je pas joue."],["J'aime le lait. → ?","🥛","Je n'aime pas le lait.","Je ne aime pas le lait.","Je n'aime le lait pas."],["J'ai un chien. → ?","🐶","Je n'ai pas de chien.","Je n'ai pas un chien.","Je n'ai de chien pas."],["Il y a des nuages. → ?","☁️","Il n'y a pas de nuages.","Il n'y a pas des nuages.","Il y a ne pas nuages."],["Elle est triste. → ?","😢","Elle n'est pas triste.","Elle ne est pas triste.","Elle est ne pas triste."],["Je ne mange ___ de bonbons. (à aucun moment)","🍬","jamais","pas","plus"]]},
+{id:"question", sec:"gram", lvl:4, e:"❓", t:"Poser une question",
+ rules:[
+  {h:"1. Avec la voix", p:"On monte la voix à la fin de la phrase.", ex:["Tu aimes le chocolat ?|🍫"]},
+  {h:"2. Avec est-ce que", p:"On met est-ce que au début de la phrase.", ex:["Est-ce que tu aimes le chocolat ?|🍫","Est-ce qu'il a un chien ?|🐶"]},
+  {h:"3. Les mots pour questionner", p:"qui, quoi, où, quand, comment, pourquoi, combien, quel.", ex:["Qui est-ce ? C'est mon frère.|👦","Où habites-tu ?|📍","Quand est ton anniversaire ?|🎂","Comment tu t'appelles ?|🙋","Pourquoi tu pleures ? Parce que je suis triste.|😢","Combien de frères as-tu ?|🔢","Qu'est-ce que tu manges ?|🍽️","Quelle est ta couleur préférée ?|🎨"]}
+ ],
+ ex:[["___ tu t'appelles ? Je m'appelle Sami.","🙋","Comment","Où","Quand"],["___ habites-tu ? À Riyad.","📍","Où","Qui","Combien"],["___ est-ce ? C'est mon frère.","👦","Qui","Quoi","Où"],["___ de frères as-tu ? Deux.","🔢","Combien","Comment","Pourquoi"],["___ tu pleures ? Parce que je suis triste.","😢","Pourquoi","Quand","Où"],["___ est ton anniversaire ? Le 3 mai.","🎂","Quand","Qui","Comment"],["___ que tu aimes les chats ?","🐱","Est-ce","Qu'est","Quoi"]]},
+{id:"possessifs", sec:"gram", lvl:3, e:"🔑", t:"Mon, ma, mes",
+ rules:[
+  {h:"À moi", p:"mon devant un nom masculin, ma devant un nom féminin, mes devant un nom au pluriel.", ex:["mon père|👨","ma mère|👩","mes parents|👫"]},
+  {h:"Devant une voyelle", p:"Devant une voyelle, on dit mon, même pour un nom féminin.", ex:["mon amie|👧","mon école|🏫"]},
+  {h:"Son ou sa ?", p:"On choisit son ou sa avec le nom qui suit, pas avec la personne.", ex:["Adam et sa sœur|👦","Léa et son frère|👧"]}
+ ],
+ table:[["","Masculin","Féminin","Pluriel"],["je","mon","ma","mes"],["tu","ton","ta","tes"],["il · elle","son","sa","ses"],["nous","notre","notre","nos"],["vous","votre","votre","vos"],["ils · elles","leur","leur","leurs"]],
+ ex:[["___ père","👨","mon","ma","mes"],["___ sœur","👧","ma","mon","mes"],["___ livres","📚","mes","mon","ma"],["___ école","🏫","mon","ma"],["Tu as ___ sac ?","🎒","ton","ta","tes"],["Léa aime ___ frère.","👦","son","sa"],["Nous aimons ___ maison.","🏠","notre","nos"]]},
+{id:"adjectifs", sec:"gram", lvl:5, e:"🌈", t:"Les adjectifs",
+ items:["grand|🦒|La girafe est grande.","petit|🐭|La souris est petite.","rapide|🐆|Le guépard est rapide.","lent|🐢|La tortue est lente.","chaud|🔥|Le feu est chaud.","froid|🧊|La glace est froide.","jeune|👶|Le bébé est jeune.","vieux|👴|Mon grand-père est vieux.","beau|🌹|La rose est belle.","nouveau|🆕|J'ai un nouveau vélo."],
+ rules:[
+  {h:"L'accord", p:"L'adjectif change avec le nom : masculin ou féminin, singulier ou pluriel.", ex:["un chat noir|🐈‍⬛","une robe noire|👗","des chats noirs|🐈‍⬛","des robes noires|👗"]},
+  {h:"Après le nom", p:"Souvent, l'adjectif est après le nom.", ex:["une voiture rouge|🚗","un livre intéressant|📕"]},
+  {h:"Avant le nom", p:"Quelques adjectifs courts sont avant le nom : petit, grand, beau, joli, bon, nouveau, vieux.", ex:["un petit chien|🐶","une grande maison|🏠"]},
+  {h:"Féminins spéciaux", p:"beau → belle, nouveau → nouvelle, vieux → vieille, blanc → blanche, gentil → gentille.", ex:["une belle fleur|🌸","une nouvelle robe|👗","la neige blanche|❄️"]}
+ ],
+ ex:[["une robe ___","👗","verte","vert","verts"],["des chats ___","🐈‍⬛","noirs","noir","noire"],["une ___ maison","🏠","grande","grand","grands"],["une ___ fleur","🌸","belle","beau","beaux"],["une fille ___","👧","gentille","gentil","gentils"],["des filles ___","👭","contentes","contents","contente"],["Choisis la bonne phrase.","🚗","J'ai une voiture rouge.","J'ai une rouge voiture.","J'ai une voiture rouges."]]},
+{id:"prepositions", sec:"gram", lvl:5, e:"📦", t:"Les prépositions",
+ items:["dans|scene:dans|Le chat est dans la boîte.","sur|scene:sur|Le chat est sur la boîte.","sous|scene:sous|Le chat est sous la boîte.","devant|scene:devant|Le chat est devant la boîte.","derrière|scene:derriere|Le chat est derrière la boîte.","à côté de|scene:cote|Le chat est à côté de la boîte.","entre|scene:entre|Le chat est entre les boîtes.","loin de|scene:loin|Le chat est loin de la boîte."],
+ rules:[
+  {h:"Où est le chat ?", p:"dans, sur, sous, devant, derrière, à côté de, entre, près de, loin de.", ex:["Le livre est sur la table.|📚","Le chien est sous la table.|🐶"]},
+  {h:"à + ville · en, au, aux + pays", p:"à Paris, à Riyad. en France, au Canada, aux États-Unis.", ex:["J'habite à Riyad.|🌴","Je vais en France.|🗼"]},
+  {h:"à + le = au · à + les = aux", p:"On ne dit pas à le, on dit au. On ne dit pas à les, on dit aux.", ex:["Je vais au parc.|🌳","Je vais à la plage.|🏖️","Je vais à l'école.|🏫"]},
+  {h:"de + le = du · de + les = des", p:"On ne dit pas de le, on dit du.", ex:["la voiture du professeur|🚗","À côté de la banque|🏦"]}
+ ],
+ ex:[["Le chat est ___ la boîte.","scene:sous","sous","sur","dans"],["Le chat est ___ la boîte.","scene:dans","dans","sur","derrière"],["Le chat est ___ la boîte.","scene:sur","sur","sous","entre"],["Je vais ___ parc.","🌳","au","à la","aux"],["J'habite ___ Égypte.","🐫","en","au","à"],["Il habite ___ Paris.","🗼","à","en","au"],["C'est la voiture ___ professeur.","🚗","du","de le","des"]]},
+{id:"futur", sec:"gram", lvl:6, e:"🚀", t:"Le futur proche",
+ rules:[
+  {h:"aller + infinitif", p:"Pour une action dans le futur, on utilise aller au présent + un verbe à l'infinitif.", ex:["Demain, je vais visiter le musée.|🏛️","Ce soir, nous allons regarder un film.|🎬"]},
+  {h:"La négation", p:"ne … pas entoure le verbe aller.", ex:["Je ne vais pas sortir.|🏠"]},
+  {h:"Les mots du futur", p:"demain, ce soir, ce week-end, la semaine prochaine, l'année prochaine.", ex:["La semaine prochaine, il va pleuvoir.|🌧️"]}
+ ],
+ table:[["Pronom","Aller","+ infinitif"],["je","vais","manger"],["tu","vas","jouer"],["il · elle · on","va","partir"],["nous","allons","voyager"],["vous","allez","lire"],["ils · elles","vont","dormir"]],
+ ex:[["Demain, je ___ jouer au foot.","⚽","vais","vas","va"],["Ce soir, nous ___ regarder un film.","🎬","allons","allez","vont"],["Tu ___ partir quand ?","🧳","vas","va","vais"],["Ils ___ voyager en France.","🗼","vont","vas","allons"],["Elle va ___ un gâteau.","🎂","faire","fait","fais"],["Choisis la bonne phrase.","🏠","Je ne vais pas sortir.","Je ne vais sortir pas.","Je pas vais sortir."]]},
+{id:"passe", sec:"gram", lvl:6, e:"⏪", t:"Le passé composé",
+ rules:[
+  {h:"Une action finie", p:"Pour une action finie dans le passé : avoir au présent + participe passé.", ex:["Hier, j'ai mangé une pizza.|🍕","Nous avons regardé un film.|🎬"]},
+  {h:"Verbes en -er → -é", p:"manger → mangé, jouer → joué, regarder → regardé, parler → parlé.", ex:["J'ai joué au parc.|🌳"]},
+  {h:"Participes à apprendre", p:"faire → fait, prendre → pris, voir → vu, lire → lu, boire → bu, avoir → eu, être → été.", ex:["J'ai fait mes devoirs.|📝","Il a pris le bus.|🚌","J'ai lu un livre.|📖"]},
+  {h:"Avec être", p:"Certains verbes de mouvement utilisent être : aller, venir, partir, arriver, rester, tomber. Pour une fille, on ajoute -e.", ex:["Je suis allé au parc.|👦","Elle est partie.|👧"]}
+ ],
+ table:[["Pronom","Avoir","Participe"],["j'","ai","joué"],["tu","as","joué"],["il · elle · on","a","joué"],["nous","avons","joué"],["vous","avez","joué"],["ils · elles","ont","joué"]],
+ ex:[["Hier, j'___ joué au foot.","⚽","ai","as","a"],["Nous ___ regardé un film.","🎬","avons","avez","ont"],["Tu as ___ ta pizza ?","🍕","mangé","manger","mange"],["Elle a ___ ses devoirs.","📝","fait","faire","faisé"],["Ils ont ___ le train.","🚆","pris","prendu","prené"],["Je ___ allé au parc.","🌳","suis","ai","es"],["Hier, Léa ___ partie.","👧","est","a","es"]]},
+
+// ───────────── CONVERSATION ─────────────
+{id:"c-presenter", sec:"conv", lvl:2, e:"🤝", t:"Se présenter et présenter quelqu'un",
+ sp:{"Adam":"👦","Léa":"👧","Sami":"🧒"},
+ dlg:["Adam|Salut ! Je m'appelle Adam. Et toi ?","Léa|Moi, c'est Léa. Enchantée !","Adam|Je te présente Sami. C'est mon ami.","Sami|Bonjour, Léa ! Tu as quel âge ?","Léa|J'ai neuf ans. Et toi ?","Sami|Moi aussi ! Tu habites où ?","Léa|J'habite à Djeddah.","Sami|Super ! On joue ensemble ?","Léa|Oui, d'accord !"],
+ items:["Je te présente Sami.|👉","C'est mon ami.|🧑‍🤝‍🧑","Enchanté !|🤝","Tu as quel âge ?|🎂","Tu habites où ?|📍","Moi aussi !|🙌"],
+ ex:[["Je te présente Sami.","","Enchanté !","Au revoir !","J'ai faim."],["Tu as quel âge ?","🎂","J'ai dix ans.","J'habite à Paris.","Je m'appelle Léa."],["Tu habites où ?","📍","À Djeddah.","Neuf ans.","Ça va bien."],["Comment tu t'appelles ?","","Je m'appelle Adam.","J'ai un chat.","Je suis à l'école."]]},
+{id:"c-famille", sec:"conv", lvl:3, e:"👪", t:"Parler de sa famille",
+ sp:{"Nour":"👧","Lucas":"👦"},
+ dlg:["Nour|Lucas, tu as des frères et sœurs ?","Lucas|Oui, j'ai un frère et une sœur.","Nour|Comment s'appelle ton frère ?","Lucas|Il s'appelle Tom. Il a douze ans.","Nour|Et ta sœur ?","Lucas|Ma sœur s'appelle Emma. Elle est petite, elle a quatre ans.","Nour|Moi, je suis fille unique. Mais j'ai beaucoup de cousins !","Lucas|Ta famille est grande !"],
+ items:["J'ai un frère et une sœur.|👦","Je suis fille unique.|☝️","Il s'appelle Tom.|👦","Elle s'appelle Emma.|👧","Mon père est médecin.|🧑‍⚕️","Nous sommes cinq dans la famille.|🖐️"],
+ ex:[["Tu as des frères et sœurs ?","","Oui, j'ai deux frères.","Oui, j'ai dix ans.","Non, j'habite à Paris."],["Comment s'appelle ta mère ?","👩","Elle s'appelle Sara.","Il s'appelle Sara.","Elle a Sara."],["Ton frère a quel âge ?","👦","Il a sept ans.","Il est sept ans.","Elle a sept ans."]]},
+{id:"c-routine", sec:"conv", lvl:5, e:"🌅", t:"Parler de sa routine quotidienne",
+ sp:{"Professeur":"👩‍🏫","Yasmine":"👧"},
+ dlg:["Professeur|Yasmine, raconte ta journée !","Yasmine|Le matin, je me réveille à six heures et demie.","Professeur|Et après ?","Yasmine|D'abord, je me lave. Ensuite, je m'habille et je prends le petit-déjeuner.","Professeur|Tu vas à l'école comment ?","Yasmine|Je vais à l'école en bus.","Professeur|Et le soir ?","Yasmine|Je fais mes devoirs, je dîne avec ma famille et je me couche à neuf heures.","Professeur|Bravo, c'est une belle journée !"],
+ items:["Le matin…|🌅","D'abord… ensuite… enfin…|🔢","Je me réveille à sept heures.|⏰","Je me couche à neuf heures.|😴","Tous les jours…|📅"],
+ ex:[["Tu te réveilles à quelle heure ?","⏰","Je me réveille à sept heures.","Je me couche à sept heures.","Je suis sept heures."],["Tu vas à l'école comment ?","🚌","En bus.","À huit ans.","Avec mes devoirs."],["Qu'est-ce que tu fais le soir ?","🌆","Je fais mes devoirs.","Je me réveille.","Je prends le petit-déjeuner."]]},
+{id:"c-restaurant", sec:"conv", lvl:4, e:"🍽️", t:"Commander au restaurant",
+ sp:{"Serveur":"🤵","Client":"👨"},
+ dlg:["Serveur|Bonjour ! Une table pour combien de personnes ?","Client|Pour deux personnes, s'il vous plaît.","Serveur|Voici le menu. Qu'est-ce que vous voulez manger ?","Client|Je voudrais un poulet avec des frites, s'il vous plaît.","Serveur|Et comme boisson ?","Client|Un jus d'orange, s'il vous plaît.","Serveur|Très bien. Et comme dessert ?","Client|Une glace au chocolat ! … L'addition, s'il vous plaît.","Serveur|Voilà. Bonne journée !"],
+ items:["Je voudrais…|🙋","le menu|📋","Et comme boisson ?|🥤","Et comme dessert ?|🍨","L'addition, s'il vous plaît.|🧾","C'est délicieux !|😋"],
+ ex:[["Qu'est-ce que vous voulez manger ?","🍽️","Je voudrais une pizza.","Je voudrais l'addition.","J'ai neuf ans."],["Et comme boisson ?","🥤","De l'eau, s'il vous plaît.","Le poulet, s'il vous plaît.","Pour deux personnes."],["À la fin du repas, on demande…","🧾","L'addition, s'il vous plaît.","Le menu, s'il vous plaît.","Bonjour !"]]},
+{id:"c-achats", sec:"conv", lvl:4, e:"🛍️", t:"Faire des achats",
+ sp:{"Vendeur":"🧑‍💼","Inès":"👧"},
+ dlg:["Vendeur|Bonjour ! Je peux vous aider ?","Inès|Oui, je cherche un t-shirt, s'il vous plaît.","Vendeur|Quelle couleur ?","Inès|Bleu, s'il vous plaît.","Vendeur|Voilà un t-shirt bleu.","Inès|Il coûte combien ?","Vendeur|Il coûte douze euros.","Inès|Ce n'est pas cher. Je le prends !","Vendeur|Merci et au revoir !"],
+ items:["Je cherche un t-shirt.|🔍","Combien ça coûte ?|💰","C'est cher !|😮","Ce n'est pas cher.|👍","Je le prends.|🛍️","Vous acceptez la carte ?|💳"],
+ ex:[["Je peux vous aider ?","🧑‍💼","Oui, je cherche une robe.","Non, j'ai faim.","Il pleut."],["Il coûte combien ?","💰","Il coûte dix euros.","Il est bleu.","Il a dix ans."],["Quelle couleur ?","🎨","Rouge, s'il vous plaît.","Dix euros.","Je le prends."]]},
+{id:"c-chemin", sec:"conv", lvl:5, e:"🧭", t:"Demander son chemin",
+ sp:{"Touriste":"🧑","Passante":"👩"},
+ dlg:["Touriste|Pardon, madame. Où est la gare, s'il vous plaît ?","Passante|La gare ? Allez tout droit.","Touriste|Tout droit, d'accord.","Passante|Puis tournez à gauche dans la rue Victor-Hugo.","Touriste|Et après ?","Passante|La gare est à droite, à côté de la banque.","Touriste|C'est loin ?","Passante|Non, c'est à cinq minutes à pied.","Touriste|Merci beaucoup !","Passante|De rien !"],
+ items:["Où est la gare, s'il vous plaît ?|❓","Allez tout droit.|⬆️","Tournez à gauche.|⬅️","Tournez à droite.|➡️","C'est loin ?|🔭","C'est près d'ici.|📍"],
+ ex:[["Que dit la flèche ?","⬅️","Tournez à gauche.","Tournez à droite.","Allez tout droit."],["Que dit la flèche ?","➡️","Tournez à droite.","Tournez à gauche.","C'est loin."],["Que dit la flèche ?","⬆️","Allez tout droit.","Tournez à gauche.","Tournez à droite."],["C'est loin ?","🔭","Non, c'est à deux minutes.","Oui, c'est la gare.","Tournez la tête."]]},
+{id:"c-hotel", sec:"conv", lvl:6, e:"🏨", t:"Réserver une chambre d'hôtel",
+ sp:{"Réceptionniste":"🧑‍💼","Client":"👨"},
+ dlg:["Réceptionniste|Bonsoir, bienvenue à l'hôtel du Parc !","Client|Bonsoir. Je voudrais réserver une chambre, s'il vous plaît.","Réceptionniste|Pour combien de nuits ?","Client|Pour trois nuits.","Réceptionniste|Une chambre simple ou double ?","Client|Une chambre double, avec vue sur la mer, si possible.","Réceptionniste|Très bien. Le petit-déjeuner est compris.","Client|Parfait ! Le petit-déjeuner est à quelle heure ?","Réceptionniste|De sept heures à dix heures. Voici votre clé : chambre 205.","Client|Merci beaucoup !"],
+ items:["Je voudrais réserver une chambre.|🛏️","Pour trois nuits.|🌙","Une chambre simple ou double ?|🛌","Le petit-déjeuner est compris ?|🥐","la clé|🔑","la réception|🛎️"],
+ ex:[["Pour combien de nuits ?","🌙","Pour deux nuits.","À sept heures.","Chambre 205."],["Une chambre simple ou double ?","🛌","Double, s'il vous plaît.","Le petit-déjeuner.","La clé."],["Pour ouvrir la chambre, il faut…","🔑","la clé","le menu","le billet"]]},
+{id:"c-loisirs", sec:"conv", lvl:5, e:"🎮", t:"Parler de ses loisirs",
+ sp:{"Sami":"🧒","Léa":"👧"},
+ dlg:["Léa|Qu'est-ce que tu fais le week-end ?","Sami|Le samedi, je joue au football avec mes amis.","Léa|Tu aimes le sport ?","Sami|Oui, j'adore ! Et toi, qu'est-ce que tu aimes faire ?","Léa|Moi, j'aime dessiner et lire des histoires.","Sami|Tu lis quoi ?","Léa|Des bandes dessinées ! C'est très drôle.","Sami|Moi, je préfère les jeux vidéo."],
+ items:["J'adore…|😍","J'aime…|🙂","Je préfère…|👉","Je n'aime pas…|🙁","Je déteste…|😖","Le week-end…|🎉"],
+ ex:[["Qu'est-ce que tu fais le week-end ?","🎉","Je joue au tennis.","Je suis grand.","J'ai un frère."],["Tu aimes le sport ?","⚽","Oui, j'adore le foot !","Oui, j'ai dix ans.","Non, il fait beau."],["Que veut dire ce visage ?","😖","Je déteste.","J'adore.","Je préfère."]]},
+{id:"c-medecin", sec:"conv", lvl:5, e:"🩺", t:"Chez le médecin", intro:"On dit : j'ai mal à la tête, j'ai mal au ventre, j'ai mal aux dents.",
+ sp:{"Docteur":"🧑‍⚕️","Rayan":"👦"},
+ dlg:["Docteur|Bonjour, Rayan. Qu'est-ce qui ne va pas ?","Rayan|Bonjour, docteur. J'ai mal à la tête et j'ai mal à la gorge.","Docteur|Tu as de la fièvre ?","Rayan|Oui, un peu. J'ai chaud et je suis fatigué.","Docteur|Ouvre la bouche, s'il te plaît. Dis « Aaah ».","Rayan|Aaah !","Docteur|Tu as un rhume. Bois beaucoup d'eau et repose-toi.","Rayan|Merci, docteur !","Docteur|Bon rétablissement !"],
+ items:["J'ai mal à la tête.|🤕","J'ai mal au ventre.|🤢","J'ai mal à la gorge.|😷","J'ai de la fièvre.|🤒","J'éternue.|🤧","Repose-toi.|🛌"],
+ ex:[["Qu'est-ce qu'il a ?","🤕","Il a mal à la tête.","Il a mal au pied.","Il a faim."],["Qu'est-ce qui ne va pas ?","🤢","J'ai mal au ventre.","Je vais au parc.","J'ai un chien."],["J'ai mal ___ dents.","🦷","aux","au","à la"]]},
+{id:"c-vacances", sec:"conv", lvl:6, e:"🏖️", t:"Parler de ses vacances", intro:"Pour parler des vacances passées, on utilise le passé composé.",
+ sp:{"Léa":"👧","Adam":"👦"},
+ dlg:["Léa|Adam, tu as passé de bonnes vacances ?","Adam|Oui, super ! Je suis allé à la mer avec ma famille.","Léa|Génial ! Qu'est-ce que tu as fait ?","Adam|J'ai nagé, j'ai joué sur la plage et j'ai mangé des glaces.","Léa|Il a fait beau ?","Adam|Oui, il a fait très chaud. Et toi, Léa ?","Léa|Moi, je suis restée chez mes grands-parents. On a fait du vélo à la montagne.","Adam|Trop bien !"],
+ items:["J'ai passé de bonnes vacances.|😎","Je suis allé à la mer.|🌊","J'ai visité un musée.|🏛️","Il a fait beau.|☀️","C'était génial !|🤩","chez mes grands-parents|👵"],
+ ex:[["Qu'est-ce que tu as fait ?","🌊","J'ai nagé à la mer.","Je vais nager.","Je nage demain."],["Il a fait beau ?","☀️","Oui, il a fait très chaud.","Oui, j'ai un chapeau.","Non, je suis allé."],["Tu es allé où ?","🗼","Je suis allé à Paris.","J'ai allé à Paris.","Je vais à Paris demain."]]},
+{id:"c-aeroport", sec:"conv", lvl:6, e:"✈️", t:"À l'aéroport",
+ sp:{"Agent":"🧑‍💼","Passagère":"👩"},
+ dlg:["Agent|Bonjour. Votre passeport et votre billet, s'il vous plaît.","Passagère|Voilà.","Agent|Vous allez où ?","Passagère|Je vais à Paris.","Agent|Vous avez une valise ?","Passagère|Oui, une grande valise et un sac à dos.","Agent|Voici votre carte d'embarquement. C'est la porte 12.","Passagère|L'embarquement est à quelle heure ?","Agent|À quatorze heures trente. Bon voyage !","Passagère|Merci !"],
+ items:["le passeport|🛂","le billet|🎫","la carte d'embarquement|🎟️","la porte 12|🚪","Le vol est en retard.|⏳","Bon voyage !|✈️"],
+ ex:[["Votre passeport, s'il vous plaît.","🛂","Voilà.","Bon appétit !","Je suis malade."],["Vous allez où ?","✈️","À Paris.","À deux heures.","Une valise."],["Pour monter dans l'avion, il faut…","🎟️","la carte d'embarquement","l'addition","la clé"]]},
+{id:"c-projets", sec:"conv", lvl:6, e:"🎯", t:"Parler de ses projets", intro:"Pour parler du futur, on utilise le futur proche : je vais + verbe.",
+ sp:{"Professeur":"👩‍🏫","Omar":"👦"},
+ dlg:["Professeur|Omar, qu'est-ce que tu vas faire ce week-end ?","Omar|Je vais aller au musée avec mon père.","Professeur|Et l'été prochain ?","Omar|Nous allons voyager en France. Je vais voir la tour Eiffel !","Professeur|Super ! Et plus tard, tu veux faire quel métier ?","Omar|Je voudrais être pilote. Je vais beaucoup étudier !","Professeur|Bravo, c'est un beau projet !"],
+ items:["Ce week-end, je vais…|📅","L'été prochain…|☀️","Plus tard, je voudrais être pilote.|🧑‍✈️","J'ai envie de voyager.|💭","demain|➡️"],
+ ex:[["Qu'est-ce que tu vas faire demain ?","⚽","Je vais jouer au foot.","J'ai joué au foot.","Je joue hier."],["Plus tard, tu veux faire quel métier ?","🧑‍⚕️","Je voudrais être médecin.","Je vais au parc.","Je suis allé à l'école."],["Nous ___ voyager.","🧳","allons","avons","sommes"]]},
+{id:"c-opinion", sec:"conv", lvl:6, e:"💭", t:"Exprimer son opinion",
+ sp:{"Inès":"👧","Lucas":"👦"},
+ dlg:["Inès|Tu as vu le nouveau film ?","Lucas|Oui ! À mon avis, il est génial.","Inès|Ah bon ? Moi, je pense qu'il est un peu long.","Lucas|Je ne suis pas d'accord. Les acteurs sont super !","Inès|C'est vrai, les acteurs sont bons. Mais je préfère les dessins animés.","Lucas|Moi aussi, j'aime bien les dessins animés !","Inès|Alors, on est d'accord !"],
+ items:["À mon avis…|💭","Je pense que…|🤔","Je suis d'accord.|👍","Je ne suis pas d'accord.|👎","C'est génial !|🤩","C'est ennuyeux.|🥱"],
+ ex:[["Tu aimes ce livre ?","📕","Oui, à mon avis il est super.","Oui, j'ai dix livres.","Non, il pleut."],["Que veut dire ce geste ?","👎","Je ne suis pas d'accord.","Je suis d'accord.","C'est génial !"],["Je pense ___ c'est intéressant.","🤔","que","qui","quoi"]]},
+{id:"c-histoire", sec:"conv", lvl:6, e:"📖", t:"Raconter une histoire",
+ sp:{"Conteur":"🧙"},
+ dlg:["Conteur|Il était une fois un petit chat qui s'appelait Pompon.|🐱","Conteur|Un jour, Pompon est sorti de la maison.|🏠","Conteur|D'abord, il a vu un oiseau dans le jardin.|🐦","Conteur|Ensuite, il a couru derrière l'oiseau.|🏃","Conteur|Mais l'oiseau est parti dans le ciel !|☁️","Conteur|Puis, il a commencé à pleuvoir. Pompon a eu froid.|🌧️","Conteur|Enfin, il est rentré à la maison. Sa maîtresse lui a donné du lait.|🥛","Conteur|Et Pompon s'est endormi, très content. Fin !|😴"],
+ items:["Il était une fois…|🏰","Un jour…|☀️","D'abord…|1️⃣","Ensuite…|2️⃣","Puis…|3️⃣","Enfin…|🏁"],
+ ex:[["Comment commence une histoire ?","🏰","Il était une fois…","Enfin…","Au revoir…"],["Qu'est-ce que Pompon a vu ?","🐱","Un oiseau.","Un chien.","Une voiture."],["D'abord… Ensuite… Puis… ?","","Enfin…","Il était une fois…","Bonjour…"]]}
+];
+
+</script>
+<script>
+(() => {
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("jadore:"+k); return v==null?d:JSON.parse(v);}catch(e){return d;} },
+  set(k, v){ try{ localStorage.setItem("jadore:"+k, JSON.stringify(v)); }catch(e){} }
+};
+const state = { level: store.get("level", 0), sec: store.get("sec", "all"), slow: store.get("slow", false) };
+const byId = Object.fromEntries(LESSONS.map(l => [l.id, l]));
+const secOf = id => SECTIONS.find(s => s.id === id);
+
+// ───── voix ─────
+let voice = null, voicesReady = false;
+const synth = window.speechSynthesis;
+function pickVoice(){
+  if(!synth) return;
+  const vs = synth.getVoices();
+  if(!vs.length) return;
+  voicesReady = true;
+  const fr = vs.filter(v => /^fr/i.test(v.lang));
+  const pref = fr.filter(v => /fr[-_]FR/i.test(v.lang));
+  const pool = pref.length ? pref : fr;
+  voice = pool.find(v => /google|natural|online|amélie|amelie|thomas|denise|henri/i.test(v.name)) || pool[0] || null;
+  const w = $("#voicewarn"); if(w) w.hidden = !!voice;
+}
+if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+function clean(t){
+  return String(t)
+    .replace(/\(e\)/g,"")
+    .replace(/_{2,}/g," … ")
+    .replace(/[→\/·]/g,", ")
+    .replace(/\p{Extended_Pictographic}|️|⃣|‍/gu,"")
+    .replace(/\s+/g," ").trim();
+}
+let seqToken = 0;
+function speak(text, {pitch=1, onend}={}){
+  if(!synth){ onend && onend(); return; }
+  const u = new SpeechSynthesisUtterance(clean(text));
+  u.lang = "fr-FR"; if(voice) u.voice = voice;
+  u.rate = state.slow ? 0.62 : 0.88; u.pitch = pitch;
+  if(onend){ u.onend = onend; u.onerror = onend; }
+  synth.speak(u);
+}
+function say(text, pitch){ if(synth) synth.cancel(); seqToken++; stopPlayButtons(); speak(text, {pitch}); }
+function sequence(list, onStep, onDone){
+  if(synth) synth.cancel();
+  const tok = ++seqToken; let i = 0;
+  const next = () => {
+    if(tok !== seqToken) return;
+    if(i >= list.length){ onStep && onStep(-1); onDone && onDone(); return; }
+    const it = list[i]; onStep && onStep(i);
+    speak(it.text, {pitch: it.pitch || 1, onend: () => { i++; setTimeout(next, 380); }});
+  };
+  next();
+}
+function stopPlayButtons(){ document.querySelectorAll(".play.stop").forEach(b => { b.classList.remove("stop"); b.textContent = b.dataset.label; }); document.querySelectorAll(".on").forEach(e => e.classList.remove("on")); }
+
+// ───── helpers ─────
+function parseItem(s){ const [w, p="", x=""] = s.split("|"); return {w, p, x}; }
+function pic(p, cls="pic"){
+  if(!p) return "";
+  if(p.startsWith("#")) return `<span class="swatch" style="background:${p}"></span>`;
+  if(p.startsWith("scene:")){
+    const k = p.slice(6);
+    return `<span class="scene s-${k}" aria-hidden="true"><span class="bx emo">📦</span>${k==="entre"?'<span class="bx b2 emo">📦</span>':''}<span class="ct emo">🐱</span></span>`;
+  }
+  if(/^\d+$/.test(p)) return `<span class="num">${p}</span>`;
+  return `<span class="${cls}">${esc(p)}</span>`;
+}
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const starsTxt = n => "★".repeat(n) + "☆".repeat(3-n);
+const best = id => store.get("best:"+id, 0);
+
+// ───── accueil ─────
+function filtered(){
+  return LESSONS.filter(l => (!state.level || l.lvl === state.level) && (state.sec === "all" || l.sec === state.sec));
+}
+function renderHome(){
+  document.title = "J'ADORE Français";
+  const counts = Object.fromEntries(SECTIONS.map(s => [s.id, LESSONS.filter(l => (!state.level || l.lvl===state.level) && l.sec===s.id).length]));
+  const total = LESSONS.filter(l => !state.level || l.lvl===state.level).length;
+  const list = filtered();
+  const groups = SECTIONS.filter(s => state.sec==="all" || s.id===state.sec)
+    .map(s => ({s, ls: list.filter(l => l.sec===s.id).sort((a,b)=>a.lvl-b.lvl)})).filter(g => g.ls.length);
+  $("#app").innerHTML = `
+  <header class="mast"><div class="wrap hero">
+    <img class="cover" src="${COVER}" alt="Couverture du livre J'ADORE : un garçon devant la tour Eiffel" width="768" height="1376">
+    <div class="htxt">
+    <div class="logo">${LOGO}<span>CODE CADEMY</span></div>
+    <h1>J'ADORE</h1>
+    <p>Vivre le français, l'aimer et l'apprendre avec plaisir !</p>
+    <div class="tools">
+      <button class="tool" id="slow" aria-pressed="${state.slow}">🐢 Voix lente</button>
+      <button class="tool" id="test">🔊 Tester la voix</button>
+    </div>
+    <div class="voice-warn" id="voicewarn" hidden>Pas de voix française sur cet appareil. Ajoute une voix « Français » dans les réglages de ton appareil, ou ouvre la page dans Chrome.</div>
+  </div></div></header>
+  <main class="wrap">
+    <nav class="levels" aria-label="Niveaux">
+      <button class="lv" data-lv="0" aria-pressed="${!state.level}"><small>Niveaux 1 à 6</small><b>✦</b><span>Tous les niveaux</span></button>
+      ${LEVELS.map(L => `<button class="lv" data-lv="${L.n}" aria-pressed="${state.level===L.n}"><small>Niveau</small><b>${L.n}</b><span>${L.t}</span></button>`).join("")}
+    </nav>
+    <div class="tabs" role="group" aria-label="Parties">
+      <button class="tab" data-sec="all" aria-pressed="${state.sec==="all"}">Tout <i>${total}</i></button>
+      ${SECTIONS.map(s => `<button class="tab" data-sec="${s.id}" aria-pressed="${state.sec===s.id}"><span class="emo">${s.e}</span> ${s.t} <i>${counts[s.id]}</i></button>`).join("")}
+    </div>
+    ${groups.length ? groups.map(g => `
+      <h2 class="secname"><span class="emo">${g.s.e}</span> ${g.s.t} <small>${g.ls.length} leçons</small></h2>
+      <div class="grid">${g.ls.map(l => `
+        <button class="card" data-go="${l.id}">
+          <span class="ic emo">${l.e}</span>
+          <span class="tx"><span class="tt">${esc(l.t)}</span>
+          <span class="mt">Niveau ${l.lvl} <span class="stars" aria-label="${best(l.id)} étoiles sur 3">${starsTxt(best(l.id))}</span></span></span>
+        </button>`).join("")}</div>`).join("") : `<p class="empty">Aucune leçon ici.</p>`}
+  </main>
+  <footer class="wrap">Tous droits réservés © Code Cademy</footer>`;
+  pickVoice();
+  document.querySelectorAll(".lv").forEach(b => b.onclick = () => { state.level = +b.dataset.lv; store.set("level", state.level); renderHome(); });
+  document.querySelectorAll(".tab").forEach(b => b.onclick = () => { state.sec = b.dataset.sec; store.set("sec", state.sec); renderHome(); });
+  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { location.hash = b.dataset.go; });
+  $("#slow").onclick = () => { state.slow = !state.slow; store.set("slow", state.slow); $("#slow").setAttribute("aria-pressed", state.slow); say("Bonjour ! Je parle lentement ?"); };
+  $("#test").onclick = () => say("Bonjour ! Bienvenue à Code Cademy. On apprend le français ensemble !");
+}
+
+// ───── leçon ─────
+function renderLesson(l){
+  document.title = l.t + " · J'ADORE";
+  const items = (l.items||[]).map(parseItem);
+  const sec = secOf(l.sec);
+  const order = LESSONS.slice().sort((a,b)=> a.lvl-b.lvl || SECTIONS.findIndex(s=>s.id===a.sec)-SECTIONS.findIndex(s=>s.id===b.sec));
+  const idx = order.indexOf(l), prev = order[idx-1], next = order[idx+1];
+  const speakers = l.sp ? Object.keys(l.sp) : [];
+  const isLetters = l.id === "alphabet" || l.id === "accents";
+  $("#app").innerHTML = `
+  <div class="top"><div class="wrap">
+    <button class="back" id="back">← Accueil</button>
+    <span class="crumb">${sec.t} · Niveau ${l.lvl}</span><span class="sp"></span>
+    <button class="tool" id="slow" aria-pressed="${state.slow}">🐢 Lent</button>
+  </div></div>
+  <main class="wrap">
+    <div class="lhead"><span class="big emo">${l.e}</span>
+      <div><div class="meta">${sec.t} · Niveau ${l.lvl}</div>
+      <h2>${esc(l.t)}</h2></div>
+      <button class="say" data-say="${esc(l.t)}" aria-label="Écouter le titre">🔊</button>
+    </div>
+    ${l.intro ? `<div class="intro"><p>${esc(l.intro)}</p><button class="say" data-say="${esc(l.intro)}" aria-label="Écouter">🔊</button></div>` : ""}
+
+    ${l.rules ? `<section class="block"><div class="bh"><h3>La règle</h3></div><div class="rules">
+      ${l.rules.map(r => `<div class="rule"><h4>${esc(r.h)}</h4>
+        <div class="rp"><p>${esc(r.p)}</p><button class="say" data-say="${esc(r.p)}" aria-label="Écouter la règle">🔊</button></div>
+        <div class="exs">${r.ex.map(e => { const it = parseItem(e); return `<button class="chip" data-say="${esc(it.w)}">${pic(it.p)}<span>${esc(it.w)}</span></button>`; }).join("")}</div>
+      </div>`).join("")}
+    </div>
+    ${l.table ? `<div class="tbl"><table><thead><tr>${l.table[0].map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>
+      ${l.table.slice(1).map(r => `<tr>${r.map((c,i)=> i===0 ? `<td>${esc(c)}</td>` : `<td><button data-say="${esc(tableSay(r, i, l))}">${esc(c)}</button></td>`).join("")}</tr>`).join("")}
+    </tbody></table></div>` : ""}
+    </section>` : ""}
+
+    ${l.dlg ? `<section class="block"><div class="bh"><h3>${l.id==="c-histoire" ? "L'histoire" : "Le dialogue"}</h3>
+      <button class="play" id="playdlg" data-label="▶ Écouter ${l.id==="c-histoire"?"l'histoire":"le dialogue"}">▶ Écouter ${l.id==="c-histoire"?"l'histoire":"le dialogue"}</button></div>
+      <div class="dlg">${l.dlg.map((d,i) => { const [s, t, p] = d.split("|"); const right = speakers.indexOf(s) % 2 === 1;
+        return `<button class="line ${right?"r":""}" data-i="${i}"><span class="av emo">${l.sp[s]}</span><span class="bub"><small>${esc(s)}</small>${p?pic(p):""}<span>${esc(t)}</span></span></button>`; }).join("")}</div>
+    </section>` : ""}
+
+    ${items.length ? `<section class="block"><div class="bh"><h3>${l.sec==="conv" ? "Phrases utiles" : l.sec==="gram" ? "Les mots" : "Écoute et répète"}</h3>
+      <button class="play" id="playall" data-label="▶ Tout écouter">▶ Tout écouter</button></div>
+      <div class="words ${isLetters?"letter":""}">${items.map((it,i) => `
+        <button class="word" data-i="${i}">${pic(it.p)}<span class="w">${esc(it.w)}</span>${it.x && it.x!==it.w ? `<span class="s">${esc(it.x)}</span>` : ""}</button>`).join("")}</div>
+    </section>` : ""}
+
+    <section class="block"><div class="bh"><h3>À toi de jouer !</h3></div>
+      <div class="quiz" id="quiz"></div></section>
+
+    <nav class="next-lesson">
+      ${prev ? `<button class="nl" data-go="${prev.id}"><small>← Leçon précédente</small>${esc(prev.t)}</button>` : ""}
+      ${next ? `<button class="nl n" data-go="${next.id}"><small>Leçon suivante →</small>${esc(next.t)}</button>` : ""}
+    </nav>
+  </main>`;
+  window.scrollTo(0,0);
+  $("#back").onclick = () => { location.hash = ""; };
+  $("#slow").onclick = () => { state.slow = !state.slow; store.set("slow", state.slow); $("#slow").setAttribute("aria-pressed", state.slow); };
+  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { location.hash = b.dataset.go; });
+  document.querySelectorAll("[data-say]").forEach(b => b.onclick = () => say(b.dataset.say));
+  const words = [...document.querySelectorAll(".word")];
+  words.forEach(b => b.onclick = () => { const it = items[+b.dataset.i]; say(it.x && it.x!==it.w ? it.w + ". " + it.x : it.w); });
+  const pitchOf = s => [1.08, 0.9, 1.2][Math.max(0, speakers.indexOf(s)) % 3];
+  const lines = [...document.querySelectorAll(".line")];
+  lines.forEach(b => b.onclick = () => { const [s,t] = l.dlg[+b.dataset.i].split("|"); say(t, pitchOf(s)); });
+  const wirePlay = (btn, list, els) => { if(!btn) return; btn.onclick = () => {
+    if(btn.classList.contains("stop")){ synth && synth.cancel(); seqToken++; stopPlayButtons(); return; }
+    stopPlayButtons(); btn.classList.add("stop"); btn.textContent = "■ Arrêter";
+    sequence(list, i => { els.forEach(e => e.classList.remove("on")); if(i>=0){ els[i].classList.add("on"); els[i].scrollIntoView({block:"nearest", behavior:"smooth"}); } },
+      () => { btn.classList.remove("stop"); btn.textContent = btn.dataset.label; });
+  };};
+  wirePlay($("#playall"), items.map(it => ({text: it.w})), words);
+  if(l.dlg) wirePlay($("#playdlg"), l.dlg.map(d => { const [s,t] = d.split("|"); return {text:t, pitch:pitchOf(s)}; }), lines);
+  quiz(l, items);
+}
+function tableSay(row, ci, l){
+  const cell = row[ci], p = row[0].split(" · ")[0];
+  if(!/^(je|j'|tu|il|nous|vous|ils)$/.test(p) || ["pronoms","possessifs"].includes(l.id)) return cell;
+  const verb = (l.id==="futur" || l.id==="passe") ? row[1] + " " + row[2] : cell;
+  const jj = (p==="je"||p==="j'");
+  return jj ? (/^[aeiouhéè]/i.test(verb) ? "j'" + verb : "je " + verb) : p + " " + verb;
+}
+
+// ───── exercices ─────
+function buildQuestions(l, items){
+  const qs = [];
+  const n = Math.min(items.length >= 4 ? 6 : 0, items.length);
+  if(n){
+    const txt = l.q === "txt" || l.sec === "conv";
+    shuffle(items).slice(0, n).forEach((it, k) => {
+      const others = shuffle(items.filter(o => o !== it && o.p !== it.p)).slice(0, 2 + (items.length > 5 ? 1 : 0));
+      if(txt){
+        qs.push({kind:"listen-word", audio: it.w, answer: it.w, opts: shuffle([it, ...others]).map(o => ({label: esc(o.w), val: o.w}))});
+      } else if(k % 2 === 0){
+        qs.push({kind:"listen-pic", audio: it.w, answer: it.w, opts: shuffle([it, ...others]).map(o => ({label: pic(o.p), val: o.w, pic:true}))});
+      } else {
+        qs.push({kind:"pic-word", pic: it.p, audio: null, answer: it.w, opts: shuffle([it, ...others]).map(o => ({label: esc(o.w), val: o.w}))});
+      }
+    });
+  }
+  (l.ex || []).forEach(e => {
+    const [q, p, good, ...bad] = e;
+    qs.push({kind:"mcq", q, pic: p, answer: good, opts: shuffle([good, ...bad]).map(o => ({label: esc(o), val: o}))});
+  });
+  return qs;
+}
+const PRAISE = ["Bravo !","Super !","Excellent !","Très bien !","Génial !","Parfait !"];
+function quiz(l, items){
+  const box = $("#quiz");
+  const total = buildQuestions(l, items).length;
+  box.innerHTML = `<div class="start"><span class="pic">🎯</span><div style="font-weight:800;font-size:18px">${total} questions pour gagner tes étoiles</div>
+    <span class="stars" style="font-size:26px">${starsTxt(best(l.id))}</span>
+    <button class="play" id="go">▶ Commencer</button></div>`;
+  $("#go").onclick = () => run(buildQuestions(l, items));
+  function run(qs){
+    let i = 0, score = 0;
+    const show = () => {
+      if(i >= qs.length) return end();
+      const q = qs[i]; let tries = 0, done = false;
+      const title = {"listen-pic":"Écoute et choisis l'image","pic-word":"Comment dit-on ?","listen-word":"Écoute et choisis","mcq":"Choisis la bonne réponse"}[q.kind];
+      box.innerHTML = `<div class="qbar"><i style="width:${i/qs.length*100}%"></i></div>
+        <div class="qtop"><span>${title}</span><span>${i+1} / ${qs.length}</span></div>
+        <div class="qprompt">
+          ${q.audio ? `<button class="say bigsay" id="qsay" aria-label="Réécouter">🔊</button>` : ""}
+          ${q.pic ? pic(q.pic) : ""}
+          ${q.kind==="mcq" ? `<div class="qt">${esc(q.q)}</div><button class="say" id="qsay2" aria-label="Écouter la question">🔊</button>` : ""}
+        </div>
+        <div class="opts">${q.opts.map((o,k) => `<button class="opt" data-k="${k}">${o.label}</button>`).join("")}</div>
+        <div class="fb" id="fb" aria-live="polite"></div><div class="qnav" id="qnav"></div>`;
+      const playQ = () => q.audio ? say(q.audio) : (q.kind==="mcq" ? say(q.q) : null);
+      if($("#qsay")) $("#qsay").onclick = () => say(q.audio);
+      if($("#qsay2")) $("#qsay2").onclick = () => say(q.q);
+      setTimeout(playQ, 250);
+      box.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+        if(done) return;
+        const o = q.opts[+b.dataset.k];
+        if(o.val === q.answer){
+          done = true; if(tries === 0) score++;
+          b.classList.add("good"); box.querySelectorAll(".opt").forEach(x => x.disabled = true);
+          const praise = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+          $("#fb").className = "fb good"; $("#fb").textContent = "✓ " + praise;
+          const full = q.kind==="mcq" && q.q.includes("___") ? q.q.replace("___", q.answer).replace(/^(\p{Ll})/u, c=>c) : q.answer;
+          if(synth) synth.cancel(); seqToken++;
+          speak(praise, {onend: () => speak(full)});
+          $("#qnav").innerHTML = `<button class="play" id="nx">${i+1 < qs.length ? "Question suivante →" : "Voir mon score →"}</button>`;
+          $("#nx").onclick = () => { i++; show(); };
+          $("#nx").focus({preventScroll:true});
+        } else {
+          tries++; b.classList.add("bad"); b.disabled = true;
+          $("#fb").className = "fb bad"; $("#fb").textContent = "Essaie encore !";
+          say("Essaie encore !");
+        }
+      });
+    };
+    const end = () => {
+      const pct = score / qs.length;
+      const st = pct >= .9 ? 3 : pct >= .7 ? 2 : pct >= .4 ? 1 : 0;
+      if(st > best(l.id)) store.set("best:"+l.id, st);
+      const msg = st===3 ? "Magnifique !" : st===2 ? "Très bien !" : st===1 ? "Bon travail !" : "Continue, tu vas y arriver !";
+      box.innerHTML = `<div class="result"><div class="rs">${starsTxt(st)}</div><h4>${msg}</h4>
+        <p style="font-weight:800;font-size:18px">${score} bonnes réponses du premier coup sur ${qs.length}</p>
+        <button class="play" id="again">↻ Recommencer</button></div>`;
+      say(msg + " Tu as " + score + " bonnes réponses sur " + qs.length + ".");
+      $("#again").onclick = () => run(buildQuestions(l, items));
+    };
+    show();
+  }
+}
+
+const COVER = "assets/img/jadore-cover.jpg";
+const LOGO = `<svg viewBox="0 0 56 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true">
+  <path d="M4 15 L28 3 L52 15 Z"/><circle cx="28" cy="10" r="2.4"/><path d="M7 15 H49"/>
+  <path d="M10 18 V36 M15 18 V36 M41 18 V36 M46 18 V36"/>
+  <path d="M19 22 Q23.5 20 28 22.5 Q32.5 20 37 22 V33 Q32.5 31 28 33.5 Q23.5 31 19 33 Z"/><path d="M28 22.5 V33.5"/>
+  <path d="M6 37 H50 M3 42 H53"/></svg>`;
+
+function route(){
+  if(synth) synth.cancel(); seqToken++;
+  const id = decodeURIComponent(location.hash.slice(1));
+  if(id && byId[id]) renderLesson(byId[id]); else renderHome();
+}
+window.addEventListener("hashchange", route);
+route();
+})();
+</script>
+
+</body></html>
