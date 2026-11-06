@@ -281,7 +281,7 @@
       ['speak', '🎙️', 'Pronunciation', 'النطق'], ['delf', '📈', 'DELF meter', 'مؤشر DELF'], ['msgs', '💬', 'Messages', 'الرسايل'], ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']]
       : [['home', '🏠', 'Home', 'الرئيسية'], ['map', '🗺️', 'Skill map', 'خريطة المهارات'], ['tasks', '📝', 'Tasks', 'المهام'], ['portfolio', '🗂️', 'Portfolio', 'معرض المشاريع'], ['msgs', '💬', 'Messages', 'الرسايل'],
       ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الكورسات والدفع']],
-    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسايل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الكورسات']].concat(FR ? [] : [['faq', '❓', 'Coco questions', 'أسئلة كوكو']]).concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
+    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسايل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الكورسات']].concat(FR ? [['books', '📘', 'Level books', 'كتب المستويات']] : [['faq', '❓', 'Coco questions', 'أسئلة كوكو']]).concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
       .concat([['rank', '🏆', 'Ranking', 'الترتيب']]),
     parent: [['children', '👨‍👩‍👧', 'My children', 'أولادي'], ['msgs', '💬', 'Messages', 'الرسايل']]
   };
@@ -865,7 +865,7 @@
   function passportHtml(stamps, level, name){
     return '<div class="passport"><div class="pp-cover"><span>🇫🇷</span><div><small>PASSEPORT · Le Club Français</small><b>' + esc(name) + '</b></div></div><div class="pp-pages">' + FR_LEVELS.map(function(l, i){
       const s = stamps.find(function(x){ return x.level === i + 1; }), isCur = !s && level === i + 1;
-      return '<div class="stamp' + (s ? ' got' : '') + (isCur ? ' cur' : '') + '" style="--r:' + ((i * 37) % 17 - 8) + 'deg"><span class="em">' + (s ? l[1] : isCur ? '✈️' : '🔒') + '</span><b>' + l[0] + '</b><small>' + esc(T(l[2], l[3])) + '</small>' +
+      return '<div class="stamp' + (s ? ' got' : '') + (isCur ? ' cur' : '') + '" style="--r:' + ((i * 37) % 17 - 8) + 'deg"><span class="em">' + (s ? l[1] : isCur ? '✈️' : '🔒') + '</span><b>' + l[0] + '</b><small>' + esc(T('Level ' + (i + 1), 'المستوى ' + (i + 1))) + '</small>' +
         (s ? '<i>' + esc(fmtDate(s.awarded_at)) + '</i>' : isCur ? '<i>' + esc(T('You are here', 'إنت هنا')) + '</i>' : '') + '</div>';
     }).join('') + '</div></div>';
   }
@@ -873,7 +873,7 @@
     const lv = frLevel(), L1 = FR_LEVELS[lv - 1];
     main.innerHTML = '<div class="head"><h2>🛂 ' + esc(T('My French passport', 'باسبوري الفرنسي')) + '</h2><p class="muted">' + esc(T('Every level you finish earns the stamp of a French city. Collect all six!', 'كل مستوى تخلّصه تاخد ختم مدينة فرنسية — جمّع الستة!')) + '</p></div>' +
       passportHtml(D.stamps || [], lv, me.full_name) +
-      '<div class="card"><small class="kick">✈️ ' + esc(T('Next stop', 'المحطة الجاية')) + '</small><h3>' + L1[1] + ' ' + L1[0] + ' · ' + esc(T(L1[2], L1[3])) + '</h3><p>' + esc(T(L1[5], L1[6])) + '</p></div>';
+      '<div class="card"><small class="kick">✈️ ' + esc(T('Next stop', 'المحطة الجاية')) + '</small><h3>' + L1[1] + ' ' + L1[0] + ' · ' + esc(T('Level ' + lv, 'المستوى ' + lv)) + '</h3><p>' + esc(T(L1[5], L1[6])) + '</p></div>';
   };
 
   // ----- French: my words (spaced repetition) -----
@@ -950,7 +950,7 @@
 
   // ----- French: DELF readiness -----
   VIEWS.delf = function(){
-    const lv = frLevel(), target = T('level ' + lv + ' · ' + FR_LEVELS[lv - 1][2], 'المستوى ' + lv + ' · ' + FR_LEVELS[lv - 1][3]);
+    const lv = frLevel(), target = T('level ' + lv, 'المستوى ' + lv);
     const dp = delfParts({ subs: D.subs || [], taskOf: taskOf, pron: D.pron || [], words: D.words || [], level: lv });
     const weakest = dp.parts.slice().sort(function(a, b){ return (a[3] || 0) - (b[3] || 0); })[0];
     const tips = { 'Mock exams': ['Do the DELF mock exams in Tasks.', 'حل امتحانات DELF التجريبية في المهام.'], 'Pronunciation': ['Practise 3 sentences a day in the pronunciation coach.', 'اتمرن على ٣ جمل كل يوم في مدرب النطق.'],
@@ -1388,6 +1388,47 @@
     const id = b.dataset.c, n = (D.enrolls || []).filter(function(e){ return e.course === id; }).length;
     if(!confirm(n ? T('Students are in this course. Hide it instead? (OK = delete anyway)', 'فيه طلاب في الكورس ده. الأحسن تخفيه — موافق = احذفه برضه') : T('Delete this course?', 'تحذف الكورس ده؟'))) return;
     busy(b, async function(){ const r = await sb.from('track_courses').delete().eq('track', TRACK).eq('course', id); if(r.error) throw r.error; delete D.cfg[id]; mergeCustom(); toast(T('Deleted', 'اتحذف')); render(); });
+  };
+
+  // ----- teacher (French): a book for each level, downloadable on french.html -----
+  const bookUrl = function(path){ return SB_URL + '/storage/v1/object/public/track-books/' + path.split('/').map(encodeURIComponent).join('/'); };
+  VIEWS.books = async function(){
+    main.innerHTML = '<div class="loading">📘</div>';
+    const rows = await sel(sb.from('track_books').select('*').eq('track', TRACK).order('level').order('created_at', { ascending: false }));
+    if(view !== 'books') return;
+    D.books = rows;
+    main.innerHTML = '<div class="head"><h2>📘 ' + esc(T('Level books', 'كتب المستويات')) + '</h2><p class="muted">' + esc(T('Upload a book for each level. It appears on the French page under that level with a Download button.', 'ارفع كتاب لكل مستوى، وهيظهر في صفحة الفرنساوي تحت المستوى ده بزرار «حمّل الكتاب».')) + '</p></div>' +
+      '<form data-form="book" class="card form"><div class="grid2"><label>' + esc(T('Level', 'المستوى')) + '<select name="level">' + [1, 2, 3, 4, 5, 6].map(function(n){ return '<option value="' + n + '">' + esc(T('Level ' + n, 'المستوى ' + n)) + '</option>'; }).join('') + '</select></label>' +
+      '<label>' + esc(T('Book title', 'اسم الكتاب')) + '<input name="title" maxlength="160" required placeholder="' + esc(T('e.g. Le Club Français · Level 1', 'مثلاً: Le Club Français · المستوى ١')) + '"></label></div>' +
+      '<label>' + esc(T('File (PDF, Word, PowerPoint or EPUB, up to 50 MB)', 'الملف (PDF أو Word أو PowerPoint أو EPUB، لحد ٥٠ ميجا)')) + '<input name="file" type="file" required accept=".pdf,.doc,.docx,.ppt,.pptx,.epub,application/pdf"></label>' +
+      '<div class="row gap"><button class="btn main" type="submit">⬆️ ' + esc(T('Upload the book', 'ارفع الكتاب')) + '</button><span class="muted small" id="bookProg"></span></div></form>' +
+      [1, 2, 3, 4, 5, 6].map(function(n){
+        const list = rows.filter(function(r){ return r.level === n; });
+        return '<h3 class="sec">📘 ' + esc(T('Level ' + n, 'المستوى ' + n)) + ' <small>' + list.length + '</small></h3>' + (list.length ? '<div class="list">' + list.map(function(r){
+          return '<div class="item"><span class="ic">📘</span><span class="grow"><b>' + esc(r.title) + '</b><small>' + esc(fmtDate(r.created_at)) + (r.file_size ? ' · ' + (r.file_size / 1048576).toFixed(1) + ' MB' : '') + '</small></span>' +
+            '<a class="btn ghost sm" href="' + esc(bookUrl(r.file_path)) + '" target="_blank" rel="noopener" aria-label="' + esc(T('Download', 'تحميل')) + '">⬇️</a><button class="link danger" data-act="delBook" data-id="' + r.id + '" aria-label="' + esc(T('Delete', 'حذف')) + '">✕</button></div>';
+        }).join('') + '</div>' : '<p class="muted small">' + esc(T('No book yet.', 'لسه مفيش كتاب.')) + '</p>');
+      }).join('');
+  };
+  FORMS.book = function(f){
+    const file = f.file.files[0]; if(!file) return;
+    if(file.size > 50 * 1024 * 1024){ toast(T('The file is bigger than 50 MB.', 'الملف أكبر من ٥٠ ميجا.'), true); return; }
+    busy(f.querySelector('[type=submit]'), async function(){
+      $('bookProg').textContent = T('Uploading…', 'بيرفع…');
+      const ext = (file.name.split('.').pop() || 'pdf').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 5) || 'pdf';
+      const safe = file.name.replace(/\.[^.]+$/, '').normalize('NFKD').replace(/[^\w-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50) || 'book';
+      const path = TRACK + '/level-' + f.level.value + '/' + Date.now() + '-' + safe + '.' + ext;
+      const up = await sb.storage.from('track-books').upload(path, file, { contentType: file.type || undefined });
+      if(up.error) throw up.error;
+      const r = await sb.from('track_books').insert({ track: TRACK, level: +f.level.value, title: f.title.value.trim(), file_path: path, file_size: file.size });
+      if(r.error){ await sb.storage.from('track-books').remove([path]); throw r.error; }
+      toast(T('Book uploaded ✓ It is on the French page now.', 'الكتاب اترفع ✓ وظاهر في صفحة الفرنساوي دلوقتي.')); party(null, { emoji: ['📘'] }); render();
+    });
+  };
+  ACT.delBook = function(b){
+    if(!confirm(T('Delete this book?', 'تحذف الكتاب ده؟'))) return;
+    const row = (D.books || []).find(function(x){ return x.id === +b.dataset.id; });
+    busy(b, async function(){ const r = await sb.from('track_books').delete().eq('id', +b.dataset.id); if(r.error) throw r.error; if(row) await sb.storage.from('track-books').remove([row.file_path]); render(); });
   };
 
   // ----- teacher (Tech): Coco's question bank -----
