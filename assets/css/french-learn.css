@@ -158,3 +158,21 @@ html[dir=rtl] .p-txt b{text-align:right}
 .gb-dl:hover{transform:translateY(-2px)}
 @media(max-width:520px){.g-book{flex-wrap:wrap}.gb-dl{width:100%;text-align:center}}
 .g-tabs span{font-family:inherit}
+/* J'ADORE app promo */
+.jd-promo{padding:40px 0 10px}
+.jd-card{display:grid;grid-template-columns:220px 1fr;gap:30px;align-items:center;text-decoration:none;color:inherit;border-radius:30px;padding:24px;background:radial-gradient(500px 300px at 100% 0,rgba(212,167,60,.25),transparent 60%),linear-gradient(135deg,#6A1330,#3E0F1B);color:#FBEDE2;box-shadow:0 30px 60px -36px #3E0F1B;transition:transform .25s}
+.jd-card:hover{transform:translateY(-4px)}
+.jd-cover{width:100%;height:auto;border-radius:16px;box-shadow:0 24px 40px -18px rgba(0,0,0,.6);transform:rotate(-3deg);transition:transform .3s}
+.jd-card:hover .jd-cover{transform:rotate(0) scale(1.03)}
+.jd-txt .tag{color:#F3DCA4!important}
+.jd-txt h2{font-size:clamp(2rem,4vw,3rem);color:#fff;margin:4px 0 8px}
+.jd-txt p{opacity:.9;margin:0 0 14px;max-width:560px}
+.jd-stats{list-style:none;display:flex;gap:10px;padding:0;margin:0 0 12px;flex-wrap:wrap}
+.jd-stats li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:8px 14px;font-weight:700;font-size:.85rem}
+.jd-stats b{display:block;font:800 1.5rem 'Playfair Display',serif;color:#F3DCA4}
+.jd-secs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.jd-secs span{background:#FBEDE2;color:#6A1330;border-radius:999px;padding:5px 12px;font-weight:800;font-size:.82rem}
+.jd-go{display:inline-flex;align-items:center;gap:8px;background:#D4A73C;color:#3E0F1B;border-radius:999px;padding:12px 22px;font-weight:800}
+.jd-go i{font-style:normal}
+html[dir=rtl] .jd-go i{transform:scaleX(-1)}
+@media(max-width:700px){.jd-card{grid-template-columns:1fr;text-align:center;padding:20px}.jd-cover{max-width:180px;margin:0 auto}.jd-stats,.jd-secs{justify-content:center}}

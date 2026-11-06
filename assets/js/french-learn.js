@@ -301,7 +301,7 @@
   function bookCard(lv){
     const list = (BOOKS || []).filter(function(b){ return b.level === lv; });
     if(BOOKS === null) return '<div class="g-book loading">📘 …</div>';
-    if(!list.length) return '<div class="g-book empty"><span class="gb-ic">📘</span><div><b>' + esc(T('The Level ' + lv + ' book', 'كتاب المستوى ' + lv)) + '</b><small>' + esc(T('Coming soon — your teacher will add it here.', 'قريباً — المعلم هيضيفه هنا.')) + '</small></div></div>';
+    if(!list.length) return '<div class="g-book empty"><span class="gb-ic">📘</span><div><b>' + esc(T('The Level ' + lv + ' book', 'كتاب المستوى ' + lv)) + '</b><small>' + esc(T('No books yet', 'لا يوجد كتب')) + '</small></div></div>';
     return list.map(function(b){
       const url = SB + '/storage/v1/object/public/track-books/' + b.file_path.split('/').map(encodeURIComponent).join('/');
       return '<div class="g-book"><span class="gb-ic">📘</span><div class="gb-t"><b>' + esc(b.title) + '</b><small>' + esc(T('Level ' + lv + ' book', 'كتاب المستوى ' + lv)) + (b.file_size ? ' · ' + size(b.file_size) : '') + '</small></div>' +
