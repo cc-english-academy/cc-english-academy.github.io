@@ -69,7 +69,7 @@
     ['Marseille', '⛵', 'Pre-intermediate', 'قبل المتوسط', 'A2+', 'Talk about your day and your past', 'تحكي عن يومك واللي فات'],
     ['Bordeaux', '🍇', 'Intermediate', 'المتوسط', 'B1', 'Share opinions, plan a trip', 'تقول رأيك وتخطط لرحلة'],
     ['Nice', '🌴', 'Upper-intermediate', 'فوق المتوسط', 'B2', 'Debate, write emails, films', 'تناقش وتكتب إيميلات وتفهم الأفلام'],
-    ['Strasbourg', '🏰', 'Advanced', 'المتقدم', 'C1', 'Speak naturally, DELF B2+', 'تتكلم بطلاقة — DELF B2 وأعلى']];
+    ['Strasbourg', '🏰', 'Advanced', 'المتقدم', 'C1', 'Speak naturally and get ready for DELF', 'تتكلم بطلاقة وتستعد لـDELF']];
   const COURSES = FR ? FR_COURSES.map(function(c){ return [c[0], 'fr', c[1], c[2], c[3]]; }) : TECH_COURSES;
   function courseName(id){ const c = COURSES.find(function(x){ return x[0] === id; }); return c ? c[2] + ' ' + T(c[3], c[4]) : (id || T('All courses', 'كل الكورسات')); }
   // the teacher's course manager: open (default) / soon / hidden, plus "announce"
@@ -532,7 +532,7 @@
     if(next) h += '<div class="card next"><span class="big">' + (KINDS[next.kind] || ['📄'])[0] + '</span><div class="grow"><small class="muted">' + esc(T('Next on your path', 'اللي عليك دلوقتي')) + '</small><b>' + esc(next.title) + '</b>' + (next.due ? '<small class="muted">' + esc(T('Due ', 'آخر ميعاد ') + fmtDate(next.due)) + '</small>' : '') + '</div><button class="btn main" data-act="openTask" data-id="' + next.id + '">' + esc(T('Start', 'ابدأ')) + '</button></div>';
     if(FR){
       const dp = delfParts({ subs: D.subs || [], taskOf: taskOf, pron: D.pron || [], words: D.words || [], level: frLevel() });
-      h += '<div class="card row gap"><div class="gauge-wrap">' + gaugeSvg(dp.total, 'DELF ' + FR_LEVELS[frLevel() - 1][4]) + '</div><div class="grow"><h3>' + esc(T('Your DELF meter', 'مؤشر DELF بتاعك')) + '</h3><p class="muted">' + esc(T('It grows with your mock exams, pronunciation, words and marks.', 'بيكبر مع الامتحانات التجريبية والنطق والكلمات والدرجات.')) + '</p><button class="btn ghost" data-act="go" data-v="delf">' + esc(T('See details', 'التفاصيل')) + '</button></div></div>';
+      h += '<div class="card row gap"><div class="gauge-wrap">' + gaugeSvg(dp.total, T('Level ', 'المستوى ') + frLevel()) + '</div><div class="grow"><h3>' + esc(T('Your DELF meter', 'مؤشر DELF بتاعك')) + '</h3><p class="muted">' + esc(T('It grows with your mock exams, pronunciation, words and marks.', 'بيكبر مع الامتحانات التجريبية والنطق والكلمات والدرجات.')) + '</p><button class="btn ghost" data-act="go" data-v="delf">' + esc(T('See details', 'التفاصيل')) + '</button></div></div>';
     } else {
       const sk = skillAvg((D.subs || []).filter(function(s){ return s.skills; }));
       if(SKILLS.some(function(k){ return sk[k[0]] != null; })) h += '<div class="card row gap"><div>' + radarSvg(sk, 220) + '</div><div class="grow"><h3>' + esc(T('Your skills radar', 'رادار مهاراتك')) + '</h3><p class="muted">' + esc(T('Your teacher scores each project. The bigger the shape, the stronger you are.', 'المعلم بيقيّم كل مشروع — كل ما الشكل يكبر، كل ما تبقى أقوى.')) + '</p></div></div>';
@@ -865,7 +865,7 @@
   function passportHtml(stamps, level, name){
     return '<div class="passport"><div class="pp-cover"><span>🇫🇷</span><div><small>PASSEPORT · Le Club Français</small><b>' + esc(name) + '</b></div></div><div class="pp-pages">' + FR_LEVELS.map(function(l, i){
       const s = stamps.find(function(x){ return x.level === i + 1; }), isCur = !s && level === i + 1;
-      return '<div class="stamp' + (s ? ' got' : '') + (isCur ? ' cur' : '') + '" style="--r:' + ((i * 37) % 17 - 8) + 'deg"><span class="em">' + (s ? l[1] : isCur ? '✈️' : '🔒') + '</span><b>' + l[0] + '</b><small>' + esc(T(l[2], l[3])) + ' · ' + l[4] + '</small>' +
+      return '<div class="stamp' + (s ? ' got' : '') + (isCur ? ' cur' : '') + '" style="--r:' + ((i * 37) % 17 - 8) + 'deg"><span class="em">' + (s ? l[1] : isCur ? '✈️' : '🔒') + '</span><b>' + l[0] + '</b><small>' + esc(T(l[2], l[3])) + '</small>' +
         (s ? '<i>' + esc(fmtDate(s.awarded_at)) + '</i>' : isCur ? '<i>' + esc(T('You are here', 'إنت هنا')) + '</i>' : '') + '</div>';
     }).join('') + '</div></div>';
   }
@@ -950,14 +950,14 @@
 
   // ----- French: DELF readiness -----
   VIEWS.delf = function(){
-    const lv = frLevel(), target = FR_LEVELS[lv - 1][4];
+    const lv = frLevel(), target = T('level ' + lv + ' · ' + FR_LEVELS[lv - 1][2], 'المستوى ' + lv + ' · ' + FR_LEVELS[lv - 1][3]);
     const dp = delfParts({ subs: D.subs || [], taskOf: taskOf, pron: D.pron || [], words: D.words || [], level: lv });
     const weakest = dp.parts.slice().sort(function(a, b){ return (a[3] || 0) - (b[3] || 0); })[0];
     const tips = { 'Mock exams': ['Do the DELF mock exams in Tasks.', 'حل امتحانات DELF التجريبية في المهام.'], 'Pronunciation': ['Practise 3 sentences a day in the pronunciation coach.', 'اتمرن على ٣ جمل كل يوم في مدرب النطق.'],
       'Vocabulary': ['Add new words and review them every day.', 'ضيف كلمات جديدة وراجعها كل يوم.'], 'Teacher marks': ['Hand in your tasks: your teacher’s marks count.', 'سلّم مهامك — درجات المعلم بتفرق.'] };
     const quizzes = (D.tasks || []).filter(function(t){ return t.kind === 'quiz'; });
-    main.innerHTML = '<div class="head"><h2>📈 ' + esc(T('DELF readiness meter', 'مؤشر الجاهزية لـDELF')) + '</h2><p class="muted">' + esc(T('Your target: DELF ' + target + '. Four things count:', 'هدفك: DELF ' + target + '. في ٤ حاجات بتتحسب:')) + '</p></div>' +
-      '<div class="card delf"><div class="gauge-wrap big">' + gaugeSvg(dp.total, T('ready for ', 'جاهز لـ') + 'DELF ' + target) + '</div><div class="bars">' + dp.parts.map(function(p){
+    main.innerHTML = '<div class="head"><h2>📈 ' + esc(T('DELF readiness meter', 'مؤشر الجاهزية لـDELF')) + '</h2><p class="muted">' + esc(T('Your ' + target + '. Four things count:', target + ' بتاعك. في ٤ حاجات بتتحسب:')) + '</p></div>' +
+      '<div class="card delf"><div class="gauge-wrap big">' + gaugeSvg(dp.total, T('ready for DELF', 'جاهز لـDELF')) + '</div><div class="bars">' + dp.parts.map(function(p){
         return '<div class="bar"><span>' + p[0] + ' ' + esc(T(p[1], p[2])) + ' <small>' + Math.round(p[4] * 100) + '%</small></span><div class="track"><i style="width:' + (p[3] || 0) + '%"></i></div><b>' + (p[3] == null ? esc(T('not started', 'لسه')) : p[3] + '%') + '</b></div>';
       }).join('') + '</div></div>' +
       '<div class="card tip">💡 ' + esc(L(tips[weakest[1]])) + '</div>' +
@@ -1202,7 +1202,7 @@
         const words = (D.words || []).filter(function(w){ return w.student_id === k.id; }), pron = (D.pron || []).filter(function(p){ return p.student_id === k.id; });
         const lv = Math.max.apply(null, [1].concat(en.map(function(e){ return e.level || 1; })));
         const dp = delfParts({ subs: subs, taskOf: taskOf, pron: pron, words: words, level: lv });
-        h += '<div class="row gap wrap"><div class="gauge-wrap">' + gaugeSvg(dp.total, 'DELF ' + FR_LEVELS[lv - 1][4]) + '</div><div class="grow">' + passportHtml((D.stamps || []).filter(function(s){ return s.student_id === k.id; }), lv, k.full_name) + '</div></div>' +
+        h += '<div class="row gap wrap"><div class="gauge-wrap">' + gaugeSvg(dp.total, T('Level ', 'المستوى ') + lv) + '</div><div class="grow">' + passportHtml((D.stamps || []).filter(function(s){ return s.student_id === k.id; }), lv, k.full_name) + '</div></div>' +
           '<p class="muted small">🎙️ ' + esc(T('Pronunciation average: ', 'متوسط النطق: ') + (avg(pron.slice(0, 20).map(function(p){ return p.score; })) || 0) + '%') + ' · 📒 ' + esc(T('Words mastered: ', 'كلمات متقنة: ') + wordsMastered(words) + '/' + words.length) + '</p>';
       } else {
         const sk = skillAvg(subs.filter(function(s){ return s.skills; }));

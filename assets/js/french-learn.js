@@ -278,9 +278,9 @@
     const L = GRAM[gLv];
     gramEl.innerHTML = '<div class="g-tabs" role="tablist">' + GRAM.map(function(l, i){
       const n = l[4].filter(function(_, j){ return gDone[i + '-' + j]; }).length;
-      return '<button type="button" role="tab" aria-selected="' + (i === gLv) + '" class="' + (i === gLv ? 'on' : '') + '" data-glv="' + i + '"><b>' + (i + 1) + '</b><span class="fr">' + esc(l[0]) + '</span><small>' + l[3] + (n ? ' · ' + n + '/4 ✓' : '') + '</small></button>';
+      return '<button type="button" role="tab" aria-selected="' + (i === gLv) + '" class="' + (i === gLv ? 'on' : '') + '" data-glv="' + i + '"><b>' + (i + 1) + '</b><span class="fr">' + esc(l[0]) + '</span><small>' + (n ? n + '/4 ✓' : esc(T('4 topics', '٤ مواضيع'))) + '</small></button>';
     }).join('') + '</div>' +
-      '<div class="g-lv"><span class="g-badge">' + esc(T('Level ', 'المستوى ') + (gLv + 1)) + ' · ' + L[3] + '</span><h3>' + esc(T(L[1], L[2])) + '</h3></div>' +
+      '<div class="g-lv"><span class="g-badge">' + esc(T('Level ', 'المستوى ') + (gLv + 1)) + '</span><h3>' + esc(T(L[1], L[2])) + '</h3></div>' +
       '<div class="g-grid">' + L[4].map(function(t, j){
         const key = gLv + '-' + j, a = gAns[key], q = t[6];
         const order = (gAns['o' + key] = gAns['o' + key] || [0, 1, 2].sort(function(){ return Math.random() - .5; }));
