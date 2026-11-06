@@ -339,17 +339,18 @@
         '<ul>' + (FR ? [['🛂', 'A passport with a stamp for every level', 'باسبور فيه ختم لكل مستوى'], ['🎙️', 'Pronunciation score with your voice', 'درجة نطق بصوتك'], ['📒', 'A smart word notebook', 'كشكول كلمات ذكي'], ['📈', 'Your DELF readiness meter', 'مؤشر جاهزيتك لـDELF']]
           : [['🗺️', 'A skill map that lights up as you learn', 'خريطة مهارات بتنوّر وإنت بتتعلم'], ['💻', 'Code exercises checked instantly', 'تمارين كود بتتصحح فوراً'], ['🗂️', 'A portfolio you can share', 'معرض مشاريع تشاركه مع الناس'], ['🔥', 'Daily challenge & streaks', 'تحدي يومي وسلسلة أيام']])
           .map(function(x){ return '<li><span>' + x[0] + '</span>' + esc(T(x[1], x[2])) + '</li>'; }).join('') + '</ul>' +
-        '<p class="muted small">' + esc(T('Already have a Code Cademy account? Use the same phone number and password.', 'عندك حساب في Code Cademy؟ استخدم نفس الرقم والباسورد.')) + '</p></div>' +
+        '<p class="muted small">' + esc(T('Already have a Code Cademy account (English, French or Tech)? Sign in with the same phone number or email and password.', 'عندك حساب في Code Cademy (إنجليزي أو فرنساوي أو برمجة)؟ ادخل بنفس الرقم أو الإيميل والباسورد.')) + '</p></div>' +
       '<div class="card auth-card"><div class="seg"><button type="button" data-act="authMode" data-m="login" class="' + (login ? 'on' : '') + '">' + esc(T('Sign in', 'تسجيل الدخول')) + '</button><button type="button" data-act="authMode" data-m="signup" class="' + (!login ? 'on' : '') + '">' + esc(T('New account', 'حساب جديد')) + '</button></div>' +
         (note ? '<p class="note">' + esc(note) + '</p>' : '') +
         '<form data-form="' + (login ? 'login' : 'signup') + '" class="form">' +
           (login ? '' : '<label>' + esc(T('Full name', 'الاسم بالكامل')) + '<input name="name" required maxlength="80" autocomplete="name"></label>' +
-            '<label>' + esc(T('I am', 'أنا')) + '<select name="role"><option value="student">' + esc(T('A student', 'طالب')) + '</option><option value="parent">' + esc(T('A parent', 'ولي أمر')) + '</option></select></label>') +
-          '<label>' + esc(T('Phone number', 'رقم الموبايل')) + '<input name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05xxxxxxxx" dir="ltr"></label>' +
+            '<label>' + esc(T('I am', 'أنا')) + '<select name="role"><option value="student">' + esc(T('A student', 'طالب')) + '</option><option value="parent">' + esc(T('A parent', 'ولي أمر')) + '</option><option value="teacher">' + esc(T('A teacher', 'معلم')) + '</option></select></label>') +
+          (login ? '<label>' + esc(T('Phone number or email', 'رقم الموبايل أو الإيميل')) + '<input name="phone" type="text" inputmode="email" required autocomplete="username" placeholder="05xxxxxxxx / name@email.com" dir="ltr"></label>'
+            : '<label>' + esc(T('Phone number', 'رقم الموبايل')) + '<input name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05xxxxxxxx" dir="ltr"></label>') +
           '<label>' + esc(T('Password', 'الباسورد')) + '<input name="password" type="password" required minlength="6" autocomplete="' + (login ? 'current-password' : 'new-password') + '" dir="ltr"></label>' +
           '<p class="err" id="authErr"></p><button class="btn main wide" type="submit">' + esc(login ? T('Sign in', 'دخول') : T('Create my account', 'اعمل حسابي')) + '</button>' +
           (login ? '<a class="muted small center" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello, I forgot my password. My phone number is: ', 'السلام عليكم، نسيت الباسورد. رقمي: ')) + '">' + esc(T('Forgot your password? Message us', 'نسيت الباسورد؟ كلّمنا')) + '</a>'
-            : '<p class="muted small">' + esc(T('Teachers: create your account on Code Cademy site, then the admin approves it.', 'المعلمين: اعملوا الحساب من موقع Code Cademy والمدير يوافق عليه.')) + '</p>') +
+            : '<p class="muted small">' + esc(T('Teachers: choose “A teacher”. The admin approves your account, then your teacher tools open here.', 'المعلمين: اختاروا «معلم». المدير بيوافق على الحساب، وبعدها أدوات المعلم بتفتح هنا.')) + '</p>') +
         '</form></div></div>';
   }
   ACT.authMode = function(b){ authMode = b.dataset.m; showAuth(); };
@@ -357,11 +358,16 @@
     const err = $('authErr'); err.textContent = '';
     const btn = f.querySelector('button[type=submit]');
     await busy(btn, async function(){
-      const phone = normPhone(f.phone.value) || f.phone.value.trim();
-      const r = await sb.rpc('phone_login_email', { p_phone: phone, p_password: f.password.value });
-      if(r.error) throw r.error;
-      if(!r.data){ err.textContent = T('Wrong phone number or password.', 'رقم الموبايل أو الباسورد غلط.'); return; }
-      const s = await sb.auth.signInWithPassword({ email: r.data, password: f.password.value });
+      const ident = f.phone.value.trim();
+      let email = ident;
+      if(ident.indexOf('@') === -1){ // a phone number: the database checks the password, then gives the account's email
+        const r = await sb.rpc('phone_login_email', { p_phone: normPhone(ident) || ident, p_password: f.password.value });
+        if(r.error) throw r.error;
+        if(!r.data){ err.textContent = T('Wrong phone number or password.', 'رقم الموبايل أو الباسورد غلط.'); return; }
+        email = r.data;
+      }
+      const s = await sb.auth.signInWithPassword({ email: email.toLowerCase(), password: f.password.value });
+      if(s.error && /invalid/i.test(s.error.message || '')){ err.textContent = T('Wrong email, phone number or password.', 'الإيميل أو الرقم أو الباسورد غلط.'); return; }
       if(s.error) throw s.error;
       await start();
     });
@@ -408,11 +414,16 @@
     main.innerHTML = '<div class="loading">' + (FR ? '🥐' : '🤖') + '</div>';
     let prof = null;
     for(let i = 0; i < 3 && !prof; i++){ // a brand-new account's profile row can take a moment
-      const r = await sb.from('profiles').select('id, full_name, role, phone').eq('id', session.user.id).maybeSingle();
+      const r = await sb.from('profiles').select('id, full_name, role, phone, teacher_request').eq('id', session.user.id).maybeSingle();
       prof = r.data; if(!prof) await new Promise(function(res){ setTimeout(res, 600); });
     }
     if(!prof){ showAuth(T('We could not open your account. Please try again.', 'مقدرناش نفتح حسابك. حاول تاني.')); return; }
     me = prof; guestView = null;
+    if(prof.teacher_request && prof.role !== 'teacher' && prof.role !== 'admin'){
+      renderChrome(); document.querySelector('.app').classList.add('solo');
+      main.innerHTML = '<div class="card verify"><span class="big">⏳</span><h1>' + esc(T('Waiting for approval', 'بانتظار الموافقة')) + '</h1><p>' + esc(T('Your teacher account is with the admin. Once it is approved, sign in again and your teacher tools open here.', 'طلب حساب المعلم عند المدير. أول ما يوافق، ادخل تاني وأدوات المعلم هتفتح هنا.')) + '</p><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/' + WA + '">💬 WhatsApp</a></div>';
+      return;
+    }
     await loadAll(); await loadShared(); startLive();
     try{ if(ROLE() === 'student' && !localStorage.getItem(seenKey())) localStorage.setItem(seenKey(), new Date().toISOString()); }catch(e){}
     const tabs = tabsFor().map(function(t){ return t[0]; });
