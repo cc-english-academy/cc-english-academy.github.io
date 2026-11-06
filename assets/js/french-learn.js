@@ -278,9 +278,9 @@
     const L = GRAM[gLv];
     gramEl.innerHTML = '<div class="g-tabs" role="tablist">' + GRAM.map(function(l, i){
       const n = l[4].filter(function(_, j){ return gDone[i + '-' + j]; }).length;
-      return '<button type="button" role="tab" aria-selected="' + (i === gLv) + '" class="' + (i === gLv ? 'on' : '') + '" data-glv="' + i + '"><b>' + (i + 1) + '</b><span class="fr">' + esc(l[0]) + '</span><small>' + (n ? n + '/4 ✓' : esc(T('4 topics', '٤ مواضيع'))) + '</small></button>';
+      return '<button type="button" role="tab" aria-selected="' + (i === gLv) + '" class="' + (i === gLv ? 'on' : '') + '" data-glv="' + i + '"><b>' + (i + 1) + '</b><span>' + esc(T('Level ' + (i + 1), 'المستوى ' + (i + 1))) + '</span><small>' + (n ? n + '/4 ✓' : esc(T('4 topics', '٤ مواضيع'))) + '</small></button>';
     }).join('') + '</div>' +
-      '<div class="g-lv"><span class="g-badge">' + esc(T('Level ', 'المستوى ') + (gLv + 1)) + '</span><h3>' + esc(T(L[1], L[2])) + '</h3></div>' +
+      '<div class="g-lv"><h3>' + esc(T('Level ' + (gLv + 1), 'المستوى ' + (gLv + 1))) + '</h3><span class="g-badge">' + esc(T('4 topics', '٤ مواضيع')) + '</span></div>' + bookCard(gLv + 1) +
       '<div class="g-grid">' + L[4].map(function(t, j){
         const key = gLv + '-' + j, a = gAns[key], q = t[6];
         const order = (gAns['o' + key] = gAns['o' + key] || [0, 1, 2].sort(function(){ return Math.random() - .5; }));
@@ -291,6 +291,22 @@
             order.map(function(i){ return '<button type="button" class="fr' + (a != null ? (i === 0 ? ' ok' : (i === a ? ' no' : '')) : '') + '" data-gq="' + key + '" data-k="' + i + '"' + (a != null ? ' disabled' : '') + '>' + esc(q[1][i]) + '</button>'; }).join('') +
           '</div>' + (a != null ? '<p class="g-why">' + (a === 0 ? '⭐ ' + esc(T('Correct! ', 'صح! ')) : '💡 ') + esc(T(q[2], q[3])) + '</p>' + (a !== 0 ? '<button type="button" class="g-retry" data-retry="' + key + '">↻ ' + esc(T('Try again', 'جرّب تاني')) + '</button>' : '') : '') + '</div></article>';
       }).join('') + '</div>';
+  }
+  // the book of each level: teachers upload it in the French dashboard (📘 Books)
+  const SB = 'https://orpknmkgfwmtroiqljzp.supabase.co', SBK = 'sb_publishable_x7AQ0xQl8qqOH3iDKqxddg_-7fbStUh';
+  let BOOKS = null;
+  try{ fetch(SB + '/rest/v1/track_books?track=eq.french&select=level,title,file_path,file_size&order=created_at.desc', { headers: { apikey: SBK } })
+    .then(function(r){ return r.ok ? r.json() : []; }).then(function(rows){ BOOKS = rows || []; renderGram(); }).catch(function(){ BOOKS = []; renderGram(); }); }catch(e){ BOOKS = []; }
+  const size = function(b){ return b ? (b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.round(b / 1024) + ' KB') : ''; };
+  function bookCard(lv){
+    const list = (BOOKS || []).filter(function(b){ return b.level === lv; });
+    if(BOOKS === null) return '<div class="g-book loading">📘 …</div>';
+    if(!list.length) return '<div class="g-book empty"><span class="gb-ic">📘</span><div><b>' + esc(T('The Level ' + lv + ' book', 'كتاب المستوى ' + lv)) + '</b><small>' + esc(T('Coming soon — your teacher will add it here.', 'قريباً — المعلم هيضيفه هنا.')) + '</small></div></div>';
+    return list.map(function(b){
+      const url = SB + '/storage/v1/object/public/track-books/' + b.file_path.split('/').map(encodeURIComponent).join('/');
+      return '<div class="g-book"><span class="gb-ic">📘</span><div class="gb-t"><b>' + esc(b.title) + '</b><small>' + esc(T('Level ' + lv + ' book', 'كتاب المستوى ' + lv)) + (b.file_size ? ' · ' + size(b.file_size) : '') + '</small></div>' +
+        '<a class="gb-dl" href="' + esc(url) + '" target="_blank" rel="noopener" download>⬇️ ' + esc(T('Download the book', 'حمّل الكتاب')) + '</a></div>';
+    }).join('');
   }
   if(gramEl) gramEl.addEventListener('click', function(e){
     const tab = e.target.closest('[data-glv]'); if(tab){ gLv = +tab.dataset.glv; renderGram(); return; }
