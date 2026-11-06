@@ -1,5 +1,5 @@
-// Le Club Français: six grammar levels, 30 film scenes and 60 topics (music, food, travel), with voices,
-// subtitles and pronunciation practice. Everything runs in the browser, free (speech is the browser's own).
+// Le Club Français: grammar in six levels and twelve worlds of French (30 film scenes + 140 topics), with
+// voices, subtitles and pronunciation practice. Everything runs in the browser, free (speech is the browser's own).
 (function(){
   'use strict';
   // ----- 30 cinema scenes: [emoji, title fr, title en, title ar, colour, lines [who, fr, en, ar]] (original scenes) -----
@@ -102,6 +102,105 @@
     ['🆘', 'Pouvez-vous m’aider ?', 'Can you help me?', 'ممكن تساعدني؟', 'J’ai perdu mon sac, pouvez-vous m’aider ?', 'I’ve lost my bag, can you help me?', 'ضيّعت شنطتي، ممكن تساعدني؟'],
     ['👋', 'Bon voyage !', 'Have a good trip!', 'رحلة سعيدة!', 'Bon voyage et à bientôt !', 'Have a good trip and see you soon!', 'رحلة سعيدة وأشوفك قريب!']
   ];
+  // ----- 8 more worlds × 10 topics: [emoji, word fr, en, ar, example fr, en, ar] -----
+  const MORE = {
+    school: [
+      ['🎒', 'le cartable', 'the school bag', 'شنطة المدرسة', 'Mon cartable est trop lourd aujourd’hui.', 'My school bag is too heavy today.', 'شنطتي تقيلة أوي النهارده.'],
+      ['✏️', 'un crayon', 'a pencil', 'قلم رصاص', 'Tu peux me prêter un crayon ?', 'Can you lend me a pencil?', 'ممكن تسلفني قلم رصاص؟'],
+      ['📒', 'un cahier', 'a notebook', 'كشكول', 'Ouvrez vos cahiers, s’il vous plaît.', 'Open your notebooks, please.', 'افتحوا الكشاكيل من فضلكم.'],
+      ['👩‍🏫', 'la maîtresse', 'the teacher', 'المُدرّسة', 'La maîtresse explique la leçon.', 'The teacher explains the lesson.', 'المُدرّسة بتشرح الدرس.'],
+      ['🙋', 'lever la main', 'to raise your hand', 'يرفع إيده', 'Levez la main pour répondre.', 'Raise your hand to answer.', 'ارفعوا إيدكم عشان تجاوبوا.'],
+      ['📝', 'un contrôle', 'a test', 'امتحان', 'J’ai un contrôle de maths demain.', 'I have a maths test tomorrow.', 'عندي امتحان رياضيات بكرة.'],
+      ['🔔', 'la récréation', 'break time', 'الفسحة', 'On joue au ballon à la récréation.', 'We play ball at break time.', 'بنلعب كورة في الفسحة.'],
+      ['📚', 'les devoirs', 'homework', 'الواجب', 'Je fais mes devoirs après l’école.', 'I do my homework after school.', 'بعمل الواجب بعد المدرسة.'],
+      ['🧮', 'les mathématiques', 'maths', 'الرياضيات', 'J’adore les mathématiques !', 'I love maths!', 'بحب الرياضيات جداً!'],
+      ['❓', 'Je ne comprends pas.', 'I don’t understand.', 'مش فاهم.', 'Pardon, je ne comprends pas. Vous pouvez répéter ?', 'Sorry, I don’t understand. Can you repeat?', 'آسف، مش فاهم. ممكن تعيد؟']
+    ],
+    family: [
+      ['👨', 'le père', 'the father', 'الأب', 'Mon père travaille à l’hôpital.', 'My father works at the hospital.', 'بابا بيشتغل في المستشفى.'],
+      ['👩', 'la mère', 'the mother', 'الأم', 'Ma mère cuisine très bien.', 'My mother cooks very well.', 'ماما بتطبخ حلو جداً.'],
+      ['👦', 'le frère', 'the brother', 'الأخ', 'J’ai un grand frère et une petite sœur.', 'I have a big brother and a little sister.', 'عندي أخ كبير وأخت صغيرة.'],
+      ['👴', 'le grand-père', 'the grandfather', 'الجد', 'Mon grand-père raconte des histoires.', 'My grandfather tells stories.', 'جدي بيحكي حواديت.'],
+      ['👶', 'le bébé', 'the baby', 'البيبي', 'Le bébé dort dans sa chambre.', 'The baby is sleeping in his room.', 'البيبي نايم في أوضته.'],
+      ['🧑‍🤝‍🧑', 'les cousins', 'the cousins', 'ولاد العم والخال', 'Je joue avec mes cousins le week-end.', 'I play with my cousins at the weekend.', 'بلعب مع ولاد عمي في الويك إند.'],
+      ['🏠', 'la maison', 'the house', 'البيت', 'Notre maison a un petit jardin.', 'Our house has a small garden.', 'بيتنا فيه جنينة صغيرة.'],
+      ['🍽️', 'le dîner en famille', 'family dinner', 'العشا مع العيلة', 'Le soir, on dîne tous ensemble.', 'In the evening, we all have dinner together.', 'بالليل بنتعشى كلنا مع بعض.'],
+      ['❤️', 'aimer', 'to love', 'يحب', 'J’aime beaucoup ma famille.', 'I love my family very much.', 'بحب عيلتي جداً.'],
+      ['📷', 'une photo de famille', 'a family photo', 'صورة العيلة', 'Regarde, c’est une photo de ma famille !', 'Look, it’s a photo of my family!', 'بص، دي صورة عيلتي!']
+    ],
+    sport: [
+      ['⚽', 'le football', 'football', 'كورة القدم', 'Je joue au football avec mes amis.', 'I play football with my friends.', 'بلعب كورة مع صحابي.'],
+      ['🏀', 'le basket', 'basketball', 'كورة السلة', 'Il est très grand, il joue au basket.', 'He is very tall, he plays basketball.', 'هو طويل جداً، بيلعب باسكت.'],
+      ['🏊', 'nager', 'to swim', 'يعوم', 'En été, je nage à la piscine.', 'In summer, I swim at the pool.', 'في الصيف بعوم في البيسين.'],
+      ['🚴', 'le vélo', 'cycling', 'العجلة', 'Le Tour de France est une course de vélo.', 'The Tour de France is a cycling race.', 'طواف فرنسا سباق عجل.'],
+      ['🎾', 'le tennis', 'tennis', 'التنس', 'Roland-Garros est un tournoi de tennis à Paris.', 'Roland-Garros is a tennis tournament in Paris.', 'رولان جاروس بطولة تنس في باريس.'],
+      ['🏃', 'courir', 'to run', 'يجري', 'Je cours tous les matins dans le parc.', 'I run every morning in the park.', 'بجري كل يوم الصبح في الجنينة.'],
+      ['🥇', 'gagner', 'to win', 'يكسب', 'Notre équipe a gagné le match !', 'Our team won the match!', 'فريقنا كسب الماتش!'],
+      ['🤸', 'la gymnastique', 'gymnastics', 'الجمباز', 'La gymnastique, c’est bon pour le corps.', 'Gymnastics is good for the body.', 'الجمباز مفيد للجسم.'],
+      ['🏋️', 's’entraîner', 'to train', 'يتمرّن', 'Elle s’entraîne trois fois par semaine.', 'She trains three times a week.', 'بتتمرن ٣ مرات في الأسبوع.'],
+      ['📣', 'Allez !', 'Come on!', 'يلا!', 'Allez les Bleus !', 'Come on, France!', 'يلا يا فرنسا!']
+    ],
+    shop: [
+      ['🛒', 'le supermarché', 'the supermarket', 'السوبرماركت', 'Je vais au supermarché.', 'I’m going to the supermarket.', 'أنا رايح السوبرماركت.'],
+      ['💰', 'Combien ça coûte ?', 'How much is it?', 'بكام؟', 'Combien ça coûte, ce pull ?', 'How much is this jumper?', 'البلوفر ده بكام؟'],
+      ['👕', 'un tee-shirt', 'a T-shirt', 'تيشيرت', 'Je cherche un tee-shirt bleu.', 'I’m looking for a blue T-shirt.', 'بدوّر على تيشيرت أزرق.'],
+      ['👟', 'des chaussures', 'shoes', 'جزمة', 'Ces chaussures sont trop petites.', 'These shoes are too small.', 'الجزمة دي صغيرة أوي.'],
+      ['📏', 'la taille', 'the size', 'المقاس', 'Vous avez une taille plus grande ?', 'Do you have a bigger size?', 'عندك مقاس أكبر؟'],
+      ['🪞', 'essayer', 'to try on', 'يقيس', 'Je peux essayer ce pantalon ?', 'Can I try on these trousers?', 'ممكن أقيس البنطلون ده؟'],
+      ['🏷️', 'les soldes', 'the sales', 'الأوكازيون', 'En janvier, il y a les soldes !', 'In January, there are the sales!', 'في يناير فيه أوكازيون!'],
+      ['💳', 'payer par carte', 'to pay by card', 'يدفع بالكارت', 'Je peux payer par carte ?', 'Can I pay by card?', 'ينفع أدفع بالكارت؟'],
+      ['🛍️', 'un sac', 'a bag', 'كيس', 'Vous voulez un sac ?', 'Would you like a bag?', 'عايز كيس؟'],
+      ['🙂', 'Ce sera tout.', 'That’s all.', 'بس كده.', 'Ce sera tout, merci. Bonne journée !', 'That will be all, thank you. Have a nice day!', 'بس كده، شكراً. يومك سعيد!']
+    ],
+    health: [
+      ['🩺', 'le médecin', 'the doctor', 'الدكتور', 'Je dois aller chez le médecin.', 'I have to go to the doctor.', 'لازم أروح للدكتور.'],
+      ['🤒', 'la fièvre', 'a fever', 'السخونية', 'Mon fils a de la fièvre.', 'My son has a fever.', 'ابني عنده سخونية.'],
+      ['🤕', 'J’ai mal…', 'It hurts…', 'عندي وجع…', 'J’ai mal au ventre.', 'I have a stomach ache.', 'بطني بتوجعني.'],
+      ['💊', 'un médicament', 'a medicine', 'دوا', 'Prenez ce médicament deux fois par jour.', 'Take this medicine twice a day.', 'خد الدوا ده مرتين في اليوم.'],
+      ['🏥', 'l’hôpital', 'the hospital', 'المستشفى', 'L’hôpital est à côté de la gare.', 'The hospital is next to the station.', 'المستشفى جنب المحطة.'],
+      ['🦷', 'le dentiste', 'the dentist', 'دكتور السنان', 'J’ai rendez-vous chez le dentiste.', 'I have an appointment at the dentist.', 'عندي ميعاد عند دكتور السنان.'],
+      ['🤧', 'un rhume', 'a cold', 'برد', 'J’ai un rhume, j’éternue tout le temps.', 'I have a cold, I sneeze all the time.', 'عندي برد، وبعطس على طول.'],
+      ['🧴', 'la pharmacie', 'the pharmacy', 'الصيدلية', 'La pharmacie est ouverte le dimanche ?', 'Is the pharmacy open on Sunday?', 'الصيدلية فاتحة يوم الحد؟'],
+      ['😴', 'se reposer', 'to rest', 'يرتاح', 'Tu dois te reposer et bien dormir.', 'You must rest and sleep well.', 'لازم ترتاح وتنام كويس.'],
+      ['🚑', 'Appelez le 15 !', 'Call 15! (emergency)', 'اطلب ١٥! (الإسعاف)', 'Vite, appelez le 15 ! Il est blessé.', 'Quick, call 15! He is hurt.', 'بسرعة، اطلب ١٥! هو متعوّر.']
+    ],
+    weather: [
+      ['☀️', 'Il fait beau.', 'The weather is nice.', 'الجو حلو.', 'Aujourd’hui, il fait beau et chaud.', 'Today it’s nice and warm.', 'النهارده الجو حلو ودافي.'],
+      ['🌧️', 'Il pleut.', 'It’s raining.', 'بتمطر.', 'Il pleut, prends ton parapluie !', 'It’s raining, take your umbrella!', 'بتمطر، خد شمسيتك!'],
+      ['❄️', 'Il neige.', 'It’s snowing.', 'بتتلج.', 'Il neige ! On fait un bonhomme de neige ?', 'It’s snowing! Shall we build a snowman?', 'بتتلج! نعمل راجل تلج؟'],
+      ['🌬️', 'Il y a du vent.', 'It’s windy.', 'في هوا.', 'Il y a du vent, ferme la fenêtre.', 'It’s windy, close the window.', 'في هوا، اقفل الشباك.'],
+      ['🥵', 'Il fait chaud.', 'It’s hot.', 'الجو حر.', 'Il fait trop chaud, je veux une glace !', 'It’s too hot, I want an ice cream!', 'الجو حر أوي، عايز آيس كريم!'],
+      ['🥶', 'Il fait froid.', 'It’s cold.', 'الجو برد.', 'Il fait froid, mets ton manteau.', 'It’s cold, put your coat on.', 'الجو برد، البس البالطو.'],
+      ['☁️', 'des nuages', 'clouds', 'سحاب', 'Le ciel est plein de nuages.', 'The sky is full of clouds.', 'السما مليانة سحاب.'],
+      ['⛈️', 'un orage', 'a storm', 'عاصفة', 'Il y a un orage ce soir.', 'There is a storm tonight.', 'فيه عاصفة الليلة.'],
+      ['🌈', 'un arc-en-ciel', 'a rainbow', 'قوس قزح', 'Regarde, un arc-en-ciel !', 'Look, a rainbow!', 'بص، قوس قزح!'],
+      ['🌡️', 'la température', 'the temperature', 'درجة الحرارة', 'Il fait vingt degrés.', 'It’s twenty degrees.', 'الحرارة ٢٠ درجة.']
+    ],
+    animals: [
+      ['🐱', 'le chat', 'the cat', 'القطة', 'Mon chat dort sur le canapé.', 'My cat sleeps on the sofa.', 'قطتي بتنام على الكنبة.'],
+      ['🐶', 'le chien', 'the dog', 'الكلب', 'Le chien aboie quand on sonne.', 'The dog barks when someone rings.', 'الكلب بيهوهو لما حد يرن الجرس.'],
+      ['🐴', 'le cheval', 'the horse', 'الحصان', 'Le cheval court très vite.', 'The horse runs very fast.', 'الحصان بيجري بسرعة جداً.'],
+      ['🐮', 'la vache', 'the cow', 'البقرة', 'La vache nous donne du lait.', 'The cow gives us milk.', 'البقرة بتدينا لبن.'],
+      ['🐦', 'un oiseau', 'a bird', 'عصفور', 'Un oiseau chante sur l’arbre.', 'A bird is singing in the tree.', 'عصفور بيغني على الشجرة.'],
+      ['🐠', 'un poisson rouge', 'a goldfish', 'سمكة ملونة', 'J’ai un poisson rouge.', 'I have a goldfish.', 'عندي سمكة ملونة.'],
+      ['🦁', 'le lion', 'the lion', 'الأسد', 'Le lion est le roi des animaux.', 'The lion is the king of the animals.', 'الأسد ملك الحيوانات.'],
+      ['🐘', 'l’éléphant', 'the elephant', 'الفيل', 'L’éléphant a une très longue trompe.', 'The elephant has a very long trunk.', 'الفيل خرطومه طويل جداً.'],
+      ['🐰', 'le lapin', 'the rabbit', 'الأرنب', 'Le lapin mange une carotte.', 'The rabbit is eating a carrot.', 'الأرنب بياكل جزرة.'],
+      ['🐒', 'le singe', 'the monkey', 'القرد', 'Le singe grimpe aux arbres.', 'The monkey climbs trees.', 'القرد بيطلع على الشجر.']
+    ],
+    fetes: [
+      ['🎂', 'Joyeux anniversaire !', 'Happy birthday!', 'عيد ميلاد سعيد!', 'Joyeux anniversaire, Sara !', 'Happy birthday, Sara!', 'عيد ميلاد سعيد يا سارة!'],
+      ['🕌', 'l’Aïd', 'Eid', 'العيد', 'Aïd Moubarak ! Bonne fête à toute la famille.', 'Eid Mubarak! Happy Eid to the whole family.', 'عيد مبارك! كل سنة وكل العيلة طيبين.'],
+      ['🌙', 'le ramadan', 'Ramadan', 'رمضان', 'Pendant le ramadan, on mange après le coucher du soleil.', 'During Ramadan, we eat after sunset.', 'في رمضان بناكل بعد المغرب.'],
+      ['🎆', 'le 14 juillet', '14 July', '١٤ يوليو', 'Le 14 juillet, c’est la fête nationale française.', '14 July is the French national day.', '١٤ يوليو هو العيد الوطني الفرنسي.'],
+      ['🥂', 'Bonne année !', 'Happy New Year!', 'سنة سعيدة!', 'Bonne année et bonne santé !', 'Happy New Year and good health!', 'سنة سعيدة وصحة كويسة!'],
+      ['🎁', 'un cadeau', 'a present', 'هدية', 'Merci pour ce joli cadeau !', 'Thank you for this lovely present!', 'شكراً على الهدية الحلوة دي!'],
+      ['🎈', 'une fête', 'a party', 'حفلة', 'On fait une fête samedi, tu viens ?', 'We’re having a party on Saturday, are you coming?', 'عاملين حفلة يوم السبت، جاي؟'],
+      ['💐', 'la fête des Mères', 'Mother’s Day', 'عيد الأم', 'Pour la fête des Mères, j’offre des fleurs.', 'For Mother’s Day, I give flowers.', 'في عيد الأم بجيب ورد.'],
+      ['🎊', 'Félicitations !', 'Congratulations!', 'مبروك!', 'Félicitations pour ton diplôme !', 'Congratulations on your diploma!', 'مبروك على شهادتك!'],
+      ['🥳', 'faire la fête', 'to celebrate', 'يحتفل', 'Ce soir, on fait la fête !', 'Tonight, we celebrate!', 'الليلة هنحتفل!']
+    ]
+  };
   // ----- 6 grammar levels × 4 topics: [title fr, title en, title ar, rule en, rule ar, examples [fr, en, ar], quiz [sentence with ___, options (first right), why en, why ar]] -----
   const GRAM = [
     ['Débutant', 'Beginner', 'المبتدئ', 'A1', [
@@ -205,40 +304,52 @@
   });
 
   // ===================== explore: cinema, music, food, travel =====================
+  // [id, icon, name fr, en, ar, colour, tint]
   const THEMES = [
-    { id: 'cine', icon: '🎬', fr: 'Cinéma', en: '30 film scenes', ar: '٣٠ مشهد سينما', c: '#8a1c33' },
-    { id: 'music', icon: '🎵', fr: 'Musique', en: '20 music topics', ar: '٢٠ موضوع موسيقى', c: '#1f3a6e' },
-    { id: 'food', icon: '🥐', fr: 'Cuisine', en: '20 food topics', ar: '٢٠ موضوع أكل', c: '#b8872a' },
-    { id: 'travel', icon: '🗼', fr: 'Voyage', en: '20 travel topics', ar: '٢٠ موضوع سفر', c: '#2d6a4f' }
-  ];
-  const TCOL = { music: ['#d7e2f5', '#e6e0f7'], food: ['#f6e6c3', '#fde2c5'], travel: ['#cfe8dc', '#dff0f5'] };
+    ['cine', '🎬', 'Cinéma', 'Film scenes', 'مشاهد سينما', '#8a1c33', '#f8e3e6'], ['music', '🎵', 'Musique', 'Music', 'الموسيقى', '#1f3a6e', '#e3e9f6'],
+    ['food', '🥐', 'Cuisine', 'Food', 'الأكل', '#b8872a', '#f8efdc'], ['travel', '🗼', 'Voyage', 'Travel', 'السفر', '#2d6a4f', '#e1f1e8'],
+    ['school', '🏫', 'École', 'School', 'المدرسة', '#c2410c', '#fdebe0'], ['family', '👨‍👩‍👧', 'Famille', 'Family', 'العيلة', '#be185d', '#fbe6f0'],
+    ['sport', '⚽', 'Sport', 'Sport', 'الرياضة', '#15803d', '#e3f5e8'], ['shop', '🛍️', 'Shopping', 'Shopping', 'التسوق', '#7c3aed', '#efe8fd'],
+    ['health', '🩺', 'Santé', 'Health', 'الصحة', '#0e7490', '#e0f3f7'], ['weather', '🌦️', 'Météo', 'Weather', 'الطقس', '#2563eb', '#e5edfd'],
+    ['animals', '🐾', 'Animaux', 'Animals', 'الحيوانات', '#a16207', '#f9f0da'], ['fetes', '🎉', 'Fêtes', 'Celebrations', 'المناسبات', '#db2777', '#fde7f1']
+  ].map(function(t){ return { id: t[0], icon: t[1], fr: t[2], en: t[3], ar: t[4], c: t[5], tint: t[6] }; });
+  const thOf = function(id){ return THEMES.find(function(t){ return t.id === id; }); };
   // every item becomes a little scene: [emoji, title fr, title en, title ar, colour, lines]
   function itemsOf(th){
     if(th === 'cine') return CINE;
-    const src = th === 'music' ? MUSIC : th === 'food' ? FOOD : TRAVEL;
-    return src.map(function(x, i){ return [x[0], x[1], x[2], x[3], TCOL[th][i % 2], [[x[0], x[1], x[2], x[3]], ['🙋', x[4], x[5], x[6]]]]; });
+    const src = th === 'music' ? MUSIC : th === 'food' ? FOOD : th === 'travel' ? TRAVEL : MORE[th];
+    const t = thOf(th);
+    return src.map(function(x){ return [x[0], x[1], x[2], x[3], t.tint, [[x[0], x[1], x[2], x[3]], ['🙋', x[4], x[5], x[6]]]]; });
   }
   const exEl = document.getElementById('exploreApp');
   let exTh = 'cine', exDone = store('cc_fr_explore', {}), exAll = false;
+  const doneIn = function(id){ return itemsOf(id).filter(function(_, i){ return exDone[id + '-' + i]; }).length; };
+  function ring(p, c){ const C = 2 * Math.PI * 15; return '<svg class="x-ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="3"/><circle cx="18" cy="18" r="15" fill="none" stroke="' + c + '" stroke-width="3" stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + (C * (1 - p)).toFixed(1) + '" transform="rotate(-90 18 18)"/></svg>'; }
   function renderExplore(){
     if(!exEl) return;
-    const items = itemsOf(exTh), th = THEMES.find(function(t){ return t.id === exTh; });
-    const done = items.filter(function(_, i){ return exDone[exTh + '-' + i]; }).length;
-    const show = exAll ? items.length : Math.min(12, items.length);
-    exEl.innerHTML = '<div class="x-tabs" role="tablist">' + THEMES.map(function(t){
-      const n = itemsOf(t.id).length, d = itemsOf(t.id).filter(function(_, i){ return exDone[t.id + '-' + i]; }).length;
-      return '<button type="button" role="tab" aria-selected="' + (t.id === exTh) + '" class="' + (t.id === exTh ? 'on' : '') + '" style="--c:' + t.c + '" data-th="' + t.id + '"><span class="xi">' + t.icon + '</span><b class="fr">' + t.fr + '</b><small>' + esc(T(t.en, t.ar)) + '</small><i class="xbar"><i style="width:' + Math.round(100 * d / n) + '%"></i></i></button>';
+    const items = itemsOf(exTh), th = thOf(exTh), done = doneIn(exTh), cine = exTh === 'cine';
+    const show = exAll ? items.length : Math.min(cine ? 12 : 10, items.length);
+    const total = THEMES.reduce(function(x, t){ return x + itemsOf(t.id).length; }, 0), totalDone = THEMES.reduce(function(x, t){ return x + doneIn(t.id); }, 0);
+    const next = items.findIndex(function(_, i){ return !exDone[exTh + '-' + i]; });
+    exEl.innerHTML = '<div class="x-rail" role="tablist">' + THEMES.map(function(t){
+      const n = itemsOf(t.id).length, d = doneIn(t.id);
+      return '<button type="button" role="tab" aria-selected="' + (t.id === exTh) + '" class="x-chip' + (t.id === exTh ? ' on' : '') + '" style="--c:' + t.c + ';--t:' + t.tint + '" data-th="' + t.id + '"><span class="x-ic">' + t.icon + ring(d / n, t.c) + '</span><span class="x-nm"><b class="fr">' + t.fr + '</b><small>' + esc(T(t.en, t.ar)) + ' · ' + n + '</small></span></button>';
     }).join('') + '</div>' +
-      '<p class="x-prog">' + esc(T(done + ' of ' + items.length + ' done', 'خلصت ' + done + ' من ' + items.length)) + ' ' + (done === items.length ? '🏆' : '') + '</p>' +
-      '<div class="x-grid">' + items.slice(0, show).map(function(it, i){
+      '<div class="x-banner" style="--c:' + th.c + ';--t:' + th.tint + '"><span class="x-big" aria-hidden="true">' + th.icon + '</span><div class="x-bt"><small>' + esc(T('World ', 'عالم ') + (THEMES.indexOf(th) + 1) + '/' + THEMES.length) + '</small><h3 class="fr">' + th.fr + '</h3><p>' + esc(T(th.en, th.ar)) + ' · ' + esc(cine ? T(items.length + ' scenes acted out with voices', items.length + ' مشهد بالصوت والترجمة') : T(items.length + ' words with real-life sentences', items.length + ' كلمة بجمل من الحياة')) + '</p>' +
+        '<div class="x-pb"><i style="width:' + Math.round(100 * done / items.length) + '%"></i></div><small class="x-pt">' + esc(T(done + ' / ' + items.length + ' done', 'خلصت ' + done + ' من ' + items.length)) + (done === items.length ? ' 🏆' : '') + ' · ' + esc(T('all worlds: ' + totalDone + ' / ' + total, 'كل العوالم: ' + totalDone + ' / ' + total)) + '</small></div>' +
+        (next >= 0 ? '<button type="button" class="x-start" data-play="' + next + '">▶ ' + esc(done ? T('Continue', 'كمّل') : T('Start', 'ابدأ')) + '</button>' : '<span class="x-trophy">🏆</span>') + '</div>' +
+      '<div class="x-grid' + (cine ? ' cine' : '') + '" style="--c:' + th.c + ';--t:' + th.tint + '">' + items.slice(0, show).map(function(it, i){
         const d = exDone[exTh + '-' + i];
-        return '<button type="button" class="x-card' + (d ? ' done' : '') + '" style="--bg:' + it[4] + '" data-play="' + i + '"><span class="x-em">' + it[0] + '</span><b class="fr">' + esc(it[1]) + '</b><small>' + esc(T(it[2], it[3])) + '</small><span class="x-play">' + (d ? '✓' : '▶') + '</span>' + (exTh === 'cine' ? '<span class="x-n">' + esc(T('Scene ', 'مشهد ') + (i + 1)) + '</span>' : '') + '</button>';
+        return cine
+          ? '<button type="button" class="x-ticket' + (d ? ' done' : '') + '" data-play="' + i + '"><span class="tk-n">' + esc(T('Scene', 'مشهد')) + '<b>' + String(i + 1).padStart(2, '0') + '</b></span><span class="tk-body"><span class="x-em">' + it[0] + '</span><b class="fr">' + esc(it[1]) + '</b><small>' + esc(T(it[2], it[3])) + '</small></span><span class="tk-go">' + (d ? '✓' : '▶') + '</span></button>'
+          : '<div class="x-card' + (d ? ' done' : '') + '"><button type="button" class="x-open" data-play="' + i + '"><span class="x-em">' + it[0] + '</span><b class="fr">' + esc(it[1]) + '</b><small>' + esc(T(it[2], it[3])) + '</small></button><div class="x-foot"><button type="button" class="x-quick" data-quick="' + esc(it[1]) + '" aria-label="' + esc(T('Listen', 'اسمع')) + '">🔊</button><button type="button" class="x-go" data-play="' + i + '">' + (d ? '✓ ' + esc(T('Done', 'خلصت')) : '▶ ' + esc(T('Practise', 'اتمرّن'))) + '</button></div></div>';
       }).join('') + '</div>' +
-      (items.length > 12 ? '<div class="x-more"><button type="button" class="btn ghost" data-xall>' + esc(exAll ? T('Show less', 'عرض أقل') : T('Show all ' + items.length, 'عرض الكل (' + items.length + ')')) + '</button></div>' : '');
+      (items.length > show || exAll ? '<div class="x-more"><button type="button" class="btn ghost" data-xall>' + esc(exAll ? T('Show less', 'عرض أقل') : T('Show all ' + items.length, 'عرض الكل (' + items.length + ')')) + '</button></div>' : '');
   }
   if(exEl) exEl.addEventListener('click', function(e){
     const t = e.target.closest('[data-th]'); if(t){ exTh = t.dataset.th; exAll = false; renderExplore(); return; }
     if(e.target.closest('[data-xall]')){ exAll = !exAll; renderExplore(); return; }
+    const q = e.target.closest('[data-quick]'); if(q){ say(q.dataset.quick); q.classList.remove('pop'); void q.offsetWidth; q.classList.add('pop'); return; }
     const p = e.target.closest('[data-play]'); if(p) openPlayer(exTh, +p.dataset.play);
   });
 
@@ -248,7 +359,7 @@
   function openPlayer(th, i){ pTh = th; pI = i; playing = false; renderPlayer(); if(!dlg.open) dlg.showModal(); }
   function speakersOf(lines){ const s = []; lines.forEach(function(l){ if(s.indexOf(l[0]) === -1) s.push(l[0]); }); return s; }
   function renderPlayer(){
-    const items = itemsOf(pTh), it = items[pI], sp = speakersOf(it[5]), th = THEMES.find(function(t){ return t.id === pTh; });
+    const items = itemsOf(pTh), it = items[pI], sp = speakersOf(it[5]), th = thOf(pTh);
     dlg.innerHTML = '<div class="p-stage" style="--bg:' + it[4] + '"><button type="button" class="p-x" data-px aria-label="' + esc(T('Close', 'إغلاق')) + '">✕</button>' +
       '<span class="p-kick">' + th.icon + ' <span class="fr">' + th.fr + '</span> · ' + (pI + 1) + '/' + items.length + '</span><h3 class="fr">' + it[0] + ' ' + esc(it[1]) + '</h3><p class="p-sub">' + esc(T(it[2], it[3])) + '</p>' +
       '<div class="p-cast">' + sp.map(function(s, k){ return '<span class="p-actor" data-actor="' + k + '">' + s + '</span>'; }).join('') + '</div>' +

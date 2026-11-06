@@ -48,29 +48,66 @@
 .g-opts button.ok{background:#dcfbe9;border-color:#2fbf71}.g-opts button.no{background:#ffe3e8;border-color:#ff6f8a}
 .g-why{margin:8px 0 0;font-weight:600;font-size:.9rem}
 .g-retry{border:0;background:none;color:#8a1c33;font-weight:800;cursor:pointer;padding:4px 0}
-/* explore */
-.x-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
-@media(max-width:760px){.x-tabs{grid-template-columns:1fr 1fr}}
-.x-tabs button{position:relative;border:1.5px solid var(--line);background:#fff;border-radius:20px;padding:14px 10px 18px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;overflow:hidden;transition:transform .15s}
-.x-tabs button:hover{transform:translateY(-3px)}
-.xi{font-size:1.9rem}
-.x-tabs b{font-size:1.15rem;color:var(--deep)}
-.x-tabs small{color:var(--muted);font-weight:700;font-size:.78rem}
-.xbar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(0,0,0,.06)}
-.xbar i{display:block;height:100%;background:var(--c)}
-.x-tabs button.on{background:var(--c);border-color:var(--c)}
-.x-tabs button.on b,.x-tabs button.on small{color:#fff}
-.x-prog{margin:6px 0 12px;color:var(--muted);font-weight:700;text-align:center}
-.x-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-.x-card{position:relative;border:0;border-radius:20px;padding:16px 12px 14px;background:var(--bg);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:start;min-height:138px;box-shadow:0 14px 26px -22px rgba(62,15,27,.7);transition:transform .2s,box-shadow .2s}
-.x-card:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 22px 34px -22px rgba(62,15,27,.7)}
-.x-em{font-size:2rem;line-height:1}
-.x-card b{color:var(--deep);font-size:1rem;line-height:1.25}
-.x-card small{color:#5b4a46;font-size:.8rem}
-.x-play{position:absolute;top:12px;inset-inline-end:12px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#8a1c33;font-size:.8rem;font-weight:800;box-shadow:0 6px 14px -8px rgba(0,0,0,.5)}
-.x-card.done .x-play{background:#2fbf71;color:#fff}
-.x-n{position:absolute;bottom:10px;inset-inline-end:12px;font-size:.7rem;font-weight:800;color:#8a1c33;opacity:.7}
-.x-more{text-align:center;margin-top:14px}
+/* twelve worlds */
+.x-rail{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 14px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.x-chip{flex:none;scroll-snap-align:start;display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 16px 6px 6px;cursor:pointer;font:inherit;color:inherit;transition:transform .15s,background .2s,border-color .2s}
+html[dir=rtl] .x-chip{padding:6px 6px 6px 16px}
+.x-chip:hover{transform:translateY(-2px);border-color:var(--c)}
+.x-ic{position:relative;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--t);font-size:1.35rem}
+.x-ring{position:absolute;inset:-3px;width:52px;height:52px}
+.x-nm{display:flex;flex-direction:column;line-height:1.2;text-align:start}
+.x-nm b{font-size:1rem;color:var(--deep)}
+.x-nm small{font-size:.74rem;color:var(--muted);font-weight:700;white-space:nowrap}
+.x-chip.on{background:var(--c);border-color:var(--c);box-shadow:0 12px 24px -14px var(--c)}
+.x-chip.on .x-nm b,.x-chip.on .x-nm small{color:#fff}
+.x-chip.on .x-ic{background:#fff}
+.x-banner{position:relative;display:flex;align-items:center;gap:18px;border-radius:28px;padding:22px 24px;margin:4px 0 16px;overflow:hidden;color:#fff;background:radial-gradient(420px 220px at 100% 0,rgba(255,255,255,.28),transparent 60%),linear-gradient(120deg,var(--c),color-mix(in srgb,var(--c) 70%,#000));box-shadow:0 24px 44px -30px var(--c)}
+.x-banner::after{content:'';position:absolute;inset:auto -40px -60px auto;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.08)}
+.x-big{font-size:3.4rem;line-height:1;flex:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25));animation:xFloat 3.5s ease-in-out infinite alternate}
+@keyframes xFloat{to{transform:translateY(-6px) rotate(-4deg)}}
+.x-bt{flex:1;min-width:0;position:relative;z-index:1}
+.x-bt>small{font-weight:800;opacity:.8;font-size:.76rem;letter-spacing:.04em}
+.x-bt h3{color:#fff;font-size:2rem;margin:2px 0}
+.x-bt p{margin:0 0 10px;opacity:.92}
+.x-pb{height:8px;border-radius:99px;background:rgba(255,255,255,.25);overflow:hidden;max-width:420px}
+.x-pb i{display:block;height:100%;background:#fff;border-radius:99px;transition:width .6s}
+.x-pt{display:block;margin-top:6px;opacity:.9;font-weight:700;font-size:.8rem}
+.x-start{position:relative;z-index:1;flex:none;border:0;border-radius:999px;padding:13px 22px;background:#fff;color:var(--c);font:800 1rem Inter,Cairo,sans-serif;cursor:pointer;box-shadow:0 14px 26px -14px rgba(0,0,0,.5);transition:transform .2s}
+.x-start:hover{transform:translateY(-2px) scale(1.03)}
+.x-trophy{font-size:2.4rem;position:relative;z-index:1}
+@media(max-width:620px){.x-banner{flex-wrap:wrap;padding:18px}.x-big{font-size:2.6rem}.x-bt h3{font-size:1.6rem}.x-start{width:100%}}
+.x-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.x-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 14px 28px -24px rgba(62,15,27,.7);transition:transform .2s,box-shadow .2s,border-color .2s}
+.x-card::before{content:'';height:5px;background:var(--c)}
+.x-card:hover{transform:translateY(-4px);box-shadow:0 22px 36px -24px rgba(62,15,27,.7);border-color:var(--c)}
+.x-open{flex:1;border:0;background:none;padding:16px 16px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:start;font:inherit;color:inherit}
+.x-open .x-em{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:var(--t);font-size:1.8rem;margin-bottom:6px;transition:transform .3s}
+.x-card:hover .x-em{transform:rotate(-8deg) scale(1.08)}
+.x-open b{font-size:1.08rem;color:var(--deep);line-height:1.25}
+.x-open small{color:var(--muted);font-size:.84rem}
+.x-foot{display:flex;align-items:center;gap:8px;padding:0 12px 12px}
+.x-quick{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--t);cursor:pointer;font-size:1rem;flex:none}
+.x-quick.pop{animation:xPop .4s}
+@keyframes xPop{50%{transform:scale(1.2)}}
+.x-go{flex:1;border:0;border-radius:999px;padding:9px 12px;background:var(--c);color:#fff;font:800 .86rem Inter,Cairo,sans-serif;cursor:pointer}
+.x-card.done .x-go{background:#2fbf71}
+.x-card.done::after{content:'✓';position:absolute;top:14px;inset-inline-end:14px;width:26px;height:26px;border-radius:50%;background:#2fbf71;color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem}
+/* cinema: film tickets */
+.x-grid.cine{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.x-ticket{position:relative;display:flex;align-items:stretch;border:0;padding:0;border-radius:18px;background:#fff;cursor:pointer;font:inherit;color:inherit;text-align:start;box-shadow:0 14px 28px -22px rgba(62,15,27,.7);overflow:hidden;transition:transform .2s}
+.x-ticket:hover{transform:translateY(-4px) rotate(-.4deg)}
+.tk-n{flex:none;width:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--c);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;position:relative}
+.tk-n b{font:700 1.7rem 'Playfair Display',serif;letter-spacing:0}
+.tk-n::after{content:'';position:absolute;top:8px;bottom:8px;inset-inline-end:-5px;width:10px;background:radial-gradient(circle,#fff 3px,transparent 3.5px) 0 0/10px 12px repeat-y}
+.tk-body{flex:1;min-width:0;padding:14px 12px 14px 18px;display:flex;flex-direction:column;gap:2px}
+html[dir=rtl] .tk-body{padding:14px 18px 14px 12px}
+.tk-body .x-em{font-size:1.6rem}
+.tk-body b{color:var(--deep);font-size:1.02rem;line-height:1.25}
+.tk-body small{color:var(--muted);font-size:.82rem}
+.tk-go{flex:none;align-self:center;margin-inline-end:12px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--t);color:var(--c);font-weight:800}
+.x-ticket.done .tk-go{background:#2fbf71;color:#fff}
+.x-more{text-align:center;margin-top:16px}
+@media(prefers-reduced-motion:reduce){.x-big{animation:none}}
 /* the player */
 dialog.player{border:0;border-radius:26px;padding:0;width:min(640px,calc(100vw - 20px));max-height:calc(100vh - 30px);overflow:auto;background:#fffdf8;box-shadow:0 40px 90px -30px rgba(0,0,0,.7)}
 dialog.player::backdrop{background:rgba(30,10,16,.6);backdrop-filter:blur(3px)}
