@@ -69,9 +69,42 @@ body.in-room .lobby{display:none}
 @keyframes wave{50%{transform:rotate(18deg)}}
 .grid.has-share{grid-template-columns:1fr;grid-auto-rows:auto}
 .grid.has-share .tile:not(.share){display:none}
+/* whiteboard */
+.stage{position:relative;gap:10px}
+.wb{display:none;flex:1;min-width:0;flex-direction:column;gap:8px}
+body.wb-open .wb{display:flex}
+body.wb-open .grid{flex:0 0 200px;grid-template-columns:1fr!important;grid-auto-rows:auto;align-content:start;overflow:auto}
+body.wb-open .grid .tile{display:block!important}
+body.wb-open .tag{font-size:.7rem;padding:2px 8px}
+body.wb-open .ava b{width:46px;height:46px;font-size:1.1rem}
+.wb-tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}
+.tg{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:4px}
+.tb{width:38px;height:36px;border:0;border-radius:10px;background:none;font-size:1.05rem;font-weight:800;display:grid;place-items:center}
+.tb:hover{background:var(--panel2)}
+.tb.on{background:var(--acc)}
+.tb.sz i{width:var(--d);height:var(--d);border-radius:50%;background:var(--txt);display:block}
+.sw{width:26px;height:26px;margin:5px 3px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:var(--c);cursor:pointer;padding:0}
+.sw.on{outline:3px solid var(--gold);outline-offset:1px}
+.wb-area{position:relative;flex:1;min-height:0;display:grid;place-items:center}
+#wbCanvas{background:#fff;border-radius:16px;box-shadow:0 20px 50px -25px #000;touch-action:none;cursor:crosshair;display:block}
+#wbCanvas[data-tool=eraser]{cursor:cell}
+#wbCanvas[data-tool=text]{cursor:text}
+#wbTextIn{position:absolute;min-width:160px;font:600 18px Cairo,Inter,sans-serif;background:rgba(255,255,255,.95);border:2px dashed var(--acc);border-radius:8px;padding:4px 8px;resize:none;outline:none;z-index:3}
+/* devices, meter, status */
+.devs{display:grid;gap:8px;margin:4px 0 6px}
+.devs label{display:grid;gap:4px;font-size:.8rem;font-weight:700;color:var(--mut)}
+.devs select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--txt);font:inherit;font-size:.86rem}
+.devs .hint{color:var(--mut);font-size:.76rem}
+.devs.inroom{padding:14px;overflow:auto}
+.meter{height:8px;border-radius:999px;background:var(--panel2);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#9bf2c8);transition:width .1s}
+.tips{margin:8px 0 0;padding-inline-start:18px;color:var(--mut);font-size:.8rem;display:grid;gap:6px}
+.st{position:absolute;inset:auto 10px 46px 10px;text-align:center;background:rgba(0,0,0,.65);border-radius:10px;padding:6px 10px;font-size:.8rem;font-weight:700}
+.soundbtn{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:21;border:0;border-radius:999px;padding:12px 22px;font-weight:800;background:var(--gold);color:#2a1f0c;box-shadow:0 10px 30px -10px #000}
+#retryMedia{margin-top:8px}
 /* side panel */
 .side{display:none;width:340px;margin-inline-start:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;flex-direction:column;overflow:hidden}
-body[data-panel=chat] .side.chat,body[data-panel=people] .side.ppl{display:flex}
+body[data-panel=chat] .side.chat,body[data-panel=people] .side.ppl,body[data-panel=settings] .side.set{display:flex}
 .side header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);font-weight:800}
 .side header button{border:0;background:none;font-size:1.2rem}
 .msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
@@ -102,6 +135,12 @@ body.left .lobby{display:none}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#fff;color:#14111f;font-weight:700;padding:10px 18px;border-radius:999px;z-index:20;box-shadow:0 10px 30px -10px #000}
 @media(max-width:860px){
   .lob{grid-template-columns:1fr}
+  body.wb-open .room{flex-direction:column}
+  body.wb-open .stage{flex-direction:column}
+  body.wb-open .grid{flex:0 0 auto;display:flex!important;overflow-x:auto;gap:6px}
+  body.wb-open .grid .tile{flex:0 0 110px;aspect-ratio:4/3}
+  .tb{width:34px;height:34px}
+  .sw{width:22px;height:22px;margin:6px 2px}
   .side{position:fixed;inset:60px 8px 92px;width:auto;margin:0;z-index:6}
   .rb{min-width:0;flex:1;max-width:58px;padding:10px 4px;font-size:0;border-radius:14px}
   .rb i{font-size:1.2rem}
@@ -140,18 +179,69 @@ body.left .lobby{display:none}
       <p data-t="Your Code Cademy class room. Check your camera and microphone, write your name and join.|غرفة حصتك في Code Cademy. تأكد من الكاميرا والميكروفون، واكتب اسمك وادخل.">غرفة حصتك في Code Cademy. تأكد من الكاميرا والميكروفون، واكتب اسمك وادخل.</p>
       <input id="nameIn" maxlength="40" autocomplete="name" data-ph="Your name|اسمك" placeholder="اسمك" required>
       <button class="join" id="joinBtn" type="submit" data-t="Join now|ادخل الآن">ادخل الآن</button>
+      <div class="devs">
+        <label><span data-t="🎙️ Microphone|🎙️ الميكروفون">🎙️ الميكروفون</span><select class="dev-mic"></select></label>
+        <div class="meter" title="Mic level"><i id="micBar"></i></div>
+        <label><span data-t="📷 Camera|📷 الكاميرا">📷 الكاميرا</span><select class="dev-cam"></select></label>
+        <label hidden><span data-t="🔈 Speaker|🔈 السمّاعة">🔈 السمّاعة</span><select class="dev-spk"></select></label>
+        <small class="hint" data-t="Speak: the green bar should move. If not, pick another microphone.|تكلّم: يجب أن يتحرك الشريط الأخضر. إن لم يتحرك، اختر ميكروفونًا آخر.">تكلّم: يجب أن يتحرك الشريط الأخضر. إن لم يتحرك، اختر ميكروفونًا آخر.</small>
+      </div>
       <div class="note" id="lobbyNote"></div>
+      <button class="pill" type="button" id="retryMedia" hidden data-t="🔄 Try again|🔄 حاول مرة أخرى">🔄 حاول مرة أخرى</button>
       <div class="copyrow"><button class="pill" type="button" data-copy data-t="🔗 Copy invite link|🔗 انسخ رابط الدعوة">🔗 انسخ رابط الدعوة</button><span data-t="Anyone with the link can join.|أي شخص معه الرابط يمكنه الدخول.">أي شخص معه الرابط يمكنه الدخول.</span></div>
     </form>
   </div>
 </main>
 
 <section class="room" aria-label="Room">
-  <div class="stage"><div class="grid" id="grid"></div></div>
+  <div class="stage">
+    <div class="wb" id="wb">
+      <div class="wb-tools" role="toolbar" aria-label="Whiteboard">
+        <div class="tg">
+          <button type="button" class="tb on" data-tool="pen" data-tt="Pen|قلم">✏️</button>
+          <button type="button" class="tb" data-tool="hl" data-tt="Highlighter|قلم تظليل">🖍️</button>
+          <button type="button" class="tb" data-tool="line" data-tt="Line|خط">／</button>
+          <button type="button" class="tb" data-tool="arrow" data-tt="Arrow|سهم">➚</button>
+          <button type="button" class="tb" data-tool="rect" data-tt="Rectangle|مستطيل">▭</button>
+          <button type="button" class="tb" data-tool="oval" data-tt="Circle|دائرة">◯</button>
+          <button type="button" class="tb" data-tool="text" data-tt="Text|نص">T</button>
+          <button type="button" class="tb" data-tool="eraser" data-tt="Eraser|ممحاة">🧽</button>
+        </div>
+        <div class="tg" id="wbColors"></div>
+        <div class="tg">
+          <button type="button" class="tb sz" data-size="2" data-tt="Thin|رفيع"><i style="--d:4px"></i></button>
+          <button type="button" class="tb sz on" data-size="4" data-tt="Medium|متوسط"><i style="--d:8px"></i></button>
+          <button type="button" class="tb sz" data-size="9" data-tt="Thick|عريض"><i style="--d:13px"></i></button>
+        </div>
+        <div class="tg">
+          <button type="button" class="tb" id="wbUndo" data-tt="Undo (Ctrl+Z)|تراجع (Ctrl+Z)">↶</button>
+          <button type="button" class="tb" id="wbClear" data-tt="Clear for everyone|مسح للجميع">🗑️</button>
+          <button type="button" class="tb" id="wbSave" data-tt="Save as image|حفظ كصورة">⬇️</button>
+          <button type="button" class="tb" id="wbClose" data-tt="Close board|إغلاق السبورة">✕</button>
+        </div>
+      </div>
+      <div class="wb-area"><canvas id="wbCanvas" data-tool="pen"></canvas><textarea id="wbTextIn" rows="1" hidden></textarea></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
   <aside class="side chat" aria-label="Chat">
     <header><span data-t="Chat|الدردشة">الدردشة</span><button type="button" data-close aria-label="Close">✕</button></header>
     <div class="msgs" id="msgs"></div>
     <form id="chatForm"><input id="chatIn" maxlength="1000" autocomplete="off" data-ph="Write a message…|اكتب رسالة…" placeholder="اكتب رسالة…"><button type="submit" data-t="Send|إرسال">إرسال</button></form>
+  </aside>
+  <aside class="side set" aria-label="Settings">
+    <header><span data-t="Settings|الإعدادات">الإعدادات</span><button type="button" data-close aria-label="Close">✕</button></header>
+    <div class="devs inroom">
+      <label><span data-t="🎙️ Microphone|🎙️ الميكروفون">🎙️ الميكروفون</span><select class="dev-mic"></select></label>
+      <label><span data-t="📷 Camera|📷 الكاميرا">📷 الكاميرا</span><select class="dev-cam"></select></label>
+      <label hidden><span data-t="🔈 Speaker|🔈 السمّاعة">🔈 السمّاعة</span><select class="dev-spk"></select></label>
+      <ul class="tips">
+        <li data-t="Can’t hear others? Turn up the volume and pick the right speaker.|لا تسمع الآخرين؟ ارفع الصوت واختر السمّاعة الصحيحة.">لا تسمع الآخرين؟ ارفع الصوت واختر السمّاعة الصحيحة.</li>
+        <li data-t="Echo or whistling? Use headphones, or don’t sit two devices in the same room.|صدى أو صفير؟ استخدم سماعات الأذن، ولا تضع جهازين في الغرفة نفسها.">صدى أو صفير؟ استخدم سماعات الأذن، ولا تضع جهازين في الغرفة نفسها.</li>
+        <li data-t="Camera busy? Close Zoom, Teams or other apps using it.|الكاميرا مشغولة؟ أغلق زوم أو تيمز أو أي برنامج يستخدمها.">الكاميرا مشغولة؟ أغلق زوم أو تيمز أو أي برنامج يستخدمها.</li>
+        <li data-t="Opened from WhatsApp or Instagram? Open the link in Chrome or Safari.|فتحت الرابط من واتساب أو إنستغرام؟ افتحه في Chrome أو Safari.">فتحت الرابط من واتساب أو إنستغرام؟ افتحه في Chrome أو Safari.</li>
+      </ul>
+    </div>
   </aside>
   <aside class="side ppl" aria-label="People">
     <header><span data-t="People|المشاركون">المشاركون</span><button type="button" data-close aria-label="Close">✕</button></header>
@@ -166,9 +256,11 @@ body.left .lobby{display:none}
     <button class="rb" id="btnMic" type="button"><i>🎙️</i><span></span></button>
     <button class="rb" id="btnCam" type="button"><i>📷</i><span></span></button>
     <button class="rb" id="btnShare" type="button"><i>🖥️</i><span></span></button>
+    <button class="rb" id="btnBoard" type="button"><i>🧑‍🏫</i><span data-t="Whiteboard|السبورة">السبورة</span></button>
     <button class="rb" id="btnHand" type="button"><i>✋</i><span data-t="Raise hand|ارفع يدك">ارفع يدك</span></button>
     <button class="rb" id="btnChat" type="button"><i>💬</i><span data-t="Chat|الدردشة">الدردشة</span><b id="unread" hidden>0</b></button>
     <button class="rb" id="btnPeople" type="button"><i>👥</i><span data-t="People|المشاركون">المشاركون</span></button>
+    <button class="rb" id="btnSettings" type="button"><i>⚙️</i><span data-t="Settings|الإعدادات">الإعدادات</span></button>
     <button class="rb leave" id="btnLeave" type="button"><i>📞</i><span data-t="Leave|خروج">خروج</span></button>
   </div>
 </nav>
@@ -181,6 +273,7 @@ body.left .lobby{display:none}
   </div>
 </section>
 
+<button class="soundbtn" id="soundBtn" type="button" hidden data-t="🔊 Tap to turn on the sound|🔊 اضغط لتشغيل الصوت">🔊 اضغط لتشغيل الصوت</button>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -190,12 +283,13 @@ body.left .lobby{display:none}
     var ar = document.documentElement.lang === 'ar';
     document.querySelectorAll('[data-t]').forEach(function(el){ var p = el.getAttribute('data-t').split('|'); el.textContent = ar ? p[1] : p[0]; });
     document.querySelectorAll('[data-ph]').forEach(function(el){ var p = el.getAttribute('data-ph').split('|'); el.placeholder = ar ? p[1] : p[0]; });
+    document.querySelectorAll('[data-tt]').forEach(function(el){ var p = el.getAttribute('data-tt').split('|'); el.title = ar ? p[1] : p[0]; el.setAttribute('aria-label', el.title); });
   }
   new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   document.addEventListener('DOMContentLoaded', paint);
 })();
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/room.js?v=3245856a"></script>
+<script defer src="assets/js/room.js?v=bbb92ab3"></script>
 </body>
 </html>
