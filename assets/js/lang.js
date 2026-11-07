@@ -17,7 +17,7 @@
     "Tech Lab":"مختبر التقنية",
     "Français":"الفرنساوي",
     "🤖 Coco Tech Lab":"🤖 مختبر كوكو للتقنية",
-    "🇫🇷 Le Club Français":"🇫🇷 النادي الفرنسي",
+    "Le Club Français":"النادي الفرنسي",
     "New at Code Cademy":"جديد في Code Cademy",
     "Two new worlds to explore.":"عالمين جداد تستكشفهم.",
     "One place":"مكان واحد",

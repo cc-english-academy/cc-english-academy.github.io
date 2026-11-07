@@ -268,7 +268,7 @@
   const norm = function(s){ return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean); };
   function store(k, d){ try{ return JSON.parse(localStorage.getItem(k) || 'null') || d; }catch(e){ return d; } }
   function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
-  const party = function(el){ if(window.ccFx){ if(el) ccFx.burstFrom(el, { emoji: ['⭐', '🇫🇷'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); } };
+  const party = function(el){ if(window.ccFx){ if(el) ccFx.burstFrom(el, { emoji: ['⭐', '🗼'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); } };
 
   // ===================== grammar: six levels =====================
   const gramEl = document.getElementById('gramApp');

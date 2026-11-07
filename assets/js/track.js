@@ -602,7 +602,7 @@
   ACT.fiveAns = async function(b){ await reviewWord(five.words[five.i], b.dataset.k === '1'); five.i++; five.flip = false; fiveStep(); };
   ACT.fiveDone = async function(b){
     await busy(b, async function(){ const r = await sb.rpc('track_checkin', { p_track: TRACK, p_points: 3 }); if(r.error) throw r.error; });
-    closeModal(); await refreshActivity(); party(null, { emoji: ['🥐', '🇫🇷', '⭐'], n: 140, colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); toast(T('Bravo! +3 points 🥐', 'برافو! +٣ نقط 🥐')); render();
+    closeModal(); await refreshActivity(); party(null, { emoji: ['🥐', '🗼', '⭐'], n: 140, colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] }); toast(T('Bravo! +3 points 🥐', 'برافو! +٣ نقط 🥐')); render();
   };
   ACT.say = function(b){ speak(b.dataset.t, b.dataset.l || 'fr-FR'); };
   async function reviewWord(w, knew){
@@ -874,7 +874,7 @@
 
   // ----- French: the passport -----
   function passportHtml(stamps, level, name){
-    return '<div class="passport"><div class="pp-cover"><span>🇫🇷</span><div><small>PASSEPORT · Le Club Français</small><b>' + esc(name) + '</b></div></div><div class="pp-pages">' + FR_LEVELS.map(function(l, i){
+    return '<div class="passport"><div class="pp-cover"><span><img class="fl" src="assets/img/flag-fr.svg" alt="" width="42" height="28"></span><div><small>PASSEPORT · Le Club Français</small><b>' + esc(name) + '</b></div></div><div class="pp-pages">' + FR_LEVELS.map(function(l, i){
       const s = stamps.find(function(x){ return x.level === i + 1; }), isCur = !s && level === i + 1;
       return '<div class="stamp' + (s ? ' got' : '') + (isCur ? ' cur' : '') + '" style="--r:' + ((i * 37) % 17 - 8) + 'deg"><span class="em">' + (s ? l[1] : isCur ? '✈️' : '🔒') + '</span><b>' + l[0] + '</b><small>' + esc(T('Level ' + (i + 1), 'المستوى ' + (i + 1))) + '</small>' +
         (s ? '<i>' + esc(fmtDate(s.awarded_at)) + '</i>' : isCur ? '<i>' + esc(T('You are here', 'إنت هنا')) + '</i>' : '') + '</div>';
@@ -949,7 +949,7 @@
       got = true;
       const alts = Array.prototype.map.call(e.results[0], function(a){ return a.transcript; });
       const score = Math.max.apply(null, alts.map(function(a){ return pronScore(a, p[0]); }));
-      if(score >= 85) party(b, { emoji: ['🎯', '🇫🇷'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] });
+      if(score >= 85) party(b, { emoji: ['🎯', '🗼'], colors: ['#8a1c33', '#c9a227', '#1f3a6e', '#ffffff'] });
       if(out) out.innerHTML = '<b class="' + (score >= 80 ? 'okc' : score >= 55 ? 'mid' : 'noc') + '">' + score + '%</b> · ' + esc(T('Coco heard: ', 'كوكو سمع: ')) + '<i dir="ltr">' + esc(alts[0]) + '</i>' + (score < 70 ? ' · ' + esc(T('Tip: ', 'نصيحة: ') + L(SOUND_TIPS[p[3][0]] || ['', ''])) : ' 🎉');
       const ins = await sb.from('fr_pron').insert({ phrase: p[0], score: score, sounds: p[3] }).select().single();
       if(!ins.error && ins.data){ D.pron = [ins.data].concat(D.pron || []); if(score >= 70) sb.rpc('track_checkin', { p_track: TRACK, p_points: 1 }).then(function(){ refreshActivity(); }); }
@@ -1337,7 +1337,7 @@
   VIEWS.courses = function(){
     const st = { open: 0, soon: 0, hidden: 0, ann: 0 };
     COURSES.forEach(function(c){ st[cstat(c[0])]++; if(((D.cfg || {})[c[0]] || {}).announce) st.ann++; });
-    const groups = FR ? [['fr', '🇫🇷', 'French courses', 'كورسات الفرنساوي']] : TECH_CATS;
+    const groups = FR ? [['fr', '🗼', 'French courses', 'كورسات الفرنساوي']] : TECH_CATS;
     main.innerHTML = '<div class="head"><h2>📣 ' + esc(T('Course manager', 'إدارة الكورسات')) + '</h2><p class="muted">' + esc(T('Choose what visitors see on the course page and what students can join. Announce a course to put it in the spotlight with a note (dates, offers…).', 'اختار الطلاب والزوار يشوفوا إيه في صفحة الكورسات ويشتركوا في إيه. أعلن عن كورس عشان يظهر في الواجهة مع ملاحظة (مواعيد، عروض…).')) + '</p></div>' +
       '<div class="stats"><div class="stat"><i>✅</i><b data-count="' + st.open + '">' + st.open + '</b><span>' + esc(T('open', 'متاح')) + '</span></div><div class="stat"><i>⏳</i><b data-count="' + st.soon + '">' + st.soon + '</b><span>' + esc(T('coming soon', 'قريباً')) + '</span></div><div class="stat"><i>🙈</i><b data-count="' + st.hidden + '">' + st.hidden + '</b><span>' + esc(T('hidden', 'مخفي')) + '</span></div><div class="stat fire"><i>📣</i><b data-count="' + st.ann + '">' + st.ann + '</b><span>' + esc(T('announced', 'معلن عنه')) + '</span></div></div>' +
       (FR ? '' : '<details class="card add-course"' + (addOpen ? ' open' : '') + '><summary>➕ ' + esc(T('Add a new course', 'ضيف كورس جديد')) + '</summary>' + courseForm(null) + '</details>') +
