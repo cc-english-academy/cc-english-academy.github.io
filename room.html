@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Code Cademy Room</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f0d1a">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0d1a;--panel:#1a1729;--panel2:#242036;--line:rgba(255,255,255,.1);--txt:#efedf7;--mut:#a29cb8;--gold:#d7b46a;--red:#e5484d;--green:#30c48d;--acc:#7c5cff}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,Cairo,system-ui,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+[hidden]{display:none!important}
+a{color:#b9a8ff}
+/* top bar */
+.top{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;z-index:5;background:linear-gradient(var(--bg),rgba(15,13,26,.6))}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--txt);font-weight:800}
+.brand img{width:30px;height:30px;border-radius:8px}
+.code{font:600 .78rem ui-monospace,Consolas,monospace;color:var(--mut);background:var(--panel);border:1px solid var(--line);padding:4px 10px;border-radius:999px;direction:ltr}
+.top .sp{flex:1}
+.pill{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.82rem}
+.pill:hover{background:var(--panel2)}
+/* lobby */
+.lobby{position:fixed;inset:0;display:grid;place-items:center;padding:72px 16px 24px;overflow:auto}
+.lob{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;max-width:980px;width:100%}
+.pv{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#000;box-shadow:0 30px 70px -30px #000}
+.pv video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.pv .pvb{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:10px}
+.lob h1{margin:0 0 6px;font-size:clamp(1.6rem,3vw,2.2rem)}
+.lob p{color:var(--mut);margin:0 0 18px}
+.lob input{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--txt);font:inherit;font-size:1rem;margin-bottom:12px}
+.lob input:focus{outline:2px solid var(--acc);border-color:transparent}
+.join{width:100%;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:1rem;background:linear-gradient(135deg,#f3dca4,var(--gold));color:#2a1f0c}
+.join:disabled{opacity:.6;cursor:default}
+.note{color:var(--gold);font-size:.86rem;min-height:1.2em;margin-top:10px}
+.copyrow{margin-top:14px;display:flex;gap:8px;align-items:center;color:var(--mut);font-size:.85rem}
+/* round buttons */
+.rb{display:inline-flex;flex-direction:column;align-items:center;gap:4px;border:0;background:var(--panel2);border-radius:16px;padding:10px 14px;min-width:64px;font-size:.72rem;font-weight:700;color:var(--txt);position:relative;transition:background .2s,transform .15s}
+.rb i{font-style:normal;font-size:1.25rem;line-height:1}
+.rb:hover{background:#2f2a46}
+.rb:active{transform:scale(.96)}
+.rb.off{background:var(--red)}
+.rb.on{background:var(--acc)}
+.rb.leave{background:var(--red);min-width:80px}
+.rb b{position:absolute;top:4px;inset-inline-end:8px;background:var(--red);color:#fff;border-radius:999px;font-size:.66rem;padding:1px 6px}
+/* room */
+.room{display:none;position:fixed;inset:0;padding:60px 12px 92px}
+body.in-room .room{display:flex}
+body.in-room .lobby{display:none}
+.stage{flex:1;min-width:0;display:flex}
+.grid{--cols:1;flex:1;display:grid;grid-template-columns:repeat(var(--cols),1fr);grid-auto-rows:1fr;gap:10px;align-content:center}
+.tile{position:relative;background:#000;border-radius:18px;overflow:hidden;min-height:0;aspect-ratio:16/9;max-height:100%;outline:3px solid transparent;transition:outline-color .2s}
+.tile video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.tile.me video{transform:scaleX(-1)}
+.tile.share video{object-fit:contain;transform:none}
+.tile.talk{outline-color:var(--green)}
+.ava{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#2c2547,#14111f)}
+.ava b{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;font-size:2rem;background:linear-gradient(135deg,var(--acc),#3a2a8f);box-shadow:0 10px 30px -10px #000}
+.tag{position:absolute;bottom:10px;inset-inline-start:10px;display:flex;gap:6px;align-items:center;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);border-radius:999px;padding:4px 12px;font-size:.82rem;font-weight:600;max-width:calc(100% - 20px)}
+.tag span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag i{font-style:normal}
+.hand{animation:wave 1s ease-in-out infinite;display:inline-block}
+@keyframes wave{50%{transform:rotate(18deg)}}
+.grid.has-share{grid-template-columns:1fr;grid-auto-rows:auto}
+.grid.has-share .tile:not(.share){display:none}
+/* side panel */
+.side{display:none;width:340px;margin-inline-start:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;flex-direction:column;overflow:hidden}
+body[data-panel=chat] .side.chat,body[data-panel=people] .side.ppl{display:flex}
+.side header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);font-weight:800}
+.side header button{border:0;background:none;font-size:1.2rem}
+.msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.msg{background:var(--panel2);border-radius:14px;padding:8px 12px;max-width:90%}
+.msg.mine{align-self:flex-end;background:#3a2f73}
+.msg b{font-size:.78rem;color:var(--gold)}
+.msg small{color:var(--mut);font-weight:400}
+.msg p{margin:2px 0 0;white-space:pre-wrap;word-wrap:break-word}
+.side form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.side form input{flex:1;min-width:0;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--txt);font:inherit}
+.side form button{border:0;border-radius:12px;padding:0 16px;background:var(--acc);font-weight:800}
+.ppl ul{list-style:none;margin:0;padding:8px 12px;overflow:auto}
+.ppl li{display:flex;justify-content:space-between;gap:8px;padding:10px 6px;border-bottom:1px solid var(--line)}
+.ppl li span{opacity:.8}
+.ppl .inv{margin:12px;border:1px dashed var(--line);border-radius:12px;padding:12px;color:var(--mut);font-size:.86rem}
+/* control bar */
+.bar{position:fixed;bottom:0;left:0;right:0;height:84px;display:none;align-items:center;justify-content:center;gap:8px;padding:0 12px calc(env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 40%)}
+body.in-room .bar{display:flex}
+.bar .grp{display:flex;gap:8px}
+.bar .info{position:absolute;inset-inline-start:16px;color:var(--mut);font-size:.82rem;font-weight:600}
+/* left */
+.bye{display:none;position:fixed;inset:0;place-items:center;text-align:center;padding:24px}
+body.left .bye{display:grid}
+body.left .lobby{display:none}
+.bye h2{font-size:2rem;margin:0 0 8px}
+.bye p{color:var(--mut)}
+.bye .acts{display:flex;gap:10px;justify-content:center;margin-top:18px}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#fff;color:#14111f;font-weight:700;padding:10px 18px;border-radius:999px;z-index:20;box-shadow:0 10px 30px -10px #000}
+@media(max-width:860px){
+  .lob{grid-template-columns:1fr}
+  .side{position:fixed;inset:60px 8px 92px;width:auto;margin:0;z-index:6}
+  .rb{min-width:0;flex:1;max-width:58px;padding:10px 4px;font-size:0;border-radius:14px}
+  .rb i{font-size:1.2rem}
+  .rb.leave{min-width:0}
+  .bar .grp{gap:5px;width:100%;justify-content:center}
+  #btnShare{display:none}
+  .brand span,.code{display:none}
+  .bar .info{display:none}
+  .grid{--cols:1!important;grid-auto-rows:auto;align-content:start;overflow:auto}
+  .room{padding:60px 8px 92px}
+  body.in-room .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  body.in-room .grid .tile:only-child{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){.hand{animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy</span></a>
+  <span class="code" id="roomCode"></span>
+  <span class="sp"></span>
+  <button class="pill" id="langBtn" type="button">English · العربية</button>
+</header>
+
+<main class="lobby">
+  <div class="lob">
+    <div class="pv">
+      <video id="preview" autoplay playsinline muted></video>
+      <div class="pvb">
+        <button class="rb" id="lbMic" type="button"><i>🎙️</i><span></span></button>
+        <button class="rb" id="lbCam" type="button"><i>📷</i><span></span></button>
+      </div>
+    </div>
+    <form id="joinForm">
+      <h1 data-t="Ready to join?|جاهز للدخول؟">جاهز للدخول؟</h1>
+      <p data-t="Your Code Cademy class room. Check your camera and microphone, write your name and join.|غرفة حصتك في Code Cademy. تأكد من الكاميرا والميكروفون، واكتب اسمك وادخل.">غرفة حصتك في Code Cademy. تأكد من الكاميرا والميكروفون، واكتب اسمك وادخل.</p>
+      <input id="nameIn" maxlength="40" autocomplete="name" data-ph="Your name|اسمك" placeholder="اسمك" required>
+      <button class="join" id="joinBtn" type="submit" data-t="Join now|ادخل الآن">ادخل الآن</button>
+      <div class="note" id="lobbyNote"></div>
+      <div class="copyrow"><button class="pill" type="button" data-copy data-t="🔗 Copy invite link|🔗 انسخ رابط الدعوة">🔗 انسخ رابط الدعوة</button><span data-t="Anyone with the link can join.|أي شخص معه الرابط يمكنه الدخول.">أي شخص معه الرابط يمكنه الدخول.</span></div>
+    </form>
+  </div>
+</main>
+
+<section class="room" aria-label="Room">
+  <div class="stage"><div class="grid" id="grid"></div></div>
+  <aside class="side chat" aria-label="Chat">
+    <header><span data-t="Chat|الدردشة">الدردشة</span><button type="button" data-close aria-label="Close">✕</button></header>
+    <div class="msgs" id="msgs"></div>
+    <form id="chatForm"><input id="chatIn" maxlength="1000" autocomplete="off" data-ph="Write a message…|اكتب رسالة…" placeholder="اكتب رسالة…"><button type="submit" data-t="Send|إرسال">إرسال</button></form>
+  </aside>
+  <aside class="side ppl" aria-label="People">
+    <header><span data-t="People|المشاركون">المشاركون</span><button type="button" data-close aria-label="Close">✕</button></header>
+    <ul id="people"></ul>
+    <div class="inv"><span data-t="Invite students: send them the room link.|ادعُ الطلاب: أرسل لهم رابط الغرفة.">ادعُ الطلاب: أرسل لهم رابط الغرفة.</span><br><button class="pill" type="button" data-copy style="margin-top:8px" data-t="🔗 Copy invite link|🔗 انسخ رابط الدعوة">🔗 انسخ رابط الدعوة</button></div>
+  </aside>
+</section>
+
+<nav class="bar" aria-label="Controls">
+  <div class="info"><span data-t="In the room:|في الغرفة:">في الغرفة:</span> <b id="count">1</b></div>
+  <div class="grp">
+    <button class="rb" id="btnMic" type="button"><i>🎙️</i><span></span></button>
+    <button class="rb" id="btnCam" type="button"><i>📷</i><span></span></button>
+    <button class="rb" id="btnShare" type="button"><i>🖥️</i><span></span></button>
+    <button class="rb" id="btnHand" type="button"><i>✋</i><span data-t="Raise hand|ارفع يدك">ارفع يدك</span></button>
+    <button class="rb" id="btnChat" type="button"><i>💬</i><span data-t="Chat|الدردشة">الدردشة</span><b id="unread" hidden>0</b></button>
+    <button class="rb" id="btnPeople" type="button"><i>👥</i><span data-t="People|المشاركون">المشاركون</span></button>
+    <button class="rb leave" id="btnLeave" type="button"><i>📞</i><span data-t="Leave|خروج">خروج</span></button>
+  </div>
+</nav>
+
+<section class="bye">
+  <div>
+    <h2 data-t="You left the class 👋|خرجت من الحصة 👋">خرجت من الحصة 👋</h2>
+    <p data-t="See you next time!|نراك في المرة القادمة!">نراك في المرة القادمة!</p>
+    <div class="acts"><button class="pill" id="rejoin" type="button" data-t="Rejoin|ادخل مرة أخرى">ادخل مرة أخرى</button><a class="pill" href="index.html" style="text-decoration:none" data-t="Home|الرئيسية">الرئيسية</a></div>
+  </div>
+</section>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+// static text: data-t="English|عربي", placeholders: data-ph
+(function(){
+  function paint(){
+    var ar = document.documentElement.lang === 'ar';
+    document.querySelectorAll('[data-t]').forEach(function(el){ var p = el.getAttribute('data-t').split('|'); el.textContent = ar ? p[1] : p[0]; });
+    document.querySelectorAll('[data-ph]').forEach(function(el){ var p = el.getAttribute('data-ph').split('|'); el.placeholder = ar ? p[1] : p[0]; });
+  }
+  new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  document.addEventListener('DOMContentLoaded', paint);
+})();
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script defer src="assets/js/room.js?v=3245856a"></script>
+</body>
+</html>

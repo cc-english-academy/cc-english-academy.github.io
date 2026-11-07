@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=5ab5ced0">
+<link rel="stylesheet" href="assets/css/site.css?v=07b4d9d3">
 <link rel="stylesheet" href="assets/css/fields.css?v=a8d92bfa">
 </head>
 <body>
@@ -998,7 +998,8 @@
           </div>
           <div class="full">
             <label for="sessZoom">Zoom Meeting link</label>
-            <input id="sessZoom" type="url" placeholder="https://zoom.us/j/..." required>
+            <div class="room-row"><input id="sessZoom" type="text" inputmode="url" dir="ltr" autocomplete="off" placeholder="https://zoom.us/j/... — or paste the whole Zoom invitation" required><button type="button" class="room-btn" id="sessRoom">🎥 Code Cademy room</button></div>
+            <small class="room-hint">Paste the Zoom link or the whole invitation — we keep just the link. No Zoom? Press “Code Cademy room” for a free video room.</small>
           </div>
           <button type="submit" class="lib-submit">Open this time for booking</button>
           <p class="lib-note">Students in that club see the time right away. Your Zoom Meeting link stays hidden until a student books a seat. Students can cancel up to 2 hours before the start.</p>
@@ -1540,9 +1541,9 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=38a1bba4"></script>
+<script defer src="assets/js/lang.js?v=5b74436f"></script>
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 <script defer src="assets/js/english-games.js?v=aae28252"></script>
-<script defer src="assets/js/app.js?v=c5327e83"></script>
+<script defer src="assets/js/app.js?v=73e91d20"></script>
 </body>
 </html>

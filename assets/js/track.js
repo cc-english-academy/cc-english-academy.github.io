@@ -100,6 +100,25 @@
   function fmtDate(s, withTime){ if(!s) return ''; try{ return new Date(s).toLocaleString(ar() ? 'ar-EG' : 'en-GB', withTime ? { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' } : { day: 'numeric', month: 'short', year: 'numeric' }); }catch(e){ return String(s).slice(0, 10); } }
   const avg = function(a){ a = a.filter(function(x){ return typeof x === 'number' && !isNaN(x); }); return a.length ? Math.round(a.reduce(function(x, y){ return x + y; }, 0) / a.length) : null; };
   const firstName = function(n){ return String(n || '').trim().split(/\s+/)[0] || T('Student', 'طالب'); };
+  // a pasted Zoom invitation has text around the link: keep only the meeting link (the Zoom one if there are several)
+  function pickMeetingLink(raw){
+    const urls = String(raw || '').match(/https?:\/\/[^\s<>"']+/gi) || [];
+    const clean = urls.map(function(u){ return u.replace(/[).,;!?»]+$/, ''); });
+    return clean.find(function(u){ return /zoom\.us\/(j|my|w)\//i.test(u); }) || clean[0] || String(raw || '').trim();
+  }
+  // our own video room (room.html) when the teacher has no Zoom
+  function newRoomLink(){
+    const a = new Uint8Array(9); window.crypto.getRandomValues(a);
+    return location.origin + '/room.html?r=' + Array.prototype.map.call(a, function(b){ return ('0' + b.toString(16)).slice(-2); }).join('');
+  }
+  document.addEventListener('click', function(e){
+    const b = e.target.closest('[data-room]'); if(!b) return;
+    const inp = b.parentNode.querySelector('input[name=link]'); if(inp) inp.value = newRoomLink();
+  });
+  document.addEventListener('paste', function(e){
+    const inp = e.target; if(!inp || inp.name !== 'link' || !inp.closest('.room-row')) return;
+    setTimeout(function(){ const v = pickMeetingLink(inp.value); if(v) inp.value = v; }, 0);
+  });
   function toast(msg, bad){
     const t = $('toast'); t.textContent = msg; t.className = 'show' + (bad ? ' bad' : '');
     clearTimeout(toast.h); toast.h = setTimeout(function(){ t.className = ''; }, 3200);
@@ -1058,7 +1077,7 @@
       '<label>' + esc(T('Expected output: what the program must print (hidden from students)', 'الناتج المطلوب: ما يجب أن يطبعه البرنامج (مخفي عن الطلاب)')) + '<textarea name="expected" rows="3" class="mono" dir="ltr" required spellcheck="false"></textarea></label>';
     if(k === 'quiz') h += '<label>' + esc(T('Questions: one block per question, the right answer starts with *', 'الأسئلة: كل سؤال في فقرة، والإجابة الصحيحة تبدأ بـ*')) + '<textarea name="quiz" rows="8" required class="mono" placeholder="' + esc(FR ? 'Comment dit-on « thank you » ?\n*Merci\nBonjour\nPardon\n\nLa tour Eiffel est à…\nLyon\n*Paris\nNice' : 'What does print(2 + 3) show?\n*5\n23\nError\n\nWhich tag makes a link?\n*<a>\n<p>\n<img>') + '"></textarea></label>';
     if(k === 'voice') h += '<label>' + esc(T('Sentence or question to answer', 'الجملة أو السؤال')) + '<input name="phrase" maxlength="300" lang="fr" dir="ltr" placeholder="Présente-toi en 30 secondes."></label>';
-    if(k === 'live') h += '<div class="grid2"><label>' + esc(T('Meeting link (Zoom, Meet…)', 'رابط الحصة (Zoom أو Meet…)')) + '<input name="link" type="url" required dir="ltr" placeholder="https://"></label><label>' + esc(T('Date & time', 'اليوم والساعة')) + '<input name="starts" type="datetime-local" required></label></div>';
+    if(k === 'live') h += '<div class="grid2"><label>' + esc(T('Meeting link (Zoom, Meet…)', 'رابط الحصة (Zoom أو Meet…)')) + '<span class="room-row"><input name="link" type="text" inputmode="url" autocomplete="off" required dir="ltr" placeholder="https://zoom.us/j/…"><button type="button" class="btn ghost" data-room>🎥 ' + esc(T('Code Cademy room', 'غرفة Code Cademy')) + '</button></span><small class="muted">' + esc(T('Paste the link or the whole invitation. No Zoom? Press the room button for a free video room.', 'الصق الرابط أو الدعوة كاملة. ليس لديك زوم؟ اضغط زر الغرفة لإنشاء غرفة فيديو مجانية.')) + '</small></label><label>' + esc(T('Date & time', 'اليوم والساعة')) + '<input name="starts" type="datetime-local" required></label></div>';
     else h += '<label class="short">' + esc(T('Due date (optional)', 'آخر موعد (اختياري)')) + '<input name="due" type="date"></label>';
     h += '<button class="btn main" type="submit">' + esc(T('Publish to students', 'انشر للطلاب')) + '</button></form></div>';
     const list = (D.tasks || []).slice().reverse();
@@ -1088,7 +1107,7 @@
       if(k === 'code'){ row.lang = f.lang.value; row.starter = f.starter.value; key = { expected: f.expected.value }; }
       if(k === 'quiz'){ const q = parseQuiz(f.quiz.value); row.questions = q.questions; key = { answers: q.answers }; }
       if(k === 'voice') row.phrase = f.phrase.value.trim() || null;
-      if(k === 'live'){ row.link = f.link.value.trim(); row.starts_at = new Date(f.starts.value).toISOString(); }
+      if(k === 'live'){ row.link = pickMeetingLink(f.link.value); if(!/^https?:\/\//i.test(row.link)){ toast(T('Paste a meeting link that starts with https://', 'الصق رابط حصة يبدأ بـ https://'), true); return; } row.starts_at = new Date(f.starts.value).toISOString(); }
       else if(f.due && f.due.value) row.due = f.due.value;
       const r = await sb.from('track_tasks').insert(row).select().single();
       if(r.error) throw r.error;

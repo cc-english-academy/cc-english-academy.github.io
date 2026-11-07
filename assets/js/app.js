@@ -1342,6 +1342,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     });
   }
 
+  // a pasted Zoom invitation has text around the link: keep only the meeting link (the Zoom one if there are several)
+  function pickMeetingLink(raw){
+    const urls = String(raw || '').match(/https?:\/\/[^\s<>"']+/gi) || [];
+    const clean = urls.map(function(u){ return u.replace(/[).,;!?»]+$/, ''); });
+    return clean.find(function(u){ return /zoom\.us\/(j|my|w)\//i.test(u); }) || clean[0] || String(raw || '').trim();
+  }
+  // our own video room (room.html) when the teacher has no Zoom
+  function newRoomLink(){
+    const a = new Uint8Array(9); window.crypto.getRandomValues(a);
+    return location.origin + '/room.html?r=' + Array.prototype.map.call(a, function(b){ return ('0' + b.toString(16)).slice(-2); }).join('');
+  }
+  (function(){ const rb = document.getElementById('sessRoom'); if(rb) rb.addEventListener('click', function(){ document.getElementById('sessZoom').value = newRoomLink(); }); })();
+  (function(){ const zi = document.getElementById('sessZoom'); if(zi) zi.addEventListener('paste', function(){ setTimeout(function(){ const v = pickMeetingLink(zi.value); if(v) zi.value = v; }, 0); }); })();
+
   if(sessForm){
     sessForm.addEventListener('submit', async function(e){
       e.preventDefault();
@@ -1351,7 +1365,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         setNotice('Please pick a time in the future.');
         return;
       }
-      const zoom = document.getElementById('sessZoom').value.trim();
+      const zoom = pickMeetingLink(document.getElementById('sessZoom').value);
+      if(zoom) document.getElementById('sessZoom').value = zoom;
       if(!/^https?:\/\//i.test(zoom)){
         setNotice('Please paste the full Zoom Meeting link (it starts with https://).');
         return;

@@ -395,3 +395,9 @@ body[data-track=tech] .card:hover{box-shadow:0 18px 40px -26px rgba(124,92,255,.
 @media(max-width:620px){.grid3.tight{grid-template-columns:1fr 1fr}}
 .faq-q .fq{font-weight:700;font-size:1.02rem;margin:0 0 10px}
 details.item summary{cursor:pointer}
+
+/* meeting link + free room button */
+.room-row{display:flex;gap:8px;align-items:stretch}
+.room-row input{flex:1;min-width:0}
+.room-row .btn{flex:none;white-space:nowrap}
+@media(max-width:520px){.room-row{flex-direction:column}}

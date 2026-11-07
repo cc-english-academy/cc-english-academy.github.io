@@ -1,6 +1,9 @@
 /* ===== Language switcher (EN / AR) ===== */
 (function(){
   const DICT = {
+    "🎥 Code Cademy room":"🎥 غرفة Code Cademy",
+    "Code Cademy room":"غرفة Code Cademy",
+    "Paste the Zoom link or the whole invitation — we keep just the link. No Zoom? Press “Code Cademy room” for a free video room.":"الصق رابط زوم أو الدعوة كاملة — سنأخذ الرابط فقط. ليس لديك زوم؟ اضغط «غرفة Code Cademy» لإنشاء غرفة فيديو مجانية.",
     "Watch on Instagram":"شاهد على إنستجرام",
     "Instagram → website":"إنستجرام ← الموقع",
     "Videos you post on Instagram appear in Watch & Learn automatically, every hour.":"الفيديوهات التي تنشرها على إنستجرام تظهر في «شاهد وتعلّم» تلقائيًا كل ساعة.",
