@@ -24,8 +24,8 @@ Supabase ← **Authentication** ← **URL Configuration**:
 
 | الحقل | القيمة |
 |---|---|
-| **Site URL** | `https://cc-english-academy.github.io/` (أو الدومين الخاص لما تشتريه) |
-| **Redirect URLs** | نفس الرابط، وكمان `https://cc-english-academy.github.io/*` |
+| **Site URL** | `https://ccdemy.com/` |
+| **Redirect URLs** | `https://ccdemy.com/*` و`https://www.ccdemy.com/*`، وسيب كمان `https://cc-english-academy.github.io/*` |
 
 لو الخطوة دي اتنسيت، رابط استعادة كلمة المرور هيفتح صفحة غلط.
 
@@ -61,16 +61,24 @@ Supabase ← **Authentication** ← **URL Configuration**:
 
 5. **Authentication** ← **Emails** ← **Templates**: عرّب رسائل «Confirm signup» و«Reset password».
 
-## المرحلة ٥ — الدومين الخاص (اختياري ومهم للاحترافية)
+## المرحلة ٥ — الدومين الخاص: ccdemy.com ✅
 
-1. اشتري دومين من Namecheap أو GoDaddy أو أي شركة سعودية.
-   - ⚠️ اسم **Codecademy** علامة تجارية لشركة أمريكية مشهورة. يُفضّل تتأكد إن اسم «Code Cademy» مش هيعمل مشكلة، أو تختار دومين مميز زي اسم الأكاديمية بالعربي.
-2. عند شركة الدومين، أضف السجلات دي:
-   - 4 سجلات **A** على `185.199.108.153` و`185.199.109.153` و`185.199.110.153` و`185.199.111.153`.
-   - سجل **CNAME** لـ `www` يشاور على `cc-english-academy.github.io`.
-3. GitHub ← المستودع ← **Settings** ← **Pages** ← **Custom domain**: اكتب الدومين، وبعدين فعّل **Enforce HTTPS**.
-4. ابعتلي الدومين، وأنا أغيّر الروابط في `index.html` (`canonical` و`og:url` و`og:image`).
-5. حدّث **Site URL** في المرحلة ٢ بالدومين الجديد.
+الدومين متسجّل على Namecheap، وملف `CNAME` في المستودع فيه `ccdemy.com`.
+
+1. **Namecheap** ← Domain List ← **Manage** جنب ccdemy.com ← تبويب **Advanced DNS** ← امسح أي سجلات قديمة (زي URL Redirect أو CNAME لـ parkingpage)، وضيف:
+
+   | Type | Host | Value |
+   |---|---|---|
+   | A Record | `@` | `185.199.108.153` |
+   | A Record | `@` | `185.199.109.153` |
+   | A Record | `@` | `185.199.110.153` |
+   | A Record | `@` | `185.199.111.153` |
+   | CNAME Record | `www` | `cc-english-academy.github.io.` |
+
+2. **GitHub** ← المستودع ← **Settings** ← **Pages** ← **Custom domain**: لازم يكون مكتوب `ccdemy.com` (بيتملى لوحده من ملف CNAME) ← Save. لما يظهر ✅ «DNS check successful» علّم على **Enforce HTTPS** (ممكن ياخد لحد ٢٤ ساعة).
+3. **Supabase** ← Authentication ← URL Configuration: **Site URL** = `https://ccdemy.com/`، و**Redirect URLs** زي المرحلة ٢.
+4. **Google Search Console**: ضيف `ccdemy.com` كـ Domain property، وحط سجل الـ TXT اللي بيدّيهولك في Advanced DNS في Namecheap.
+5. الرابط القديم `cc-english-academy.github.io` بيحوّل لوحده على `ccdemy.com`.
 
 ---
 
