@@ -26,16 +26,80 @@
 
   // ---------- local media ----------
   let local = null, camTrack = null, screenTrack = null, mediaReady = null;
+  const devPref = { cam: store.get('cc_room_cam') || '', mic: store.get('cc_room_mic') || '', spk: store.get('cc_room_spk') || '' };
+  const inApp = /FBAN|FBAV|Instagram|WhatsApp|Line\/|Snapchat|TikTok|; wv\)/i.test(navigator.userAgent);
+  function audioC(){ return { echoCancellation: true, noiseSuppression: true, autoGainControl: true, deviceId: devPref.mic ? { ideal: devPref.mic } : undefined }; }
+  function videoC(){ return { width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 24 }, deviceId: devPref.cam ? { ideal: devPref.cam } : undefined }; }
+  // explain why the camera or microphone did not start, in words a student understands
+  function mediaError(e){
+    const n = e && e.name;
+    if(inApp) return T('This app’s built-in browser blocks the camera and microphone. Open the link in Chrome or Safari.', 'متصفح هذا التطبيق يمنع الكاميرا والميكروفون. افتح الرابط في Chrome أو Safari.');
+    if(n === 'NotAllowedError' || n === 'SecurityError') return T('Camera/microphone blocked. Click the 🔒 next to the address, allow Camera and Microphone, then press “Try again”.', 'الكاميرا أو الميكروفون محظوران. اضغط على 🔒 بجانب عنوان الموقع، واسمح بالكاميرا والميكروفون، ثم اضغط «حاول مرة أخرى».');
+    if(n === 'NotReadableError' || n === 'TrackStartError' || n === 'AbortError') return T('Another app is using the camera or microphone (Zoom, Teams, WhatsApp…). Close it, then press “Try again”.', 'برنامج آخر يستخدم الكاميرا أو الميكروفون (زوم، تيمز، واتساب…). أغلقه ثم اضغط «حاول مرة أخرى».');
+    if(n === 'NotFoundError' || n === 'OverconstrainedError') return T('No camera or microphone was found on this device.', 'لم يتم العثور على كاميرا أو ميكروفون في هذا الجهاز.');
+    return T('The camera or microphone did not start', 'لم تعمل الكاميرا أو الميكروفون') + (n ? ' (' + n + ')' : '') + '.';
+  }
   async function getMedia(){
-    try{
-      local = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true }, video: { width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 24 } } });
-    }catch(e){
-      try{ local = await navigator.mediaDevices.getUserMedia({ audio: true }); me.cam = false; }
-      catch(e2){ local = new MediaStream(); me.mic = false; me.cam = false; $('lobbyNote').textContent = T('No camera or microphone allowed — you can still watch, listen and chat.', 'لم يُسمح بالكاميرا أو الميكروفون — يمكنك المشاهدة والاستماع والدردشة.'); }
+    $('lobbyNote').textContent = ''; $('retryMedia').hidden = true;
+    if(local) local.getTracks().forEach(function(t){ t.stop(); });
+    let note = '';
+    me.mic = true; me.cam = true;
+    try{ local = await navigator.mediaDevices.getUserMedia({ audio: audioC(), video: videoC() }); }
+    catch(e){
+      note = mediaError(e);
+      try{ local = await navigator.mediaDevices.getUserMedia({ audio: audioC() }); me.cam = false; note = T('Camera: ', 'الكاميرا: ') + note; }
+      catch(e2){
+        try{ local = await navigator.mediaDevices.getUserMedia({ video: videoC() }); me.mic = false; note = T('Microphone: ', 'الميكروفون: ') + mediaError(e2); }
+        catch(e3){ local = new MediaStream(); me.mic = false; me.cam = false; note = mediaError(e3) + ' ' + T('You can still watch, listen and chat.', 'ما زال بإمكانك المشاهدة والاستماع والدردشة.'); }
+      }
     }
+    if(note){ $('lobbyNote').textContent = note; $('retryMedia').hidden = false; }
     camTrack = local.getVideoTracks()[0] || null;
     $('preview').srcObject = local;
+    stopVoice('me'); watchVoice('me', local);
+    fillDevices();
     syncButtons();
+  }
+  // camera / microphone / speaker pickers (in the lobby and in the room settings)
+  async function fillDevices(){
+    let list = [];
+    try{ list = await navigator.mediaDevices.enumerateDevices(); }catch(e){ return; }
+    const cur = { cam: camTrack && camTrack.getSettings().deviceId, mic: local.getAudioTracks()[0] && local.getAudioTracks()[0].getSettings().deviceId, spk: devPref.spk };
+    [['cam', 'videoinput', T('Camera', 'كاميرا')], ['mic', 'audioinput', T('Microphone', 'ميكروفون')], ['spk', 'audiooutput', T('Speaker', 'سمّاعة')]].forEach(function(k){
+      const devs = list.filter(function(d){ return d.kind === k[1] && d.deviceId; });
+      document.querySelectorAll('select.dev-' + k[0]).forEach(function(sel){
+        sel.innerHTML = devs.map(function(d, i){ return '<option value="' + esc(d.deviceId) + '">' + esc(d.label || (k[2] + ' ' + (i + 1))) + '</option>'; }).join('');
+        if(cur[k[0]]) sel.value = cur[k[0]];
+        sel.closest('label').hidden = !devs.length || (k[0] === 'spk' && !('setSinkId' in HTMLMediaElement.prototype));
+      });
+    });
+  }
+  async function switchDevice(kind, id){
+    devPref[kind] = id; store.set('cc_room_' + kind, id);
+    if(kind === 'spk'){ document.querySelectorAll('.tile:not(.me) video').forEach(function(v){ if(v.setSinkId) v.setSinkId(id).catch(function(){}); }); return; }
+    try{
+      const st = await navigator.mediaDevices.getUserMedia(kind === 'cam' ? { video: Object.assign(videoC(), { deviceId: { exact: id } }) } : { audio: Object.assign(audioC(), { deviceId: { exact: id } }) });
+      const nt = kind === 'cam' ? st.getVideoTracks()[0] : st.getAudioTracks()[0];
+      const old = kind === 'cam' ? camTrack : local.getAudioTracks()[0];
+      nt.enabled = kind === 'cam' ? me.cam : me.mic;
+      Object.keys(peers).forEach(function(pid){
+        const snd = peers[pid].pc.getSenders().find(function(x){ return x.track && x.track.kind === nt.kind; });
+        if(snd) snd.replaceTrack(kind === 'cam' && me.screen ? screenTrack : nt); else peers[pid].pc.addTrack(nt, local);
+      });
+      if(old){ if(!(kind === 'cam' && me.screen)) local.removeTrack(old); old.stop(); }
+      if(!(kind === 'cam' && me.screen)) local.addTrack(nt);
+      if(kind === 'cam'){ camTrack = nt; if(!me.cam && !camTrack) me.cam = true; }
+      else { if(!me.mic && !old) me.mic = true; stopVoice('me'); watchVoice('me', local); }
+      $('preview').srcObject = null; $('preview').srcObject = local;
+      $('lobbyNote').textContent = ''; $('retryMedia').hidden = true;
+      syncButtons(); render(); sendState();
+    }catch(e){ toast(mediaError(e)); }
+  }
+  // some browsers start remote sound only after a tap
+  function playAll(){
+    let blocked = false;
+    document.querySelectorAll('.tile:not(.me) video').forEach(function(v){ const pr = v.play(); if(pr && pr.catch) pr.catch(function(){ blocked = true; $('soundBtn').hidden = false; }); });
+    if(!blocked) setTimeout(function(){ if(!document.querySelector('.tile:not(.me) video')) $('soundBtn').hidden = true; }, 0);
   }
 
   // ---------- signalling (Supabase Realtime, or a local test transport) ----------
@@ -70,6 +134,7 @@
       catch(e){ console.warn(e); } finally{ p.making = false; }
     };
     pc.onconnectionstatechange = function(){ if(pc.connectionState === 'failed') pc.restartIce(); render(); };
+    pc.oniceconnectionstatechange = function(){ render(); };
     setTimeout(function(){ sendState(id); if(net) net.send({ t: 'ask', from: me.id, to: id }); }, 0); // swap names and mic/camera state with every new peer
     render();
     return p;
@@ -135,6 +200,7 @@
   function tileHTML(id, name, mic, cam, hand, mine, screen){
     return '<div class="tile' + (mine ? ' me' : '') + (screen ? ' share' : '') + '" data-id="' + id + '"><video autoplay playsinline' + (mine ? ' muted' : '') + '></video>' +
       '<div class="ava"' + (cam ? ' hidden' : '') + '><b>' + esc(initials(name)) + '</b></div>' +
+      (mine ? '' : '<div class="st" hidden></div>') +
       '<div class="tag">' + (hand ? '<i class="hand">✋</i>' : '') + (mic ? '' : '<i class="muted">🔇</i>') + '<span><bdi>' + esc(name) + '</bdi>' + (mine ? ' (' + T('you', 'أنت') + ')' : '') + '</span></div></div>';
   }
   function render(){
@@ -153,7 +219,16 @@
         el = nu;
       }
       const v = el.querySelector('video'), src = mine ? local : p.stream;
-      if(v.srcObject !== src) v.srcObject = src;
+      if(v.srcObject !== src){
+        v.srcObject = src;
+        if(!mine){ if(devPref.spk && v.setSinkId) v.setSinkId(devPref.spk).catch(function(){}); const pr = v.play(); if(pr && pr.catch) pr.catch(function(){ $('soundBtn').hidden = false; }); }
+      }
+      if(!mine){
+        const cs = p.pc.connectionState, stEl = el.querySelector('.st');
+        const txt = cs === 'failed' ? T('Can’t connect — the network may block video. Try Wi-Fi or mobile data.', 'تعذّر الاتصال — قد تمنع الشبكة الفيديو. جرّب Wi-Fi أو بيانات الهاتف.')
+          : (cs === 'new' || cs === 'connecting' || cs === 'disconnected') ? T('Connecting…', 'جارٍ الاتصال…') : '';
+        if(stEl.textContent !== txt){ stEl.textContent = txt; stEl.hidden = !txt; }
+      }
     });
     Array.prototype.slice.call(grid.querySelectorAll('.tile')).forEach(function(el){ if(want.indexOf(el.dataset.id) < 0) el.remove(); });
     const n = want.length;
@@ -218,6 +293,7 @@
   async function join(){
     me.name = ($('nameIn').value || '').trim().slice(0, 40) || T('Guest', 'ضيف');
     if(mediaReady) await mediaReady;
+    if(actx && actx.state === 'suspended') actx.resume();
     store.set('cc_room_name', me.name);
     $('joinBtn').disabled = true; $('joinBtn').textContent = T('Joining…', 'جارٍ الدخول…');
     try{ net = await transport(onMsg, onPeers); }
@@ -449,5 +525,24 @@
     if(e.key === 'v' || e.key === 'V') toggleCam();
   });
   if(!window.RTCPeerConnection || !navigator.mediaDevices){ $('lobbyNote').textContent = T('This browser cannot join video rooms. Use Chrome, Edge, Safari or Firefox.', 'هذا المتصفح لا يدعم غرف الفيديو. استخدم Chrome أو Edge أو Safari أو Firefox.'); $('joinBtn').disabled = true; }
-  else mediaReady = getMedia();
+  else {
+    if(location.protocol !== 'https:' && location.hostname !== 'localhost') $('lobbyNote').textContent = T('Open the room from https:// so the camera can start.', 'افتح الغرفة من رابط يبدأ بـ https:// حتى تعمل الكاميرا.');
+    mediaReady = getMedia();
+    if(navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', fillDevices);
+  }
+  $('retryMedia').onclick = function(){ mediaReady = getMedia(); };
+  document.querySelectorAll('select.dev-cam').forEach(function(s){ s.onchange = function(){ switchDevice('cam', s.value); }; });
+  document.querySelectorAll('select.dev-mic').forEach(function(s){ s.onchange = function(){ switchDevice('mic', s.value); }; });
+  document.querySelectorAll('select.dev-spk').forEach(function(s){ s.onchange = function(){ switchDevice('spk', s.value); }; });
+  $('soundBtn').onclick = function(){ if(actx) actx.resume(); $('soundBtn').hidden = true; playAll(); };
+  $('btnSettings').onclick = function(){ fillDevices(); openPanel('settings'); };
+  // the browser keeps audio meters asleep until the first tap
+  document.addEventListener('pointerdown', function(){ if(actx && actx.state === 'suspended') actx.resume(); }, { passive: true });
+  // lobby microphone meter
+  setInterval(function(){
+    const m = meters.me, bar = $('micBar'); if(!bar) return;
+    if(!m || !me.mic){ bar.style.width = '0%'; return; }
+    m.an.getByteFrequencyData(m.buf); let s = 0; for(let i = 0; i < m.buf.length; i++) s += m.buf[i];
+    bar.style.width = Math.min(100, s / m.buf.length * 2.2) + '%';
+  }, 120);
 })();
