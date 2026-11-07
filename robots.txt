@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /french-dashboard.html
+Disallow: /tech-dashboard.html
+
+Sitemap: https://ccdemy.com/sitemap.xml
