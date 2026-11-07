@@ -401,3 +401,9 @@ details.item summary{cursor:pointer}
 .room-row input{flex:1;min-width:0}
 .room-row .btn{flex:none;white-space:nowrap}
 @media(max-width:520px){.room-row{flex-direction:column}}
+
+/* forgot / reset password */
+.linkbtn{background:none;border:0;padding:4px;cursor:pointer;text-decoration:underline;display:block;margin:6px auto 0;font:inherit}
+.auth-card.narrow{max-width:440px;margin:30px auto}
+.auth-card.narrow h2{margin-top:0}
+.err.ok{color:#2e7d32}

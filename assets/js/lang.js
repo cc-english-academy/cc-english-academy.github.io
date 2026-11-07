@@ -1,6 +1,12 @@
 /* ===== Language switcher (EN / AR) ===== */
 (function(){
   const DICT = {
+    "Enter the email on your account. We will send you a link to choose a new password.":"اكتب البريد الإلكتروني المسجّل في حسابك، وسنرسل لك رابطًا لاختيار كلمة مرور جديدة.",
+    "Your email":"بريدك الإلكتروني",
+    "Send reset link":"أرسل رابط الاستعادة",
+    "No email on your account yet? Sign in and add one in your Profile — then you can reset your password any time.":"لم تُضف بريدًا إلى حسابك بعد؟ سجّل الدخول وأضفه من «الملف الشخصي» — وبعدها يمكنك استعادة كلمة المرور في أي وقت.",
+    "Email (optional — to reset your password)":"البريد الإلكتروني (اختياري — لاستعادة كلمة المرور)",
+    "Email (to reset your password)":"البريد الإلكتروني (لاستعادة كلمة المرور)",
     "🎥 Code Cademy room":"🎥 غرفة Code Cademy",
     "Code Cademy room":"غرفة Code Cademy",
     "Paste the Zoom link or the whole invitation — we keep just the link. No Zoom? Press “Code Cademy room” for a free video room.":"الصق رابط زوم أو الدعوة كاملة — سنأخذ الرابط فقط. ليس لديك زوم؟ اضغط «غرفة Code Cademy» لإنشاء غرفة فيديو مجانية.",

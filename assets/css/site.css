@@ -2337,3 +2337,4 @@ main>section,body>section:not(.hero){content-visibility:auto;contain-intrinsic-s
 .room-btn:hover{background:#8a1c33;color:#fff}
 .room-hint{display:block;margin-top:6px;font-size:.76rem;color:#8a6b73}
 @media(max-width:520px){.room-row{flex-direction:column}.room-btn{padding:10px}}
+.auth-note.small-note{font-size:.8rem;opacity:.85;margin-top:10px}

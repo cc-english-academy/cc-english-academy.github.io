@@ -14,6 +14,7 @@
   const SB_URL = 'https://orpknmkgfwmtroiqljzp.supabase.co';
   const SB_KEY = 'sb_publishable_x7AQ0xQl8qqOH3iDKqxddg_-7fbStUh';
   const main = $('main');
+  let recovering = /type=recovery/.test(location.hash); // opened from a "reset password" email
   if(typeof supabase === 'undefined'){ main.innerHTML = '<div class="card"><p>' + esc(T('Could not connect. Check your internet and reload the page.', 'لا يوجد اتصال. تأكد من الإنترنت وحدّث الصفحة.')) + '</p></div>'; return; }
   const sb = supabase.createClient(SB_URL, SB_KEY);
 
@@ -352,6 +353,17 @@
   function showAuth(note){
     guestView = function(){ showAuth(note); };
     view = null; renderChrome();
+    if(authMode === 'forgot' || authMode === 'reset'){
+      const fg = authMode === 'forgot';
+      main.innerHTML = '<div class="card auth-card narrow"><h2>' + esc(fg ? T('Reset your password', 'استعادة كلمة المرور') : T('Choose a new password', 'اختر كلمة مرور جديدة')) + '</h2>' +
+        '<form data-form="' + authMode + '" class="form">' + (fg
+          ? '<p class="muted">' + esc(T('Enter the email on your account. We will send you a link to choose a new password.', 'اكتب البريد الإلكتروني المسجّل في حسابك، وسنرسل لك رابطًا لاختيار كلمة مرور جديدة.')) + '</p><label>' + esc(T('Your email', 'بريدك الإلكتروني')) + '<input name="email" type="email" required autocomplete="email" dir="ltr" placeholder="name@email.com"></label>'
+          : '<label>' + esc(T('New password (6+ characters)', 'كلمة المرور الجديدة (٦ أحرف فأكثر)')) + '<input name="p1" type="password" required minlength="6" autocomplete="new-password" dir="ltr"></label><label>' + esc(T('Repeat the new password', 'أعد كتابة كلمة المرور الجديدة')) + '<input name="p2" type="password" required minlength="6" autocomplete="new-password" dir="ltr"></label>') +
+        '<p class="err" id="authErr"></p><button class="btn main wide" type="submit">' + esc(fg ? T('Send reset link', 'أرسل رابط الاستعادة') : T('Save new password', 'احفظ كلمة المرور')) + '</button>' +
+        (fg ? '<p class="muted small">' + esc(T('No email on your account yet? Sign in and add one in Code Cademy profile — then you can reset your password any time.', 'لم تُضف بريدًا إلى حسابك بعد؟ سجّل الدخول وأضفه من «الملف الشخصي» في Code Cademy — وبعدها يمكنك استعادة كلمة المرور في أي وقت.')) + '</p><button type="button" class="linkbtn muted small center" data-act="authMode" data-m="login">← ' + esc(T('Back to sign in', 'العودة لتسجيل الدخول')) + '</button>' : '') +
+        '</form></div>';
+      return;
+    }
     const login = authMode === 'login';
     main.innerHTML = '<div class="auth">' +
       '<div class="auth-side">' + (FR ? '<span class="mascot">🥐</span>' : '<div class="auth-vid"><video src="assets/video/tech-class.mp4" poster="assets/img/tech-class-poster.jpg" autoplay muted loop playsinline aria-label="' + esc(T('A Coco Tech Lab class', 'حصة في Coco Tech Lab')) + '"></video><span><i></i> LIVE</span></div>') + '<h1>' + esc(FR ? T('Your French journey, in one place', 'رحلتك في الفرنسية في مكان واحد') : T('Your tech journey, in one place', 'رحلتك في التقنية في مكان واحد')) + '</h1>' +
@@ -367,12 +379,35 @@
           (login ? '<label>' + esc(T('Phone number or email', 'رقم الهاتف أو البريد الإلكتروني')) + '<input name="phone" type="text" inputmode="email" required autocomplete="username" placeholder="05xxxxxxxx / name@email.com" dir="ltr"></label>'
             : '<label>' + esc(T('Phone number', 'رقم الهاتف')) + '<input name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05xxxxxxxx" dir="ltr"></label>') +
           '<label>' + esc(T('Password', 'كلمة المرور')) + '<input name="password" type="password" required minlength="6" autocomplete="' + (login ? 'current-password' : 'new-password') + '" dir="ltr"></label>' +
+          (login ? '' : '<label>' + esc(T('Email (optional — to reset your password)', 'البريد الإلكتروني (اختياري — لاستعادة كلمة المرور)')) + '<input name="email" type="email" autocomplete="email" dir="ltr" placeholder="name@email.com"></label>') +
           '<p class="err" id="authErr"></p><button class="btn main wide" type="submit">' + esc(login ? T('Sign in', 'دخول') : T('Create my account', 'أنشئ حسابي')) + '</button>' +
-          (login ? '<a class="muted small center" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello, I forgot my password. My phone number is: ', 'السلام عليكم، نسيت كلمة المرور. رقمي: ')) + '">' + esc(T('Forgot your password? Message us', 'نسيت كلمة المرور؟ راسلنا')) + '</a>'
+          (login ? '<button type="button" class="linkbtn muted small center" data-act="authMode" data-m="forgot">' + esc(T('Forgot your password?', 'نسيت كلمة المرور؟')) + '</button>'
             : '<p class="muted small">' + esc(T('Teachers: choose “A teacher”. The admin approves your account, then your teacher tools open here.', 'المعلمون: اختاروا «معلم». يوافق المدير على الحساب، وبعدها تُفتح أدوات المعلم هنا.')) + '</p>') +
         '</form></div></div>';
   }
   ACT.authMode = function(b){ authMode = b.dataset.m; showAuth(); };
+  FORMS.forgot = async function(f){
+    const err = $('authErr'); err.textContent = ''; err.classList.remove('ok');
+    const email = f.email.value.trim().toLowerCase();
+    await busy(f.querySelector('button[type=submit]'), async function(){
+      const r = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+      if(r.error && /rate limit|security purposes/i.test(r.error.message || '')){ err.textContent = T('Too many emails sent — please wait a few minutes and try again.', 'أُرسلت رسائل كثيرة — انتظر بضع دقائق ثم حاول مرة أخرى.'); return; }
+      if(r.error && !/not found|no user/i.test(r.error.message || '')) throw r.error;
+      err.classList.add('ok');
+      err.textContent = T('If this email is on a Code Cademy account, a reset link is on its way. Check your inbox (and spam) in a few minutes.', 'إذا كان هذا البريد مسجّلًا في حساب Code Cademy، فسيصلك رابط الاستعادة خلال دقائق. تفقد بريدك الوارد (والرسائل غير المرغوب فيها).');
+    });
+  };
+  FORMS.reset = async function(f){
+    const err = $('authErr'); err.textContent = '';
+    if(f.p1.value !== f.p2.value){ err.textContent = T('The two passwords don’t match.', 'كلمتا المرور غير متطابقتين.'); return; }
+    await busy(f.querySelector('button[type=submit]'), async function(){
+      const r = await sb.auth.updateUser({ password: f.p1.value }); if(r.error) throw r.error;
+      authMode = 'login'; recovering = false;
+      if(/type=recovery/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
+      toast(T('Password changed ✓', 'تم تغيير كلمة المرور ✓'));
+      await start();
+    });
+  };
   FORMS.login = async function(f){
     const err = $('authErr'); err.textContent = '';
     const btn = f.querySelector('button[type=submit]');
@@ -400,6 +435,8 @@
       if(r.error) throw r.error;
       const s = await sb.auth.signInWithPassword({ email: r.data, password: f.password.value });
       if(s.error) throw s.error;
+      const rec = (f.email && f.email.value || '').trim();
+      if(rec){ const se = await sb.rpc('set_recovery_email', { p_email: rec }); if(se.error) toast(T('Email not saved: ', 'لم يُحفظ البريد: ') + (se.error.message || ''), true); }
       await start(true);
     });
   };
@@ -429,6 +466,7 @@
   async function start(fresh){
     const s = await sb.auth.getSession();
     const session = s.data && s.data.session;
+    if(recovering && session){ authMode = 'reset'; showAuth(); return; }
     if(!session){ showAuth(); return; }
     main.innerHTML = '<div class="loading">' + (FR ? '🥐' : '🤖') + '</div>';
     let prof = null;
@@ -1521,5 +1559,8 @@
     if(qs && qs.get('portfolio')) return showPortfolio(qs.get('portfolio'));
     try{ await start(); }catch(e){ console.error(e); showAuth(errText(e)); }
   })();
-  sb.auth.onAuthStateChange(function(ev){ if(ev === 'SIGNED_OUT' && me){ me = null; view = null; renderChrome(); showAuth(); } });
+  sb.auth.onAuthStateChange(function(ev){
+    if(ev === 'PASSWORD_RECOVERY'){ recovering = true; authMode = 'reset'; showAuth(); return; } // arrived from the reset email
+    if(ev === 'SIGNED_OUT' && me){ me = null; view = null; renderChrome(); showAuth(); }
+  });
 })();

@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=07b4d9d3">
+<link rel="stylesheet" href="assets/css/site.css?v=13190516">
 <link rel="stylesheet" href="assets/css/fields.css?v=a8d92bfa">
 </head>
 <body>
@@ -714,8 +714,10 @@
       </form>
 
       <form id="forgotForm" class="auth-form" hidden>
-        <p class="auth-note">Message Code Cademy on WhatsApp from your phone number, and the admin will set a new password for you.</p>
-        <a class="lib-submit auth-wa" id="forgotWa" href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 Message Code Cademy on WhatsApp</a>
+        <p class="auth-note">Enter the email on your account. We will send you a link to choose a new password.</p>
+        <label>Your email<input type="email" id="forgotEmail" required autocomplete="email" dir="ltr" placeholder="name@email.com"></label>
+        <button type="submit" class="lib-submit" id="forgotSend">Send reset link</button>
+        <p class="auth-note small-note">No email on your account yet? Sign in and add one in your Profile — then you can reset your password any time.</p>
         <button type="button" class="auth-forgot" id="forgotBack">← Back to sign in</button>
         <p class="auth-error" id="forgotMsg"></p>
       </form>
@@ -732,6 +734,7 @@
         <label>Full name<input type="text" id="suName" required></label>
         <label>Phone number (you sign in with it)<input type="tel" id="suPhone" required inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx · 01xxxxxxxxx"></label>
         <label>Password (6+ characters)<input type="password" id="suPassword" required minlength="6"></label>
+        <label>Email (optional — to reset your password)<input type="email" id="suEmail" autocomplete="email" dir="ltr" placeholder="name@email.com"></label>
         <div class="field-label">I am a…</div>
         <div class="role-pick" role="radiogroup" aria-label="I am a…">
           <button type="button" class="role-opt active" data-role="student" role="radio" aria-checked="true"><span>🎒</span><b>Student</b><small>I want to learn</small></button>
@@ -1316,6 +1319,7 @@
           <form id="profileForm" class="auth-form">
             <label>Full name<input type="text" id="profName" required></label>
             <label>Phone number (for signing in)<input type="tel" id="profPhone" required inputmode="tel" dir="ltr" placeholder="05xxxxxxxx"></label>
+            <label>Email (to reset your password)<input type="email" id="profEmail" autocomplete="email" dir="ltr" placeholder="name@email.com"></label>
             <label>Role<input type="text" id="profRole" disabled></label>
             <label id="profClubWrap">Club<input type="text" id="profClub" disabled></label>
             <label id="profCodeWrap" hidden>Parent link code<input type="text" id="profCode" disabled></label>
@@ -1541,9 +1545,9 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=5b74436f"></script>
+<script defer src="assets/js/lang.js?v=6e222fc9"></script>
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 <script defer src="assets/js/english-games.js?v=aae28252"></script>
-<script defer src="assets/js/app.js?v=73e91d20"></script>
+<script defer src="assets/js/app.js?v=9a33a079"></script>
 </body>
 </html>
