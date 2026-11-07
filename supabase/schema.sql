@@ -2071,6 +2071,39 @@ drop policy if exists "track-books: teacher delete" on storage.objects;
 create policy "track-books: teacher delete" on storage.objects
   for delete to authenticated using (bucket_id = 'track-books' and public.is_teacher());
 
+-- ---------------------------------------------------------------------
+-- 11. Recovery email: a phone account can add a real email, so "Forgot your password?" sends a reset link
+-- ---------------------------------------------------------------------
+-- Phone accounts sign in with a hidden <digits>@phone.code-cademy.invalid address. This swaps it for the
+-- person's real email; phone sign-in keeps working (it looks the account up by phone number).
+create or replace function public.set_recovery_email(p_email text)
+returns text language plpgsql security definer set search_path = public as $$
+declare v_email text := lower(trim(coalesce(p_email, '')));
+begin
+  if auth.uid() is null then raise exception 'Please sign in again'; end if;
+  if v_email !~ '^[^@\s]+@[^@\s]+\.[a-z]{2,}$' or v_email like '%.invalid' or length(v_email) > 200 then
+    raise exception 'Please enter a valid email address';
+  end if;
+  if exists (select 1 from auth.users where lower(email) = v_email and id <> auth.uid()) then
+    raise exception 'This email is already used by another account';
+  end if;
+  update auth.users set email = v_email, email_confirmed_at = coalesce(email_confirmed_at, now()), updated_at = now()
+   where id = auth.uid();
+  update auth.identities set identity_data = identity_data || jsonb_build_object('email', v_email), updated_at = now()
+   where user_id = auth.uid() and provider = 'email';
+  return v_email;
+end $$;
+revoke all on function public.set_recovery_email(text) from public;
+grant execute on function public.set_recovery_email(text) to authenticated;
+
+-- the signed-in person's real email, or null while they only have the hidden phone address
+create or replace function public.my_recovery_email()
+returns text language sql stable security definer set search_path = public as $$
+  select case when email like '%@phone.code-cademy.invalid' then null else email end from auth.users where id = auth.uid();
+$$;
+revoke all on function public.my_recovery_email() from public;
+grant execute on function public.my_recovery_email() to authenticated;
+
 -- =====================================================================
 -- Make yourself the admin (run once, with YOUR e-mail):
 --   update public.profiles set role = 'admin'

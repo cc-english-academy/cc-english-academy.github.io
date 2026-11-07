@@ -571,7 +571,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       forgot: t('Reset your password', 'استعادة كلمة المرور'), reset: t('Choose a new password', 'اختر كلمة مرور جديدة') })[mode];
     authPageSub.textContent = ({ login: t('Sign in to reach your dashboard.', 'سجّل الدخول للوصول إلى لوحة التحكم.'),
       signup: t('Join as a student, a parent or a teacher — it takes a minute.', 'انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.'),
-      forgot: t('Code Cademy will set a new one for you.', 'ستنشئ لك Code Cademy كلمة مرور جديدة.'),
+      forgot: t('We will email you a link to set a new one.', 'سنرسل لك رابطًا على بريدك لتعيين كلمة مرور جديدة.'),
       reset: t('Almost done — pick a password you’ll remember.', 'خطوة أخيرة — اختر كلمة مرور تتذكرها.') })[mode];
   }
   function openAuth(mode){
@@ -613,15 +613,28 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   });
 
   // ---------- forgot / reset password ----------
-  // accounts have no email, so a forgotten password goes through Code Cademy: the admin sets a new one
+  // a reset link goes to the email on the account (phone accounts add one at sign-up or in their profile)
   document.getElementById('forgotLink').addEventListener('click', function(){
-    const ph = normPhone(document.getElementById('loginEmail').value);
-    document.getElementById('forgotWa').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(
-      t('Hello! I forgot my Code Cademy password. My phone number: ', 'السلام عليكم، نسيت كلمة المرور في Code Cademy. رقمي: ') + (ph ? '+' + ph : ''));
+    const v = document.getElementById('loginEmail').value.trim();
+    if(v.indexOf('@') > 0) document.getElementById('forgotEmail').value = v;
+    document.getElementById('forgotMsg').textContent = '';
     showAuthForm('forgot');
   });
   document.getElementById('forgotBack').addEventListener('click', function(){ showAuthForm('login'); });
-  forgotForm.addEventListener('submit', function(e){ e.preventDefault(); });
+  forgotForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const msg = document.getElementById('forgotMsg'), btn = document.getElementById('forgotSend');
+    const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+    msg.style.color = '';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent = t('Please enter a valid email address.', 'اكتب بريدًا إلكترونيًا صحيحًا.'); return; }
+    btn.disabled = true;
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+    btn.disabled = false;
+    if(error && !/not found|no user/i.test(error.message || '')){ msg.textContent = friendlyErrorMessage(error); return; }
+    msg.style.color = '#2e7d32';
+    msg.textContent = t('If this email is on a Code Cademy account, a reset link is on its way. Check your inbox (and spam) in a few minutes.',
+                        'إذا كان هذا البريد مسجّلًا في حساب Code Cademy، فسيصلك رابط الاستعادة خلال دقائق. تفقد بريدك الوارد (والرسائل غير المرغوب فيها).');
+  });
   resetForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const msg = document.getElementById('resetMsg');
@@ -652,6 +665,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(/active plan to book/i.test(msg)){
       return t('You need an active plan to book a seat — choose a plan first.', 'تحتاج إلى خطة مفعّلة لحجز مقعد — اختر خطة أولًا.');
     }
+    if(/valid email address/i.test(msg)){ return t('Please enter a valid email address.', 'اكتب بريدًا إلكترونيًا صحيحًا.'); }
+    if(/email is already used/i.test(msg)){ return t('This email is already used by another account.', 'هذا البريد مستخدم في حساب آخر.'); }
+    if(/set_recovery_email|my_recovery_email/i.test(msg) && /function|schema cache/i.test(msg)){ return t('Run the latest supabase/schema.sql to turn on recovery emails.', 'شغّل أحدث ملف supabase/schema.sql لتفعيل بريد الاستعادة.'); }
+    if(/rate limit|security purposes/i.test(msg)){ return t('Too many emails sent — please wait a few minutes and try again.', 'أُرسلت رسائل كثيرة — انتظر بضع دقائق ثم حاول مرة أخرى.'); }
     if(/session is full/i.test(msg)){ return t('This session is full — pick another time.', 'هذه الحصة ممتلئة — اختر موعدًا آخر.'); }
     if(/already started/i.test(msg)){ return t('This session has already started.', 'هذه الحصة بدأت بالفعل.'); }
     if(/no classes left/i.test(msg)){ return t('No classes left in your plan — renew your plan to book more.', 'لا توجد حصص متبقية في خطتك — جدّد خطتك لحجز المزيد.'); }
@@ -746,6 +763,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(error){ errEl.textContent = friendlyErrorMessage(error); return; }
       const res = await sb.auth.signInWithPassword({ email: email, password: password });
       if(res.error){ errEl.textContent = friendlyErrorMessage(res.error); return; }
+      const rec = (document.getElementById('suEmail').value || '').trim();
+      if(rec){ const se = await sb.rpc('set_recovery_email', { p_email: rec }); if(se.error) toast('⚠️ ' + t('Email not saved', 'لم يُحفظ البريد'), friendlyErrorMessage(se.error)); }
     } catch(err){
       errEl.textContent = friendlyErrorMessage(err);
       return;
@@ -918,6 +937,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(switched && window.__cocoReset) window.__cocoReset();
     profName.value = currentProfile.full_name || '';
     document.getElementById('profPhone').value = currentProfile.phone ? '+' + currentProfile.phone : '';
+    const profEmail = document.getElementById('profEmail');
+    if(profEmail) sb.rpc('my_recovery_email').then(function(r){ const v = (r && !r.error && r.data) || ''; profEmail.value = v; profEmail.dataset.saved = v; });
     if(profEmail) profEmail.value = currentEmail;
     profRole.value = roleLabel;
     profClub.value = currentProfile.club || '—';
@@ -4472,6 +4493,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const phone = normPhone(document.getElementById('profPhone').value);
       if(!phone){ profileMsg.style.color = ''; profileMsg.textContent = friendlyErrorMessage('valid phone number'); return; }
       const { error } = await sb.from('profiles').update({ full_name: full_name, phone: phone }).eq('id', currentProfile.id);
+      const recIn = document.getElementById('profEmail'), rec = recIn ? recIn.value.trim().toLowerCase() : '';
+      if(!error && rec && rec !== (recIn.dataset.saved || '')){
+        const se = await sb.rpc('set_recovery_email', { p_email: rec });
+        if(se.error){ profileMsg.style.color = ''; profileMsg.textContent = friendlyErrorMessage(se.error); return; }
+        recIn.dataset.saved = rec;
+      }
       if(error){
         profileMsg.style.color = '';
         profileMsg.textContent = /duplicate|unique/i.test(error.message || '') ? t('This phone number is already used by another account.', 'رقم الهاتف مستخدم في حساب آخر.') : friendlyErrorMessage(error);
@@ -4483,7 +4510,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       ovName.textContent = full_name.split(' ')[0];
       dashAvatar.textContent = full_name.trim().charAt(0).toUpperCase();
       profileMsg.style.color = '#2e7d32';
-      profileMsg.textContent = 'Saved.';
+      profileMsg.textContent = t('Saved.', 'تم الحفظ.');
     });
   }
 
