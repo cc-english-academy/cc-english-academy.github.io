@@ -77,7 +77,13 @@ Supabase ← **Authentication** ← **URL Configuration**:
 
 2. **GitHub** ← المستودع ← **Settings** ← **Pages** ← **Custom domain**: لازم يكون مكتوب `ccdemy.com` (بيتملى لوحده من ملف CNAME) ← Save. لما يظهر ✅ «DNS check successful» علّم على **Enforce HTTPS** (ممكن ياخد لحد ٢٤ ساعة).
 3. **Supabase** ← Authentication ← URL Configuration: **Site URL** = `https://ccdemy.com/`، و**Redirect URLs** زي المرحلة ٢.
-4. **Google Search Console**: ضيف `ccdemy.com` كـ Domain property، وحط سجل الـ TXT اللي بيدّيهولك في Advanced DNS في Namecheap.
+4. **Google Search Console** (search.google.com/search-console):
+   1. **Add property ← Domain** ← اكتبي `ccdemy.com` ← Continue.
+   2. انسخي سطر `google-site-verification=…` اللي بيظهرلك.
+   3. في Namecheap ← **Advanced DNS** ← Add New Record: **TXT Record**، Host = `@`، Value = السطر اللي نسختيه ← ✅ ← Save All Changes.
+   4. ارجعي لـ Search Console ← **Verify** (لو قال لسه، استني ١٠–٣٠ دقيقة وجربي تاني).
+   5. من القايمة ← **Sitemaps** ← اكتبي `sitemap.xml` ← Submit.
+   6. **URL inspection** ← `https://ccdemy.com/` ← **Request indexing** (وكرري لـ english.html و french.html و tech.html).
 5. الرابط القديم `cc-english-academy.github.io` بيحوّل لوحده على `ccdemy.com`.
 
 ---
