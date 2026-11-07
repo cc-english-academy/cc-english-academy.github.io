@@ -14,3 +14,5 @@ html[lang=ar] .fields-bar{font-family:Cairo,Inter,system-ui,sans-serif}
 .fb-tab.fr-t.on{color:#2a1218}
 .fb-ar{display:none} html[lang=ar] .fb-ar{display:inline} html[lang=ar] .fb-en{display:none}
 @media(max-width:520px){.fb-home span{display:none}.fb-tab{padding:5px 10px;font-size:.78rem}.fb-in{gap:8px}}
+.fl{display:inline-block;vertical-align:-1px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.pp-cover .fl{border-radius:4px;vertical-align:middle}
