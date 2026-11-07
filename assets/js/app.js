@@ -567,11 +567,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     resetForm.hidden = mode !== 'reset';
     document.querySelector('.auth-tabs').hidden = mode === 'forgot' || mode === 'reset';
     authTabButtons.forEach(function(b){ b.classList.toggle('active', b.dataset.tab === mode); });
-    authPageTitle.textContent = ({ login: t('Welcome back', 'مرحباً بعودتك'), signup: t('Create your account', 'أنشئ حسابك'),
+    authPageTitle.textContent = ({ login: t('Welcome back', 'مرحبًا بعودتك'), signup: t('Create your account', 'أنشئ حسابك'),
       forgot: t('Reset your password', 'استعادة كلمة المرور'), reset: t('Choose a new password', 'اختر كلمة مرور جديدة') })[mode];
     authPageSub.textContent = ({ login: t('Sign in to reach your dashboard.', 'سجّل الدخول للوصول إلى لوحة التحكم.'),
       signup: t('Join as a student, a parent or a teacher — it takes a minute.', 'انضم كطالب أو ولي أمر أو معلم — الأمر يستغرق دقيقة.'),
-      forgot: t('Code Cademy will set a new one for you.', 'Code Cademy هتعملك كلمة مرور جديدة.'),
+      forgot: t('Code Cademy will set a new one for you.', 'ستنشئ لك Code Cademy كلمة مرور جديدة.'),
       reset: t('Almost done — pick a password you’ll remember.', 'خطوة أخيرة — اختر كلمة مرور تتذكرها.') })[mode];
   }
   function openAuth(mode){
@@ -650,23 +650,23 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       return "Can't reach the server. If you opened this page by double-clicking the file on your computer, that won't work — please host it on a real web address (e.g. Netlify, GitHub Pages, or any web server) and open it from there. If it's already hosted, check your internet connection and make sure the Supabase project isn't paused (Supabase dashboard → look for a \"Restore project\" button).";
     }
     if(/active plan to book/i.test(msg)){
-      return t('You need an active plan to book a seat — choose a plan first.', 'تحتاج خطة مفعّلة لحجز مقعد — اختر خطة أولاً.');
+      return t('You need an active plan to book a seat — choose a plan first.', 'تحتاج إلى خطة مفعّلة لحجز مقعد — اختر خطة أولًا.');
     }
-    if(/session is full/i.test(msg)){ return t('This session is full — pick another time.', 'هذه الحصة ممتلئة — اختر موعداً آخر.'); }
+    if(/session is full/i.test(msg)){ return t('This session is full — pick another time.', 'هذه الحصة ممتلئة — اختر موعدًا آخر.'); }
     if(/already started/i.test(msg)){ return t('This session has already started.', 'هذه الحصة بدأت بالفعل.'); }
     if(/no classes left/i.test(msg)){ return t('No classes left in your plan — renew your plan to book more.', 'لا توجد حصص متبقية في خطتك — جدّد خطتك لحجز المزيد.'); }
-    if(/already have a class booked/i.test(msg)){ return t('You already have a class at this time — pick another time.', 'لديك حصة أخرى في نفس الوقت — اختر موعداً آخر.'); }
+    if(/already have a class booked/i.test(msg)){ return t('You already have a class at this time — pick another time.', 'لديك حصة أخرى في الوقت نفسه — اختر موعدًا آخر.'); }
     if(/invalid login credentials/i.test(msg)){
       return t('Wrong phone number or password. Try again, or use “Forgot your password?”.', 'رقم الهاتف أو كلمة المرور غير صحيحة. حاول مرة أخرى أو استخدم «نسيت كلمة المرور؟».');
     }
     if(/email not confirmed/i.test(msg)){
-      return t('Please confirm your email first — open the link we sent you, then sign in.', 'من فضلك أكّد بريدك أولاً — افتح الرابط الذي أرسلناه لك ثم سجّل الدخول.');
+      return t('Please confirm your email first — open the link we sent you, then sign in.', 'من فضلك أكّد بريدك أولًا — افتح الرابط الذي أرسلناه لك ثم سجّل الدخول.');
     }
     if(/already has an account/i.test(msg)){
-      return t('This phone number already has an account — sign in instead.', 'رقم الهاتف ده عليه حساب بالفعل — سجّل الدخول.');
+      return t('This phone number already has an account — sign in instead.', 'رقم الهاتف هذا مسجّل بحساب بالفعل — سجّل الدخول.');
     }
-    if(/valid phone number/i.test(msg)){ return t('Please enter a valid phone number, e.g. 05xxxxxxxx or 01xxxxxxxxx.', 'اكتب رقم هاتف صحيح، مثلاً 05xxxxxxxx أو 01xxxxxxxxx.'); }
-    if(/at least 6 characters/i.test(msg)){ return t('The password needs at least 6 characters.', 'كلمة المرور لازم تكون ٦ حروف أو أرقام على الأقل.'); }
+    if(/valid phone number/i.test(msg)){ return t('Please enter a valid phone number, e.g. 05xxxxxxxx or 01xxxxxxxxx.', 'اكتب رقم هاتف صحيحًا، مثلًا 05xxxxxxxx أو 01xxxxxxxxx.'); }
+    if(/at least 6 characters/i.test(msg)){ return t('The password needs at least 6 characters.', 'يجب أن تتكوّن كلمة المرور من ٦ أحرف أو أرقام على الأقل.'); }
     if(/user already registered|already been registered/i.test(msg)){
       return t('This email already has an account — sign in instead, or reset your password.', 'هذا البريد مسجّل بالفعل — سجّل الدخول أو استعد كلمة المرور.');
     }
@@ -683,10 +683,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     if(/row-level security|violates.*policy|unauthorized|not allowed/i.test(msg)){
       return t('Your account isn\'t allowed to do this. Uploading needs a teacher account (and supabase/schema.sql installed).',
-               'حسابك غير مسموح له بهذا الإجراء. الرفع يحتاج حساب معلم (مع تثبيت ملف supabase/schema.sql).');
+               'حسابك غير مسموح له بهذا الإجراء. الرفع يحتاج إلى حساب معلم (مع تثبيت ملف supabase/schema.sql).');
     }
     if(/payload too large|maximum allowed size|exceeded/i.test(msg)){
-      return t('The file is too big — the limit is 50 MB.', 'الملف كبير جداً — الحد الأقصى 50 ميجابايت.');
+      return t('The file is too big — the limit is 50 MB.', 'الملف كبير جدًا — الحد الأقصى 50 ميغابايت.');
     }
     return msg;
   }
@@ -905,8 +905,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       ovSub.textContent = t('Here’s how your children are doing.', 'إليك أحوال أبنائك.');
     } else if(isTeacher()){
       matHeading.textContent = t('Upload & manage books and materials', 'ارفع وأدر الكتب والمواد');
-      matSub.textContent = t('Pick a club, attach a file, and every student in that club sees it right away.', 'اختر نادياً، وأرفق ملفاً، وسيراه كل طالب في هذا النادي فوراً.');
-      notifSub.textContent = t('Send an announcement to one club or to everyone.', 'أرسل إعلاناً لنادٍ واحد أو للجميع.');
+      matSub.textContent = t('Pick a club, attach a file, and every student in that club sees it right away.', 'اختر ناديًا، وأرفق ملفًا، وسيراه كل طالب في هذا النادي فورًا.');
+      notifSub.textContent = t('Send an announcement to one club or to everyone.', 'أرسل إعلانًا لنادٍ واحد أو للجميع.');
       ovSub.textContent = t('Here’s a quick look at your classes.', 'نظرة سريعة على فصولك.');
     } else {
       matHeading.textContent = t('My learning path', 'مسار تعلّمي');
@@ -1002,11 +1002,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           tile(s.pending, t('Payments to confirm', 'مدفوعات تنتظر التأكيد'), 'enroll', s.pending > 0) +
           tile('$' + fmtMoney(usd(s.revenue_month)) + ' <small>(' + fmtMoney(s.revenue_month) + ' ' + t('SAR', 'ريال') + ')</small>', t('Plans activated this month', 'اشتراكات هذا الشهر'), 'enroll') +
           tile(s.classes_week, t('Classes in the next 7 days', 'حصص خلال ٧ أيام'), 'sessions') +
-          tile(s.attendance_30d == null ? '—' : s.attendance_30d + '%', t('Attendance (30 days)', 'نسبة الحضور (٣٠ يوماً)'), 'sessions') +
+          tile(s.attendance_30d == null ? '—' : s.attendance_30d + '%', t('Attendance (30 days)', 'نسبة الحضور (٣٠ يومًا)'), 'sessions') +
           tile(s.to_grade, t('Homework to grade', 'واجبات تنتظر التصحيح'), 'homework', s.to_grade > 0) +
           (isAdmin() && s.teacher_requests ? tile(s.teacher_requests, t('Teacher requests to approve', 'طلبات معلمين تنتظر الموافقة'), 'users', true) : '');
         const follow = (s.expiring || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + esc(planName(x.plan)) + ' · ' + t('ends ', 'تنتهي ') + esc(fmtDay(x.ends_at)) + '</li>'; })
-          .concat((s.low_credit || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + (x.left === 0 ? t('no classes left', 'لا توجد حصص متبقية') : t('1 class left', 'باقي حصة واحدة')) + '</li>'; }));
+          .concat((s.low_credit || []).map(function(x){ return '<li><b>' + esc(x.name) + '</b> · ' + (x.left === 0 ? t('no classes left', 'لا توجد حصص متبقية') : t('1 class left', 'تبقّت حصة واحدة')) + '</li>'; }));
         if(follow.length) ovStats.insertAdjacentHTML('beforeend', '<div class="follow-up"><b>' + t('Renewals to follow up', 'تجديدات تحتاج متابعة') + '</b><ul>' + follow.join('') + '</ul></div>');
         return;
       }
@@ -1193,7 +1193,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           t('Renew your plan to keep booking live classes.', 'جدّد خطتك لتواصل حجز الحصص المباشرة.') + '</p></div>' +
           '<button class="sess-btn" type="button" data-goto-myplan="1">' + t('Renew my plan', 'جدّد خطتي') + '</button></div>'
         : planState === 'active' && left != null
-        ? '<div class="sess-plan ok"><span>🎟️</span><div><b>' + t(left + (left === 1 ? ' class left' : ' classes left') + ' in your plan', 'باقي ' + left + ' حصة في خطتك') + '</b></div></div>'
+        ? '<div class="sess-plan ok"><span>🎟️</span><div><b>' + t(left + (left === 1 ? ' class left' : ' classes left') + ' in your plan', 'تبقّى ' + left + ' حصة في خطتك') + '</b></div></div>'
         : planState === 'none'
         ? '<div class="sess-plan"><span>🎟️</span><div><b>' + t('Choose a plan to book live classes', 'اختر خطة لحجز الحصص المباشرة') + '</b><p>' +
           t('You can look at the times now — booking opens as soon as your plan is active.', 'يمكنك رؤية المواعيد الآن — والحجز يُفتح بمجرد تفعيل خطتك.') + '</p></div>' +
@@ -1242,7 +1242,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           t('Free cancellation until ', 'إلغاء مجاني حتى ') + esc(cancelBy.toLocaleString(uiLocale(), { weekday: 'short', hour: 'numeric', minute: '2-digit' })) + '</small></p>' +
           '<button class="sess-btn" type="button" data-confirm="' + s.id + '">' + t('Yes, book my seat', 'نعم، احجز مقعدي') + '</button>' +
           '<button class="sess-btn ghost" type="button" data-unconfirm="1">' + t('Back', 'رجوع') + '</button></div></div>';
-      }).join('') : '<div class="lib-empty">' + t('No open times yet — your teacher will add new times soon. You can also ask in Messages.', 'لا توجد مواعيد متاحة الآن — سيضيف المعلم مواعيد جديدة قريباً. يمكنك أيضاً السؤال من الرسائل.') + '</div>';
+      }).join('') : '<div class="lib-empty">' + t('No open times yet — your teacher will add new times soon. You can also ask in Messages.', 'لا توجد مواعيد متاحة الآن — سيضيف المعلم مواعيد جديدة قريبًا. يمكنك أيضًا السؤال عبر الرسائل.') + '</div>';
 
       const booked = all.filter(function(s){ return mine[s.id]; });
       myBookings.innerHTML = booked.length ? booked.map(function(s){
@@ -1254,14 +1254,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           '<div class="sess-info"><h5>' + esc(s.title) + (live ? ' <span class="live-dot">' + t('Live now', 'مباشر الآن') + '</span>' : '') + '</h5>' +
           '<div class="meta">' + esc(whenLine(s)) + '</div>' +
           '<div class="meta">' + metaHtml(s) + '</div>' +
-          (canCancel ? '' : '<small class="sess-note">' + t("Less than 2 hours to go — if you can't come, message your teacher.", 'باقي أقل من ساعتين — لو لن تحضر، راسل معلمك.') + '</small>') + '</div>' +
+          (canCancel ? '' : '<small class="sess-note">' + t("Less than 2 hours to go — if you can't come, message your teacher.", 'تبقّى أقل من ساعتين — إن لم تحضر، راسل معلمك.') + '</small>') + '</div>' +
           '<div class="sess-actions">' +
           (z ? (live ? '<a class="sess-btn" href="' + esc(safeUrl(z)) + '" target="_blank" rel="noopener">' + t('Join now', 'ادخل الآن') + '</a>'
                      : '<span class="sess-btn ghost wait" title="' + t('The Join button opens 10 minutes before the class', 'زر الدخول يُفتح قبل الحصة بـ 10 دقائق') + '">🔒 ' + t('Join opens 10 min before', 'الدخول قبلها بـ 10 دقائق') + '</span>') : '') +
           '<a class="sess-btn ghost" href="' + esc(gcalLink(s, z)) + '" target="_blank" rel="noopener">' + t('Add to calendar', 'أضف للتقويم') + '</a>' +
           (canCancel ? '<button class="sess-btn ghost" type="button" data-cancel="' + mine[s.id] + '">' + t('Cancel', 'إلغاء') + '</button>' : '') +
           '</div></div>';
-      }).join('') : '<div class="lib-empty">' + t('No bookings yet — pick a day above and book a time.', 'لا توجد حجوزات بعد — اختر يوماً من الأعلى واحجز موعداً.') + '</div>';
+      }).join('') : '<div class="lib-empty">' + t('No bookings yet — pick a day above and book a time.', 'لا توجد حجوزات بعد — اختر يومًا من الأعلى واحجز موعدًا.') + '</div>';
     }
 
     // overview card: the next session this person is attending (student) or hosting (teacher)
@@ -1324,7 +1324,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         const { data: gone, error } = await sb.from('bookings').delete().eq('id', cancelBtn.dataset.cancel).select('id');
         setNotice(error ? sessionsFriendlyError(error)
           : (gone && gone.length) ? t('Booking cancelled.', 'تم إلغاء الحجز.')
-          : t("Bookings can only be cancelled up to 2 hours before the class — message your teacher instead.", 'لا يمكن إلغاء الحجز قبل الحصة بأقل من ساعتين — راسل معلمك بدلاً من ذلك.'), !error && gone && gone.length);
+          : t("Bookings can only be cancelled up to 2 hours before the class — message your teacher instead.", 'لا يمكن إلغاء الحجز قبل الحصة بأقل من ساعتين — راسل معلمك بدلًا من ذلك.'), !error && gone && gone.length);
         await loadSessions();
       } else if(delBtn){
         if(!confirm('Delete this session? Students who booked it will lose their seat.')) return;
@@ -1562,15 +1562,15 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function fmtIban(v){ return String(v || '').replace(/\s+/g, '').replace(/(.{4})/g, '$1 ').trim(); }
   // what a student sees for a bank-transfer request: where to send the money, and the receipt upload
   function bankHtml(e){
-    if(!bankInfo.bank_iban) return '<p class="bank-note">' + esc(t('Message us on WhatsApp and we’ll send you the bank details.', 'كلّمنا على واتساب وهنبعتلك بيانات الحساب.')) + '</p>';
+    if(!bankInfo.bank_iban) return '<p class="bank-note">' + esc(t('Message us on WhatsApp and we’ll send you the bank details.', 'راسلنا على واتساب وسنرسل لك بيانات الحساب.')) + '</p>';
     return '<div class="bank-box">' +
       '<div class="bank-row"><span>' + esc(t('Bank', 'البنك')) + '</span><b>' + esc(bankInfo.bank_name || 'Al Rajhi Bank') + '</b></div>' +
       (bankInfo.bank_holder ? '<div class="bank-row"><span>' + esc(t('Account holder', 'اسم صاحب الحساب')) + '</span><b>' + esc(bankInfo.bank_holder) + '</b></div>' : '') +
       '<div class="bank-row"><span>IBAN</span><b dir="ltr" class="bank-iban">' + esc(fmtIban(bankInfo.bank_iban)) + '</b><button type="button" class="sess-btn ghost" data-copy-iban>' + esc(t('Copy', 'نسخ')) + '</button></div>' +
       '<div class="bank-row"><span>' + esc(t('Amount', 'المبلغ')) + '</span><b>' + esc(fmtPrice(e.amount)) + '</b></div>' +
-      '<p class="bank-note">' + esc(t('Write your name in the transfer note, then upload a photo of the receipt here.', 'اكتب اسمك في ملاحظة التحويل، وبعدين ارفع صورة الإيصال هنا.')) + '</p>' +
-      (e.receipt_path ? '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as Code Cademy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما Code Cademy تراجعه.')) + '</p>'
-        : '<div class="bank-up"><input type="file" accept="image/*,.pdf" data-receipt-file><button type="button" class="lib-submit" data-receipt="' + e.id + '">📎 ' + esc(t('Send the receipt', 'ابعت الإيصال')) + '</button></div><p class="bank-msg" aria-live="polite"></p>') +
+      '<p class="bank-note">' + esc(t('Write your name in the transfer note, then upload a photo of the receipt here.', 'اكتب اسمك في ملاحظة التحويل، ثم ارفع صورة الإيصال هنا.')) + '</p>' +
+      (e.receipt_path ? '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as Code Cademy checks it.', 'أُرسل الإيصال — ستُفعَّل باقتك بمجرد أن تراجعه Code Cademy.')) + '</p>'
+        : '<div class="bank-up"><input type="file" accept="image/*,.pdf" data-receipt-file><button type="button" class="lib-submit" data-receipt="' + e.id + '">📎 ' + esc(t('Send the receipt', 'أرسل الإيصال')) + '</button></div><p class="bank-msg" aria-live="polite"></p>') +
       '</div>';
   }
   document.addEventListener('click', async function(ev){
@@ -1582,15 +1582,15 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const b = ev.target.closest('[data-receipt]');
     if(!b) return;
     const box = b.closest('.bank-box'), file = box.querySelector('[data-receipt-file]').files[0], msg = box.querySelector('.bank-msg');
-    if(!file){ msg.textContent = t('Choose the receipt photo first.', 'اختار صورة الإيصال الأول.'); return; }
-    if(file.size > 10 * 1024 * 1024){ msg.textContent = t('The file is too big — the limit is 10 MB.', 'الملف كبير — الحد الأقصى ١٠ ميجا.'); return; }
-    b.disabled = true; msg.textContent = '⏳ ' + t('Uploading…', 'جاري الرفع…');
+    if(!file){ msg.textContent = t('Choose the receipt photo first.', 'اختر صورة الإيصال أولًا.'); return; }
+    if(file.size > 10 * 1024 * 1024){ msg.textContent = t('The file is too big — the limit is 10 MB.', 'الملف كبير — الحد الأقصى ١٠ ميغابايت.'); return; }
+    b.disabled = true; msg.textContent = '⏳ ' + t('Uploading…', 'جارٍ الرفع…');
     const ext = (file.name.match(/\.([a-z0-9]+)$/i) || [, 'jpg'])[1].toLowerCase();
     const path = currentProfile.id + '/' + b.dataset.receipt + '-' + Date.now() + '.' + ext;
     const up = await sb.storage.from('receipts').upload(path, file, { contentType: file.type || undefined });
     const res = up.error ? up : await sb.rpc('attach_receipt', { p_enrollment: Number(b.dataset.receipt), p_path: path });
     if(res.error){ b.disabled = false; msg.textContent = friendlyErrorMessage(res.error); return; }
-    box.querySelector('.bank-up').outerHTML = '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as Code Cademy checks it.', 'الإيصال اتبعت — باقتك هتتفعّل أول ما Code Cademy تراجعه.')) + '</p>';
+    box.querySelector('.bank-up').outerHTML = '<p class="bank-ok">✅ ' + esc(t('Receipt sent — your plan is switched on as soon as Code Cademy checks it.', 'أُرسل الإيصال — ستُفعَّل باقتك بمجرد أن تراجعه Code Cademy.')) + '</p>';
     msg.textContent = '';
     await loadMyPlan();
   });
@@ -1651,7 +1651,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!s) return '';
     const months = s.valid_days ? Math.round(s.valid_days / 30) : 0;
     return (s.sessions ? t(s.sessions + (s.sessions === 1 ? ' live class' : ' live classes'), s.sessions + (s.sessions === 1 ? ' حصة مباشرة' : ' حصة مباشرة')) : t('Unlimited live classes', 'حصص مباشرة غير محدودة')) +
-      (s.valid_days ? ' · ' + (months >= 1 ? t(months + (months === 1 ? ' month' : ' months'), months + (months === 1 ? ' شهر' : ' شهور')) : t(s.valid_days + ' days', s.valid_days + ' يوماً')) : '');
+      (s.valid_days ? ' · ' + (months >= 1 ? t(months + (months === 1 ? ' month' : ' months'), months + (months === 1 ? ' شهر' : ' شهور')) : t(s.valid_days + ' days', s.valid_days + ' يومًا')) : '');
   }
   async function loadPlanSettings(){
     const { data, error } = await sb.from('plan_settings').select('*');
@@ -1670,7 +1670,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(b) b.textContent = '$' + fmtMoney(usd(s.price));
       if(cur) cur.textContent = '(' + fmtMoney(s.price) + ' ' + t('SAR', 'ريال') + ')';
       const per = card.querySelector('.im-per');
-      if(per && p === 'immersion') per.textContent = t('about $' + Math.round(usd(s.price) / 18) + ' a month', 'حوالي ' + Math.round(usd(s.price) / 18) + '$ في الشهر');
+      if(per && p === 'immersion') per.textContent = t('about $' + Math.round(usd(s.price) / 18) + ' a month', 'نحو ' + Math.round(usd(s.price) / 18) + '$ في الشهر');
       // "Save …" compared with buying single levels
       const save = card.querySelector('.pc-save'), one = planSettings.level1;
       const n = { level2: 2, level3: 3 }[p];
@@ -1732,7 +1732,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     err.textContent = '';
     const method = (document.querySelector('input[name="coMethod"]:checked') || {}).value || 'tamara';
     if(!document.getElementById('coAgree').checked){
-      err.textContent = t('Please accept the terms & refund policy first.', 'من فضلك وافق على الشروط وسياسة الاسترجاع أولاً.');
+      err.textContent = t('Please accept the terms & refund policy first.', 'من فضلك وافق على الشروط وسياسة الاسترجاع أولًا.');
       return;
     }
     btn.disabled = true;
@@ -1762,7 +1762,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     bankEl.hidden = !bank;
     bankEl.innerHTML = bank ? bankHtml({ id: enrollmentId, amount: amount }) : '';
     document.getElementById('coMsg').textContent = bank
-      ? t('Your request is saved. Transfer the amount to the account below and send us the receipt.', 'طلبك اتسجّل. حوّل المبلغ على الحساب اللي تحت وابعتلنا الإيصال.')
+      ? t('Your request is saved. Transfer the amount to the account below and send us the receipt.', 'سُجّل طلبك. حوّل المبلغ إلى الحساب أدناه وأرسل لنا الإيصال.')
       : link
       ? 'Your request is saved. Finish the payment on the secure page — your plan is switched on as soon as your teacher confirms it.'
       : "Your request is saved. We'll send your secure payment link on WhatsApp shortly — your plan is switched on as soon as payment is confirmed.";
@@ -1798,7 +1798,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     let ps = null;
     if(active){ const r = await sb.rpc('plan_status'); if(!r.error) ps = r.data; }
     const leftTxt = ps && ps.total != null
-      ? t(ps.left + ' of ' + ps.total + ' classes left', 'باقي ' + ps.left + ' من ' + ps.total + ' حصة') : '';
+      ? t(ps.left + ' of ' + ps.total + ' classes left', 'تبقّى ' + ps.left + ' من ' + ps.total + ' حصة') : '';
     if(planBanner){
       if(active && ps && ps.left === 0){
         planBanner.innerHTML = '<div class="plan-banner"><div><span class="kick">' + t('Your plan', 'خطتك') + '</span><h4>' + esc(planName(active.plan)) +
@@ -1881,8 +1881,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
       return '<div class="sess-card"><div class="sess-info"><h5>' + esc(who.full_name || '—') + '</h5>' +
         '<div class="meta">' + esc(planName(r.plan)) + ' · ' + esc(fmtPrice(r.amount)) + ' · ' + esc(payMethodName(r.method)) +
-          (r.receipt_path ? ' · <button type="button" class="link-btn" data-receipt-view="' + esc(r.receipt_path) + '">🧾 ' + esc(t('View receipt', 'شوف الإيصال')) + '</button>'
-            : r.method === 'bank' && r.status === 'pending' ? ' · ' + esc(t('no receipt yet', 'لسه مفيش إيصال')) : '') + '</div>' +
+          (r.receipt_path ? ' · <button type="button" class="link-btn" data-receipt-view="' + esc(r.receipt_path) + '">🧾 ' + esc(t('View receipt', 'اعرض الإيصال')) + '</button>'
+            : r.method === 'bank' && r.status === 'pending' ? ' · ' + esc(t('no receipt yet', 'لا يوجد إيصال بعد')) : '') + '</div>' +
         '<div class="meta">' + esc(who.club || '') + ' · ' + esc(fmtDay(r.created_at)) + (r.ends_at ? ' · <span>until</span> ' + esc(fmtDay(r.ends_at)) : '') +
           (r.status === 'active' && r.sessions_total ? ' · ' + r.sessions_total + ' ' + t('classes', 'حصة') : '') + '</div></div>' +
         '<div class="sess-actions"><span class="sess-badge ' + (r.status === 'active' ? 'ok' : '') + '">' + esc(STATUS_LABEL[r.status] || r.status) + '</span>' + act.join('') + '</div></div>';
@@ -1972,14 +1972,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     bankForm.addEventListener('submit', async function(e){
       e.preventDefault();
       const iban = document.getElementById('bkIban').value.replace(/\s+/g, '').toUpperCase();
-      if(iban && !/^SA\d{22}$/.test(iban)){ setEnNotice(t('A Saudi IBAN is SA followed by 22 digits.', 'الآيبان السعودي بيبدأ بـ SA وبعده ٢٢ رقم.')); return; }
+      if(iban && !/^SA\d{22}$/.test(iban)){ setEnNotice(t('A Saudi IBAN is SA followed by 22 digits.', 'الآيبان السعودي يبدأ بـ SA ويليه ٢٢ رقمًا.')); return; }
       const now = new Date().toISOString();
       const { error } = await sb.from('academy_settings').upsert([
         { key: 'bank_name', value: document.getElementById('bkName').value.trim(), updated_at: now },
         { key: 'bank_holder', value: document.getElementById('bkHolder').value.trim(), updated_at: now },
         { key: 'bank_iban', value: iban, updated_at: now }
       ]);
-      setEnNotice(error ? friendlyErrorMessage(error) : t('Bank details saved — students see them when they choose “Bank transfer”.', 'بيانات الحساب اتحفظت — الطلاب هيشوفوها لما يختاروا «تحويل بنكي».'), !error);
+      setEnNotice(error ? friendlyErrorMessage(error) : t('Bank details saved — students see them when they choose “Bank transfer”.', 'حُفظت بيانات الحساب — سيراها الطلاب عند اختيار «تحويل بنكي».'), !error);
       if(!error) await loadBankInfo();
     });
   }
@@ -2053,7 +2053,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       '<label class="hw-att-btn"><input type="file" multiple accept="' + HW_ACCEPT + '" data-attin="' + key + '" hidden>📎 <span>' + t('Attach files', 'إرفاق ملفات') + '</span></label>' +
       '<label class="hw-att-btn"><input type="file" accept="image/*" capture="environment" data-attin="' + key + '" hidden>📷 <span>' + t('Take a photo', 'التقاط صورة') + '</span></label>' +
       (window.MediaRecorder && navigator.mediaDevices ? '<button type="button" class="hw-att-btn" data-rec="' + key + '">🎤 <span>' + t('Record voice', 'تسجيل صوتي') + '</span></button>' : '') +
-      '</div><small class="hw-att-hint">' + t('Photos, videos, voice notes, PDF or Word · up to 50 MB each', 'صور، فيديو، تسجيل صوتي، PDF أو Word · حتى 50 ميجا للملف') + '</small></div>';
+      '</div><small class="hw-att-hint">' + t('Photos, videos, voice notes, PDF or Word · up to 50 MB each', 'صور، فيديو، تسجيل صوتي، PDF أو Word · حتى 50 ميغابايت للملف') + '</small></div>';
   }
   function hwDrawComposer(key){
     const box = document.querySelector('[data-att="' + key + '"] .hw-att-list'), d = hwDrafts[key];
@@ -2073,7 +2073,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(f.size > HW_MAX){ skipped++; return; }
       d.add.push(f);
     });
-    setHwNotice(skipped ? t('A file bigger than 50 MB was skipped — try a shorter video.', 'تم تخطي ملف أكبر من 50 ميجا — جرّب فيديو أقصر.') : '');
+    setHwNotice(skipped ? t('A file bigger than 50 MB was skipped — try a shorter video.', 'تم تخطي ملف أكبر من 50 ميغابايت — جرّب فيديو أقصر.') : '');
     hwDrawComposer(key);
   }
   function hwResetComposer(key){ if(hwDrafts[key]){ hwDrafts[key] = { orig: [], keep: [], add: [] }; hwDrawComposer(key); } }
@@ -2208,8 +2208,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     hwForm.hidden = !teacher;
     if(teacher && !hwDrafts.new) document.getElementById('hwFormAtt').innerHTML = hwComposer('new');
     document.getElementById('hwSub').textContent = teacher
-      ? t('Give homework to a club with photos, videos or files, then grade answers with a note or a voice message.', 'أعطِ واجباً للنادي مع صور أو فيديو أو ملفات، ثم صحّح الإجابات بملاحظة أو رسالة صوتية.')
-      : t('Answer in writing, with a photo of your notebook, a video or a voice note.', 'أجب كتابةً، أو بصورة من كراستك، أو فيديو، أو تسجيل صوتي.');
+      ? t('Give homework to a club with photos, videos or files, then grade answers with a note or a voice message.', 'أعطِ واجبًا للنادي مع صور أو فيديو أو ملفات، ثم صحّح الإجابات بملاحظة أو رسالة صوتية.')
+      : t('Answer in writing, with a photo of your notebook, a video or a voice note.', 'أجب كتابةً، أو بصورة من دفترك، أو فيديو، أو تسجيل صوتي.');
     const { data: as, error } = await sb.from('assignments').select('*').order('created_at', { ascending: false });
     if(error){ hwList.innerHTML = '<div class="lib-empty">' + esc(hwError(error)) + '</div>'; return; }
     const list = as || [];
@@ -2268,7 +2268,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
             (s.answer ? '<p class="hw-answer">' + esc(s.answer) + '</p>' : '') + hwFilesView(s.attachments) +
             ((s.feedback || hwAtt(s.feedback_attachments).length) ? '<div class="hw-fb"><b>' + t('Teacher', 'المعلم') + ':</b> ' + esc(s.feedback || '') + hwFilesView(s.feedback_attachments) + '</div>' : '') + '</div>';
         } else {
-          body = '<div class="hw-sub"><textarea rows="3" data-ans="' + a.id + '" placeholder="' + t('Write your answer here… or just attach a photo, video or voice note.', 'اكتب إجابتك هنا… أو أرفق صورة أو فيديو أو تسجيلاً صوتياً.') + '">' + esc(s ? (s.answer || '') : '') + '</textarea>' +
+          body = '<div class="hw-sub"><textarea rows="3" data-ans="' + a.id + '" placeholder="' + t('Write your answer here… or just attach a photo, video or voice note.', 'اكتب إجابتك هنا… أو أرفق صورة أو فيديو أو تسجيلًا صوتيًا.') + '">' + esc(s ? (s.answer || '') : '') + '</textarea>' +
             hwComposer('ans-' + a.id, s ? s.attachments : []) +
             '<div class="hw-grade"><button class="sess-btn" type="button" data-hwsend="' + a.id + '">' + (s ? t('Update my answer', 'تحديث إجابتي') : t('Submit homework', 'تسليم الواجب')) + '</button>' +
             (s ? hwSentLine(a, s) : '') + '</div></div>';
@@ -2337,7 +2337,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(send){
         const id = send.dataset.hwsend, key = 'ans-' + id;
         const answer = hwList.querySelector('[data-ans="' + id + '"]').value.trim();
-        if(!answer && !hwHasContent(key)){ setHwNotice(t('Write an answer or attach a photo, video or voice note first.', 'اكتب إجابة أو أرفق صورة أو فيديو أو تسجيلاً صوتياً أولاً.')); return; }
+        if(!answer && !hwHasContent(key)){ setHwNotice(t('Write an answer or attach a photo, video or voice note first.', 'اكتب إجابة أو أرفق صورة أو فيديو أو تسجيلًا صوتيًا أولًا.')); return; }
         send.disabled = true;
         setHwNotice('');
         try{
@@ -2349,7 +2349,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
             : await sb.from('submissions').insert(Object.assign({ assignment_id: id, student_id: currentProfile.id }, row));
           if(res.error) throw res.error;
           hwDropRemoved(key);
-          setHwNotice(t('Homework sent — your teacher will grade it soon. ✓', 'تم تسليم الواجب — سيصححه معلمك قريباً. ✓'), true);
+          setHwNotice(t('Homework sent — your teacher will grade it soon. ✓', 'تم تسليم الواجب — سيصححه معلمك قريبًا. ✓'), true);
           await loadHomework();
         }catch(err){ setHwNotice(hwError(err)); send.disabled = false; }
       } else if(grade){
@@ -2701,11 +2701,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const b = e.target.closest('[data-setpass]');
     if(!b) return;
     const u = usersCache.find(function(x){ return x.id === b.closest('[data-uid]').dataset.uid; });
-    const pw = prompt(t('New password for ' + (u.full_name || '') + ' (6+ characters):', 'كلمة مرور جديدة لـ ' + (u.full_name || '') + ' (٦ حروف أو أرقام على الأقل):'));
+    const pw = prompt(t('New password for ' + (u.full_name || '') + ' (6+ characters):', 'كلمة مرور جديدة لـ ' + (u.full_name || '') + ' (٦ أحرف أو أرقام على الأقل):'));
     if(pw == null) return;
     const { error } = await sb.rpc('admin_set_password', { p_user: u.id, p_password: pw.trim() });
     if(error){ toast(t('Not saved', 'لم يُحفظ'), friendlyErrorMessage(error), true); return; }
-    toast('🔑 ' + t('Password changed', 'تم تغيير كلمة المرور'), t('Send it to ' + (u.full_name || '') + ' on WhatsApp.', 'ابعتها لـ ' + (u.full_name || '') + ' على واتساب.'));
+    toast('🔑 ' + t('Password changed', 'تم تغيير كلمة المرور'), t('Send it to ' + (u.full_name || '') + ' on WhatsApp.', 'أرسلها إلى ' + (u.full_name || '') + ' على واتساب.'));
   });
 
   async function loadUsers(){
@@ -2918,7 +2918,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(error){ msg.textContent = friendlyErrorMessage(error); return; }
     document.getElementById('igToken').value = '';
     msg.style.color = '#2e7d32';
-    msg.textContent = t('Saved. New Instagram videos will show on the website automatically.', 'تم الحفظ. ستظهر فيديوهات إنستجرام الجديدة على الموقع تلقائياً.');
+    msg.textContent = t('Saved. New Instagram videos will show on the website automatically.', 'تم الحفظ. ستظهر فيديوهات إنستجرام الجديدة على الموقع تلقائيًا.');
     loadInstagramStatus();
   });
 
@@ -2973,10 +2973,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cdFile.value = '';
     if(!f) return;
     if(!/^image\/(png|jpeg)$/.test(f.type)){ cdSetMsg(t('Please choose a JPG or PNG image.', 'اختر صورة JPG أو PNG.')); return; }
-    if(f.size > 8 * 1024 * 1024){ cdSetMsg(t('The image is over 8 MB — please use a smaller one.', 'الصورة أكبر من ٨ ميجابايت — استخدم صورة أصغر.')); return; }
+    if(f.size > 8 * 1024 * 1024){ cdSetMsg(t('The image is over 8 MB — please use a smaller one.', 'الصورة أكبر من ٨ ميغابايت — استخدم صورة أصغر.')); return; }
     cdNewFile = f;
     cdSrc = URL.createObjectURL(f);
-    cdSetMsg(t('New image loaded — drag the labels into place, then press Save.', 'تم تحميل الصورة — اسحب العناوين لأماكنها ثم اضغط حفظ.'), true);
+    cdSetMsg(t('New image loaded — drag the labels into place, then press Save.', 'تم تحميل الصورة — اسحب العناوين إلى أماكنها ثم اضغط حفظ.'), true);
     cdRender();
   });
   // drag the Name / Date / Details / ID labels
@@ -3269,8 +3269,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ptShow('run');
     if(!ptAiOff){
       // ask the AI for today's questions; if it is off or slow, the written bank is used
-      document.getElementById('ptCount').textContent = t('Preparing your test…', 'بجهّزلك الامتحان…');
-      document.getElementById('ptQ').textContent = '✨ ' + t('Coco is writing fresh questions for you', 'كوكو بيكتبلك أسئلة جديدة');
+      document.getElementById('ptCount').textContent = t('Preparing your test…', 'جارٍ تجهيز الامتحان…');
+      document.getElementById('ptQ').textContent = '✨ ' + t('Coco is writing fresh questions for you', 'كوكو يكتب لك أسئلة جديدة');
       document.getElementById('ptOpts').innerHTML = '<span class="pt-wait"><i></i><i></i><i></i></span>';
       const out = await Promise.race([cocoCall({ mode: 'placement' }), new Promise(function(r){ setTimeout(function(){ r({ err: 'slow' }); }, 15000); })]);
       if(pt !== test) return; // restarted meanwhile
@@ -3310,8 +3310,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   document.getElementById('ptWriteForm').addEventListener('submit', async function(e){
     e.preventDefault();
     const text = document.getElementById('ptText').value.trim(), btn = this.querySelector('[type=submit]'), err = document.getElementById('ptWriteErr');
-    if(text.split(/\s+/).length < 8){ err.textContent = t('Write at least two full sentences (8 words or more).', 'اكتب جملتين كاملتين على الأقل (٨ كلمات أو أكتر).'); return; }
-    btn.disabled = true; err.textContent = '⏳ ' + t('Coco is reading your writing…', 'كوكو بيقرا اللي كتبته…');
+    if(text.split(/\s+/).length < 8){ err.textContent = t('Write at least two full sentences (8 words or more).', 'اكتب جملتين كاملتين على الأقل (٨ كلمات أو أكثر).'); return; }
+    btn.disabled = true; err.textContent = '⏳ ' + t('Coco is reading your writing…', 'كوكو يقرأ ما كتبته…');
     const out = await cocoCall({ mode: 'placement_write', text: text });
     btn.disabled = false; err.textContent = '';
     ptFinish(out.data && out.data.cefr ? out.data : null);
@@ -3328,7 +3328,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       A1: t('A perfect place to start. You will build vocabulary, sounds and your first sentences step by step.', 'بداية ممتازة. ستبني المفردات والأصوات وجملك الأولى خطوة بخطوة.'),
       A2: t('You know the basics. Beginner lessons will make everyday English feel easy and natural.', 'تعرف الأساسيات. دروس المستوى المبتدئ ستجعل الإنجليزية اليومية سهلة وطبيعية.'),
       B1: t('A solid base. Intermediate lessons will build fluency and confidence in real conversations.', 'أساس قوي. دروس المستوى المتوسط ستبني الطلاقة والثقة في المحادثات الحقيقية.'),
-      'B1+': t('Confident everyday English. Intermediate practice will grow your range and make you sound more natural.', 'إنجليزي يومي واثق. التدريب المتوسط هيوسّع كلماتك ويخليك تتكلم بشكل طبيعي أكتر.'),
+      'B1+': t('Confident everyday English. Intermediate practice will grow your range and make you sound more natural.', 'إنجليزية يومية واثقة. التدريب المتوسط سيوسّع مفرداتك ويجعلك تتحدث بشكل أكثر طبيعية.'),
       B2: t('Strong English. Intermediate-to-advanced practice will polish accuracy and natural expressions.', 'إنجليزية قوية. التدريب المتوسط إلى المتقدم سيصقل الدقة والتعبيرات الطبيعية.'),
       C1: t('Excellent English. Advanced lessons will stretch you with debate, nuance and fluent speaking.', 'إنجليزية ممتازة. الدروس المتقدمة ستتحداك بالنقاش والدقة والتحدث بطلاقة.')
     };
@@ -3427,8 +3427,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         t(passedCount + ' of ' + LEVELS.length + ' levels passed', 'نجحت في ' + passedCount + ' من ' + LEVELS.length + ' مستويات') + '</small>' +
         '<b>' + esc(levelName(working)) + '</b>' +
         '<span class="ps-bar"><i style="width:' + wpct + '%"></i></span>' +
-        '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — take the level exam whenever you’re ready', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — وادخل امتحان المستوى وقت ما تكون جاهز')
-                              : t('Practise with Coco, then take the level exam whenever you’re ready', 'اتمرّن مع كوكو، وادخل امتحان المستوى وقت ما تكون جاهز')) + '</em></div></div>';
+        '<em>' + esc(ws.total ? t(ws.read + ' of ' + ws.total + ' books read — take the level exam whenever you’re ready', 'قرأت ' + ws.read + ' من ' + ws.total + ' كتب — وادخل امتحان المستوى متى كنت مستعدًا')
+                              : t('Practise with Coco, then take the level exam whenever you’re ready', 'تدرّب مع كوكو، وادخل امتحان المستوى متى كنت مستعدًا')) + '</em></div></div>';
     const chips = LEVELS.map(function(l){
       const passed = isLevelPassed(l), unlocked = isLevelUnlocked(l);
       return '<button type="button" class="lv-chip' + (passed ? ' passed' : !unlocked ? ' locked' : '') + (l === currentLevel ? ' active' : '') + (l === working ? ' working' : '') +
@@ -3441,7 +3441,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!b) return;
     const lv = b.dataset.level;
     if(!isLevelUnlocked(lv)){
-      toast('🔒 ' + t('Locked level', 'مستوى مغلق'), t('Pass the exam of the level before it first.', 'انجح أولاً في امتحان المستوى السابق.'));
+      toast('🔒 ' + t('Locked level', 'مستوى مغلق'), t('Pass the exam of the level before it first.', 'انجح أولًا في امتحان المستوى السابق.'));
       return;
     }
     currentLevel = lv;
@@ -3477,11 +3477,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       btn = t('Open the book', 'افتح الكتاب'); action = 'read:' + unread.id;
     } else if(st.total){
       icon = '📝'; title = t('You read every book in this level', 'قرأت كل كتب هذا المستوى');
-      text = t('Take the ' + levelName(lv) + ' exam to move up.', 'ادخل امتحان ' + levelName(lv) + ' لتنتقل للمستوى التالي.');
+      text = t('Take the ' + levelName(lv) + ' exam to move up.', 'ادخل امتحان ' + levelName(lv) + ' لتنتقل إلى المستوى التالي.');
       btn = t('Start the exam', 'ابدأ الامتحان'); action = 'exam';
     } else {
-      icon = '📝'; title = t('Ready to move up?', 'جاهز تطلع مستوى؟');
-      text = t('Practise with Coco, then take the ' + levelName(lv) + ' exam.', 'اتمرّن مع كوكو، وبعدين ادخل امتحان ' + levelName(lv) + '.');
+      icon = '📝'; title = t('Ready to move up?', 'هل أنت مستعد للانتقال إلى مستوى أعلى؟');
+      text = t('Practise with Coco, then take the ' + levelName(lv) + ' exam.', 'تدرّب مع كوكو، ثم ادخل امتحان ' + levelName(lv) + '.');
       btn = t('Start the exam', 'ابدأ الامتحان'); action = 'exam';
     }
     box.hidden = false;
@@ -3552,18 +3552,18 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const locked = isStudent() && !isLevelUnlocked(level);
     const head = '<div class="lvb-head"><div><b>' + esc(t('Books — ', 'كتب ') + levelName(level)) + '</b><span>' +
       esc(t(items.length + (items.length === 1 ? ' book' : ' books'), items.length + ' كتاب')) + '</span></div>' +
-      (isTeacher() ? '<button type="button" class="lib-submit" data-home-upload="' + level + '">📤 ' + esc(t('Upload a book to ' + levelName(level), 'ارفع كتاب لـ' + levelName(level))) + '</button>' : '') + '</div>';
+      (isTeacher() ? '<button type="button" class="lib-submit" data-home-upload="' + level + '">📤 ' + esc(t('Upload a book to ' + levelName(level), 'ارفع كتابًا لـ' + levelName(level))) + '</button>' : '') + '</div>';
     const cards = items.length ? '<div class="lvb-grid">' + items.map(function(m, k){
       const full = signedIn && canReadFull(m), canOpen = signedIn && !locked;
       return '<div class="lvb-book' + (full ? '' : ' locked') + '" style="--h:' + hueOf(m.title) + '"><span class="lvb-cover">📖</span><b>' + esc(m.title) + '</b>' +
         '<small>' + esc(m.club) + (m.level ? '' : ' · ' + t('All levels', 'كل المستويات')) + '</small>' +
         (canOpen ? '<button type="button" class="lvb-read" data-home-read="' + k + '">' + (full ? t('Read', 'اقرأ') : '🔒 ' + t('Free pages', 'صفحات مجانية')) + '</button>'
-                 : '<span class="lvb-lock">🔒 ' + esc(signedIn ? t('Pass the level before it', 'انجح في المستوى اللي قبله') : t('For subscribers', 'للمشتركين')) + '</span>') + '</div>';
-    }).join('') + '</div>' : '<p class="lvb-empty">' + esc(t('No books in this level yet.', 'لسه مفيش كتب في المستوى ده.')) + '</p>';
+                 : '<span class="lvb-lock">🔒 ' + esc(signedIn ? t('Pass the level before it', 'انجح في المستوى السابق') : t('For subscribers', 'للمشتركين')) + '</span>') + '</div>';
+    }).join('') + '</div>' : '<p class="lvb-empty">' + esc(t('No books in this level yet.', 'لا توجد كتب في هذا المستوى بعد.')) + '</p>';
     let foot = '';
-    if(!currentProfile) foot = '<div class="lvb-foot"><span>' + esc(t('Create your account and choose a plan to read the books.', 'اعمل حسابك واختار باقة عشان تقرا الكتب.')) + '</span>' +
-      '<button type="button" class="lib-submit" data-home-signup>' + esc(t('Sign up', 'إنشاء حساب')) + '</button><a class="cta-ghost" href="#plans">' + esc(t('See plans', 'شوف الباقات')) + '</a></div>';
-    else if(isStudent() && !bookAccess) foot = '<div class="lvb-foot"><span>' + esc(t('Choose a plan to read the whole books.', 'اختار باقة عشان تقرا الكتب كاملة.')) + '</span><a class="lib-submit" href="#plans">' + esc(t('See plans', 'شوف الباقات')) + '</a></div>';
+    if(!currentProfile) foot = '<div class="lvb-foot"><span>' + esc(t('Create your account and choose a plan to read the books.', 'أنشئ حسابك واختر باقة لتقرأ الكتب.')) + '</span>' +
+      '<button type="button" class="lib-submit" data-home-signup>' + esc(t('Sign up', 'إنشاء حساب')) + '</button><a class="cta-ghost" href="#plans">' + esc(t('See plans', 'اعرض الباقات')) + '</a></div>';
+    else if(isStudent() && !bookAccess) foot = '<div class="lvb-foot"><span>' + esc(t('Choose a plan to read the whole books.', 'اختر باقة لتقرأ الكتب كاملة.')) + '</span><a class="lib-submit" href="#plans">' + esc(t('See plans', 'اعرض الباقات')) + '</a></div>';
     homeLevelBooks.innerHTML = head + cards + foot;
   }
   document.getElementById('homeLevels').addEventListener('click', function(e){
@@ -3590,7 +3590,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!isTeacher()) return;
     document.getElementById('lvUpTitle').textContent = levelName(currentLevel) + (materialsFilter !== 'all' ? ' · ' + t(materialsFilter, materialsFilter) : '');
     document.getElementById('lvUpMeta').textContent = t(materialsCache.length + (materialsCache.length === 1 ? ' book' : ' books'), materialsCache.length + ' كتاب');
-    lvUpBtn.textContent = libForm.hidden ? '📤 ' + t('Upload a book to ' + levelName(currentLevel), 'ارفع كتاب لـ' + levelName(currentLevel)) : '✕ ' + t('Close', 'إغلاق');
+    lvUpBtn.textContent = libForm.hidden ? '📤 ' + t('Upload a book to ' + levelName(currentLevel), 'ارفع كتابًا لـ' + levelName(currentLevel)) : '✕ ' + t('Close', 'إغلاق');
   }
   lvUpBtn.addEventListener('click', function(){
     if(libForm.hidden){
@@ -3619,7 +3619,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const prev = LEVELS[LEVELS.indexOf(currentLevel) - 1];
       document.getElementById('lockedTitle').textContent = t('Level ' + LEVEL_INFO[currentLevel].n + ' is locked', 'المستوى ' + LEVEL_INFO[currentLevel].n + ' مغلق');
       document.getElementById('lockedText').textContent = t('Pass the ' + levelName(prev) + ' exam to open this level.',
-                                                            'انجح في امتحان ' + levelName(prev) + ' عشان يفتحلك المستوى ده.');
+                                                            'انجح في امتحان ' + levelName(prev) + ' ليُفتح لك هذا المستوى.');
       shelfHead.hidden = true;
       examCTA.hidden = true;
       examPanel.hidden = true;
@@ -3688,7 +3688,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     libGrid.classList.toggle('shelf', isStudent());
     if(materialsCache.length === 0){
       libGrid.innerHTML = isStudent()
-        ? '<div class="empty-state"><div>📚</div><b>' + t('No books here yet', 'لا توجد كتب هنا بعد') + '</b><span>' + t('Your teacher will add the books for this level soon.', 'سيضيف معلمك كتب هذا المستوى قريباً.') + '</span></div>'
+        ? '<div class="empty-state"><div>📚</div><b>' + t('No books here yet', 'لا توجد كتب هنا بعد') + '</b><span>' + t('Your teacher will add the books for this level soon.', 'سيضيف معلمك كتب هذا المستوى قريبًا.') + '</span></div>'
         : '<div class="lib-empty">No materials for this level yet.</div>';
       return;
     }
@@ -3781,7 +3781,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     protectBox.hidden = !unprotected.length;
     if(unprotected.length) document.getElementById('protectText').textContent = t(
       unprotected.length + (unprotected.length === 1 ? ' book is' : ' books are') + ' still open to every student. Protect them so students read a ' + PREVIEW_PAGES + '-page preview and the whole book opens with a plan.',
-      unprotected.length + ' كتاب ما زال مفتوحاً لكل الطلاب. احمِها ليقرأ الطالب معاينة ' + PREVIEW_PAGES + ' صفحات ويُفتح الكتاب كاملاً مع الاشتراك.');
+      unprotected.length + ' كتاب ما زال مفتوحًا لكل الطلاب. احمِها ليقرأ الطالب معاينة ' + PREVIEW_PAGES + ' صفحات ويُفتح الكتاب كاملًا مع الاشتراك.');
   }
   if(protectBox) document.getElementById('protectBtn').addEventListener('click', async function(){
     const btn = this;
@@ -3826,7 +3826,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!full){
       document.getElementById('readerLockText').textContent = item.preview_path
         ? t('Free preview: the first ' + (item.preview_pages || PREVIEW_PAGES) + (item.pages ? ' of ' + item.pages : '') + ' pages. Choose a plan to read the whole book.',
-            'معاينة مجانية: أول ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات' + (item.pages ? ' من ' + item.pages : '') + '. اختر خطة لقراءة الكتاب كاملاً.')
+            'معاينة مجانية: أول ' + (item.preview_pages || PREVIEW_PAGES) + ' صفحات' + (item.pages ? ' من ' + item.pages : '') + '. اختر خطة لقراءة الكتاب كاملًا.')
         : t('This book opens with a plan. Choose a plan to read it.', 'هذا الكتاب متاح مع الاشتراك. اختر خطة لقراءته.');
     }
     let html;
@@ -3951,7 +3951,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         '<span class="nm">' + esc(r.full_name || '—') + (isTeacher() && r.club ? '<small>' + esc(r.club) + '</small>' : '') + '</span>' +
         '<span class="ct">' + r.books + ' ' + t(r.books === 1 ? 'book' : 'books', 'كتاب') + '</span>' +
       '</li>';
-    }).join('') : '<li class="empty">' + esc(t('No one has opened a book this week yet — be the first!', 'لم يفتح أحد كتاباً هذا الأسبوع بعد — كن الأول!')) + '</li>';
+    }).join('') : '<li class="empty">' + esc(t('No one has opened a book this week yet — be the first!', 'لم يفتح أحد كتابًا هذا الأسبوع بعد — كن الأول!')) + '</li>';
   }
 
   // ---------- live updates (Supabase Realtime) ----------
@@ -4028,7 +4028,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function showPickedFile(){
     const f = libFile.files[0];
     dropzone.classList.toggle('has-file', !!f);
-    dzText.textContent = f ? f.name + ' · ' + fmtSize(f.size) : t('Drag a book here, or click to choose a file', 'اسحب كتاباً هنا أو اضغط لاختيار ملف');
+    dzText.textContent = f ? f.name + ' · ' + fmtSize(f.size) : t('Drag a book here, or click to choose a file', 'اسحب كتابًا هنا أو اضغط لاختيار ملف');
   }
   libFile.addEventListener('change', function(){
     const f = libFile.files[0];
@@ -4055,8 +4055,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const level = document.getElementById('libLevel').value || null; // empty = for every level
     const title = libTitle.value.trim();
     const file = libFile.files[0];
-    if(!title || !file){ setUploadStatus('err', t('Add a title and choose a file first.', 'أضف عنواناً واختر ملفاً أولاً.')); return; }
-    if(file.size > MAX_UPLOAD){ setUploadStatus('err', t('The file is too big — the limit is 50 MB.', 'الملف كبير جداً — الحد الأقصى 50 ميجابايت.')); return; }
+    if(!title || !file){ setUploadStatus('err', t('Add a title and choose a file first.', 'أضف عنوانًا واختر ملفًا أولًا.')); return; }
+    if(file.size > MAX_UPLOAD){ setUploadStatus('err', t('The file is too big — the limit is 50 MB.', 'الملف كبير جدًا — الحد الأقصى 50 ميغابايت.')); return; }
 
     const path = buildStoragePath(club, level || 'All levels', file.name);
     libSubmit.disabled = true;
@@ -4077,7 +4077,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       showPickedFile();
       setUploadStatus('ok', stored.preview_path
         ? t('Uploaded! Students in ' + club + ' can read the first ' + stored.preview_pages + ' pages free; the whole book opens with a plan.',
-            'تم الرفع! يقرأ طلاب ' + club + ' أول ' + stored.preview_pages + ' صفحات مجاناً، والكتاب كامل مع الاشتراك.')
+            'تم الرفع! يقرأ طلاب ' + club + ' أول ' + stored.preview_pages + ' صفحات مجانًا، والكتاب كاملًا مع الاشتراك.')
         : t('Uploaded! “' + title + '” opens for students in ' + club + ' who have a plan.', 'تم الرفع! «' + title + '» متاح لطلاب ' + club + ' المشتركين.'));
       // jump to where the new book lives so the teacher sees it straight away
       if(level) currentLevel = level;
@@ -4239,16 +4239,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       res.className = 'quiz-result ' + (passed ? 'win' : 'try');
       res.innerHTML =
         '<div class="qr-ring" style="--p:' + scorePct + '"><b>' + scorePct + '%</b></div>' +
-        '<h4>' + (passed ? t('Congratulations! 🎉', 'مبروك! 🎉') : t('Almost there!', 'قربت جداً!')) + '</h4>' +
+        '<h4>' + (passed ? t('Congratulations! 🎉', 'مبروك! 🎉') : t('Almost there!', 'اقتربت جدًا!')) + '</h4>' +
         '<p>' + (passed
           ? (isLast ? t('You passed the final level. Your certificate is ready.', 'نجحت في المستوى الأخير. شهادتك جاهزة.')
                     : t('You passed and unlocked the next level. Your certificate is ready.', 'نجحت وفتحت المستوى التالي. شهادتك جاهزة.'))
           : t('You need 70% to pass. Read the books again and try once more — you can retake it anytime.', 'تحتاج ٧٠٪ للنجاح. راجع الكتب وحاول مرة أخرى — يمكنك إعادة الامتحان في أي وقت.')) + '</p>' +
         '<div class="qr-actions">' + (passed
           ? '<button class="btn-primary" type="button" data-res="certs">🎓 ' + t('View certificate', 'عرض الشهادة') + '</button>' +
-            (isLast ? '' : '<button class="btn-ghost" type="button" data-res="next">' + t('Go to the next level →', 'انتقل للمستوى التالي ←') + '</button>')
+            (isLast ? '' : '<button class="btn-ghost" type="button" data-res="next">' + t('Go to the next level →', 'انتقل إلى المستوى التالي ←') + '</button>')
           : '<button class="btn-primary" type="button" data-res="retry">' + t('Try again', 'حاول مرة أخرى') + '</button>' +
-            '<button class="btn-ghost" type="button" data-res="books">' + t('Back to the books', 'العودة للكتب') + '</button>') +
+            '<button class="btn-ghost" type="button" data-res="books">' + t('Back to the books', 'العودة إلى الكتب') + '</button>') +
         '</div>';
       if(passed){
         loadOverviewStats();
@@ -4335,7 +4335,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(!file) return;
       const club = materialsFilter !== 'all' ? materialsFilter : null;
       eqCsvMsg.style.color = '#B4213D';
-      if(!club){ eqCsvMsg.textContent = t('Pick one specific club tab above first.', 'اختر نادياً محدداً من الأعلى أولاً.'); return; }
+      if(!club){ eqCsvMsg.textContent = t('Pick one specific club tab above first.', 'اختر ناديًا محددًا من الأعلى أولًا.'); return; }
       let rows = parseCSV(await file.text());
       if(rows.length && /question|سؤال/i.test(rows[0][0])) rows = rows.slice(1);
       const bad = rows.filter(function(r){ return r.length < 5 || r.slice(0, 5).some(function(x){ return !x; }); });
@@ -4484,10 +4484,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   const cocoBot = document.getElementById('cocoBot');
   const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
   const COCO_SCENES = [
-    { id: 'cafe',      icon: '☕', en: 'At the café',      ar: 'في الكافيه',      open: "Hi there, welcome to Sunny Café! What can I get for you today?" },
+    { id: 'cafe',      icon: '☕', en: 'At the café',      ar: 'في المقهى',      open: "Hi there, welcome to Sunny Café! What can I get for you today?" },
     { id: 'airport',   icon: '✈️', en: 'At the airport',   ar: 'في المطار',       open: "Good morning! May I see your passport, please? Where are you flying today?" },
     { id: 'doctor',    icon: '🩺', en: 'At the doctor',    ar: 'عند الطبيب',      open: "Hello, come in and sit down. How are you feeling today?" },
-    { id: 'shop',      icon: '👕', en: 'In a shop',        ar: 'في المحل',        open: "Hi! Are you looking for anything special today?" },
+    { id: 'shop',      icon: '👕', en: 'In a shop',        ar: 'في المتجر',        open: "Hi! Are you looking for anything special today?" },
     { id: 'interview', icon: '💼', en: 'Job interview',    ar: 'مقابلة عمل',      open: "Nice to meet you! Thanks for coming. Can you tell me a little about yourself?" },
     { id: 'friend',    icon: '🎒', en: 'A new friend',     ar: 'صديق جديد',       open: "Hey! I'm new here too. What's your name? Which class are you in?" }
   ];
@@ -4566,7 +4566,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
   // ---- listening (browser speech recognition) ----
   function cocoListen(onText){
-    if(!SpeechRec){ toast('🎤 ' + t('Voice is not available here', 'الصوت غير متاح هنا'), t('Try Chrome, Edge or Safari, or type instead.', 'جرّب Chrome أو Edge أو Safari، أو اكتب بدلاً من ذلك.'), true); return; }
+    if(!SpeechRec){ toast('🎤 ' + t('Voice is not available here', 'الصوت غير متاح هنا'), t('Try Chrome, Edge or Safari, or type instead.', 'جرّب Chrome أو Edge أو Safari، أو اكتب بدلًا من ذلك.'), true); return; }
     if(cocoRec){ cocoRec.stop(); return; }
     if(window.speechSynthesis) speechSynthesis.cancel();
     const rec = new SpeechRec();
@@ -4578,7 +4578,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       final = txt;
       if(cocoMode !== 'say') cocoInput.value = txt;
     };
-    rec.onerror = function(e){ if(e.error === 'not-allowed') toast('🎤 ' + t('Allow the microphone', 'اسمح باستخدام الميكروفون'), t('Coco needs the microphone to hear you.', 'كوكو يحتاج الميكروفون ليسمعك.'), true); };
+    rec.onerror = function(e){ if(e.error === 'not-allowed') toast('🎤 ' + t('Allow the microphone', 'اسمح باستخدام الميكروفون'), t('Coco needs the microphone to hear you.', 'يحتاج كوكو إلى الميكروفون ليسمعك.'), true); };
     rec.onend = function(){
       cocoRec = null; cocoState('listening', false);
       document.querySelectorAll('.coco-mic, .coco-rec').forEach(function(b){ b.classList.remove('on'); });
@@ -4602,11 +4602,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function cocoReplyHtml(r){
     let h = '<p dir="ltr">' + esc(r.reply) + '</p>' +
       '<div class="cmsg-tools"><button type="button" data-coco-play="' + esc(r.reply) + '" title="' + t('Listen', 'استمع') + '">🔊</button>' +
-      (r.reply_ar ? '<button type="button" data-coco-ar>' + t('Arabic', 'عربي') + '</button>' : '') + '</div>' +
+      (r.reply_ar ? '<button type="button" data-coco-ar>' + t('Arabic', 'العربية') + '</button>' : '') + '</div>' +
       (r.reply_ar ? '<p class="cmsg-ar" hidden>' + esc(r.reply_ar) + '</p>' : '');
     const c = r.correction || {};
     if(c.has_mistake && c.better){
-      h += '<div class="ccorr"><b>✏️ ' + t('Say it like this', 'قلها كده') + '</b>' +
+      h += '<div class="ccorr"><b>✏️ ' + t('Say it like this', 'قلها هكذا') + '</b>' +
         (c.original ? '<s dir="ltr">' + esc(c.original) + '</s>' : '') + '<em dir="ltr">' + esc(c.better) + '</em>' +
         (c.explain_ar ? '<small dir="rtl">' + esc(c.explain_ar) + '</small>' : '') + '</div>';
     }
@@ -4640,15 +4640,15 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }catch(e){ return { err: 'setup' }; }
   }
   function cocoErrText(err){
-    return err === 'limit' ? t("That's all for today — you used today's messages. Come back tomorrow! You can still practise in “Say it”.", 'خلصت رسائل النهارده — ارجع بكرة! وتقدر تتدرب على النطق في «قلها».')
+    return err === 'limit' ? t("That's all for today — you used today's messages. Come back tomorrow! You can still practise in “Say it”.", 'انتهت رسائل اليوم — عُد غدًا! ويمكنك التدرّب على النطق في «قلها».')
       : err === 'signin' ? t('Please sign in again.', 'من فضلك سجّل الدخول مرة أخرى.')
-      : err === 'busy' ? t('Coco is very busy right now. Try again in a minute.', 'كوكو مشغول جداً الآن. حاول بعد دقيقة.')
-      : err === 'topic' ? t('Coco can only teach English topics — try another one!', 'كوكو بيشرح مواضيع الإنجليزي بس — جرّب موضوع تاني!')
+      : err === 'busy' ? t('Coco is very busy right now. Try again in a minute.', 'كوكو مشغول جدًا الآن. حاول بعد دقيقة.')
+      : err === 'topic' ? t('Coco can only teach English topics — try another one!', 'كوكو يشرح مواضيع الإنجليزية فقط — جرّب موضوعًا آخر!')
       : err === 'setup' ? (cocoMode === 'learn'
-          ? t('Pick one of the lessons in the list 👆 — I explain each one step by step, with questions.', 'اختار درس من القائمة 👆 — بشرح كل درس خطوة بخطوة وبأسئلة.')
-          : t('Let’s practise together: pick a chat, a scene or a lesson 🧑‍🏫', 'يلا نتمرّن سوا: اختار محادثة أو موقف أو درس 🧑‍🏫')) +
+          ? t('Pick one of the lessons in the list 👆 — I explain each one step by step, with questions.', 'اختر درسًا من القائمة 👆 — أشرح كل درس خطوة بخطوة مع أسئلة.')
+          : t('Let’s practise together: pick a chat, a scene or a lesson 🧑‍🏫', 'هيا نتدرّب معًا: اختر محادثة أو موقفًا أو درسًا 🧑‍🏫')) +
           (isAdmin() ? ' — ' + t('Admin: see AI-TUTOR.md to switch Coco on.', 'للمدير: افتح ملف AI-TUTOR.md لتفعيل كوكو.') : '')
-      : t('Oops, Coco lost the thread. Please try again.', 'حصل خطأ بسيط، حاول مرة أخرى.');
+      : t('Oops, Coco lost the thread. Please try again.', 'حدث خطأ بسيط، حاول مرة أخرى.');
   }
   function cocoShowLeft(left){
     if(typeof left === 'number') document.getElementById('cocoLeft').textContent = t(left + ' left today', 'متبقٍ ' + left + ' اليوم');
@@ -4665,8 +4665,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const seen = done.indexOf(tp) !== -1;
       return '<button type="button" data-coco-topic="' + esc(tp) + '"' + (seen ? ' class="done"' : '') + '><bdi>' + esc(tp) + '</bdi>' + (seen ? ' ✓' : '') + '</button>';
     }).join('');
-    const el = cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level, or search 👇', 'نتعلم إيه النهارده؟ اختار درس على قد مستواك، أو دوّر 👇')) + '</p>' +
-      '<input type="search" class="csearch" data-coco-search dir="auto" autocomplete="off" placeholder="🔎 ' + esc(t('Search lessons… e.g. past, if, plural, الماضي', 'دوّر على درس… مثلاً past أو الماضي أو الجمع')) + '">' +
+    const el = cocoBubble('bot', '<p>' + esc(t('What shall we learn today? Pick a lesson for your level, or search 👇', 'ماذا نتعلم اليوم؟ اختر درسًا يناسب مستواك، أو ابحث 👇')) + '</p>' +
+      '<input type="search" class="csearch" data-coco-search dir="auto" autocomplete="off" placeholder="🔎 ' + esc(t('Search lessons… e.g. past, if, plural, الماضي', 'ابحث عن درس… مثلًا past أو الماضي أو الجمع')) + '">' +
       '<div class="ctopics" data-topic-list></div>');
     const list = el.querySelector('[data-topic-list]');
     list.dataset.home = home; list.innerHTML = home;
@@ -4678,7 +4678,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!topic || cocoBusy) return;
     const builtIn = await cocoBuiltIn(topic);
     if(!builtIn && !currentProfile){
-      cocoBubble('bot', '<p>' + esc(t('Sign in and I’ll try to explain that. Or pick one of the free lessons above!', 'سجّل الدخول وهحاول أشرحلك ده. أو اختار درس من الدروس المجانية اللي فوق!')) + '</p>');
+      cocoBubble('bot', '<p>' + esc(t('Sign in and I’ll try to explain that. Or pick one of the free lessons above!', 'سجّل الدخول وسأحاول شرح ذلك لك. أو اختر درسًا من الدروس المجانية في الأعلى!')) + '</p>');
       cocoInput.value = '';
       return;
     }
@@ -4725,7 +4725,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       '<h4 dir="ltr">' + esc(d.step_title) + '</h4>' +
       '<p dir="ltr" class="cb-explain">' + esc(d.explain_en) + '</p>' +
       '<div class="cmsg-tools"><button type="button" data-coco-play="' + esc(d.explain_en) + '" data-force="1">🔊 ' + t('Listen', 'استمع') + '</button>' +
-        '<button type="button" data-coco-ar>' + t('Arabic', 'عربي') + '</button></div>' +
+        '<button type="button" data-coco-ar>' + t('Arabic', 'العربية') + '</button></div>' +
       '<p class="cmsg-ar" hidden>' + esc(d.explain_ar) + '</p>' +
       (d.board ? '<div class="cb-rule" dir="ltr">' + esc(d.board).replace(/\n/g, '<br>') + '</div>' : '') +
       (d.examples && d.examples.length ? '<ul class="cb-ex">' + d.examples.map(function(x){
@@ -4753,7 +4753,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const last = cocoLesson.step >= 4;
     const why = quiz.querySelector('.cwhy');
     why.hidden = false;
-    why.innerHTML = '<p>' + (right ? '✅ ' + esc(t('Correct!', 'صح!')) : '💡 ' + esc(t('Not quite.', 'مش بالظبط.'))) + ' <span>' + esc(d.check.why_ar) + '</span></p>' +
+    why.innerHTML = '<p>' + (right ? '✅ ' + esc(t('Correct!', 'صحيح!')) : '💡 ' + esc(t('Not quite.', 'ليس تمامًا.'))) + ' <span>' + esc(d.check.why_ar) + '</span></p>' +
       '<button type="button" class="cbtn" data-coco-' + (last ? 'finish' : 'nextstep') + '>' + (last ? t('Finish the lesson 🎓', 'إنهاء الدرس 🎓') : t('Next step →', 'الخطوة التالية ←')) + '</button>';
     cocoMood(right ? 'proud' : 'encouraging');
     if(right) cocoStars(1);
@@ -4766,13 +4766,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(done.indexOf(L.topic) === -1){ done.push(L.topic); cocoSave('lessons', done); }
     if(score === 4) cocoStars(2);
     if(L.task && currentProfile) sb.from('coco_results').insert({ task_id: L.task.id, student_id: currentProfile.id, score: score, total: 4, answers: L.history }).then(function(){});
-    cocoBubble('bot done', '<div class="cdone"><span>🎓</span><b>' + esc(t('Lesson complete!', 'خلصت الدرس!')) + '</b><bdi>' + esc(L.topic) + '</bdi>' +
+    cocoBubble('bot done', '<div class="cdone"><span>🎓</span><b>' + esc(t('Lesson complete!', 'أنهيت الدرس!')) + '</b><bdi>' + esc(L.topic) + '</bdi>' +
       '<em dir="ltr">' + '★'.repeat(score) + '☆'.repeat(4 - score) + ' ' + score + ' / 4</em>' +
       (d.recap_en ? '<p dir="ltr">' + esc(d.recap_en) + '</p>' : '') + '</div>' +
       '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-sayex>🎤 ' + t('Say the examples', 'انطق الأمثلة') + '</button>' +
       '<button type="button" class="cbtn ghost" data-coco-sheet="' + esc(L.topic) + '">🖨️ ' + t('Worksheet', 'ورقة تمارين') + '</button>' +
-      (currentProfile ? '<button type="button" class="cbtn ghost" data-coco-practise>💬 ' + t('Practise in a chat', 'اتمرّن في محادثة') + '</button>' : '') +
-      '<button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Another lesson', 'درس تاني') + '</button></div>');
+      (currentProfile ? '<button type="button" class="cbtn ghost" data-coco-practise>💬 ' + t('Practise in a chat', 'تدرّب في محادثة') + '</button>' : '') +
+      '<button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Another lesson', 'درس آخر') + '</button></div>');
     coco.classList.remove('lesson-active');
     cocoMood(score >= 3 ? 'proud' : 'encouraging');
     cocoSay(score >= 3 ? 'Amazing work! Lesson complete.' : 'Lesson complete! Practice makes perfect.');
@@ -4809,7 +4809,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function cocoSignin(){
     cocoLog.innerHTML = '';
     cocoBubble('bot', '<p>' + esc(t('Hi! I’m Coco 🤖 your English teacher. Sign in to chat with me, act out real-life scenes and get your mistakes fixed. Lessons and “Say it” are free for everyone — try them now!',
-      'أهلاً! أنا كوكو 🤖 مدرّس الإنجليزي بتاعك. سجّل الدخول عشان نتكلم ونمثّل مواقف وأصحح أخطاءك. والدروس و«قلها» مجانيين للكل — جربهم دلوقتي!')) + '</p>' +
+      'مرحبًا! أنا كوكو 🤖 معلم الإنجليزية الخاص بك. سجّل الدخول لنتحدث ونمثّل مواقف وأصحح أخطاءك. والدروس و«قلها» مجانية للجميع — جرّبها الآن!')) + '</p>' +
       '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-login>' + t('Sign in', 'تسجيل الدخول') + '</button><button type="button" class="cbtn ghost" data-coco-mode="learn">🧑‍🏫 ' + t('Free lesson', 'درس مجاني') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Say it', 'قلها') + '</button></div>');
   }
 
@@ -4853,19 +4853,19 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }).join('');
   }
   function cocoTargetOptions(sel){
-    return '<optgroup label="' + esc(t('Whole club', 'نادي كامل')) + '">' + COCO_CLUBS.map(function(c){
+    return '<optgroup label="' + esc(t('Whole club', 'نادٍ كامل')) + '">' + COCO_CLUBS.map(function(c){
       return '<option value="club:' + esc(c) + '"' + (sel === 'club:' + c ? ' selected' : '') + '>' + esc(c) + '</option>';
     }).join('') + '</optgroup><optgroup label="' + esc(t('One student', 'طالب واحد')) + '">' + (cocoStudents || []).map(function(s){
       return '<option value="student:' + esc(s.id) + '"' + (sel === 'student:' + s.id ? ' selected' : '') + '>' + esc(s.full_name || '—') + (s.club ? ' · ' + esc(s.club) : '') + '</option>';
     }).join('') + '</optgroup>';
   }
   const COCO_CMDS = [
-    { id: 'lesson',   icon: '🧑‍🏫', en: 'Teach a lesson',            ar: 'اشرح درس' },
-    { id: 'quiz',     icon: '📝', en: 'Quiz (marked by Coco)',       ar: 'اختبار يتصحح لوحده' },
+    { id: 'lesson',   icon: '🧑‍🏫', en: 'Teach a lesson',            ar: 'اشرح درسًا' },
+    { id: 'quiz',     icon: '📝', en: 'Quiz (marked by Coco)',       ar: 'اختبار يُصحَّح تلقائيًا' },
     { id: 'homework', icon: '✍️', en: 'Written homework',            ar: 'واجب كتابي' },
     { id: 'report',   icon: '📊', en: 'Report to students & parents', ar: 'تقرير للطلاب وأولياء الأمور' },
-    { id: 'remind',   icon: '🔔', en: 'Send a reminder',             ar: 'ابعت تذكير' },
-    { id: 'book',     icon: '📚', en: 'Explain a book',              ar: 'اشرح كتاب' },
+    { id: 'remind',   icon: '🔔', en: 'Send a reminder',             ar: 'أرسل تذكيرًا' },
+    { id: 'book',     icon: '📚', en: 'Explain a book',              ar: 'اشرح كتابًا' },
     { id: 'sheet',    icon: '🖨️', en: 'Worksheet to print',          ar: 'ورقة تمارين للطباعة' },
     { id: 'results',  icon: '📋', en: 'Results',                     ar: 'النتائج' }
   ];
@@ -4873,7 +4873,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoLog.innerHTML = '';
     cocoMood('happy');
     cocoBubble('bot', '<p>' + esc(t('I’m your assistant 🤖 Give me an order — type it, or pick one below. For example: “explain the past simple to Reading Club”.',
-      'أنا مساعدك 🤖 ادّيني أمر — اكتبه أو اختار من تحت. مثلاً: «اشرح الماضي البسيط لنادي القراءة».')) + '</p>' +
+      'أنا مساعدك 🤖 أعطني أمرًا — اكتبه أو اختر من الأسفل. مثلًا: «اشرح الماضي البسيط لنادي القراءة».')) + '</p>' +
       '<div class="ccmds">' + COCO_CMDS.map(function(c){ return '<button type="button" data-coco-cmd="' + c.id + '"><span>' + c.icon + '</span>' + esc(t(c.en, c.ar)) + '</button>'; }).join('') + '</div>');
     cocoLoadStudents();
   }
@@ -4905,7 +4905,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const p = cocoParse(text);
     if(!p.kind){
       cocoMood('thinking');
-      cocoBubble('bot', '<p>' + esc(t('I didn’t get that order 🤔 Try “explain…”, “quiz…”, “homework…”, “report…”, “remind…” — or pick a button.', 'مافهمتش الأمر 🤔 جرّب «اشرح…» أو «اختبار…» أو «واجب…» أو «تقرير…» أو «ذكّر…» — أو اختار زرار.')) + '</p>' +
+      cocoBubble('bot', '<p>' + esc(t('I didn’t get that order 🤔 Try “explain…”, “quiz…”, “homework…”, “report…”, “remind…” — or pick a button.', 'لم أفهم الأمر 🤔 جرّب «اشرح…» أو «اختبار…» أو «واجب…» أو «تقرير…» أو «ذكّر…» — أو اختر زرًا.')) + '</p>' +
         '<div class="ccmds">' + COCO_CMDS.map(function(c){ return '<button type="button" data-coco-cmd="' + c.id + '"><span>' + c.icon + '</span>' + esc(t(c.en, c.ar)) + '</button>'; }).join('') + '</div>');
       return;
     }
@@ -4918,18 +4918,18 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(kind === 'book'){ cocoGuideForm(pre.book); return; }
     if(kind === 'sheet'){ cocoSheetForm(pre); return; }
     const c = COCO_CMDS.find(function(x){ return x.id === kind; });
-    const due = '<label>' + t('Due date (optional)', 'آخر ميعاد (اختياري)') + '<input type="date" name="due"></label>';
-    let fields = '<label>' + t('For', 'لمين') + '<select name="target">' + cocoTargetOptions(pre.target || ('club:' + COCO_CLUBS[1])) + '</select></label>';
+    const due = '<label>' + t('Due date (optional)', 'آخر موعد (اختياري)') + '<input type="date" name="due"></label>';
+    let fields = '<label>' + t('For', 'لِمَن') + '<select name="target">' + cocoTargetOptions(pre.target || ('club:' + COCO_CLUBS[1])) + '</select></label>';
     if(kind === 'lesson' || kind === 'quiz'){
       fields += '<label>' + t('Lesson', 'الدرس') + '<select name="topic">' + cocoTopicOptions(pre.topic) + '</select></label>' + due +
-        '<label>' + t('Message to the students (optional)', 'رسالة للطلاب (اختياري)') + '<input name="note" maxlength="200" placeholder="' + esc(t('e.g. Focus on the examples!', 'مثلاً: ركزوا في الأمثلة!')) + '"></label>';
+        '<label>' + t('Message to the students (optional)', 'رسالة للطلاب (اختياري)') + '<input name="note" maxlength="200" placeholder="' + esc(t('e.g. Focus on the examples!', 'مثلًا: ركّزوا على الأمثلة!')) + '"></label>';
     } else if(kind === 'homework'){
-      fields += '<label>' + t('Title', 'العنوان') + '<input name="title" required maxlength="120" placeholder="' + esc(t('e.g. Write 5 sentences about your weekend', 'مثلاً: اكتب ٥ جمل عن إجازتك')) + '"></label>' +
+      fields += '<label>' + t('Title', 'العنوان') + '<input name="title" required maxlength="120" placeholder="' + esc(t('e.g. Write 5 sentences about your weekend', 'مثلًا: اكتب ٥ جمل عن إجازتك')) + '"></label>' +
         '<label>' + t('Instructions', 'التعليمات') + '<textarea name="text" rows="2" maxlength="600"></textarea></label>' + due;
     } else if(kind === 'report'){
-      fields += '<label>' + t('Period', 'الفترة') + '<select name="days"><option value="7">' + t('Last 7 days', 'آخر ٧ أيام') + '</option><option value="30" selected>' + t('Last 30 days', 'آخر ٣٠ يوم') + '</option></select></label>';
+      fields += '<label>' + t('Period', 'الفترة') + '<select name="days"><option value="7">' + t('Last 7 days', 'آخر ٧ أيام') + '</option><option value="30" selected>' + t('Last 30 days', 'آخر ٣٠ يومًا') + '</option></select></label>';
     } else if(kind === 'remind'){
-      fields += '<label>' + t('Reminder', 'التذكير') + '<textarea name="text" rows="2" required maxlength="300" placeholder="' + esc(t('e.g. Don’t forget tomorrow’s class at 6 pm!', 'مثلاً: ماتنسوش حصة بكرة الساعة ٦!')) + '"></textarea></label>';
+      fields += '<label>' + t('Reminder', 'التذكير') + '<textarea name="text" rows="2" required maxlength="300" placeholder="' + esc(t('e.g. Don’t forget tomorrow’s class at 6 pm!', 'مثلًا: لا تنسوا حصة الغد الساعة ٦!')) + '"></textarea></label>';
     }
     cocoMood('curious');
     const el = cocoBubble('bot', (understood ? '<p>' + esc(t('Got it 👍 Check the details and confirm:', 'فهمت 👍 راجع التفاصيل وأكّد:')) + '</p>' : '') +
@@ -4963,20 +4963,20 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         if(tg.studentId) note.user_id = tg.studentId; else note.club = tg.club;
         await sb.from('notifications').insert(note);
         done('<p>✅ ' + esc(kind === 'quiz'
-          ? t('Done! The quiz on “' + row.topic + '” is waiting for ' + tg.label + '. I’ll mark it as soon as they finish.', 'تم! اختبار «' + row.topic + '» مستني ' + tg.label + '. هصححه أول ما يخلصوا.')
-          : t('Done! I’ll teach “' + row.topic + '” to ' + tg.label + ' and tell you how they did.', 'تم! هشرح «' + row.topic + '» لـ ' + tg.label + ' وأقولك عملوا إيه.')) +
+          ? t('Done! The quiz on “' + row.topic + '” is waiting for ' + tg.label + '. I’ll mark it as soon as they finish.', 'تم! اختبار «' + row.topic + '» بانتظار ' + tg.label + '. سأصححه بمجرد أن ينتهوا.')
+          : t('Done! I’ll teach “' + row.topic + '” to ' + tg.label + ' and tell you how they did.', 'تم! سأشرح «' + row.topic + '» لـ ' + tg.label + ' وأخبرك بما أنجزوه.')) +
           (tg.club && !tg.studentId ? ' (' + tg.count + ' ' + t('students', 'طالب') + ')' : '') + '</p>' +
-          '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-cmd="results">📋 ' + t('See results', 'شوف النتائج') + '</button></div>');
+          '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-cmd="results">📋 ' + t('See results', 'اعرض النتائج') + '</button></div>');
       } else if(kind === 'homework'){
-        if(!tg.club) throw new Error(t('This student has no club yet.', 'الطالب ده مالوش نادي لسه.'));
+        if(!tg.club) throw new Error(t('This student has no club yet.', 'هذا الطالب ليس له نادٍ بعد.'));
         const { error } = await sb.from('assignments').insert({ club: tg.club, title: f.title.value.trim(), instructions: f.text.value.trim(), due_at: dueVal });
         if(error) throw error;
-        done('<p>✅ ' + esc(t('Homework sent to ' + tg.club + '. Students can answer with text, a photo or a voice note — you’ll find their answers in Homework.', 'تم إرسال الواجب لـ ' + tg.club + '. الطلاب يقدروا يجاوبوا كتابة أو بصورة أو تسجيل صوتي — هتلاقي الإجابات في الواجبات.')) +
-          (tg.studentId ? ' ' + esc(t('(Homework goes to the whole club.)', '(الواجب بيروح للنادي كله.)')) : '') + '</p>');
+        done('<p>✅ ' + esc(t('Homework sent to ' + tg.club + '. Students can answer with text, a photo or a voice note — you’ll find their answers in Homework.', 'تم إرسال الواجب لـ ' + tg.club + '. يمكن للطلاب الإجابة كتابةً أو بصورة أو تسجيل صوتي — ستجد الإجابات في الواجبات.')) +
+          (tg.studentId ? ' ' + esc(t('(Homework goes to the whole club.)', '(الواجب يُرسل إلى النادي كله.)')) : '') + '</p>');
       } else if(kind === 'report'){
         const list = tg.students, days = parseInt(f.days.value, 10) || 30;
-        if(!list.length) throw new Error(t('No students in ' + tg.label + ' yet.', 'مفيش طلاب في ' + tg.label + ' لسه.'));
-        const prog = cocoBubble('bot', '<p>' + esc(t('Writing reports…', 'بكتب التقارير…')) + ' <b>0 / ' + list.length + '</b></p>');
+        if(!list.length) throw new Error(t('No students in ' + tg.label + ' yet.', 'لا يوجد طلاب في ' + tg.label + ' بعد.'));
+        const prog = cocoBubble('bot', '<p>' + esc(t('Writing reports…', 'جارٍ كتابة التقارير…')) + ' <b>0 / ' + list.length + '</b></p>');
         let sent = 0, sample = '';
         for(const st of list){
           const { data: r, error } = await sb.rpc('coco_report', { p_student: st.id, p_days: days });
@@ -4987,27 +4987,27 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
           sent++; if(!sample) sample = body;
           prog.querySelector('b').textContent = sent + ' / ' + list.length;
         }
-        done('<p>✅ ' + esc(t('Sent ' + sent + ' report(s). Each student and their parents can read it in Messages.', 'اتبعت ' + sent + ' تقرير. كل طالب وولي أمره يقدروا يقروه في الرسائل.')) + '</p><pre class="creport" dir="rtl">' + esc(sample) + '</pre>');
+        done('<p>✅ ' + esc(t('Sent ' + sent + ' report(s). Each student and their parents can read it in Messages.', 'أُرسل ' + sent + ' تقرير. يمكن لكل طالب وولي أمره قراءته في الرسائل.')) + '</p><pre class="creport" dir="rtl">' + esc(sample) + '</pre>');
       } else if(kind === 'remind'){
         const note = { title: t('🔔 Reminder from your teacher', '🔔 تذكير من معلمك'), body: f.text.value.trim() };
         if(tg.studentId) note.user_id = tg.studentId; else note.club = tg.club;
         const { error } = await sb.from('notifications').insert(note);
         if(error) throw error;
-        done('<p>✅ ' + esc(t('Reminder sent to ' + tg.label + '. It pops up for them right away.', 'التذكير اتبعت لـ ' + tg.label + '. هيظهرلهم على طول.')) + '</p>');
+        done('<p>✅ ' + esc(t('Reminder sent to ' + tg.label + '. It pops up for them right away.', 'أُرسل التذكير إلى ' + tg.label + '. سيظهر لهم فورًا.')) + '</p>');
       }
     }catch(err){ fail(err); }
   }
   // a short, friendly report in Arabic (Code Cademy's parents) with the key numbers
   function cocoReportText(r, days){
     const L = [];
-    L.push('📊 تقرير كوكو — ' + (r.name || '') + ' (آخر ' + days + ' يوم)');
+    L.push('📊 تقرير كوكو — ' + (r.name || '') + ' (آخر ' + days + ' يومًا)');
     L.push('📚 القراءة: ' + (r.books || 0) + ' كتاب في ' + (r.read_days || 0) + ' يوم');
-    L.push('🧑‍🏫 دروس واختبارات كوكو: ' + (r.coco_done || 0) + ' خلصها' + (r.coco_pct != null ? ' — متوسط ' + r.coco_pct + '%' : '') + (r.coco_todo ? ' · ' + r.coco_todo + ' لسه مستنياه' : ''));
-    L.push('✍️ الواجبات: ' + (r.hw_done || 0) + ' اتسلّم' + (r.hw_avg != null ? ' — متوسط الدرجة ' + r.hw_avg + '/100' : '') + (r.hw_missing ? ' · ' + r.hw_missing + ' ماتسلّمش' : ''));
+    L.push('🧑‍🏫 دروس واختبارات كوكو: ' + (r.coco_done || 0) + ' أنجزها' + (r.coco_pct != null ? ' — متوسط ' + r.coco_pct + '%' : '') + (r.coco_todo ? ' · ' + r.coco_todo + ' ما زال بانتظاره' : ''));
+    L.push('✍️ الواجبات: ' + (r.hw_done || 0) + ' سُلِّم' + (r.hw_avg != null ? ' — متوسط الدرجة ' + r.hw_avg + '/100' : '') + (r.hw_missing ? ' · ' + r.hw_missing + ' لم يُسلَّم' : ''));
     if((r.present || 0) + (r.absent || 0)) L.push('🎥 الحصص: حضر ' + (r.present || 0) + ' · غاب ' + (r.absent || 0));
     (r.exams || []).slice(0, 2).forEach(function(e){ L.push('🎓 امتحان ' + levelName(e.level) + ': ' + e.score + '% ' + (e.passed ? '✅' : '')); });
     const good = (r.coco_pct || 0) >= 75 || (r.hw_avg || 0) >= 75, todo = (r.coco_todo || 0) + (r.hw_missing || 0);
-    L.push(todo ? '💡 مطلوب: ' + todo + ' مهمة لسه ما اتعملتش — يلا نخلصها! 💪' : good ? '🌟 مستوى ممتاز، استمر!' : '👍 شغل كويس، ونقدر نتحسن أكتر مع التمرين.');
+    L.push(todo ? '💡 مطلوب: ' + todo + ' مهمة لم تُنجز بعد — هيا ننجزها! 💪' : good ? '🌟 مستوى ممتاز، استمر!' : '👍 عمل جيد، ويمكننا التحسن أكثر مع التمرين.');
     return L.join('\n');
   }
   async function cocoResults(){
@@ -5018,7 +5018,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const { data: res } = ids.length ? await sb.from('coco_results').select('*').in('task_id', ids) : { data: [] };
     wait.remove();
     if(error){ cocoBubble('bot err', '<p>' + esc(friendlyErrorMessage(error)) + '</p>'); return; }
-    if(!ids.length){ cocoBubble('bot', '<p>' + esc(t('No tasks yet — give me an order first!', 'مفيش مهام لسه — ادّيني أمر الأول!')) + '</p>'); return; }
+    if(!ids.length){ cocoBubble('bot', '<p>' + esc(t('No tasks yet — give me an order first!', 'لا توجد مهام بعد — أعطني أمرًا أولًا!')) + '</p>'); return; }
     const name = function(id){ const s = (cocoStudents || []).find(function(x){ return x.id === id; }); return s ? s.full_name : '—'; };
     cocoMood('happy');
     cocoBubble('bot', '<p><b>📋 ' + esc(t('Results', 'النتائج')) + '</b></p>' + tasks.map(function(tk){
@@ -5026,7 +5026,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       const rs = (res || []).filter(function(r){ return r.task_id === tk.id; });
       const missing = who.filter(function(s){ return !rs.some(function(r){ return r.student_id === s.id; }); });
       return '<details class="cres"><summary><span>' + (tk.kind === 'quiz' ? '📝' : '🧑‍🏫') + ' <bdi>' + esc(tk.topic) + '</bdi></span><small>' + esc(tk.student_id ? name(tk.student_id) : tk.club) + ' · ' +
-        rs.length + '/' + who.length + ' ' + t('done', 'خلصوا') + '</small></summary><ul>' +
+        rs.length + '/' + who.length + ' ' + t('done', 'أنجزوا') + '</small></summary><ul>' +
         rs.map(function(r){ return '<li>✅ ' + esc(name(r.student_id)) + ' — <b>' + r.score + '/' + r.total + '</b></li>'; }).join('') +
         missing.map(function(s){ return '<li class="miss">⏳ ' + esc(s.full_name || '—') + '</li>'; }).join('') + '</ul>' +
         '<button type="button" class="cbtn ghost" data-coco-deltask="' + tk.id + '">' + t('Delete task', 'حذف المهمة') + '</button></details>';
@@ -5044,7 +5044,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   async function cocoStartQuiz(task){
     const steps = await cocoBuiltIn(task.topic);
-    if(!steps){ cocoBubble('bot err', '<p>' + esc(t('I couldn’t find this quiz.', 'مش لاقي الاختبار ده.')) + '</p>'); return; }
+    if(!steps){ cocoBubble('bot err', '<p>' + esc(t('I couldn’t find this quiz.', 'لم أجد هذا الاختبار.')) + '</p>'); return; }
     const qs = steps.map(function(s){
       const right = s.check.options[s.check.answer_index];
       const opts = shuffleArr(s.check.options.slice());
@@ -5054,7 +5054,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     coco.classList.add('lesson-active');
     cocoLog.innerHTML = '';
     cocoBubble('scene', '📝 <bdi>' + esc(task.topic) + '</bdi>');
-    if(task.note) cocoBubble('bot', '<p>💬 ' + esc(t('Your teacher says: ', 'معلمك بيقولك: ')) + '<span dir="auto">' + esc(task.note) + '</span></p>');
+    if(task.note) cocoBubble('bot', '<p>💬 ' + esc(t('Your teacher says: ', 'معلمك يقول لك: ')) + '<span dir="auto">' + esc(task.note) + '</span></p>');
     cocoQuizNext();
   }
   function cocoQuizNext(){
@@ -5078,8 +5078,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     // a teacher's task saves the score; a book's practice questions don't
     const { error } = L.task.id ? await sb.from('coco_results').insert({ task_id: L.task.id, student_id: currentProfile.id, score: score, total: L.qs.length, answers: L.answers }) : { error: null };
     if(score) cocoStars(score);
-    cocoBubble('bot done', '<div class="cdone"><span>' + (score === L.qs.length ? '🏆' : '📝') + '</span><b>' + esc(t('Quiz marked!', 'الاختبار اتصحح!')) + '</b><bdi>' + esc(L.task.topic) + '</bdi>' +
-      '<em dir="ltr">' + score + ' / ' + L.qs.length + '</em><p>' + esc(error ? t('(Couldn’t save the result — tell your teacher.)', '(ماقدرتش أحفظ النتيجة — بلّغ معلمك.)') : L.task.id ? t('Your teacher can see your result.', 'معلمك يقدر يشوف نتيجتك.') : t('Great practice!', 'تمرين ممتاز!')) + '</p></div>' +
+    cocoBubble('bot done', '<div class="cdone"><span>' + (score === L.qs.length ? '🏆' : '📝') + '</span><b>' + esc(t('Quiz marked!', 'صُحِّح الاختبار!')) + '</b><bdi>' + esc(L.task.topic) + '</bdi>' +
+      '<em dir="ltr">' + score + ' / ' + L.qs.length + '</em><p>' + esc(error ? t('(Couldn’t save the result — tell your teacher.)', '(تعذّر حفظ النتيجة — أبلغ معلمك.)') : L.task.id ? t('Your teacher can see your result.', 'يمكن لمعلمك رؤية نتيجتك.') : t('Great practice!', 'تمرين ممتاز!')) + '</p></div>' +
       L.qs.map(function(q2, i){ const a = L.answers[i]; return a.right ? '' : '<div class="ccorr"><b>✏️ <span dir="ltr">' + esc(q2.q) + '</span></b><em dir="ltr">' + esc(q2.opts[q2.ans]) + '</em><small>' + esc(q2.why) + '</small></div>'; }).join('') +
       '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-mode="learn">' + t('Back', 'رجوع') + '</button></div>');
     coco.classList.remove('lesson-active');
@@ -5100,12 +5100,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       cocoAssistHome();
     } else if(isParent()){
       cocoBubble('bot', '<p>' + esc(t('Hi ' + first + '! I’m Coco 🤖 Ask me how your children are doing — homework, grades, Coco lessons, attendance or their plan.',
-        'أهلاً ' + first + '! أنا كوكو 🤖 اسألني عن ولادك — الواجبات والدرجات ودروس كوكو والحضور والخطة.')) + '</p>' + cocoChips([
-        t('How are my children doing?', 'ولادي عاملين إيه؟'), t('Any homework not handed in?', 'فيه واجبات ماتسلمتش؟')]));
+        'مرحبًا ' + first + '! أنا كوكو 🤖 اسألني عن أبنائك — الواجبات والدرجات ودروس كوكو والحضور والخطة.')) + '</p>' + cocoChips([
+        t('How are my children doing?', 'كيف حال أبنائي؟'), t('Any homework not handed in?', 'هل هناك واجبات لم تُسلَّم؟')]));
     } else {
       cocoBubble('bot', '<p>' + esc(t('Hi ' + first + '! I’m your assistant 🤖 Ask me anything — explain a rule, help with homework, or what’s waiting for you.',
-        'أهلاً ' + first + '! أنا مساعدك 🤖 اسألني في أي حاجة — أشرحلك قاعدة، أساعدك في الواجب، أو أقولك إيه اللي مستنيك.')) + '</p>' + cocoChips([
-        t('What do I have to do?', 'إيه المطلوب مني؟'), t('Explain the present perfect', 'اشرحلي المضارع التام'), t('Check my sentence: I go to school yesterday', 'صحّحلي: I go to school yesterday')]));
+        'مرحبًا ' + first + '! أنا مساعدك 🤖 اسألني عن أي شيء — أشرح لك قاعدة، أو أساعدك في الواجب، أو أخبرك بما ينتظرك.')) + '</p>' + cocoChips([
+        t('What do I have to do?', 'ما المطلوب مني؟'), t('Explain the present perfect', 'اشرح لي المضارع التام'), t('Check my sentence: I go to school yesterday', 'صحّح لي: I go to school yesterday')]));
       cocoShowTasks();
     }
   }
@@ -5155,7 +5155,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   // no AI: understand the order with simple rules and show the form to confirm
   function cocoAssistFree(text, first){
     if(isTeacher()){
-      if(first && isAdmin()) cocoBubble('bot', '<p><small>' + esc(t('(Free mode — the AI isn’t switched on, see AI-TUTOR.md. Buttons and forms work fully.)', '(وضع مجاني — الذكاء الاصطناعي مش متفعّل، شوف AI-TUTOR.md. الأزرار والنماذج شغالة كلها.)')) + '</small></p>');
+      if(first && isAdmin()) cocoBubble('bot', '<p><small>' + esc(t('(Free mode — the AI isn’t switched on, see AI-TUTOR.md. Buttons and forms work fully.)', '(وضع مجاني — الذكاء الاصطناعي غير مفعّل، راجع AI-TUTOR.md. كل الأزرار والنماذج تعمل.)')) + '</small></p>');
       cocoAssistCommand(text);
       return;
     }
@@ -5164,11 +5164,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoMood('encouraging');
     if(isParent()){
       cocoBubble('bot', '<p>' + esc(t('Your children’s homework, grades, attendance and plan are all in “My children” 👨‍👩‍👧 — and you can message the teacher any time in Messages.',
-        'واجبات ولادك ودرجاتهم وحضورهم وخطتهم كلها في «أبنائي» 👨‍👩‍👧 — وتقدر تكلم المعلم في أي وقت من الرسائل.')) + '</p>');
+        'واجبات أبنائك ودرجاتهم وحضورهم وخطتهم كلها في «أبنائي» 👨‍👩‍👧 — ويمكنك محادثة المعلم في أي وقت من الرسائل.')) + '</p>');
       return;
     }
     const p = cocoParse(text);
-    cocoBubble('bot', '<p>' + esc(p.topic ? t('I have a lesson on that! 👇', 'عندي درس عن كده! 👇') : t('Here’s how I can help you 👇', 'ده اللي أقدر أساعدك بيه 👇')) + '</p>' +
+    cocoBubble('bot', '<p>' + esc(p.topic ? t('I have a lesson on that! 👇', 'عندي درس عن هذا! 👇') : t('Here’s how I can help you 👇', 'هذا ما يمكنني مساعدتك فيه 👇')) + '</p>' +
       (p.topic ? '<div class="ctopics"><button type="button" data-coco-topic="' + esc(p.topic) + '">🧑‍🏫 <bdi>' + esc(p.topic) + '</bdi></button></div>' : '') +
       '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-mode="learn">🧑‍🏫 ' + t('Lessons & books', 'الدروس والكتب') + '</button><button type="button" class="cbtn ghost" data-coco-mode="talk">💬 ' + t('Chat', 'محادثة') + '</button><button type="button" class="cbtn ghost" data-coco-mode="say">🎤 ' + t('Say it', 'قلها') + '</button></div>');
   }
@@ -5180,7 +5180,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!list.length || cocoMode !== mode || cocoLesson || !coco.querySelector('.cmsg')) return;
     cocoBubble('bot tasks', '<p><b>📌 ' + esc(t('From your teacher', 'من معلمك')) + '</b></p><div class="ctopics">' + list.slice(0, 6).map(function(tk){
       return '<button type="button" data-coco-task="' + tk.id + '">' + (tk.kind === 'quiz' ? '📝 ' : '🧑‍🏫 ') + '<bdi>' + esc(tk.topic) + '</bdi>' +
-        (tk.due_at ? ' <small>· ' + esc(t('due ', 'آخر ميعاد ')) + new Date(tk.due_at).toLocaleDateString(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-GB', { day: 'numeric', month: 'short' }) + '</small>' : '') + '</button>';
+        (tk.due_at ? ' <small>· ' + esc(t('due ', 'آخر موعد ')) + new Date(tk.due_at).toLocaleDateString(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-GB', { day: 'numeric', month: 'short' }) + '</small>' : '') + '</button>';
     }).join('') + '</div>');
     cocoTaskCache = list;
   }
@@ -5213,12 +5213,12 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   function cocoChatPicker(){
     const D = cocoDialogs || {};
-    cocoBubble('bot', '<p>' + esc(t('Let’s chat! Pick a topic 👇 Choose an answer or say it with the mic.', 'يلا نتكلم! اختار موضوع 👇 واختار الرد أو قوله بالمايك.')) + '</p><div class="cscenes">' +
+    cocoBubble('bot', '<p>' + esc(t('Let’s chat! Pick a topic 👇 Choose an answer or say it with the mic.', 'هيا نتحدث! اختر موضوعًا 👇 واختر الرد أو قله بالميكروفون.')) + '</p><div class="cscenes">' +
       COCO_CHATS.filter(function(id){ return D[id]; }).map(function(id){ return '<button type="button" data-coco-dlg="' + id + '"><span>' + D[id].icon + '</span>' + esc(t(D[id].en, D[id].ar)) + '</button>'; }).join('') + '</div>');
   }
   async function cocoStartDialog(id){
     const D = await cocoLoadDialogs();
-    if(!D || !D[id]){ cocoBubble('bot err', '<p>' + esc(t('Oops, Coco lost the thread. Please try again.', 'حصل خطأ بسيط، حاول مرة أخرى.')) + '</p>'); return; }
+    if(!D || !D[id]){ cocoBubble('bot err', '<p>' + esc(t('Oops, Coco lost the thread. Please try again.', 'حدث خطأ بسيط، حاول مرة أخرى.')) + '</p>'); return; }
     cocoDlg = { id: id, i: 0, stars: 0 };
     cocoLog.innerHTML = '';
     const sc = COCO_SCENES.find(function(s){ return s.id === id; }) || D[id];
@@ -5229,7 +5229,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const d = cocoDialogs[cocoDlg.id], turn = d.turns[cocoDlg.i];
     const order = shuffleArr([0, 1, 2]);
     cocoBubble('bot', cocoReplyHtml({ reply: turn.coco, reply_ar: turn.ar, new_words: turn.words }) +
-      '<div class="cquiz dlg"><b>💬 ' + t('Your answer — tap or say it', 'ردّك — اختار أو قوله') + '</b><div class="copts">' +
+      '<div class="cquiz dlg"><b>💬 ' + t('Your answer — tap or say it', 'ردّك — اختره أو قله') + '</b><div class="copts">' +
       order.map(function(k){ return '<button type="button" dir="ltr" data-coco-dopt="' + k + '">' + esc(turn.options[k].t) + '</button>'; }).join('') + '</div></div>');
     cocoMood('curious');
     cocoSay(turn.coco);
@@ -5258,7 +5258,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       cocoBubble('bot', '<p>✅ ' + esc(t('Perfect!', 'ممتاز!')) + '</p>');
     } else {
       cocoMood('encouraging');
-      cocoBubble('bot', '<div class="ccorr"><b>✏️ ' + (o.k === 'ok' ? t('Good! Even better:', 'كويس! والأحلى:') : t('Say it like this', 'قلها كده')) + '</b>' +
+      cocoBubble('bot', '<div class="ccorr"><b>✏️ ' + (o.k === 'ok' ? t('Good! Even better:', 'جيد! والأفضل:') : t('Say it like this', 'قلها هكذا')) + '</b>' +
         '<em dir="ltr">' + esc(o.fix) + '</em><small dir="rtl">' + esc(o.why) + '</small>' +
         '<div class="cmsg-tools"><button type="button" data-coco-play="' + esc(o.fix) + '" data-force="1">🔊 ' + t('Listen', 'استمع') + '</button></div></div>');
     }
@@ -5267,10 +5267,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const n = d.turns.length, s = cocoDlg.stars, id = cocoDlg.id;
     cocoDlg = null;
     setTimeout(function(){
-      cocoBubble('bot done', '<div class="cdone"><span>' + (s === n ? '🏆' : '🎉') + '</span><b>' + esc(t('Well done!', 'برافو!')) + '</b>' +
+      cocoBubble('bot done', '<div class="cdone"><span>' + (s === n ? '🏆' : '🎉') + '</span><b>' + esc(t('Well done!', 'أحسنت!')) + '</b>' +
         '<p dir="ltr">' + esc(d.end) + '</p><small>' + esc(d.end_ar) + '</small><em dir="ltr">' + '★'.repeat(s) + '☆'.repeat(n - s) + ' ' + s + ' / ' + n + '</em></div>' +
-        '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-dlg="' + id + '">🔁 ' + t('Again', 'تاني') + '</button>' +
-        '<button type="button" class="cbtn ghost" data-coco-mode="' + cocoMode + '">' + t('Another one', 'واحد تاني') + '</button></div>');
+        '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-dlg="' + id + '">🔁 ' + t('Again', 'مرة أخرى') + '</button>' +
+        '<button type="button" class="cbtn ghost" data-coco-mode="' + cocoMode + '">' + t('Another one', 'واحد آخر') + '</button></div>');
       cocoMood(s >= n - 1 ? 'proud' : 'happy');
       cocoSay(d.end);
     }, 900);
@@ -5283,7 +5283,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(k === -1){
       cocoBubble('me', '<p dir="auto">' + esc(text) + '</p>');
       cocoMood('thinking');
-      cocoBubble('bot', '<p>' + esc(t('Hmm, I didn’t catch that 🤔 Try one of the answers above — tap it or say it.', 'مش فاهم قصدك 🤔 جرّب رد من الردود اللي فوق — اضغط عليه أو قوله.')) + '</p>');
+      cocoBubble('bot', '<p>' + esc(t('Hmm, I didn’t catch that 🤔 Try one of the answers above — tap it or say it.', 'لم أفهم قصدك 🤔 جرّب ردًا من الردود في الأعلى — اضغط عليه أو قله.')) + '</p>');
       return;
     }
     cocoDlgAnswer(k, text);
@@ -5301,7 +5301,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const all = data || [], here = all.filter(function(m){ return !m.level || m.level === level; });
     cocoBooks = (here.length ? here : all).slice(0, 8);
     if(!cocoBooks.length || cocoMode !== mode || cocoLesson || cocoBook) return;
-    cocoBubble('bot books', '<p><b>📚 ' + esc(t('Books of your club', 'كتب ناديك')) + '</b> — ' + esc(t('I’ll explain them for you', 'هشرحهالك')) + '</p><div class="ctopics">' +
+    cocoBubble('bot books', '<p><b>📚 ' + esc(t('Books of your club', 'كتب ناديك')) + '</b> — ' + esc(t('I’ll explain them for you', 'سأشرحه لك')) + '</p><div class="ctopics">' +
       cocoBooks.map(function(m){ return '<button type="button" data-coco-book="' + m.id + '">' + (cocoGuide(m) ? '🤖 ' : '📖 ') + '<bdi>' + esc(m.title) + '</bdi></button>'; }).join('') + '</div>');
   }
   async function cocoOpenBook(id){
@@ -5313,14 +5313,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     coco.classList.add('lesson-active');
     cocoBubble('scene', '📚 <bdi>' + esc(item.title) + '</bdi>');
     const btn = function(attr, label){ return '<button type="button" class="cbtn ghost" ' + attr + '>' + label + '</button>'; };
-    cocoBubble('bot', '<p>' + esc(g ? t('What would you like to do with this book?', 'تحب نعمل إيه مع الكتاب ده؟')
-        : t('Your teacher hasn’t written my guide for this book yet, but I can read it with you!', 'معلمك لسه ماكتبش شرحي للكتاب ده، بس أقدر أقراه معاك!')) + '</p>' +
+    cocoBubble('bot', '<p>' + esc(g ? t('What would you like to do with this book?', 'ماذا تحب أن نفعل بهذا الكتاب؟')
+        : t('Your teacher hasn’t written my guide for this book yet, but I can read it with you!', 'لم يكتب معلمك شرحي لهذا الكتاب بعد، لكن يمكنني قراءته معك!')) + '</p>' +
       '<div class="cmsg-cta cbook-menu">' +
-      (g && (g.summary_ar || g.summary_en) ? btn('data-coco-bk="summary"', '📖 ' + t('Explain the book', 'اشرحلي الكتاب')) : '') +
+      (g && (g.summary_ar || g.summary_en) ? btn('data-coco-bk="summary"', '📖 ' + t('Explain the book', 'اشرح لي الكتاب')) : '') +
       (g && (g.words || []).length ? btn('data-coco-bk="words"', '🔤 ' + t('Key words', 'الكلمات المهمة')) : '') +
       (g && (g.sentences || []).length ? btn('data-coco-bk="say"', '🎤 ' + t('Say the sentences', 'انطق الجمل')) : '') +
       (g && (g.questions || []).length ? btn('data-coco-bk="quiz"', '✅ ' + t('Questions', 'أسئلة')) : '') +
-      (fileExt(item.file_name || item.file_path) === 'pdf' || item.preview_path ? btn('data-coco-bk="read"', '🎧 ' + t('Read it with Coco', 'اقراه مع كوكو')) : '') +
+      (fileExt(item.file_name || item.file_path) === 'pdf' || item.preview_path ? btn('data-coco-bk="read"', '🎧 ' + t('Read it with Coco', 'اقرأه مع كوكو')) : '') +
       btn('data-coco-bk="open"', '📕 ' + t('Open the book', 'افتح الكتاب')) +
       btn('data-coco-mode="learn"', t('Back', 'رجوع')) + '</div>');
     cocoBook = { item: item };
@@ -5335,7 +5335,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
         (g.summary_ar ? '<p dir="rtl">' + esc(g.summary_ar).replace(/\n/g, '<br>') + '</p>' : ''));
       if(g.summary_en) cocoSay(g.summary_en);
     } else if(kind === 'words'){
-      cocoBubble('bot', '<p><b>🔤 ' + esc(t('Key words — tap ＋ to keep a word', 'الكلمات المهمة — اضغط ＋ عشان تحفظ الكلمة')) + '</b></p><div class="cwords">' + g.words.map(function(w){
+      cocoBubble('bot', '<p><b>🔤 ' + esc(t('Key words — tap ＋ to keep a word', 'الكلمات المهمة — اضغط ＋ لتحفظ الكلمة')) + '</b></p><div class="cwords">' + g.words.map(function(w){
         return '<button type="button" data-coco-word="' + esc(w.en) + '" data-ar="' + esc(w.ar || '') + '">＋ <bdi>' + esc(w.en) + '</bdi> <small>' + esc(w.ar || '') + '</small></button>';
       }).join('') + '</div><div class="cmsg-tools">' + g.words.slice(0, 12).map(function(w){ return '<button type="button" data-coco-play="' + esc(w.en) + '" data-force="1">🔊 ' + esc(w.en) + '</button>'; }).join('') + '</div>');
     } else if(kind === 'say'){
@@ -5387,11 +5387,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
     }catch(e){ pages = e && e.message === 'locked' ? null : e && e.message === 'notpdf' ? 'notpdf' : []; }
     wait.remove(); cocoState('busy', false);
-    if(pages === null){ cocoMood('encouraging'); cocoBubble('bot', '<p>🔒 ' + esc(t('This book opens with a plan.', 'الكتاب ده بيفتح مع الاشتراك.')) + '</p>'); return; }
+    if(pages === null){ cocoMood('encouraging'); cocoBubble('bot', '<p>🔒 ' + esc(t('This book opens with a plan.', 'هذا الكتاب يُفتح مع الاشتراك.')) + '</p>'); return; }
     if(pages === 'notpdf' || !pages.some(function(p){ return p.length; })){
       cocoMood('encouraging');
       cocoBubble('bot', '<p>' + esc(t('This book is mostly pictures, so I can’t read its words aloud 🙈 Open it and read along, and ask your teacher to write my guide for it.',
-        'الكتاب ده أغلبه صور، فمش هقدر أقرا كلامه بصوت 🙈 افتحه واقرا معاه، واطلب من معلمك يكتب شرحي ليه.')) + '</p>' +
+        'معظم هذا الكتاب صور، فلن أستطيع قراءة نصه بصوت عالٍ 🙈 افتحه واقرأ معه، واطلب من معلمك أن يكتب شرحي له.')) + '</p>' +
         '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-bk="open">📕 ' + t('Open the book', 'افتح الكتاب') + '</button></div>');
       return;
     }
@@ -5403,10 +5403,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const B = cocoBook, list = B.pages[B.p], more = B.pages.slice(B.p + 1).some(function(p){ return p.length; });
     cocoBubble('bot board', '<div class="cboard"><div class="cb-top"><span>' + t('Page', 'صفحة') + ' <bdi dir="ltr">' + (B.p + 1) + ' / ' + B.pages.length + '</bdi></span></div>' +
       '<ul class="cb-ex">' + list.map(function(x){ return '<li><button type="button" data-coco-play="' + esc(x) + '" data-force="1" aria-label="' + t('Listen', 'استمع') + '">🔊</button><span><b dir="ltr">' + esc(x) + '</b></span></li>'; }).join('') + '</ul></div>' +
-      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-bkall>▶️ ' + t('Read the page', 'اقرا الصفحة') + '</button>' +
-      '<button type="button" class="cbtn ghost" data-coco-bksay>🎤 ' + t('Say these sentences', 'انطق الجمل دي') + '</button>' +
-      (more ? '<button type="button" class="cbtn ghost" data-coco-bknext>' + t('Next page', 'الصفحة الجاية') + ' →</button>' : '') + '</div>' +
-      (!more && B.preview ? '<p><small>🔒 ' + esc(t('That’s the end of the free pages — the whole book opens with a plan.', 'كده خلصت الصفحات المجانية — الكتاب كله بيفتح مع الاشتراك.')) + '</small></p>' : ''));
+      '<div class="cmsg-cta"><button type="button" class="cbtn" data-coco-bkall>▶️ ' + t('Read the page', 'اقرأ الصفحة') + '</button>' +
+      '<button type="button" class="cbtn ghost" data-coco-bksay>🎤 ' + t('Say these sentences', 'انطق هذه الجمل') + '</button>' +
+      (more ? '<button type="button" class="cbtn ghost" data-coco-bknext>' + t('Next page', 'الصفحة التالية') + ' →</button>' : '') + '</div>' +
+      (!more && B.preview ? '<p><small>🔒 ' + esc(t('That’s the end of the free pages — the whole book opens with a plan.', 'انتهت الصفحات المجانية — الكتاب كاملًا يُفتح مع الاشتراك.')) + '</small></p>' : ''));
     cocoMood('happy');
   }
   // reads the sentences one after another
@@ -5427,7 +5427,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoMood('thinking');
     const { data: books, error } = await sb.from('materials').select('*').order('club').order('level').limit(300);
     if(error){ cocoBubble('bot err', '<p>' + esc(friendlyErrorMessage(error)) + '</p>'); return; }
-    if(!(books || []).length){ cocoBubble('bot', '<p>' + esc(t('There are no books yet — upload one from Materials first.', 'مفيش كتب لسه — ارفع كتاب من المواد الأول.')) + '</p>'); return; }
+    if(!(books || []).length){ cocoBubble('bot', '<p>' + esc(t('There are no books yet — upload one from Materials first.', 'لا توجد كتب بعد — ارفع كتابًا من المواد أولًا.')) + '</p>'); return; }
     cocoBooks = books;
     const item = books.find(function(m){ return String(m.id) === String(id); }) || books[0];
     const g = item.guide || {};
@@ -5435,13 +5435,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoMood('curious');
     const el = cocoBubble('bot', '<form class="cform" data-coco-guide><b>📚 ' + esc(t('Coco’s guide for a book', 'شرح كوكو لكتاب')) + '</b>' +
       '<p><small>' + esc(t('Write it once — every student in the club gets it in Coco: the explanation, key words, sentences to say aloud and questions that mark themselves.',
-        'اكتبيه مرة واحدة — وكل طلاب النادي هيلاقوه في كوكو: الشرح، والكلمات المهمة، وجمل ينطقوها، وأسئلة بتتصحح لوحدها.')) + '</small></p>' +
+        'اكتبيه مرة واحدة — وسيجده كل طلاب النادي في كوكو: الشرح، والكلمات المهمة، وجمل ينطقونها، وأسئلة تُصحَّح تلقائيًا.')) + '</small></p>' +
       '<label>' + t('Book', 'الكتاب') + '<select name="book" dir="auto">' + books.map(function(m){ return '<option value="' + m.id + '"' + (m.id === item.id ? ' selected' : '') + '>' + esc(m.title + ' · ' + m.club + ' · ' + levelName(m.level)) + '</option>'; }).join('') + '</select></label>' +
-      '<label>' + t('Explanation in Arabic', 'الشرح بالعربي') + '<textarea name="sum_ar" rows="3" maxlength="2000" dir="rtl">' + esc(g.summary_ar || '') + '</textarea></label>' +
-      '<label>' + t('Explanation in English (optional — Coco reads it aloud)', 'الشرح بالإنجليزي (اختياري — كوكو بيقراه بصوت)') + '<textarea name="sum_en" rows="3" maxlength="2000" dir="ltr">' + esc(g.summary_en || '') + '</textarea></label>' +
+      '<label>' + t('Explanation in Arabic', 'الشرح بالعربية') + '<textarea name="sum_ar" rows="3" maxlength="2000" dir="rtl">' + esc(g.summary_ar || '') + '</textarea></label>' +
+      '<label>' + t('Explanation in English (optional — Coco reads it aloud)', 'الشرح بالإنجليزية (اختياري — كوكو يقرؤه بصوت عالٍ)') + '<textarea name="sum_en" rows="3" maxlength="2000" dir="ltr">' + esc(g.summary_en || '') + '</textarea></label>' +
       '<label>' + t('Key words — one per line: word = meaning', 'الكلمات المهمة — كل سطر: الكلمة = المعنى') + '<textarea name="words" rows="3" maxlength="3000" dir="ltr" placeholder="lion = أسد">' + lines(g.words, function(w){ return w.en + ' = ' + (w.ar || ''); }) + '</textarea></label>' +
-      '<label>' + t('Sentences to say aloud — one per line', 'جمل ينطقوها — كل جملة في سطر') + '<textarea name="sentences" rows="3" maxlength="3000" dir="ltr" placeholder="The lion is very big.">' + lines(g.sentences, function(x){ return x; }) + '</textarea></label>' +
-      '<label>' + t('Questions — one per line: question | right answer | wrong | wrong', 'أسئلة — كل سطر: السؤال | الإجابة الصح | غلط | غلط') + '<textarea name="questions" rows="3" maxlength="4000" dir="ltr" placeholder="Where does the lion live? | In Africa | In the sea | On the moon">' + lines(g.questions, function(q){ return [q.q].concat(q.options).join(' | '); }) + '</textarea></label>' +
+      '<label>' + t('Sentences to say aloud — one per line', 'جمل ينطقونها — كل جملة في سطر') + '<textarea name="sentences" rows="3" maxlength="3000" dir="ltr" placeholder="The lion is very big.">' + lines(g.sentences, function(x){ return x; }) + '</textarea></label>' +
+      '<label>' + t('Questions — one per line: question | right answer | wrong | wrong', 'أسئلة — كل سطر: السؤال | الإجابة الصحيحة | خطأ | خطأ') + '<textarea name="questions" rows="3" maxlength="4000" dir="ltr" placeholder="Where does the lion live? | In Africa | In the sea | On the moon">' + lines(g.questions, function(q){ return [q.q].concat(q.options).join(' | '); }) + '</textarea></label>' +
       '<div class="cmsg-cta"><button type="submit" class="cbtn">💾 ' + t('Save the guide', 'احفظ الشرح') + '</button><button type="button" class="cbtn ghost" data-coco-cancel>' + t('Cancel', 'إلغاء') + '</button></div></form>');
     el.scrollIntoView({ block: 'nearest' });
   }
@@ -5476,10 +5476,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     form.closest('.cmsg').classList.add('cdone-form');
     cocoMood('proud'); cocoStars(0);
     cocoBubble('bot', '<p>✅ ' + esc(t('Saved! Students of ' + (item ? item.club : 'the club') + ' now find “' + (item ? item.title : '') + '” in Coco with: ',
-      'اتحفظ! طلاب ' + (item ? item.club : 'النادي') + ' هيلاقوا «' + (item ? item.title : '') + '» في كوكو وفيه: ')) +
+      'حُفظ! طلاب ' + (item ? item.club : 'النادي') + ' سيجدون «' + (item ? item.title : '') + '» في كوكو وفيه: ')) +
       esc([guide.summary_ar || guide.summary_en ? t('explanation', 'شرح') : '', guide.words.length ? guide.words.length + ' ' + t('words', 'كلمة') : '',
         guide.sentences.length ? guide.sentences.length + ' ' + t('sentences', 'جملة') : '', guide.questions.length ? guide.questions.length + ' ' + t('questions', 'سؤال') : ''].filter(Boolean).join(' · ')) + '</p>' +
-      (bad > 0 ? '<p><small>⚠️ ' + esc(t(bad + ' question line(s) skipped — each needs: question | right | wrong.', 'اتساب ' + bad + ' سطر أسئلة — كل سطر محتاج: السؤال | الصح | غلط.')) + '</small></p>' : ''));
+      (bad > 0 ? '<p><small>⚠️ ' + esc(t(bad + ' question line(s) skipped — each needs: question | right | wrong.', 'تُرك ' + bad + ' سطر أسئلة — كل سطر يحتاج إلى: السؤال | الصحيحة | خطأ.')) + '</small></p>' : ''));
   }
 
   // ---- worksheets: printable exercises for a lesson, with Code Cademy's logo and colours ----
@@ -5497,13 +5497,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     return { data: {
       title: topic, intro_ar: steps[0].explain_ar,
       sections: [
-        { title_en: 'Choose the right answer', instructions_ar: 'اختار الإجابة الصحيحة.', kind: 'choose',
+        { title_en: 'Choose the right answer', instructions_ar: 'اختر الإجابة الصحيحة.', kind: 'choose',
           items: steps.map(function(s){ return { prompt: s.check.question, options: shuffleArr(s.check.options.slice()), answer: s.check.options[s.check.answer_index] }; }) },
         { title_en: 'The rule', instructions_ar: 'اكتب القاعدة بخط واضح وحاول تحفظها.', kind: 'write',
           items: [{ prompt: steps.map(function(s){ return s.board; }).filter(Boolean).join('  ·  '), options: [], answer: steps.map(function(s){ return s.board; }).filter(Boolean).join('  ·  ') }] },
-        { title_en: 'Translate into English', instructions_ar: 'ترجم الجمل دي للإنجليزي.', kind: 'translate',
+        { title_en: 'Translate into English', instructions_ar: 'ترجم هذه الجمل إلى الإنجليزية.', kind: 'translate',
           items: shuffleArr(ex.slice()).slice(0, 6).map(function(x){ return { prompt: x.ar, options: [], answer: x.en }; }) },
-        { title_en: 'Your turn', instructions_ar: 'اكتب ٣ جمل عن نفسك باستخدام الدرس ده.', kind: 'write',
+        { title_en: 'Your turn', instructions_ar: 'اكتب ٣ جمل عن نفسك باستخدام هذا الدرس.', kind: 'write',
           items: [{ prompt: 'Write three sentences about you using: ' + topic, options: [], answer: ex.slice(0, 3).map(function(x){ return x.en; }).join(' ') }] }
       ] }, ai: false };
   }
@@ -5559,7 +5559,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(topic) !== -1; });
     level = LEVEL_INFO[level] ? level : si !== -1 ? 'Level ' + GROUP_LEVEL[si] : cocoLevelKey();
     const win = window.open('', '_blank'); // opened now, while the click still counts, so pop-up blockers allow it
-    if(win) win.document.write('<p style="font:16px sans-serif;padding:30px;color:#5C1A28">⏳ Code Cademy — preparing your worksheet… جاري تجهيز ورقة التمارين…</p>');
+    if(win) win.document.write('<p style="font:16px sans-serif;padding:30px;color:#5C1A28">⏳ Code Cademy — preparing your worksheet… جارٍ تجهيز ورقة التمارين…</p>');
     if(btn) btn.disabled = true;
     cocoMood('thinking'); cocoState('busy', true);
     const res = await cocoWorksheetData(topic, level);
@@ -5569,7 +5569,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       if(win) win.close();
       cocoMood('encouraging');
       cocoBubble('bot err', '<p>' + esc(res.err === 'notopic'
-        ? t('I can make worksheets for the 36 written lessons — pick one from the list. (Any topic works once the AI is switched on.)', 'أقدر أعمل أوراق تمارين لدروس القائمة الـ٣٦ — اختار واحد منها. (وأي موضوع هيشتغل لما الذكاء الاصطناعي يتفعّل.)')
+        ? t('I can make worksheets for the 36 written lessons — pick one from the list. (Any topic works once the AI is switched on.)', 'يمكنني إعداد أوراق تمارين لدروس القائمة الـ٣٦ — اختر واحدًا منها. (وسيعمل أي موضوع عند تفعيل الذكاء الاصطناعي.)')
         : cocoErrText(res.err)) + '</p>');
       return;
     }
@@ -5578,16 +5578,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     else { const u = URL.createObjectURL(new Blob([html], { type: 'text/html' })); location.assign(u); }
     cocoMood('proud');
     cocoBubble('bot', '<p>🖨️ ' + esc(t('Your worksheet “' + res.data.title + '” is open in a new tab — print it or save it as PDF. The answer key is on the last page.',
-      'ورقة التمارين «' + res.data.title + '» اتفتحت في تبويب جديد — اطبعها أو احفظها PDF. الإجابات في آخر صفحة.')) + (res.ai ? ' ✨' : '') + '</p>');
+      'ورقة التمارين «' + res.data.title + '» فُتحت في تبويب جديد — اطبعها أو احفظها PDF. الإجابات في الصفحة الأخيرة.')) + (res.ai ? ' ✨' : '') + '</p>');
     if(res.left != null) cocoShowLeft(res.left);
   }
   function cocoSheetForm(pre){
     const el = cocoBubble('bot', '<form class="cform" data-coco-sheet><b>🖨️ ' + esc(t('Worksheet', 'ورقة تمارين')) + '</b>' +
-      '<p><small>' + esc(t('Printable exercises with the Code Cademy logo and an answer key.', 'تمارين للطباعة بلوجو Code Cademy ومعاها الإجابات.')) + '</small></p>' +
+      '<p><small>' + esc(t('Printable exercises with the Code Cademy logo and an answer key.', 'تمارين للطباعة بشعار Code Cademy ومعها الإجابات.')) + '</small></p>' +
       '<label>' + t('Lesson', 'الدرس') + '<select name="topic">' + cocoTopicOptions(pre && pre.topic) + '</select></label>' +
-      '<label>' + t('…or any topic (needs the AI)', '…أو أي موضوع (محتاج الذكاء الاصطناعي)') + '<input name="custom" maxlength="140" dir="auto" placeholder="' + esc(t('e.g. Animals vocabulary', 'مثلاً: كلمات الحيوانات')) + '"></label>' +
+      '<label>' + t('…or any topic (needs the AI)', '…أو أي موضوع (يحتاج إلى الذكاء الاصطناعي)') + '<input name="custom" maxlength="140" dir="auto" placeholder="' + esc(t('e.g. Animals vocabulary', 'مثلًا: كلمات الحيوانات')) + '"></label>' +
       '<label>' + t('Level', 'المستوى') + '<select name="level">' + levelOptionsHtml() + '</select></label>' +
-      '<div class="cmsg-cta"><button type="submit" class="cbtn">🖨️ ' + t('Make it', 'اعملها') + '</button><button type="button" class="cbtn ghost" data-coco-cancel>' + t('Cancel', 'إلغاء') + '</button></div></form>');
+      '<div class="cmsg-cta"><button type="submit" class="cbtn">🖨️ ' + t('Make it', 'أنشئها') + '</button><button type="button" class="cbtn ghost" data-coco-cancel>' + t('Cancel', 'إلغاء') + '</button></div></form>');
     const f = el.querySelector('form');
     f.level.value = 'Level ' + GROUP_LEVEL[Math.max(0, COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }))];
     f.topic.addEventListener('change', function(){ const si = COCO_TOPICS.findIndex(function(l){ return l.indexOf(f.topic.value) !== -1; }); if(si !== -1) f.level.value = 'Level ' + GROUP_LEVEL[si]; });
@@ -5619,8 +5619,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }).join('') + r.books.map(function(m){
       return '<button type="button" data-coco-book="' + m.id + '">📚 <bdi>' + esc(m.title) + '</bdi></button>';
     }).join('') + (r.lessons.length || r.books.length ? '' : '<p class="cnone">' + esc(cocoAiOff || !currentProfile
-      ? t('No lesson with that name 🤔 Try another word.', 'مفيش درس بالاسم ده 🤔 جرّب كلمة تانية.')
-      : t('No ready lesson with that name — press Enter and I’ll explain it for you ✨', 'مفيش درس جاهز بالاسم ده — اضغط Enter وأنا أشرحهولك ✨')) + '</p>');
+      ? t('No lesson with that name 🤔 Try another word.', 'لا يوجد درس بهذا الاسم 🤔 جرّب كلمة أخرى.')
+      : t('No ready lesson with that name — press Enter and I’ll explain it for you ✨', 'لا يوجد درس جاهز بهذا الاسم — اضغط Enter وسأشرحه لك ✨')) + '</p>');
   }
 
   // ---- modes ----
@@ -5638,16 +5638,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     cocoMood('happy');
     if(m === 'say'){ cocoRenderSay(); return; }
     cocoInput.dir = m === 'assist' ? 'auto' : 'ltr';
-    if(m === 'learn'){ cocoInput.placeholder = t('Type a topic… e.g. past simple', 'اكتب موضوع… مثلاً past simple'); cocoLessonHome(); return; }
+    if(m === 'learn'){ cocoInput.placeholder = t('Type a topic… e.g. past simple', 'اكتب موضوعًا… مثلًا past simple'); cocoLessonHome(); return; }
     if(!currentProfile && m === 'assist'){ cocoSignin(); return; }
     if(m === 'assist'){
-      cocoInput.placeholder = isTeacher() ? t('Give Coco an order…', 'ادّي كوكو أمر…') : t('Ask Coco anything…', 'اسأل كوكو في أي حاجة…');
+      cocoInput.placeholder = isTeacher() ? t('Give Coco an order…', 'أعطِ كوكو أمرًا…') : t('Ask Coco anything…', 'اسأل كوكو عن أي شيء…');
       cocoAssistHello();
       return;
     }
-    cocoInput.placeholder = t('Write or speak in English…', 'اكتب أو اتكلم بالإنجليزي…');
+    cocoInput.placeholder = t('Write or speak in English…', 'اكتب أو تحدّث بالإنجليزية…');
     if(m === 'play'){
-      cocoBubble('bot', '<p>' + esc(t('Pick a scene and we’ll act it out together!', 'اختار موقف ونمثّله سوا!')) + '</p><div class="cscenes">' +
+      cocoBubble('bot', '<p>' + esc(t('Pick a scene and we’ll act it out together!', 'اختر موقفًا ونمثّله معًا!')) + '</p><div class="cscenes">' +
         COCO_SCENES.map(function(s){ return '<button type="button" data-coco-scene="' + s.id + '"><span>' + s.icon + '</span>' + esc(t(s.en, s.ar)) + '</button>'; }).join('') + '</div>');
       return;
     }
@@ -5662,7 +5662,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     if(!ai){ cocoChatPicker(); return; }
     const first = (currentProfile.full_name || '').split(' ')[0];
     const hello = 'Hi' + (first ? ' ' + first : '') + "! I'm Coco, your English teacher. Let's chat! What did you do today?";
-    cocoBubble('bot', cocoReplyHtml({ reply: hello, reply_ar: 'أهلاً! أنا كوكو، مدرّس الإنجليزي بتاعك. يلا نتكلم! عملت إيه النهارده؟' }));
+    cocoBubble('bot', cocoReplyHtml({ reply: hello, reply_ar: 'مرحبًا! أنا كوكو، معلم الإنجليزية الخاص بك. هيا نتحدث! ماذا فعلت اليوم؟' }));
     cocoTurns.push({ role: 'assistant', text: hello });
     cocoSay(hello);
   }
@@ -5670,9 +5670,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const list = cocoSayCustom || COCO_SAY[cocoStage()] || COCO_SAY[0];
     const s = list[cocoSayIdx % list.length];
     cocoLog.innerHTML = '';
-    cocoBubble('bot say', '<small>' + esc(t('Read this aloud:', 'اقرأ الجملة دي بصوت عالي:')) + '</small><p class="ctarget" dir="ltr">' +
+    cocoBubble('bot say', '<small>' + esc(t('Read this aloud:', 'اقرأ هذه الجملة بصوت عالٍ:')) + '</small><p class="ctarget" dir="ltr">' +
       s.split(' ').map(function(w){ return '<span>' + esc(w) + '</span>'; }).join(' ') + '</p>' +
-      '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-play="' + esc(s) + '" data-force="1">🔊 ' + t('Hear it', 'اسمعها') + '</button>' +
+      '<div class="cmsg-cta"><button type="button" class="cbtn ghost" data-coco-play="' + esc(s) + '" data-force="1">🔊 ' + t('Hear it', 'استمع إليها') + '</button>' +
       '<button type="button" class="cbtn coco-rec big" data-coco-sayrec>🎤 ' + t('Now you', 'دورك') + '</button>' +
       '<button type="button" class="cbtn ghost" data-coco-next>' + t('Next', 'التالي') + ' →</button></div><div class="cscore" id="cocoScore"></div>');
     if(!SpeechRec) document.getElementById('cocoScore').innerHTML = '<small>' + esc(t('Your browser can’t hear you — try Chrome, Edge or Safari.', 'المتصفح لا يدعم سماعك — جرّب Chrome أو Edge أو Safari.')) + '</small>';
@@ -5693,7 +5693,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     const stars = pct >= 90 ? 3 : pct >= 70 ? 2 : pct >= 40 ? 1 : 0;
     cocoMood(stars >= 2 ? 'proud' : 'encouraging');
     document.getElementById('cocoScore').innerHTML = '<b>' + '★'.repeat(stars) + '☆'.repeat(3 - stars) + ' ' + pct + '%</b><small>' + esc(t('I heard: “', 'سمعت: «') + heard + t('”', '»')) + '</small>' +
-      '<em>' + esc(stars === 3 ? t('Perfect! You sound great.', 'ممتاز! نطقك رائع.') : stars ? t('Good! Try the red words again.', 'جيد! جرّب الكلمات الحمراء مرة أخرى.') : t('Let’s try again — listen first, then speak slowly.', 'يلا نحاول تاني — اسمع الأول، وبعدين اتكلم ببطء.')) + '</em>';
+      '<em>' + esc(stars === 3 ? t('Perfect! You sound great.', 'ممتاز! نطقك رائع.') : stars ? t('Good! Try the red words again.', 'جيد! جرّب الكلمات الحمراء مرة أخرى.') : t('Let’s try again — listen first, then speak slowly.', 'هيا نحاول مرة أخرى — استمع أولًا، ثم تحدّث ببطء.')) + '</em>';
     if(stars) cocoStars(stars);
     cocoSay(stars === 3 ? 'Perfect!' : stars ? 'Good job! Try again.' : "Let's try again.");
   }
@@ -5738,9 +5738,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   if(!SpeechRec) cocoMic.hidden = true;
   document.getElementById('cocoJar').addEventListener('click', function(){
     const jar = cocoStore('jar', []);
-    cocoBubble('bot', '<p><b>🫙 ' + esc(t('My word jar', 'برطمان كلماتي')) + '</b> (' + jar.length + ')</p>' + (jar.length
+    cocoBubble('bot', '<p><b>🫙 ' + esc(t('My word jar', 'مرطبان كلماتي')) + '</b> (' + jar.length + ')</p>' + (jar.length
       ? '<div class="cwords">' + jar.slice(-30).reverse().map(function(w){ return '<button type="button" data-coco-play="' + esc(w.word) + '" data-force="1">🔊 ' + esc(w.word) + ' <small>' + esc(w.ar || '') + '</small></button>'; }).join('') + '</div>'
-      : '<p>' + esc(t('Tap ＋ on a new word Coco teaches you to keep it here.', 'اضغط ＋ على أي كلمة جديدة يعلّمهالك كوكو عشان تتحفظ هنا.')) + '</p>'));
+      : '<p>' + esc(t('Tap ＋ on a new word Coco teaches you to keep it here.', 'اضغط ＋ على أي كلمة جديدة يعلّمك إياها كوكو لتُحفظ هنا.')) + '</p>'));
   });
   coco.addEventListener('click', function(e){
     const b = e.target.closest('button');
@@ -5791,7 +5791,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     }
     else if(b.hasAttribute('data-coco-cancel')){ b.closest('.cmsg').remove(); }
     else if(b.dataset.cocoDeltask){
-      if(!confirm(t('Delete this task and its results?', 'حذف المهمة ونتائجها؟'))) return;
+      if(!confirm(t('Delete this task and its results?', 'هل تريد حذف المهمة ونتائجها؟'))) return;
       b.disabled = true;
       sb.from('coco_tasks').delete().eq('id', b.dataset.cocoDeltask).then(function(r){ if(r.error){ b.disabled = false; toast(friendlyErrorMessage(r.error), '', true); } else b.closest('.cres').remove(); });
     }
@@ -5849,7 +5849,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       .replace(/[^\p{L}\p{N} ]/gu, ' ').replace(/\s+/g, ' ').trim();
   }
   const SEARCH_SECTIONS = [
-    ['#games', 'English games', 'ألعاب الإنجليزي', 'games game play fun kids words spelling grammar tenses idioms العاب لعبة ألعاب اطفال كلمات قواعد'],
+    ['#games', 'English games', 'ألعاب الإنجليزية', 'games game play fun kids words spelling grammar tenses idioms العاب لعبة ألعاب اطفال كلمات قواعد'],
     ['#top', 'Home', 'الرئيسية', 'home start الصفحه'],
     ['#english-immersion', 'English clubs', 'النوادي', 'clubs club نادي نوادي phonics reading writing grammar speaking conversation cinema صوتيات قراءه كتابه قواعد محادثه حوار سينما'],
     ['#levels', 'The 9 levels', 'المستويات التسعة', 'levels level مستوي مستويات'],
@@ -5900,8 +5900,8 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function renderSearch(){
     const groups = siteSearch(searchInput.value);
     searchHits = [];
-    if(!groups){ searchOut.innerHTML = '<p class="ss-tip">' + esc(t('Type a word — e.g. reading, past simple, plans, زوم, الماضي', 'اكتب كلمة — مثلاً: قراءة، الماضي، الباقات، zoom')) + '</p>'; return; }
-    if(!groups.length){ searchOut.innerHTML = '<p class="ss-tip">' + esc(t('Nothing found 🤔 Try another word.', 'مفيش نتايج 🤔 جرّب كلمة تانية.')) + '</p>'; return; }
+    if(!groups){ searchOut.innerHTML = '<p class="ss-tip">' + esc(t('Type a word — e.g. reading, past simple, plans, زوم, الماضي', 'اكتب كلمة — مثلًا: قراءة، الماضي، الباقات، zoom')) + '</p>'; return; }
+    if(!groups.length){ searchOut.innerHTML = '<p class="ss-tip">' + esc(t('Nothing found 🤔 Try another word.', 'لا توجد نتائج 🤔 جرّب كلمة أخرى.')) + '</p>'; return; }
     searchOut.innerHTML = groups.map(function(g){
       return '<div class="ss-group"><b>' + esc(g[0]) + '</b>' + g[1].map(function(r){
         searchHits.push(r);
