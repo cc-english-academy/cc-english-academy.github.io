@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/hub.css?v=b2017bda">
+<link rel="stylesheet" href="assets/css/hub.css?v=59226e3b">
 <script defer src="assets/js/fx.js?v=cbf6f0c9"></script>
 </head>
 <body>
@@ -42,8 +42,8 @@
   <div class="wrap nav-in">
     <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><b>Code Cademy</b></a>
     <nav class="links" id="links" aria-label="Main">
-      <a href="english.html" class="w en-w"><i>🇬🇧</i><span class="en">English</span><span class="ar">الإنجليزي</span></a>
-      <a href="french.html" class="w fr-w"><i>🇫🇷</i><span class="en">Français</span><span class="ar">الفرنساوي</span></a>
+      <a href="english.html" class="w en-w"><i><img class="fl" src="assets/img/flag-gb.svg" alt="" width="22" height="11"></i><span class="en">English</span><span class="ar">الإنجليزي</span></a>
+      <a href="french.html" class="w fr-w"><i><img class="fl" src="assets/img/flag-fr.svg" alt="" width="17" height="11"></i><span class="en">Français</span><span class="ar">الفرنساوي</span></a>
       <a href="tech.html" class="w it-w"><i>💻</i><span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a>
       <a href="#way"><span class="en">Our way</span><span class="ar">طريقتنا</span></a>
       <a href="#certs"><span class="en">Certificates</span><span class="ar">الشهادات</span></a>
@@ -55,8 +55,8 @@
         <button class="cta" id="signBtn" type="button" aria-expanded="false" aria-controls="signMenu"><span class="en">Sign in</span><span class="ar">الدخول</span> ▾</button>
         <div class="dd-menu" id="signMenu" hidden>
           <small><span class="en">Open your dashboard</span><span class="ar">افتح لوحة التحكم</span></small>
-          <a href="english.html?signin=1"><i>🇬🇧</i><span class="en">English dashboard</span><span class="ar">لوحة الإنجليزي</span></a>
-          <a href="french-dashboard.html"><i>🇫🇷</i><span class="en">French dashboard</span><span class="ar">لوحة الفرنساوي</span></a>
+          <a href="english.html?signin=1"><i><img class="fl" src="assets/img/flag-gb.svg" alt="" width="22" height="11"></i><span class="en">English dashboard</span><span class="ar">لوحة الإنجليزي</span></a>
+          <a href="french-dashboard.html"><i><img class="fl" src="assets/img/flag-fr.svg" alt="" width="17" height="11"></i><span class="en">French dashboard</span><span class="ar">لوحة الفرنساوي</span></a>
           <a href="tech-dashboard.html"><i>💻</i><span class="en">Tech Lab dashboard</span><span class="ar">لوحة البرمجة و IT</span></a>
         </div>
       </div>
@@ -75,29 +75,67 @@
     </div>
     <div class="doors" id="worlds">
       <article class="door d-en" tabindex="0">
-        <span class="glyph" aria-hidden="true">EN</span>
+        <div class="scene" aria-hidden="true">
+          <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMax slice">
+            <g class="stars"><circle cx="60" cy="40" r="1.4"/><circle cx="140" cy="80" r="1"/><circle cx="210" cy="30" r="1.2"/><circle cx="380" cy="50" r="1"/><circle cx="540" cy="110" r="1.3"/><circle cx="560" cy="30" r="1"/><circle cx="90" cy="130" r="1"/></g>
+            <circle class="moon" cx="500" cy="62" r="20"/>
+            <g class="eye"><circle cx="440" cy="196" r="78" fill="none"/><circle cx="440" cy="196" r="70" fill="none" stroke-width="1"/><path d="M440 118V274M362 196H518M385 141L495 251M495 141L385 251M410 128L470 264M470 128L410 264M372 166L508 226M508 166L372 226" stroke-width="1"/><g class="pods"><circle cx="440" cy="118" r="4"/><circle cx="440" cy="274" r="4"/><circle cx="362" cy="196" r="4"/><circle cx="518" cy="196" r="4"/><circle cx="385" cy="141" r="4"/><circle cx="495" cy="251" r="4"/><circle cx="495" cy="141" r="4"/><circle cx="385" cy="251" r="4"/></g></g>
+            <path class="sil" d="M412 300L440 196L468 300Z"/>
+            <path class="sil" d="M70 300V236H84V214L92 200L100 214V236H112V250H126V230H146V160H150V146H170V160H174V230H196V246H208V236H218V246H230V240H262V300Z"/>
+            <path class="sil" d="M268 300V118H274V108L292 36L310 108V118H316V300Z"/>
+            <circle class="clock" cx="292" cy="134" r="11"/>
+            <path class="hands" d="M292 134V126M292 134L298 137"/>
+            <path class="sil" d="M316 300V252H332V240H352V252H372V300ZM0 300V262H20V250H34V262H50V300Z"/>
+            <rect class="sil" x="0" y="294" width="600" height="6"/>
+            <g class="bus"><rect x="0" y="262" width="64" height="30" rx="4"/><rect class="win" x="5" y="266" width="54" height="7" rx="1"/><rect class="win" x="5" y="277" width="40" height="7" rx="1"/><circle class="wh" cx="14" cy="293" r="4"/><circle class="wh" cx="50" cy="293" r="4"/></g>
+          </svg>
+          <div class="water"></div>
+        </div>
         <div class="d-body">
-          <span class="d-em">🇬🇧</span>
-          <span class="d-tag">Code Cademy English</span>
+          <span class="d-flags"><img src="assets/img/flag-gb.svg" alt="UK" width="36" height="18"><img src="assets/img/flag-us.svg" alt="USA" width="34" height="18"></span>
+          <span class="d-tag">Code Cademy English · London ⇄ New York</span>
           <h3><span class="en">English you live.</span><span class="ar">إنجليزي تعيشه.</span></h3>
           <p class="d-line"><span class="en">9 levels · 7 clubs · live Zoom</span><span class="ar">٩ مستويات · ٧ نوادي · Zoom لايف</span></p>
-          <ul class="d-list"><li><span class="en">Clubs: phonics to cinema</span><span class="ar">نوادي من الصوتيات للسينما</span></li><li><span class="en">Free level test</span><span class="ar">اختبار مستوى مجاني</span></li><li><span class="en">6 English games</span><span class="ar">٦ ألعاب إنجليزي</span></li></ul>
+          <ul class="d-list"><li><span class="en">British &amp; American accents</span><span class="ar">لهجة بريطانية وأمريكية</span></li><li><span class="en">Clubs: phonics to cinema</span><span class="ar">نوادي من الصوتيات للسينما</span></li><li><span class="en">Free level test · 6 games</span><span class="ar">اختبار مستوى مجاني · ٦ ألعاب</span></li></ul>
           <div class="d-btns"><a class="d-go" href="english.html"><span class="en">Enter English</span><span class="ar">ادخل الإنجليزي</span> <i>→</i></a><a class="d-dash" href="english.html?signin=1">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
         </div>
       </article>
       <article class="door d-fr" tabindex="0">
-        <span class="glyph" aria-hidden="true">FR</span>
+        <div class="scene" aria-hidden="true">
+          <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMax slice">
+            <defs><radialGradient id="frSun"><stop offset="0" stop-color="#ffe7c2"/><stop offset=".6" stop-color="#f7b99c"/><stop offset="1" stop-color="#f7b99c" stop-opacity="0"/></radialGradient></defs>
+            <circle cx="300" cy="190" r="120" fill="url(#frSun)"/>
+            <path class="bird" d="M120 70q6-6 12 0q6-6 12 0M160 50q4-4 8 0q4-4 8 0M450 80q5-5 10 0q5-5 10 0"/>
+            <path class="roofs" d="M0 300V250L20 236H48V226H54V236H70V300ZM150 300V246H170V236H176V246H200V300Z"/><path class="roofs arc" fill-rule="evenodd" d="M74 300V218H146V300ZM70 210H150V218H70ZM98 300V258A12 12 0 0 1 122 258V300Z"/>
+            <path class="roofs" d="M420 300V246L436 232H480V222H486V232H520L540 246V238H560V244H600V300Z"/>
+            <path class="tower" fill-rule="evenodd" d="M297 14H303L305 56L317 146H324V154H319L337 228H350V238H343L382 300H344Q300 248 256 300H218L257 238H250V228H263L281 154H276V146H283L295 56ZM292 154L300 186L308 154ZM272 228L300 200L328 228Z"/>
+            <path class="lattice" d="M287 150L313 108M313 150L287 108M276 226L322 162M324 226L278 162M262 290L342 240M338 290L258 240"/>
+            <g class="sparkle"><circle cx="300" cy="40" r="1.6"/><circle cx="292" cy="110" r="1.4"/><circle cx="310" cy="96" r="1.4"/><circle cx="284" cy="190" r="1.6"/><circle cx="318" cy="176" r="1.4"/><circle cx="268" cy="262" r="1.6"/><circle cx="334" cy="270" r="1.6"/><circle cx="300" cy="230" r="1.4"/></g>
+          </svg>
+          <span class="fw w1">Bonjour</span><span class="fw w2">Merci ♡</span><span class="fw w3">Croissant</span><span class="fw w4">Paris</span>
+        </div>
         <div class="d-body">
-          <span class="d-em">🇫🇷</span>
-          <span class="d-tag">Le Club Français</span>
+          <span class="d-flags"><img src="assets/img/flag-fr.svg" alt="France" width="27" height="18"></span>
+          <span class="d-tag">Le Club Français · Paris</span>
           <h3><span class="en">Bonjour, Paris.</span><span class="ar">Bonjour يا باريس.</span></h3>
           <p class="d-line"><span class="en">Kids · Teens · Adults · DELF</span><span class="ar">أطفال · شباب · كبار · DELF</span></p>
-          <ul class="d-list"><li><span class="en">Café with Coco</span><span class="ar">كافيه مع كوكو</span></li><li><span class="en">Pronunciation coach</span><span class="ar">مدرب النطق</span></li><li><span class="en">A passport of city stamps</span><span class="ar">باسبور بأختام المدن</span></li></ul>
+          <ul class="d-list"><li><span class="en">Café with Coco</span><span class="ar">كافيه مع كوكو</span></li><li><span class="en">Cinema, music, food &amp; travel</span><span class="ar">سينما ومزيكا وأكل وسفر</span></li><li><span class="en">The J'ADORE Français app</span><span class="ar">تطبيق J'ADORE Français</span></li></ul>
           <div class="d-btns"><a class="d-go" href="french.html"><span class="en">Entrer · French</span><span class="ar">ادخل الفرنساوي</span> <i>→</i></a><a class="d-dash" href="french-dashboard.html">🎓 <span class="en">Dashboard</span><span class="ar">لوحة التحكم</span></a></div>
         </div>
       </article>
       <article class="door d-it" tabindex="0">
-        <span class="glyph" aria-hidden="true">&lt;/&gt;</span>
+        <div class="scene" aria-hidden="true">
+          <div class="grid"></div>
+          <span class="chip c1">{ }</span><span class="chip c2">&lt;/&gt;</span><span class="chip c3">AI</span><span class="chip c4">01</span><span class="chip c5">py</span>
+          <div class="term" dir="ltr">
+            <div class="t-bar"><i></i><i></i><i></i><b>coco.py</b></div>
+            <code class="ln" style="--n:22"><s class="k">from</s> coco <s class="k">import</s> AI</code>
+            <code class="ln" style="--n:22">bot = AI(<s class="s">"tutor"</s>)</code>
+            <code class="ln" style="--n:26">bot.<s class="f">teach</s>(<s class="s">"Python"</s>)</code>
+            <code class="ln" style="--n:24"><s class="c"># build the future</s></code>
+            <code class="ln out" style="--n:20">&gt; Hello, World!<u></u></code>
+          </div>
+        </div>
         <div class="d-body">
           <span class="d-em">💻</span>
           <span class="d-tag">Coco Tech Lab</span>
@@ -165,8 +203,8 @@
       <div class="role reveal" data-i="2"><span class="r-em">👩‍🏫</span><h3><span class="en">Teachers</span><span class="ar">المعلمين</span></h3><p><span class="en">Publish tasks, mark work, announce courses and reply.</span><span class="ar">انشر مهام وصحح وأعلن عن كورسات ورد على الرسايل.</span></p></div>
     </div>
     <div class="d-pick reveal">
-      <a href="english.html?signin=1"><i>🇬🇧</i><span class="en">English dashboard</span><span class="ar">لوحة الإنجليزي</span></a>
-      <a href="french-dashboard.html"><i>🇫🇷</i><span class="en">French dashboard</span><span class="ar">لوحة الفرنساوي</span></a>
+      <a href="english.html?signin=1"><i><img class="fl" src="assets/img/flag-gb.svg" alt="" width="22" height="11"></i><span class="en">English dashboard</span><span class="ar">لوحة الإنجليزي</span></a>
+      <a href="french-dashboard.html"><i><img class="fl" src="assets/img/flag-fr.svg" alt="" width="17" height="11"></i><span class="en">French dashboard</span><span class="ar">لوحة الفرنساوي</span></a>
       <a href="tech-dashboard.html"><i>💻</i><span class="en">Tech Lab dashboard</span><span class="ar">لوحة البرمجة و IT</span></a>
     </div>
   </div>
@@ -183,7 +221,7 @@
 <footer class="foot" id="contact">
   <div class="wrap foot-grid">
     <div class="f-brand"><img src="assets/img/logo.jpg" alt="Code Cademy"><b>Code Cademy</b><p><span class="en">Learn. Build. Grow.</span><span class="ar">اتعلم. ابني. اكبر.</span></p></div>
-    <div><h4><span class="en">Schools</span><span class="ar">المجالات</span></h4><a href="english.html">🇬🇧 <span class="en">English</span><span class="ar">الإنجليزي</span></a><a href="french.html">🇫🇷 <span class="en">Français</span><span class="ar">الفرنساوي</span></a><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></div>
+    <div><h4><span class="en">Schools</span><span class="ar">المجالات</span></h4><a href="english.html"><img class="fl" src="assets/img/flag-gb.svg" alt="" width="22" height="11"> <span class="en">English</span><span class="ar">الإنجليزي</span></a><a href="french.html"><img class="fl" src="assets/img/flag-fr.svg" alt="" width="17" height="11"> <span class="en">Français</span><span class="ar">الفرنساوي</span></a><a href="tech.html">💻 <span class="en">Tech Lab</span><span class="ar">البرمجة و IT</span></a></div>
     <div><h4><span class="en">Start</span><span class="ar">ابدأ</span></h4><a href="english.html#level-test"><span class="en">Free English level test</span><span class="ar">اختبار مستوى إنجليزي مجاني</span></a><a href="english.html#plans"><span class="en">English plans</span><span class="ar">باقات الإنجليزي</span></a><a href="#certs"><span class="en">Certificates</span><span class="ar">الشهادات</span></a></div>
     <div><h4><span class="en">Contact</span><span class="ar">تواصل معانا</span></h4><a href="https://wa.me/966538840330" target="_blank" rel="noopener">💬 WhatsApp</a><a href="https://www.instagram.com/codecademy75?igsh=MWZxbWp5OHg5c2o0dQ%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">📷 Instagram</a></div>
   </div>
