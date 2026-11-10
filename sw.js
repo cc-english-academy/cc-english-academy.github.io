@@ -30,3 +30,28 @@ self.addEventListener('fetch', (e) => {
     return fresh;
   }));
 });
+
+// ---------- class notifications (sent by scripts/reminders.mjs) ----------
+self.addEventListener('push', (e) => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (err) { d = { body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Code Cademy', {
+    body: d.body || '',
+    icon: 'assets/img/icon-192.png',
+    badge: 'assets/img/icon-192.png',
+    tag: d.tag || undefined,
+    renotify: !!d.tag,
+    lang: d.lang || 'ar',
+    dir: d.dir || 'auto',
+    data: { url: d.url || './' },
+  }));
+});
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  const url = new URL((e.notification.data && e.notification.data.url) || './', self.location.origin).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+    const open = list.find((c) => c.url.split('#')[0] === url.split('#')[0]);
+    if (open) { open.focus(); return open.navigate ? open.navigate(url) : null; }
+    return self.clients.openWindow(url);
+  }));
+});

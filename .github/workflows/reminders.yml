@@ -1,10 +1,11 @@
 name: Reminders
 
-# Reminds students, parents and teachers about classes, homework and plans, every hour.
+# Reminds students, parents and teachers about classes, homework and plans, every 10 minutes
+# (so the "class starts in 15 minutes" notification arrives on time).
 # Run it by hand any time: Actions → Reminders → Run workflow.
 on:
   schedule:
-    - cron: '7 * * * *'
+    - cron: '3-59/10 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -19,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+      - name: Install the push notification library
+        run: npm install --no-save --no-package-lock --no-audit --no-fund web-push@3.6.7
       - name: Send reminders
         run: node scripts/reminders.mjs
         env:

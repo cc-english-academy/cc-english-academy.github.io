@@ -297,13 +297,13 @@
 
   // ---------- chrome: header, tabs ----------
   const TABS = {
-    student: FR ? [['home', '🏠', 'Home', 'الرئيسية'], ['passport', '🛂', 'Passport', 'جواز السفر'], ['tasks', '📝', 'Tasks', 'المهام'], ['words', '📒', 'My words', 'دفتر الكلمات'],
+    student: FR ? [['home', '🏠', 'Home', 'الرئيسية'], ['passport', '🛂', 'Passport', 'جواز السفر'], ['tasks', '📝', 'Tasks', 'المهام'], ['schedule', '📅', 'Timetable', 'جدول الحصص'], ['words', '📒', 'My words', 'دفتر الكلمات'],
       ['speak', '🎙️', 'Pronunciation', 'النطق'], ['delf', '📈', 'DELF meter', 'مؤشر DELF'], ['msgs', '💬', 'Messages', 'الرسائل'], ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الدورات والدفع']]
-      : [['home', '🏠', 'Home', 'الرئيسية'], ['map', '🗺️', 'Skill map', 'خريطة المهارات'], ['tasks', '📝', 'Tasks', 'المهام'], ['portfolio', '🗂️', 'Portfolio', 'معرض المشاريع'], ['msgs', '💬', 'Messages', 'الرسائل'],
+      : [['home', '🏠', 'Home', 'الرئيسية'], ['map', '🗺️', 'Skill map', 'خريطة المهارات'], ['tasks', '📝', 'Tasks', 'المهام'], ['schedule', '📅', 'Timetable', 'جدول الحصص'], ['portfolio', '🗂️', 'Portfolio', 'معرض المشاريع'], ['msgs', '💬', 'Messages', 'الرسائل'],
       ['rank', '🏆', 'Ranking', 'الترتيب'], ['certs', '🎓', 'Certificates', 'الشهادات'], ['join', '➕', 'Courses & payment', 'الدورات والدفع']],
-    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسائل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الدورات']].concat(FR ? [['books', '📘', 'Level books', 'كتب المستويات']] : [['faq', '❓', 'Coco questions', 'أسئلة كوكو']]).concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
+    teacher: [['students', '👥', 'Students', 'الطلاب'], ['msgs', '💬', 'Messages', 'الرسائل'], ['ttasks', '📝', 'Tasks', 'المهام'], ['schedule', '📅', 'Timetable', 'جدول الحصص'], ['board', '🗂️', 'Board', 'لوحة التسليمات'], ['courses', '📣', 'Courses', 'الدورات']].concat(FR ? [['books', '📘', 'Level books', 'كتب المستويات']] : [['faq', '❓', 'Coco questions', 'أسئلة كوكو']]).concat(FR ? [['sounds', '🔥', 'Sounds map', 'خريطة الأصوات']] : [['skills', '🕸️', 'Skills radar', 'رادار المهارات']])
       .concat([['rank', '🏆', 'Ranking', 'الترتيب']]),
-    parent: [['children', '👨‍👩‍👧', 'My children', 'أبنائي'], ['msgs', '💬', 'Messages', 'الرسائل']]
+    parent: [['children', '👨‍👩‍👧', 'My children', 'أبنائي'], ['schedule', '📅', 'Timetable', 'جدول الحصص'], ['msgs', '💬', 'Messages', 'الرسائل']]
   };
   function tabsFor(){
     const r = ROLE(); let t = (TABS[r] || []).slice();
@@ -815,6 +815,18 @@
   };
 
   // ----- tech: portfolio -----
+  // ---------- timetable: every live class with a date ----------
+  VIEWS.schedule = function(){
+    const lives = (D.tasks || []).filter(function(t){ return t.kind === 'live' && t.starts_at; });
+    main.innerHTML = '<div class="head"><h2>📅 ' + esc(T('Class timetable', 'جدول الحصص')) + '</h2><p class="muted">' + esc(ROLE() === 'teacher'
+      ? T('Your live classes, week by week. Add a class from Tasks → Live class.', 'حصصك المباشرة أسبوعًا بأسبوع. أضف حصة من «المهام» ← حصة مباشرة.')
+      : T('Your live classes, week by week, in your local time.', 'حصصك المباشرة أسبوعًا بأسبوع، بتوقيتك المحلي.')) + '</p></div>' +
+      '<div class="card"><div id="ttBox"></div></div><div id="pushBox"></div>';
+    if(window.ccTimetable) ccTimetable.render($('ttBox'), lives.map(function(t){
+      return { id: TRACK + '-' + t.id, start: t.starts_at, mins: 60, title: t.title, sub: courseName(t.course), url: /^https?:\/\//i.test(t.link || '') ? t.link : '', color: FR ? '#8a1c33' : '#6a4cff' };
+    }));
+    if(window.ccPush) ccPush.box($('pushBox'), sb);
+  };
   VIEWS.portfolio = function(){
     const items = (D.subs || []).filter(function(s){ const t = taskOf(s.task_id); return t && (t.kind === 'project' || t.kind === 'code') && s.status !== 'working' && s.content; });
     const link = location.origin + location.pathname + '?portfolio=' + me.id;

@@ -1166,6 +1166,17 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       }
     }
 
+    // weekly timetable: the classes this person teaches or booked
+    if(window.ccTimetable){
+      const CLUB_C = { 'Phonics Club': '#f5a524', 'Reading Club': '#2f6fed', 'Writing Club': '#9b5de5', 'Grammar Club': '#e5484d', 'Speaking Club': '#22a55b', 'Conversation Club': '#0ea5b7', 'Cinema Club': '#8a1c33' };
+      const evs = all.filter(function(s){ return teacher || mine[s.id]; }).map(function(s){
+        return { id: 'en-' + s.id, start: s.starts_at, mins: s.duration_min || 45, title: s.title, sub: s.club + (teacher ? ' · ' + s.booked + '/' + s.capacity : ''), url: links[s.id] ? safeUrl(links[s.id]) : '', color: CLUB_C[s.club] || '#7c5cff' };
+      });
+      // past weeks too, so the teacher can look back
+      ccTimetable.render(document.getElementById('sessTimetable'), evs);
+    }
+    if(window.ccPush) ccPush.box(document.getElementById('pushBoxEn'), sb);
+
     function seatsHtml(s){
       const pct = Math.min(100, Math.round((s.booked / s.capacity) * 100));
       return '<div class="seat-bar"><i style="width:' + pct + '%"></i></div>';
