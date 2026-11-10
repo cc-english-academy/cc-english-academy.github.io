@@ -1,6 +1,7 @@
 /* ===== Language switcher (EN / AR) ===== */
 (function(){
   const DICT = {
+    "📅 My class timetable":"📅 جدول حصصي",
     "Enter the email on your account. We will send you a link to choose a new password.":"اكتب البريد الإلكتروني المسجّل في حسابك، وسنرسل لك رابطًا لاختيار كلمة مرور جديدة.",
     "Your email":"بريدك الإلكتروني",
     "Send reset link":"أرسل رابط الاستعادة",

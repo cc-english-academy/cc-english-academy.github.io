@@ -2104,6 +2104,49 @@ $$;
 revoke all on function public.my_recovery_email() from public;
 grant execute on function public.my_recovery_email() to authenticated;
 
+-- ---------------------------------------------------------------------
+-- 12. Class notifications on phones and computers (Web Push)
+-- ---------------------------------------------------------------------
+-- One row per device that turned notifications on. scripts/reminders.mjs reads them (service role)
+-- and creates the push keys on its first run (public key in academy_settings, private key in app_secrets).
+create table if not exists public.push_subscriptions (
+  endpoint    text primary key,
+  user_id     uuid not null references public.profiles(id) on delete cascade,
+  p256dh      text not null,
+  auth        text not null,
+  ua          text,
+  created_at  timestamptz not null default now()
+);
+create index if not exists push_subscriptions_user_idx on public.push_subscriptions (user_id);
+alter table public.push_subscriptions enable row level security;
+drop policy if exists "push: read own" on public.push_subscriptions;
+create policy "push: read own" on public.push_subscriptions for select using (user_id = auth.uid());
+
+-- save this device for the signed-in person (a shared device moves to whoever signed in last)
+create or replace function public.save_push_subscription(p_endpoint text, p_p256dh text, p_auth text, p_ua text default null)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if auth.uid() is null then raise exception 'Please sign in again'; end if;
+  if p_endpoint !~ '^https://' or length(p_endpoint) > 1000 or coalesce(p_p256dh, '') = '' or coalesce(p_auth, '') = '' then
+    raise exception 'Invalid push subscription';
+  end if;
+  insert into public.push_subscriptions (endpoint, user_id, p256dh, auth, ua)
+  values (p_endpoint, auth.uid(), p_p256dh, p_auth, left(p_ua, 200))
+  on conflict (endpoint) do update set user_id = excluded.user_id, p256dh = excluded.p256dh, auth = excluded.auth, ua = excluded.ua, created_at = now();
+  -- keep the 10 most recent devices per person
+  delete from public.push_subscriptions where user_id = auth.uid() and endpoint not in
+    (select endpoint from public.push_subscriptions where user_id = auth.uid() order by created_at desc limit 10);
+end $$;
+revoke all on function public.save_push_subscription(text, text, text, text) from public;
+grant execute on function public.save_push_subscription(text, text, text, text) to authenticated;
+
+create or replace function public.delete_push_subscription(p_endpoint text)
+returns void language sql security definer set search_path = public as $$
+  delete from public.push_subscriptions where endpoint = p_endpoint and user_id = auth.uid();
+$$;
+revoke all on function public.delete_push_subscription(text) from public;
+grant execute on function public.delete_push_subscription(text) to authenticated;
+
 -- =====================================================================
 -- Make yourself the admin (run once, with YOUR e-mail):
 --   update public.profiles set role = 'admin'
