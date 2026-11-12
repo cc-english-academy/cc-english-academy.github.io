@@ -18,7 +18,7 @@
   })();
 
   async function key(sb){
-    if(keyCache !== null) return keyCache;
+    if(keyCache) return keyCache; // an empty answer is asked again, so a key saved a moment ago shows up
     try{
       const r = await sb.from('academy_settings').select('value').eq('key', 'moyasar_pk').maybeSingle();
       keyCache = (r.data && r.data.value || '').trim();
