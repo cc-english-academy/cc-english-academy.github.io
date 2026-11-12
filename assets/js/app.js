@@ -1597,7 +1597,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   };
   const PLAN_ORDER = ['lesson', 'level1', 'level2', 'level3', 'immersion'];
   const STATUS_LABEL = { pending: 'Waiting for payment', active: 'Active', stopped: 'Stopped', rejected: 'Rejected' };
-  function payMethodName(m){ return m === 'tamara' ? 'Tamara' : m === 'visa' ? 'Visa' : m === 'bank' ? t('Bank transfer', 'تحويل بنكي') : 'WhatsApp'; }
+  function payMethodName(m){ return m === 'card' ? t('Card (Moyasar)', 'بطاقة (ميسر)') : m === 'tamara' ? 'Tamara' : m === 'visa' ? 'Visa' : m === 'bank' ? t('Bank transfer', 'تحويل بنكي') : 'WhatsApp'; }
 
   // ---------- bank transfer: Code Cademy's account (the admin fills it in) and the student's receipt ----------
   let bankInfo = {};
@@ -1743,6 +1743,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   function coShow(step){
     document.getElementById('coStep1').hidden = step !== 1;
     document.getElementById('coStep2').hidden = step !== 2;
+    document.getElementById('coStep3').hidden = step !== 3;
   }
   function openCheckout(plan){
     if(!PLANS[plan]) return;
@@ -1762,6 +1763,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('coError').textContent = '';
     document.getElementById('coPay').disabled = false;
     coShow(1);
+    if(window.ccPay) ccPay.key(sb).then(function(k){ const o = document.getElementById('coCardOpt'); o.hidden = !k; if(k){ o.querySelector('input').checked = true; } });
     coModal.hidden = false;
     document.body.style.overflow = 'hidden';
   }
@@ -1771,6 +1773,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
   document.getElementById('coClose').addEventListener('click', closeCheckout);
   document.getElementById('coDone').addEventListener('click', closeCheckout);
+  document.getElementById('coCardBack').addEventListener('click', function(){ coShow(1); });
   coModal.addEventListener('click', function(e){ if(e.target === coModal) closeCheckout(); });
 
   document.getElementById('coPay').addEventListener('click', async function(){
@@ -1789,6 +1792,16 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       err.textContent = /function|schema cache|does not exist/i.test(error.message)
         ? "Plans aren't set up in the database yet — the school needs to run the new SQL block."
         : friendlyErrorMessage(error);
+      return;
+    }
+    if(method === 'card'){
+      // the amount saved by the server for this request (from plan settings), so Moyasar charges exactly that
+      const en = await sb.from('enrollments').select('amount').eq('id', enrollmentId).maybeSingle();
+      const amount = en && en.data && en.data.amount != null ? Number(en.data.amount) : PLANS[coPlan].amount;
+      document.getElementById('coCardSum').textContent = '\u2068' + PLANS[coPlan].name + '\u2069 — ' + fmtMoney(amount) + ' ' + t('SAR', 'ريال');
+      coShow(3);
+      btn.disabled = false;
+      await ccPay.form(document.getElementById('coCard'), sb, { kind: 'plan', ref: enrollmentId, amount: amount, description: 'Code Cademy — ' + PLANS[coPlan].name });
       return;
     }
     const link = (payLinks[coPlan] || {})[method];
@@ -1957,6 +1970,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       document.getElementById('bkName').value = bankInfo.bank_name || 'Al Rajhi Bank';
       document.getElementById('bkHolder').value = bankInfo.bank_holder || '';
       document.getElementById('bkIban').value = fmtIban(bankInfo.bank_iban);
+      sb.from('academy_settings').select('value').eq('key', 'moyasar_pk').maybeSingle().then(function(r){ document.getElementById('moyPk').value = (r.data && r.data.value) || ''; });
     }
 
     // payment link form
@@ -2028,6 +2042,17 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       ]);
       setEnNotice(error ? friendlyErrorMessage(error) : t('Bank details saved — students see them when they choose “Bank transfer”.', 'حُفظت بيانات الحساب — سيراها الطلاب عند اختيار «تحويل بنكي».'), !error);
       if(!error) await loadBankInfo();
+    });
+  }
+  const moyForm = document.getElementById('moyForm');
+  if(moyForm){
+    moyForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const v = document.getElementById('moyPk').value.trim();
+      if(/^sk_/i.test(v)){ document.getElementById('moyPk').value = ''; setEnNotice(t('That is the SECRET key — never paste it here. Put it only in Supabase → Edge Functions → Secrets.', 'هذا هو المفتاح السري — لا تلصقه هنا أبدًا. ضعه فقط في Supabase ← Edge Functions ← Secrets.')); return; }
+      if(v && !/^pk_(test|live)_[A-Za-z0-9]+$/.test(v)){ setEnNotice(t('The publishable key starts with pk_test_ or pk_live_.', 'المفتاح العام يبدأ بـ pk_test_ أو pk_live_.')); return; }
+      const { error } = await sb.from('academy_settings').upsert([{ key: 'moyasar_pk', value: v, updated_at: new Date().toISOString() }]);
+      setEnNotice(error ? friendlyErrorMessage(error) : (v ? t('Card payments are on — students now see “Card” at checkout.', 'تم تفعيل الدفع بالبطاقة — سيظهر خيار «بطاقة» للطلاب عند الدفع.') : t('Card payments are off.', 'تم إيقاف الدفع بالبطاقة.')));
     });
   }
   if(plForm){
@@ -6028,6 +6053,11 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     refreshSession();
   });
   if(/type=recovery/.test(location.hash)){ recoveryMode = true; openAuth('reset'); }
+  // back from Moyasar's payment page: confirm the payment on the server and show the result
+  if(window.ccPay) ccPay.handleReturn(sb, async function(r){
+    toast(r.ok ? '✅ ' + t('Payment received', 'تم الدفع') : '⚠️ ' + t('Payment not completed', 'لم يكتمل الدفع'), r.message);
+    if(r.ok){ wantDashboard = true; await refreshSession(); if(typeof showDashView === 'function') showDashView('myplan'); }
+  });
   // Code Cademy home page sends "Sign in" here as english.html?signin=1
   if(/[?&]signin=1/.test(location.search)){
     sb.auth.getSession().then(function(r){ if(!(r.data && r.data.session)) openAuth('login'); });

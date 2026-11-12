@@ -6,9 +6,9 @@ import { createHash } from 'node:crypto';
 
 const pages = {
   'index.html': ['assets/css/hub.css', 'assets/js/fx.js'],
-  'english.html': ['assets/css/site.css', 'assets/css/fields.css', 'assets/js/app.js', 'assets/js/lang.js', 'assets/js/fx.js', 'assets/js/english-games.js', 'assets/js/timetable.js', 'assets/js/push.js'],
-  'tech-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js', 'assets/js/timetable.js', 'assets/js/push.js'],
-  'french-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js', 'assets/js/timetable.js', 'assets/js/push.js'],
+  'english.html': ['assets/css/site.css', 'assets/css/fields.css', 'assets/js/app.js', 'assets/js/lang.js', 'assets/js/fx.js', 'assets/js/english-games.js', 'assets/js/timetable.js', 'assets/js/push.js', 'assets/js/pay.js'],
+  'tech-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js', 'assets/js/timetable.js', 'assets/js/push.js', 'assets/js/pay.js'],
+  'french-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js', 'assets/js/timetable.js', 'assets/js/push.js', 'assets/js/pay.js'],
   'french-app.html': ['assets/css/fields.css'],
   'tech.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js'],
   'room.html': ['assets/js/room.js'],
