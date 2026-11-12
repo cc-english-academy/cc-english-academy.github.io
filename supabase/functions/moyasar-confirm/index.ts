@@ -40,6 +40,13 @@ Deno.serve(async (req) => {
 
   let body: any = {};
   try { body = await req.json(); } catch { /* empty */ }
+  // Moyasar → Settings → Webhooks → "Verify webhook" sends a 6-digit code: it is printed in this
+  // function's Logs (Supabase → Edge Functions → moyasar-confirm → Logs) so it can be typed back into Moyasar.
+  if (body?.type === "webhook_verification" || body?.data?.verification_code) {
+    const code = String(body?.data?.verification_code ?? body?.verification_code ?? "");
+    console.log("MOYASAR VERIFICATION CODE: " + code);
+    return json({ ok: true, message: "verification received" });
+  }
   const id = String(body?.id || body?.data?.id || "").trim();
   // Moyasar's "Verify webhook" test and unknown events: answer 200 so Moyasar accepts the address,
   // but nothing is switched on — only a real payment fetched back from Moyasar can do that.
