@@ -1763,7 +1763,13 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     document.getElementById('coError').textContent = '';
     document.getElementById('coPay').disabled = false;
     coShow(1);
-    if(window.ccPay) ccPay.key(sb).then(function(k){ const o = document.getElementById('coCardOpt'); o.hidden = !k; if(k){ o.querySelector('input').checked = true; } });
+    // with Moyasar on, "Card" replaces the old Visa payment-link option (one clear way to pay by card)
+    if(window.ccPay) ccPay.key(sb).then(function(k){
+      const o = document.getElementById('coCardOpt'), visa = document.querySelector('input[name="coMethod"][value="visa"]');
+      o.hidden = !k;
+      if(visa) visa.closest('label').hidden = !!k;
+      if(k) o.querySelector('input').checked = true;
+    });
     coModal.hidden = false;
     document.body.style.overflow = 'hidden';
   }

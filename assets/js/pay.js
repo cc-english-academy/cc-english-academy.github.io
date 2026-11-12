@@ -18,7 +18,7 @@
   })();
 
   async function key(sb){
-    if(keyCache !== null) return keyCache;
+    if(keyCache) return keyCache; // an empty answer is asked again, so a key saved a moment ago shows up
     try{
       const r = await sb.from('academy_settings').select('value').eq('key', 'moyasar_pk').maybeSingle();
       keyCache = (r.data && r.data.value || '').trim();
@@ -58,16 +58,24 @@
       methods: ['creditcard'],
       supported_networks: ['mada', 'visa', 'mastercard'],
       language: document.documentElement.lang === 'ar' ? 'ar' : 'en',
-      metadata: { kind: o.kind, ref: String(o.ref) }
+      metadata: { kind: o.kind, ref: String(o.ref) },
+      // remember the payment before Moyasar leaves for the 3-D Secure page, so we can confirm it even if
+      // the address we come back to is not what we expect
+      on_completed: function(payment){ try{ if(payment && payment.id) sessionStorage.setItem('cc_pay_id', payment.id); }catch(e){} }
     });
   }
 
   // the student is back from Moyasar (or its 3-D Secure page): confirm on the server, then tidy the address
   async function handleReturn(sb, done){
-    const q = new URLSearchParams(location.search);
-    if(!q.get('mpay') || !q.get('id')) return false;
-    const id = q.get('id'), status = q.get('status'), message = q.get('message') || '';
-    const clean = function(){ const u = new URL(location.href); ['mpay', 'id', 'status', 'message'].forEach(function(k){ u.searchParams.delete(k); }); history.replaceState(null, '', u.pathname + u.search + u.hash); };
+    // Moyasar may add "?id=…" to an address that already has "?mpay=1": read every "?" after the first as "&"
+    let n = 0; const search = location.search.replace(/\?/g, function(){ return n++ ? '&' : '?'; });
+    const q = new URLSearchParams(search);
+    let stored = null; try{ stored = sessionStorage.getItem('cc_pay_id'); }catch(e){}
+    const id = q.get('id') || stored;
+    if(!id) return false;
+    try{ sessionStorage.removeItem('cc_pay_id'); }catch(e){}
+    const status = q.get('status'), message = q.get('message') || '';
+    const clean = function(){ const u = new URL(location.origin + location.pathname + search + location.hash); ['mpay', 'id', 'status', 'message', 'amount', 'currency'].forEach(function(k){ u.searchParams.delete(k); }); history.replaceState(null, '', u.pathname + u.search + u.hash); };
     if(status && status !== 'paid'){ clean(); done({ ok: false, message: message || T('The payment did not go through.', 'لم تتم عملية الدفع.') }); return true; }
     let res = null;
     try{
