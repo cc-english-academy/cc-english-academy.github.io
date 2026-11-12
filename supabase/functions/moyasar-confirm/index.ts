@@ -35,16 +35,22 @@ async function notify(user: string, title: string, body: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
-  if (req.method !== "POST") return json({ ok: false, message: "POST only" }, 405);
+  if (req.method !== "POST") return json({ ok: true, message: "moyasar-confirm is running" });
   if (!SECRET) return json({ ok: false, message: "MOYASAR_SECRET_KEY is not set" }, 500);
 
   let body: any = {};
   try { body = await req.json(); } catch { /* empty */ }
   const id = String(body?.id || body?.data?.id || "").trim();
-  if (!/^[0-9a-f-]{20,64}$/i.test(id)) return json({ ok: false, message: "Missing payment id" }, 400);
+  // Moyasar's "Verify webhook" test and unknown events: answer 200 so Moyasar accepts the address,
+  // but nothing is switched on — only a real payment fetched back from Moyasar can do that.
+  if (!/^[0-9a-f-]{20,64}$/i.test(id)) return json({ ok: false, message: "No payment id — nothing to do" });
 
   let p: any;
-  try { p = await payment(id); } catch (e) { return json({ ok: false, message: "Could not reach Moyasar: " + (e as Error).message }, 502); }
+  try { p = await payment(id); } catch (e) {
+    const msg = (e as Error).message;
+    // 404 = not a real payment (e.g. a sample event): no point in Moyasar retrying
+    return json({ ok: false, message: "Could not get the payment from Moyasar: " + msg }, /Moyasar 404|Moyasar 400/.test(msg) ? 200 : 502);
+  }
   if (p.status !== "paid") return json({ ok: false, message: "Payment status: " + p.status + (p.source?.message ? " — " + p.source.message : "") });
   if (p.currency !== "SAR") return json({ ok: false, message: "Wrong currency" });
 
