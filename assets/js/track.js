@@ -886,6 +886,8 @@
   VIEWS.join = async function(){
     const st = await loadSettings(); if(view !== 'join') return;
     const price = st[TRACK + '_price'];
+    const pk = window.ccPay ? await ccPay.key(sb) : ''; if(view !== 'join') return;
+    const canCard = !!pk && Number(String(price || '').replace(/[^\d.]/g, '')) > 0;
     const mine = D.enrolls || [];
     let h = '<div class="head"><h2>➕ ' + esc(T('Courses & payment', 'الدورات والدفع')) + '</h2></div>' + announceStrip().replace(/data-act="go" data-v="join"/g, 'data-act="pickCourse"');
     if(mine.length) h += '<div class="list">' + mine.map(function(e){
@@ -896,13 +898,14 @@
         x += e.method === 'bank' ? bankBox(st, price) + (e.receipt_path ? '<p class="msg okc">🧾 ' + esc(T('Receipt received. We’ll activate your course soon.', 'وصل الإيصال — سنفعّل الدورة قريبًا.')) + '</p>' : '') +
           '<label class="btn ghost sm file">🧾 ' + esc(e.receipt_path ? T('Replace receipt', 'غيّر الإيصال') : T('Upload the transfer receipt', 'ارفع إيصال التحويل')) + '<input type="file" accept="image/*,application/pdf" data-receipt="' + e.id + '" hidden></label>'
           : '<a class="btn ghost sm" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello! I asked to join ' + courseName(e.course) + '. My name: ' + me.full_name, 'السلام عليكم، طلبت الاشتراك في ' + courseName(e.course) + '. اسمي: ' + me.full_name)) + '">💬 ' + esc(T('Finish on WhatsApp', 'تابع على واتساب')) + '</a>';
+        if(canCard) x += '<button class="btn main sm" data-act="payCard" data-id="' + e.id + '">💳 ' + esc(T('Pay now by card (mada / Visa)', 'ادفع الآن بالبطاقة (مدى / فيزا)')) + '</button>';
         x += '<button class="link danger" data-act="cancelReq" data-id="' + e.id + '">' + esc(T('Cancel request', 'إلغاء الطلب')) + '</button>';
       }
       return x + '</div>';
     }).join('') + '</div>';
     h += '<div class="card"><h3>' + esc(T('Join a new course', 'اشترك في دورة جديدة')) + '</h3>' + (price ? '<p class="price">' + esc(price) + ' <small>' + esc(T('SAR / month', 'ريال / شهر')) + '</small></p>' : '') +
       '<form data-form="enroll" class="form"><label>' + esc(T('Course', 'الدورة')) + '<select name="course" required>' + courseOptions('', false, true) + '</select></label>' +
-      '<fieldset class="pay"><legend>' + esc(T('How will you pay?', 'كيف ستدفع؟')) + '</legend><label><input type="radio" name="method" value="bank" checked> 🏦 ' + esc(T('Bank transfer (Al Rajhi)', 'تحويل بنكي (الراجحي)')) + '</label><label><input type="radio" name="method" value="whatsapp"> 💬 ' + esc(T('Talk to us on WhatsApp', 'نتحدث على واتساب')) + '</label></fieldset>' +
+      '<fieldset class="pay"><legend>' + esc(T('How will you pay?', 'كيف ستدفع؟')) + '</legend>' + (canCard ? '<label><input type="radio" name="method" value="card" checked> 💳 ' + esc(T('Card — mada · Visa · Mastercard (active at once)', 'بطاقة — مدى · فيزا · ماستركارد (تتفعّل فورًا)')) + '</label>' : '') + '<label><input type="radio" name="method" value="bank"' + (canCard ? '' : ' checked') + '> 🏦 ' + esc(T('Bank transfer (Al Rajhi)', 'تحويل بنكي (الراجحي)')) + '</label><label><input type="radio" name="method" value="whatsapp"> 💬 ' + esc(T('Talk to us on WhatsApp', 'نتحدث على واتساب')) + '</label></fieldset>' +
       '<button class="btn main" type="submit">' + esc(T('Send my request', 'أرسل طلبي')) + '</button></form></div>';
     main.innerHTML = h;
   };
@@ -918,8 +921,23 @@
       const r = await sb.from('track_enrollments').insert({ track: TRACK, course: course, method: method }).select().single();
       if(r.error) throw r.error;
       D.enrolls.push(Object.assign({ status: 'pending', method: method, course: course }, r.data)); toast(T('Request sent ✓', 'أُرسل الطلب ✓'));
+      if(method === 'card'){ render(); payByCard(r.data.id, course); return; }
       if(method === 'whatsapp') window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(T('Hello! I would like to join ' + courseName(course) + '. My name: ' + me.full_name, 'السلام عليكم، أريد الاشتراك في ' + courseName(course) + '. اسمي: ' + me.full_name)), '_blank');
       render();
+    });
+  };
+  // card payment in a window: Moyasar's form, then Moyasar sends the student back here (handled at start)
+  async function payByCard(id, course){
+    const st = await loadSettings();
+    const amount = Number(String(st[TRACK + '_price'] || '').replace(/[^\d.]/g, ''));
+    openModal('<h3>💳 ' + esc(T('Pay by card', 'الدفع بالبطاقة')) + '</h3><p class="muted">' + esc(courseName(course)) + ' — <b>' + esc(amount) + ' ' + esc(T('SAR', 'ريال')) + '</b></p><div id="payBox"></div><button class="btn ghost" data-close>' + esc(T('Close', 'إغلاق')) + '</button>');
+    ccPay.form($('payBox'), sb, { kind: 'track', ref: id, amount: amount, description: (FR ? 'Le Club Français' : 'Coco Tech Lab') + ' — ' + courseName(course) });
+  }
+  ACT.payCard = function(b){
+    const id = +b.dataset.id, e = (D.enrolls || []).find(function(x){ return x.id === id; });
+    busy(b, async function(){
+      if(e && e.method !== 'card'){ const r = await sb.rpc('track_pay_by_card', { p_id: id }); if(r.error) throw r.error; e.method = 'card'; }
+      await payByCard(id, e ? e.course : '');
     });
   };
   ACT.cancelReq = function(b){
@@ -1569,7 +1587,11 @@
     let qs = null; try{ qs = new URLSearchParams(location.search); }catch(e){}
     if(qs && qs.get('verify')) return showVerify(qs.get('verify'));
     if(qs && qs.get('portfolio')) return showPortfolio(qs.get('portfolio'));
+    // back from Moyasar: confirm the payment first, so the dashboard loads with the course already active
+    let payRes = null;
+    if(window.ccPay){ try{ await ccPay.handleReturn(sb, function(r){ payRes = r; }); }catch(e){} }
     try{ await start(); }catch(e){ console.error(e); showAuth(errText(e)); }
+    if(payRes){ toast(payRes.message, !payRes.ok); if(payRes.ok && me && ROLE() === 'student') go('join'); }
   })();
   sb.auth.onAuthStateChange(function(ev){
     if(ev === 'PASSWORD_RECOVERY'){ recovering = true; authMode = 'reset'; showAuth(); return; } // arrived from the reset email

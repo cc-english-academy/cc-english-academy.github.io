@@ -1,6 +1,14 @@
 /* ===== Language switcher (EN / AR) ===== */
 (function(){
   const DICT = {
+    "Card — mada · Visa · Mastercard":"بطاقة — مدى · فيزا · ماستركارد",
+    "Pay now on Moyasar’s secure form — your plan switches on at once":"ادفع الآن عبر نموذج ميسر الآمن — تتفعّل خطتك فورًا",
+    "Pay by card":"الدفع بالبطاقة",
+    "← Back":"→ رجوع",
+    "Card payments (Moyasar)":"الدفع بالبطاقة (ميسر)",
+    "Paste the Publishable key from Moyasar → Settings → API Keys (it starts with pk_test_ or pk_live_). Never paste the Secret key here.":"الصق «المفتاح العام» (Publishable key) من ميسر ← الإعدادات ← مفاتيح API (يبدأ بـ pk_test_ أو pk_live_). لا تلصق المفتاح السري هنا أبدًا.",
+    "Moyasar publishable key":"المفتاح العام لميسر",
+    "Save card payment key":"احفظ مفتاح الدفع بالبطاقة",
     "📅 My class timetable":"📅 جدول حصصي",
     "Enter the email on your account. We will send you a link to choose a new password.":"اكتب البريد الإلكتروني المسجّل في حسابك، وسنرسل لك رابطًا لاختيار كلمة مرور جديدة.",
     "Your email":"بريدك الإلكتروني",

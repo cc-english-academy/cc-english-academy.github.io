@@ -2147,6 +2147,50 @@ $$;
 revoke all on function public.delete_push_subscription(text) from public;
 grant execute on function public.delete_push_subscription(text) to authenticated;
 
+-- ---------------------------------------------------------------------
+-- 13. Card payments with Moyasar (mada / Visa / Mastercard)
+-- ---------------------------------------------------------------------
+-- The Edge Function "moyasar-confirm" checks each payment with Moyasar and switches the request on.
+-- payment_ref = the Moyasar payment id; unique, so one payment can never activate two requests.
+alter table public.enrollments add column if not exists payment_ref text;
+create unique index if not exists enrollments_payment_ref_uq on public.enrollments (payment_ref) where payment_ref is not null;
+alter table public.track_enrollments add column if not exists payment_ref text;
+create unique index if not exists track_enrollments_payment_ref_uq on public.track_enrollments (payment_ref) where payment_ref is not null;
+-- "card" joins the ways to pay
+do $$ begin
+  alter table public.track_enrollments drop constraint if exists track_enrollments_method_check;
+  alter table public.track_enrollments add constraint track_enrollments_method_check check (method in ('bank', 'whatsapp', 'card'));
+end $$;
+create or replace function public.request_enrollment(p_plan text, p_method text)
+returns bigint language plpgsql security definer set search_path = public as $$
+declare v_price numeric; v_id bigint;
+begin
+  if auth.uid() is null then raise exception 'Please sign in first'; end if;
+  if public.my_role() <> 'student' then raise exception 'Plans are for student accounts'; end if;
+  v_price := public.plan_price(p_plan);
+  if v_price is null then raise exception 'Unknown plan'; end if;
+  if p_method not in ('tamara','visa','whatsapp','bank','card') then raise exception 'Unknown payment method'; end if;
+  update public.enrollments set method = p_method, amount = v_price
+   where student_id = auth.uid() and plan = p_plan and status = 'pending'
+  returning id into v_id;
+  if v_id is null then
+    insert into public.enrollments (student_id, plan, method, amount, status)
+    values (auth.uid(), p_plan, p_method, v_price, 'pending') returning id into v_id;
+  end if;
+  return v_id;
+end $$;
+grant execute on function public.request_enrollment(text, text) to authenticated;
+-- a student may switch their own waiting course request to card payment
+create or replace function public.track_pay_by_card(p_id bigint)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  update public.track_enrollments set method = 'card'
+   where id = p_id and student_id = auth.uid() and status = 'pending';
+  if not found then raise exception 'This request is no longer waiting for payment'; end if;
+end $$;
+revoke all on function public.track_pay_by_card(bigint) from public;
+grant execute on function public.track_pay_by_card(bigint) to authenticated;
+
 -- =====================================================================
 -- Make yourself the admin (run once, with YOUR e-mail):
 --   update public.profiles set role = 'admin'
