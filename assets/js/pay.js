@@ -61,7 +61,7 @@
       metadata: { kind: o.kind, ref: String(o.ref) },
       // remember the payment before Moyasar leaves for the 3-D Secure page, so we can confirm it even if
       // the address we come back to is not what we expect
-      on_completed: function(payment){ try{ if(payment && payment.id) sessionStorage.setItem('cc_pay_id', payment.id); }catch(e){} }
+      on_completed: async function(payment){ try{ if(payment && payment.id) sessionStorage.setItem('cc_pay_id', payment.id); }catch(e){} } // Moyasar requires an async (promise-based) function
     });
   }
 
