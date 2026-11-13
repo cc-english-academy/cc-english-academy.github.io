@@ -13,7 +13,7 @@
     const st = document.createElement('style');
     st.textContent = '.pay-test{background:#fff6dd;border:1px solid #f0d58a;color:#6b4e00;border-radius:10px;padding:8px 12px;font-size:.85rem;margin:6px 0}' +
       '.pay-secure{color:#2f6b4f;font-size:.82rem;margin:6px 0 10px}.pay-err{color:#b42318;font-weight:700}.pay-wait{color:#777}' +
-      '.mysr-form{max-width:420px;margin:0 auto 10px}';
+      '.mysr-form{max-width:420px;margin:0 auto 10px}.pay-diag{white-space:pre-wrap;font-size:.72rem;background:#fff2f0;color:#7a1c12;border-radius:8px;padding:8px;max-height:140px;overflow:auto}';
     document.head.appendChild(st);
   })();
 
@@ -48,6 +48,17 @@
       '<p class="pay-secure">🔒 ' + T('Secure payment by Moyasar. Your card details go straight to Moyasar, not to this site.', 'دفع آمن عبر ميسر. بيانات بطاقتك تذهب مباشرة إلى ميسر وليس إلى هذا الموقع.') + '</p>';
     el.appendChild(box);
     try{ sessionStorage.setItem('cc_pay_back', location.pathname + location.hash); }catch(e){}
+    // if Moyasar refuses the settings it only says so in the console: show its reasons under the form
+    const errs = [], ce = console.error, cw = console.warn;
+    const grab = function(orig){ return function(){ try{ errs.push(Array.prototype.map.call(arguments, function(a){ return a && a.message ? a.message : String(a); }).join(' ')); }catch(e){} return orig.apply(console, arguments); }; };
+    console.error = grab(ce); console.warn = grab(cw);
+    setTimeout(function(){
+      console.error = ce; console.warn = cw;
+      if(/configuration issue/i.test(box.textContent) && errs.length){
+        const d = document.createElement('pre'); d.className = 'pay-diag'; d.dir = 'ltr';
+        d.textContent = errs.slice(0, 6).join('\n'); el.appendChild(d);
+      }
+    }, 2500);
     window.Moyasar.init({
       element: box,
       amount: Math.round(Number(o.amount) * 100),   // in halalas
@@ -58,10 +69,7 @@
       methods: ['creditcard'],
       supported_networks: ['mada', 'visa', 'mastercard'],
       language: document.documentElement.lang === 'ar' ? 'ar' : 'en',
-      metadata: { kind: o.kind, ref: String(o.ref) },
-      // remember the payment before Moyasar leaves for the 3-D Secure page, so we can confirm it even if
-      // the address we come back to is not what we expect
-      on_completed: async function(payment){ try{ if(payment && payment.id) sessionStorage.setItem('cc_pay_id', payment.id); }catch(e){} } // Moyasar requires an async (promise-based) function
+      metadata: { kind: o.kind, ref: String(o.ref) }
     });
   }
 
