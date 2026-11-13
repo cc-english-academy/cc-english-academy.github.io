@@ -63,3 +63,8 @@
   }
   window.ccFx = { confetti: confetti, burstFrom: burstFrom, countUp: countUp, tilt: tilt, calm: calm };
 })();
+
+// installable app: every page registers the service worker (fast loading, class notifications, the Android app)
+if('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}

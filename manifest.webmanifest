@@ -1,12 +1,25 @@
 {
-  "name": "Code Cademy — English Immersion",
+  "id": "/",
+  "name": "Code Cademy",
   "short_name": "Code Cademy",
-  "start_url": "./",
+  "description": "English, French, and Programming & IT for every age: live classes, Coco the AI coach, games, certificates and dashboards.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/?source=app",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#FCFAF6",
+  "background_color": "#1b1a2e",
   "theme_color": "#3E0F1B",
+  "categories": ["education", "kids", "productivity"],
   "icons": [
-    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "English", "short_name": "English", "url": "/english.html?signin=1", "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Le Club Français", "short_name": "Français", "url": "/french-dashboard.html", "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Coco Tech Lab", "short_name": "Tech", "url": "/tech-dashboard.html", "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }] }
   ]
 }
