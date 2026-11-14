@@ -402,10 +402,10 @@ function hat(when,v=.06){const a=ac();if(!a)return;noiseBuf(a);const t=a.current
 
 /* speech */
 let VOICE=null;
-function loadVoices(){const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));const pref=["Samantha","Google US English","Aria","Jenny","Karen","Moira","Tessa","Female","Zira"];VOICE=pref.map(p=>vs.find(v=>v.name.includes(p))).find(Boolean)||vs.find(v=>/en[-_]US/i.test(v.lang))||vs[0]||null}
+function loadVoices(){const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));const pref=["Natural","Neural","Premium","Enhanced","Ava","Samantha","Allison","Susan","Google US English","Jenny","Aria","Karen","Moira","Tessa","Female","Zira"];VOICE=pref.map(p=>vs.find(v=>v.name.includes(p)&&/en[-_](US|GB)/i.test(v.lang))||vs.find(v=>v.name.includes(p))).find(Boolean)||vs.find(v=>/en[-_]US/i.test(v.lang))||vs[0]||null}
 const HAS_TTS="speechSynthesis" in window;
 if(HAS_TTS){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
-function say(text,{rate=.9,pitch=1.15,cancel=true}={}){return new Promise(res=>{if(!HAS_TTS){setTimeout(res,600);return}if(cancel)speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);if(VOICE)u.voice=VOICE;u.lang=VOICE?VOICE.lang:"en-US";u.rate=rate;u.pitch=pitch;let done=false;const fin=()=>{if(!done){done=true;res()}};u.onend=fin;u.onerror=fin;setTimeout(fin,600+text.length*110);speechSynthesis.speak(u)})}
+function say(text,{rate=.9,pitch=1.15,cancel=true}={}){return new Promise(res=>{if(!HAS_TTS){setTimeout(res,600);return}if(cancel)speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);if(VOICE)u.voice=VOICE;u.lang=VOICE?VOICE.lang:"en-US";u.rate=Math.max(.55,rate*.8);u.pitch=1;u.volume=1;if(BUS&&AC)BUS.gain.setTargetAtTime(.45,AC.currentTime,.08);let done=false;const fin=()=>{if(!done){done=true;if(BUS&&AC)BUS.gain.setTargetAtTime(.85,AC.currentTime,.25);res()}};u.onend=fin;u.onerror=fin;setTimeout(fin,900+text.length*150);speechSynthesis.speak(u)})}
 function stopAll(){if(HAS_TTS)speechSynthesis.cancel();songToken++;endSong();cancelAnimationFrame(balloonRAF)}
 
 /* ---------------- mascot ---------------- */
@@ -488,7 +488,7 @@ function stepMeet(){
   </div>
   <div class="more"><div class="mini" id="w2"><img src="${emo(x.w2)}" alt=""><b>${x.u==="X"?"":x.w2[0]}</b>${x.u==="X"?x.w2.replace("x","<b>x</b>"):x.w2.slice(1)}</div></div>
   <div class="sbtns"><button class="sbtn" id="meetNext">Next: Trace it! ${PLAY}</button></div></div>`;
-  const nm=()=>say(x.name),sd=()=>say(`${x.snd}. ${x.snd}.`,{rate:.75}),wd=()=>say(x.w1);
+  const nm=()=>say(x.name),sd=()=>say(`${x.snd}... ${x.snd}...`,{rate:.7}),wd=()=>say(x.w1);
   $("#bName").onclick=nm;$("#bSound").onclick=sd;$("#bWord").onclick=wd;$("#bl").onclick=()=>say(`${x.name}. ${x.name} says ${x.snd}.`);
   $("#pic").onclick=()=>say(x.u==="X"?`box. X is at the end of box. ks, ks, box!`:`${x.snd}, ${x.snd}, ${x.w1}!`);
   $("#w2").onclick=()=>say(x.u==="X"?"fox. ks, ks, fox!":`${x.snd}, ${x.snd}, ${x.w2}!`);
