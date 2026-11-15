@@ -898,6 +898,14 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     dashAvatar.textContent = (currentProfile.full_name || '?').trim().charAt(0).toUpperCase();
     dashName.textContent = currentProfile.full_name;
     dashRoleClub.textContent = roleLabel + (currentProfile.club ? ' · ' + currentProfile.club : '');
+    // the student's club world behind the dashboard and as a banner (teachers / parents: Code Cademy)
+    if(window.ccWorlds){
+      const wid = ccWorlds.fromClub(isStudent() ? currentProfile.club : 'academy'), w = ccWorlds.get(wid);
+      document.getElementById('clubWorld').innerHTML = ccWorlds.svg(wid);
+      const cb = document.getElementById('clubBanner');
+      cb.innerHTML = ccWorlds.svg(wid) + '<div class="cb-t"><b>' + esc(w.icon + ' ' + t(w.en, w.ar)) + '</b><small>' + esc(isStudent() ? t('Your world at Code Cademy', 'عالمك في Code Cademy') : t('Welcome to Code Cademy', 'أهلًا بك في Code Cademy')) + '</small></div>';
+      cb.hidden = false;
+    }
     ovName.textContent = (currentProfile.full_name || '').split(' ')[0];
     dashboardPage.dataset.role = role;
 
