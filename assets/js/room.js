@@ -80,6 +80,7 @@
     try{
       const st = await navigator.mediaDevices.getUserMedia(kind === 'cam' ? { video: Object.assign(videoC(), { deviceId: { exact: id } }) } : { audio: Object.assign(audioC(), { deviceId: { exact: id } }) });
       const nt = kind === 'cam' ? st.getVideoTracks()[0] : st.getAudioTracks()[0];
+      if(kind === 'cam' && VB.on){ const raw = camTrack; camTrack = nt; nt.enabled = true; VB.video.srcObject = new MediaStream([nt]); VB.video.play().catch(function(){}); if(raw) raw.stop(); toast(T('Camera changed ✓', 'تم تغيير الكاميرا ✓')); return; }
       const old = kind === 'cam' ? camTrack : local.getAudioTracks()[0];
       nt.enabled = kind === 'cam' ? me.cam : me.mic;
       Object.keys(peers).forEach(function(pid){
@@ -127,7 +128,7 @@
     local.getTracks().forEach(function(t){ pc.addTrack(t, local); });
     if(!local.getAudioTracks().length) pc.addTransceiver('audio', { direction: 'recvonly' });
     if(!local.getVideoTracks().length) pc.addTransceiver('video', { direction: 'recvonly' });
-    pc.ontrack = function(e){ if(!p.stream.getTracks().includes(e.track)) p.stream.addTrack(e.track); render(); watchVoice(id, p.stream); };
+    pc.ontrack = function(e){ if(!p.stream.getTracks().includes(e.track)) p.stream.addTrack(e.track); render(); watchVoice(id, p.stream); if(REC.on && e.track.kind === 'audio') recAddAudio(e.track); };
     pc.onicecandidate = function(e){ if(e.candidate) net.send({ t: 'ice', from: me.id, to: id, c: e.candidate }); };
     pc.onnegotiationneeded = async function(){
       try{ p.making = true; await pc.setLocalDescription(); net.send({ t: 'sdp', from: me.id, to: id, d: pc.localDescription }); }
@@ -146,12 +147,14 @@
     if(m.to && m.to !== me.id) return;
     if(m.t === 'hello' || m.t === 'state'){
       const p = peer(m.from); p.name = m.name || p.name; p.mic = m.mic; p.cam = m.cam; p.hand = m.hand; p.screen = m.screen;
-      if(m.t === 'hello'){ sendState(m.from); wbWelcome(m.from); }
+      if(m.t === 'hello'){ sendState(m.from); wbWelcome(m.from); worldWelcome(m.from); if(REC.on) net.send({ t: 'rec', from: me.id, to: m.from, on: true, name: me.name }); }
       render(); return;
     }
     if(m.t === 'bye'){ left[m.from] = 1; drop(m.from); return; }
     if(m.t === 'ask'){ sendState(m.from); return; }
     if(m.t && m.t.indexOf('wb') === 0){ wbMsg(m); return; }
+    if(m.t === 'world'){ applyWorld(m.w, false); worldSet = true; return; }
+    if(m.t === 'rec'){ recBanner(m.from, m.on, m.name); return; }
     if(m.t === 'chat'){ addChat(m.name, m.text, false); return; }
     if(m.t === 'sdp'){
       const p = peer(m.from), pc = p.pc, d = m.d;
@@ -249,14 +252,14 @@
     const sb = $('btnShare'); if(sb){ sb.classList.toggle('on', me.screen); sb.querySelector('span').textContent = me.screen ? T('Stop sharing', 'إيقاف المشاركة') : T('Share screen', 'مشاركة الشاشة'); }
   }
   function toggleMic(){ me.mic = !me.mic; local.getAudioTracks().forEach(function(t){ t.enabled = me.mic; }); syncButtons(); sendState(); render(); }
-  function toggleCam(){ if(!camTrack){ toast(T('No camera found.', 'لا توجد كاميرا.')); return; } me.cam = !me.cam; camTrack.enabled = me.cam; syncButtons(); sendState(); render(); }
+  function toggleCam(){ if(!camTrack){ toast(T('No camera found.', 'لا توجد كاميرا.')); return; } me.cam = !me.cam; camTrack.enabled = me.cam; if(VB.out) VB.out.enabled = me.cam; syncButtons(); sendState(); render(); }
   function videoSenders(){ return Object.keys(peers).map(function(id){ return peers[id].pc.getSenders().find(function(s){ return s.track && s.track.kind === 'video'; }) || peers[id].pc.getSenders().find(function(s){ return !s.track; }); }).filter(Boolean); }
   async function toggleShare(){
     if(me.screen){ stopShare(); return; }
     if(!navigator.mediaDevices.getDisplayMedia){ toast(T('Screen sharing works on a computer browser.', 'مشاركة الشاشة تعمل من متصفح الحاسوب.')); return; }
     try{ screenTrack = (await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 15 } })).getVideoTracks()[0]; }catch(e){ return; }
     screenTrack.onended = stopShare;
-    if(camTrack){ videoSenders().forEach(function(s){ s.replaceTrack(screenTrack); }); local.removeTrack(camTrack); }
+    if(camOut()){ videoSenders().forEach(function(s){ s.replaceTrack(screenTrack); }); local.removeTrack(camOut()); }
     else Object.keys(peers).forEach(function(id){ peers[id].pc.addTrack(screenTrack, local); });
     local.addTrack(screenTrack);
     me.screen = true; syncButtons(); sendState(); render();
@@ -265,7 +268,7 @@
     if(!screenTrack) return;
     const st = screenTrack; screenTrack = null; st.onended = null; st.stop();
     local.removeTrack(st);
-    if(camTrack){ local.addTrack(camTrack); videoSenders().forEach(function(s){ s.replaceTrack(camTrack); }); }
+    if(camOut()){ local.addTrack(camOut()); videoSenders().forEach(function(s){ s.replaceTrack(camOut()); }); }
     me.screen = false; syncButtons(); sendState(); render();
   }
   function toggleHand(){ me.hand = !me.hand; syncButtons(); sendState(); render(); }
@@ -306,6 +309,7 @@
   }
   function leaveQuiet(){ try{ if(net){ net.send({ t: 'bye', from: me.id }); net.leave(); } }catch(e){} Object.keys(peers).forEach(drop); }
   function leave(){
+    if(REC.on) stopRec();
     leaveQuiet();
     if(local) local.getTracks().forEach(function(t){ t.stop(); });
     if(screenTrack) screenTrack.stop();
@@ -497,8 +501,221 @@
     document.addEventListener('keydown', function(e){ if(WB.open && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !e.target.closest('input,textarea')){ e.preventDefault(); wbUndo(); } });
   }
 
+  // =====================================================================
+  // Worlds: every club / course has its own room (background scene), shared by everyone in the room.
+  // =====================================================================
+  const WORLDS = window.ccWorlds;
+  let world = WORLDS ? WORLDS.fromClub(params.get('w') || params.get('club') || 'academy') : 'academy', worldSet = false;
+  function worldName(id){ const w = WORLDS ? WORLDS.get(id) : null; return w ? w.icon + ' ' + T(w.en, w.ar) : 'Code Cademy'; }
+  function applyWorld(id, tell){
+    if(!WORLDS) return;
+    world = WORLDS.get(id).id;
+    document.body.dataset.world = world;
+    ['world', 'lobbyWorld'].forEach(function(k){ const el = $(k); if(el) el.innerHTML = WORLDS.svg(world); });
+    const tag = $('worldTag'); if(tag) tag.textContent = worldName(world);
+    const sel = $('worldSel'); if(sel) sel.value = world;
+    if(VB.on && VB.mode === 'world') VB.loadBg();
+    if(tell && net){ net.send({ t: 'world', from: me.id, w: world }); worldSet = true; toast(T('Room changed to ', 'تم تغيير الغرفة إلى ') + worldName(world)); }
+  }
+  // someone new joins: the member with the smallest id tells them the room's world, if it was changed
+  function worldWelcome(newId){
+    if(!worldSet) return;
+    const others = Object.keys(peers).filter(function(id){ return id !== newId; }).concat([me.id]).sort();
+    if(others[0] === me.id) net.send({ t: 'world', from: me.id, to: newId, w: world });
+  }
+
+  // =====================================================================
+  // Virtual background for my camera: blur, or a club world behind me (MediaPipe Selfie Segmentation,
+  // runs on this device; the video that goes to the others already has the background).
+  // =====================================================================
+  const MP = 'https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1.1675465747/';
+  const VB = { on: false, mode: 'none', seg: null, video: null, canvas: null, ctx: null, out: null, bg: null, busy: false, loading: null,
+    loadBg: function(){ const id = VB.mode === 'world' ? world : VB.mode; VB.bg = null; if(WORLDS && id !== 'blur' && id !== 'none') WORLDS.image(id).then(function(im){ VB.bg = im; }); } };
+  function camOut(){ return VB.on && VB.out ? VB.out : camTrack; }
+  function loadSeg(){
+    if(VB.loading) return VB.loading;
+    VB.loading = new Promise(function(res, rej){
+      if(window.SelfieSegmentation) return res();
+      const sc = document.createElement('script'); sc.src = MP + 'selfie_segmentation.js'; sc.crossOrigin = 'anonymous';
+      sc.onload = res; sc.onerror = function(){ VB.loading = null; rej(new Error('segmentation did not load')); };
+      document.head.appendChild(sc);
+    }).then(function(){
+      const seg = new window.SelfieSegmentation({ locateFile: function(f){ return MP + f; } });
+      seg.setOptions({ modelSelection: 1 });
+      seg.onResults(vbDraw);
+      return seg.initialize().then(function(){ VB.seg = seg; });
+    });
+    return VB.loading;
+  }
+  function vbDraw(r){
+    const c = VB.ctx, w = VB.canvas.width, h = VB.canvas.height;
+    c.save(); c.clearRect(0, 0, w, h);
+    c.drawImage(r.segmentationMask, 0, 0, w, h);
+    c.globalCompositeOperation = 'source-in'; c.drawImage(r.image, 0, 0, w, h);   // keep only the person
+    c.globalCompositeOperation = 'destination-over';
+    if(VB.mode === 'blur'){ c.filter = 'blur(14px)'; c.drawImage(r.image, 0, 0, w, h); c.filter = 'none'; }
+    else if(VB.bg){ const im = VB.bg, s = Math.max(w / im.width, h / im.height); c.drawImage(im, (w - im.width * s) / 2, (h - im.height * s) / 2, im.width * s, im.height * s); }
+    else { c.fillStyle = '#2a0b16'; c.fillRect(0, 0, w, h); }
+    c.restore();
+  }
+  async function vbPump(){
+    while(VB.on){
+      const v = VB.video;
+      if(v && v.readyState >= 2 && !VB.busy){ VB.busy = true; try{ await VB.seg.send({ image: v }); }catch(e){} VB.busy = false; }
+      await new Promise(function(r){ setTimeout(r, 66); }); // about 15 frames a second
+    }
+  }
+  async function setVB(mode){
+    store.set('cc_room_vb', mode);
+    if(mode === 'none'){ stopVB(); return; }
+    if(!camTrack){ toast(T('Turn on a camera first.', 'شغّل الكاميرا أولًا.')); return; }
+    VB.mode = mode; VB.loadBg();
+    if(VB.on) return; // already running: only the background changed
+    toast(T('Preparing the background…', 'جارٍ تجهيز الخلفية…'));
+    try{ await loadSeg(); }catch(e){ toast(T('The virtual background could not load on this device.', 'تعذّر تحميل الخلفية الافتراضية على هذا الجهاز.')); const s = $('vbSel'); if(s) s.value = 'none'; return; }
+    const st = camTrack.getSettings ? camTrack.getSettings() : {};
+    VB.canvas = VB.canvas || document.createElement('canvas');
+    VB.canvas.width = st.width || 640; VB.canvas.height = st.height || 360;
+    VB.ctx = VB.canvas.getContext('2d');
+    VB.video = VB.video || Object.assign(document.createElement('video'), { muted: true, playsInline: true, autoplay: true });
+    VB.video.srcObject = new MediaStream([camTrack]); VB.video.play().catch(function(){});
+    camTrack.enabled = true; // the raw camera always feeds the effect; on/off is done on the output
+    VB.out = VB.canvas.captureStream(15).getVideoTracks()[0];
+    VB.out.enabled = me.cam;
+    VB.on = true; vbPump();
+    if(!me.screen){
+      videoSenders().forEach(function(s){ s.replaceTrack(VB.out); });
+      local.removeTrack(camTrack); local.addTrack(VB.out);
+    }
+    $('preview').srcObject = null; $('preview').srcObject = local;
+    render();
+  }
+  function stopVB(){
+    if(!VB.on){ VB.mode = 'none'; return; }
+    const out = VB.out; VB.on = false; VB.mode = 'none'; VB.out = null;
+    camTrack.enabled = me.cam;
+    if(!me.screen){
+      videoSenders().forEach(function(s){ s.replaceTrack(camTrack); });
+      if(out) local.removeTrack(out); local.addTrack(camTrack);
+    }
+    if(out) out.stop();
+    $('preview').srcObject = null; $('preview').srcObject = local;
+    render();
+  }
+
+  // =====================================================================
+  // Recording: the whole class in one video — the room's world, every camera with names, the whiteboard
+  // when it is open, the academy logo, and everyone's sound mixed. Saved on this device (.webm / .mp4).
+  // Everyone in the room sees that the class is being recorded.
+  // =====================================================================
+  const REC = { on: false, mr: null, chunks: [], canvas: null, ctx: null, dest: null, timer: 0, start: 0, bg: null, logo: null, srcs: [], who: {} };
+  const logoImg = new Image(); logoImg.src = 'assets/img/logo.jpg';
+  function recAddAudio(track){
+    try{ const src = actx.createMediaStreamSource(new MediaStream([track])); src.connect(REC.dest); REC.srcs.push(src); }catch(e){}
+  }
+  function recMime(){
+    const c = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4;codecs=avc1,mp4a', 'video/mp4'];
+    for(let i = 0; i < c.length; i++) if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c[i])) return c[i];
+    return '';
+  }
+  function cover(c, src, x, y, w, h, sw, sh, mirror){
+    const s = Math.max(w / sw, h / sh), dw = sw * s, dh = sh * s;
+    c.save(); c.beginPath(); if(c.roundRect) c.roundRect(x, y, w, h, 14); else c.rect(x, y, w, h); c.clip();
+    if(mirror){ c.translate(x + w, 0); c.scale(-1, 1); c.drawImage(src, (w - dw) / 2, y + (h - dh) / 2, dw, dh); } // my own camera, mirrored like on screen
+    else c.drawImage(src, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+    c.restore();
+  }
+  function recFrame(){
+    const c = REC.ctx, W = 1280, H = 720;
+    if(REC.bg){ const s = Math.max(W / REC.bg.width, H / REC.bg.height); c.drawImage(REC.bg, (W - REC.bg.width * s) / 2, (H - REC.bg.height * s) / 2, REC.bg.width * s, REC.bg.height * s); }
+    else { c.fillStyle = '#1a1729'; c.fillRect(0, 0, W, H); }
+    c.fillStyle = 'rgba(10,8,20,.35)'; c.fillRect(0, 0, W, H);
+    const tiles = Array.prototype.slice.call(document.querySelectorAll('#grid .tile'));
+    let area = { x: 24, y: 76, w: W - 48, h: H - 100 };
+    if(WB.open && wbCanvas && wbCanvas.width){ // whiteboard big, cameras in a strip on the side
+      const bw = W - 48 - 230, bh = bw * WB_H > H - 100 ? H - 100 : bw * WB_H;
+      c.drawImage(wbCanvas, 24, 76, bh / WB_H, bh);
+      area = { x: 24 + bh / WB_H + 16, y: 76, w: W - 48 - bh / WB_H - 16, h: H - 100 };
+    }
+    const n = Math.max(1, tiles.length);
+    const cols = area.w < 400 ? 1 : n <= 1 ? 1 : n <= 4 ? 2 : n <= 9 ? 3 : 4, rows = Math.ceil(n / cols);
+    const gap = 12, cw = (area.w - gap * (cols - 1)) / cols, ch = Math.min((area.h - gap * (rows - 1)) / rows, cw * 9 / 16);
+    const top = area.y + (area.h - (ch * rows + gap * (rows - 1))) / 2;
+    tiles.forEach(function(t, i){
+      const x = area.x + (i % cols) * (cw + gap), y = top + Math.floor(i / cols) * (ch + gap);
+      const v = t.querySelector('video'), ava = t.querySelector('.ava');
+      c.fillStyle = '#14111f'; c.beginPath(); if(c.roundRect) c.roundRect(x, y, cw, ch, 14); else c.rect(x, y, cw, ch); c.fill();
+      if(v && v.videoWidth && (!ava || ava.hidden)) cover(c, v, x, y, cw, ch, v.videoWidth, v.videoHeight, t.classList.contains('me') && !t.classList.contains('share'));
+      else { c.fillStyle = '#7c5cff'; c.beginPath(); c.arc(x + cw / 2, y + ch / 2, Math.min(cw, ch) / 5, 0, Math.PI * 2); c.fill(); c.fillStyle = '#fff'; c.font = '700 ' + (Math.min(cw, ch) / 6 | 0) + 'px Inter, Cairo, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText((ava && ava.textContent) || '?', x + cw / 2, y + ch / 2); }
+      if(t.classList.contains('talk')){ c.strokeStyle = '#30c48d'; c.lineWidth = 4; c.beginPath(); if(c.roundRect) c.roundRect(x, y, cw, ch, 14); else c.rect(x, y, cw, ch); c.stroke(); }
+      const name = (t.querySelector('.tag span') || {}).textContent || '';
+      c.font = '600 15px Inter, Cairo, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'middle';
+      const tw = Math.min(cw - 20, c.measureText(name).width + 20);
+      c.fillStyle = 'rgba(0,0,0,.55)'; c.beginPath(); if(c.roundRect) c.roundRect(x + 10, y + ch - 36, tw, 26, 13); else c.rect(x + 10, y + ch - 36, tw, 26); c.fill();
+      c.fillStyle = '#fff'; c.fillText(name, x + 20, y + ch - 23, tw - 20);
+    });
+    // header: academy logo, room name, recording time
+    if(logoImg.complete && logoImg.naturalWidth){ c.save(); c.beginPath(); if(c.roundRect) c.roundRect(24, 16, 44, 44, 10); else c.rect(24, 16, 44, 44); c.clip(); c.drawImage(logoImg, 24, 16, 44, 44); c.restore(); }
+    c.fillStyle = '#fff'; c.font = '800 22px Inter, Cairo, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'middle';
+    c.fillText('Code Cademy', 80, 30); c.font = '600 15px Inter, Cairo, sans-serif'; c.fillStyle = '#f3dca4'; c.fillText(worldName(world), 80, 52);
+    const sec = Math.floor((Date.now() - REC.start) / 1000), tm = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+    c.fillStyle = 'rgba(0,0,0,.5)'; c.beginPath(); if(c.roundRect) c.roundRect(W - 140, 20, 116, 34, 17); else c.rect(W - 140, 20, 116, 34); c.fill();
+    c.fillStyle = '#e5484d'; c.beginPath(); c.arc(W - 120, 37, 7, 0, Math.PI * 2); c.fill();
+    c.fillStyle = '#fff'; c.font = '700 16px Inter, monospace'; c.fillText('REC ' + tm, W - 106, 38);
+  }
+  async function startRec(){
+    if(!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream){ toast(T('Recording is not supported in this browser. Use Chrome or Edge on a computer.', 'التسجيل غير مدعوم في هذا المتصفح. استخدم Chrome أو Edge على الحاسوب.')); return; }
+    if(!confirm(T('Record this class? Everyone in the room will see that it is being recorded. The video is saved on this device.', 'تسجيل هذه الحصة؟ سيرى كل من في الغرفة أنها تُسجَّل، ويُحفظ الفيديو على هذا الجهاز.'))) return;
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    if(actx.state === 'suspended') await actx.resume();
+    REC.canvas = document.createElement('canvas'); REC.canvas.width = 1280; REC.canvas.height = 720; REC.ctx = REC.canvas.getContext('2d');
+    REC.dest = actx.createMediaStreamDestination(); REC.srcs = [];
+    if(local) local.getAudioTracks().forEach(recAddAudio);
+    Object.keys(peers).forEach(function(id){ peers[id].stream.getAudioTracks().forEach(recAddAudio); });
+    try{ REC.bg = WORLDS ? await WORLDS.image(world) : null; }catch(e){ REC.bg = null; }
+    const stream = new MediaStream(REC.canvas.captureStream(20).getVideoTracks().concat(REC.dest.stream.getAudioTracks()));
+    const mime = recMime();
+    try{ REC.mr = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 2500000 } : undefined); }catch(e){ toast(T('Recording could not start.', 'تعذّر بدء التسجيل.')); return; }
+    REC.chunks = [];
+    REC.mr.ondataavailable = function(e){ if(e.data && e.data.size) REC.chunks.push(e.data); };
+    REC.mr.onstop = recSave;
+    REC.start = Date.now(); REC.on = true;
+    REC.timer = setInterval(function(){ try{ recFrame(); }catch(e){} }, 50);
+    REC.mr.start(1000);
+    recBanner(me.id, true, me.name);
+    if(net) net.send({ t: 'rec', from: me.id, on: true, name: me.name });
+    syncRecBtn();
+  }
+  function stopRec(){
+    if(!REC.on) return;
+    REC.on = false; clearInterval(REC.timer);
+    try{ REC.mr.stop(); }catch(e){}
+    REC.srcs.forEach(function(s){ try{ s.disconnect(); }catch(e){} });
+    recBanner(me.id, false);
+    if(net) net.send({ t: 'rec', from: me.id, on: false });
+    syncRecBtn();
+  }
+  function recSave(){
+    const type = (REC.mr && REC.mr.mimeType) || 'video/webm';
+    const blob = new Blob(REC.chunks, { type: type });
+    const ext = /mp4/.test(type) ? 'mp4' : 'webm';
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'code-cademy-' + world + '-' + new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-') + '.' + ext;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+    toast(T('Recording saved to your downloads ✓', 'تم حفظ التسجيل في التنزيلات ✓'));
+  }
+  function recBanner(id, on, name){
+    if(on) REC.who[id] = name || '…'; else delete REC.who[id];
+    const names = Object.keys(REC.who).map(function(k){ return k === me.id ? T('you', 'أنت') : REC.who[k]; });
+    const bar = $('recBar'); if(!bar) return;
+    bar.hidden = !names.length;
+    bar.textContent = names.length ? '● ' + T('This class is being recorded by ', 'يتم تسجيل الحصة بواسطة ') + names.join('، ') : '';
+  }
+  function syncRecBtn(){ const b = $('btnRec'); if(!b) return; b.classList.toggle('off', REC.on); b.querySelector('span').textContent = REC.on ? T('Stop recording', 'إيقاف التسجيل') : T('Record', 'تسجيل'); }
+
   // ---------- language ----------
-  function applyLang(l){ html.lang = l; html.dir = l === 'ar' ? 'rtl' : 'ltr'; syncButtons(); render(); }
+  function applyLang(l){ html.lang = l; html.dir = l === 'ar' ? 'rtl' : 'ltr'; syncButtons(); render(); if(typeof applyWorld === 'function') { const t = $('worldTag'); if(t) t.textContent = worldName(world); syncRecBtn(); } }
   const savedLang = store.get('cc_ui_lang'); applyLang(savedLang === 'en' ? 'en' : 'ar');
 
   // ---------- wire up ----------
@@ -536,6 +753,19 @@
   document.querySelectorAll('select.dev-spk').forEach(function(s){ s.onchange = function(){ switchDevice('spk', s.value); }; });
   $('soundBtn').onclick = function(){ if(actx) actx.resume(); $('soundBtn').hidden = true; playAll(); };
   $('btnSettings').onclick = function(){ fillDevices(); openPanel('settings'); };
+  // worlds, virtual background and recording controls
+  if(WORLDS){
+    const opts = WORLDS.list.map(function(w){ return '<option value="' + w.id + '">' + w.icon + ' ' + esc(T(w.en, w.ar)) + '</option>'; }).join('');
+    $('worldSel').innerHTML = opts;
+    $('vbSel').innerHTML = '<option value="none">🚫 ' + esc(T('No background', 'بدون خلفية')) + '</option><option value="blur">🌫️ ' + esc(T('Blur my background', 'تمويه الخلفية')) + '</option><option value="world">🌍 ' + esc(T('The room’s world', 'عالم الغرفة')) + '</option>' + opts;
+    $('worldSel').onchange = function(){ applyWorld(this.value, true); };
+    $('vbSel').onchange = function(){ setVB(this.value); };
+    applyWorld(world, false);
+    const savedVb = store.get('cc_room_vb');
+    if(savedVb && savedVb !== 'none' && mediaReady){ $('vbSel').value = savedVb; mediaReady.then(function(){ setVB(savedVb); }); }
+  }
+  $('btnRec').onclick = function(){ if(REC.on) stopRec(); else startRec(); };
+  syncRecBtn();
   // the browser keeps audio meters asleep until the first tap
   document.addEventListener('pointerdown', function(){ if(actx && actx.state === 'suspended') actx.resume(); }, { passive: true });
   // lobby microphone meter

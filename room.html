@@ -104,6 +104,18 @@ body.wb-open .ava b{width:46px;height:46px;font-size:1.1rem}
 .st{position:absolute;inset:auto 10px 46px 10px;text-align:center;background:rgba(0,0,0,.65);border-radius:10px;padding:6px 10px;font-size:.8rem;font-weight:700}
 .soundbtn{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:21;border:0;border-radius:999px;padding:12px 22px;font-weight:800;background:var(--gold);color:#2a1f0c;box-shadow:0 10px 30px -10px #000}
 #retryMedia{margin-top:8px}
+/* worlds, logo, recording */
+.world{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.world svg{width:100%;height:100%;display:block}
+.world::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(12,10,22,.45),rgba(12,10,22,.6))}
+.lobby>.world::after{background:rgba(12,10,22,.55)}
+.lob,.stage,.side{position:relative;z-index:1}
+.stage .wm{position:absolute;inset-inline-end:10px;top:6px;width:42px;height:42px;border-radius:10px;opacity:.85;z-index:2;box-shadow:0 6px 18px -8px #000}
+.wtag{font-weight:700;font-size:.8rem;background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.recbar{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:8;background:#e5484d;color:#fff;font-weight:800;font-size:.82rem;border-radius:999px;padding:6px 16px;box-shadow:0 8px 20px -8px #000;animation:recp 1.6s ease-in-out infinite}
+@keyframes recp{50%{opacity:.75}}
+.rb.rec.off{background:var(--red)}
+.tile{background:rgba(0,0,0,.55)}
 /* side panel */
 .side{display:none;width:340px;margin-inline-start:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;flex-direction:column;overflow:hidden}
 body[data-panel=chat] .side.chat,body[data-panel=people] .side.ppl,body[data-panel=settings] .side.set{display:flex}
@@ -149,7 +161,7 @@ body.left .lobby{display:none}
   .rb.leave{min-width:0}
   .bar .grp{gap:5px;width:100%;justify-content:center}
   #btnShare{display:none}
-  .brand span,.code{display:none}
+  .brand span,.code,.wtag{display:none}
   .bar .info{display:none}
   .grid{--cols:1!important;grid-auto-rows:auto;align-content:start;overflow:auto}
   .room{padding:60px 8px 92px}
@@ -163,11 +175,14 @@ body.left .lobby{display:none}
 <header class="top">
   <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt=""><span>Code Cademy</span></a>
   <span class="code" id="roomCode"></span>
+  <span class="wtag" id="worldTag"></span>
   <span class="sp"></span>
   <button class="pill" id="langBtn" type="button">English · العربية</button>
 </header>
 
+<div class="recbar" id="recBar" hidden></div>
 <main class="lobby">
+  <div class="world" id="lobbyWorld" aria-hidden="true"></div>
   <div class="lob">
     <div class="pv">
       <video id="preview" autoplay playsinline muted></video>
@@ -196,7 +211,9 @@ body.left .lobby{display:none}
 </main>
 
 <section class="room" aria-label="Room">
+  <div class="world" id="world" aria-hidden="true"></div>
   <div class="stage">
+    <img class="wm" src="assets/img/logo.jpg" alt="" aria-hidden="true">
     <div class="wb" id="wb">
       <div class="wb-tools" role="toolbar" aria-label="Whiteboard">
         <div class="tg">
@@ -237,6 +254,9 @@ body.left .lobby{display:none}
       <label><span data-t="🎙️ Microphone|🎙️ الميكروفون">🎙️ الميكروفون</span><select class="dev-mic"></select></label>
       <label><span data-t="📷 Camera|📷 الكاميرا">📷 الكاميرا</span><select class="dev-cam"></select></label>
       <label hidden><span data-t="🔈 Speaker|🔈 السمّاعة">🔈 السمّاعة</span><select class="dev-spk"></select></label>
+      <label><span data-t="🌍 Room world (for everyone)|🌍 عالم الغرفة (للجميع)">🌍 عالم الغرفة (للجميع)</span><select id="worldSel"></select></label>
+      <label><span data-t="🖼️ My camera background|🖼️ خلفية كاميرتي">🖼️ خلفية كاميرتي</span><select id="vbSel"></select></label>
+      <small class="hint" data-t="The virtual background works best on a computer with good light.|الخلفية الافتراضية تعمل أفضل على الحاسوب وفي إضاءة جيدة.">الخلفية الافتراضية تعمل أفضل على الحاسوب وفي إضاءة جيدة.</small>
       <ul class="tips">
         <li data-t="Can’t hear others? Turn up the volume and pick the right speaker.|لا تسمع الآخرين؟ ارفع الصوت واختر السمّاعة الصحيحة.">لا تسمع الآخرين؟ ارفع الصوت واختر السمّاعة الصحيحة.</li>
         <li data-t="Echo or whistling? Use headphones, or don’t sit two devices in the same room.|صدى أو صفير؟ استخدم سماعات الأذن، ولا تضع جهازين في الغرفة نفسها.">صدى أو صفير؟ استخدم سماعات الأذن، ولا تضع جهازين في الغرفة نفسها.</li>
@@ -262,6 +282,7 @@ body.left .lobby{display:none}
     <button class="rb" id="btnHand" type="button"><i>✋</i><span data-t="Raise hand|ارفع يدك">ارفع يدك</span></button>
     <button class="rb" id="btnChat" type="button"><i>💬</i><span data-t="Chat|الدردشة">الدردشة</span><b id="unread" hidden>0</b></button>
     <button class="rb" id="btnPeople" type="button"><i>👥</i><span data-t="People|المشاركون">المشاركون</span></button>
+    <button class="rb rec" id="btnRec" type="button"><i>⏺️</i><span data-t="Record|تسجيل">تسجيل</span></button>
     <button class="rb" id="btnSettings" type="button"><i>⚙️</i><span data-t="Settings|الإعدادات">الإعدادات</span></button>
     <button class="rb leave" id="btnLeave" type="button"><i>📞</i><span data-t="Leave|خروج">خروج</span></button>
   </div>
@@ -292,6 +313,7 @@ body.left .lobby{display:none}
 })();
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/room.js?v=bbb92ab3"></script>
+<script defer src="assets/js/room-world.js?v=0ad2ed18"></script>
+<script defer src="assets/js/room.js?v=c3448770"></script>
 </body>
 </html>
