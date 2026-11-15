@@ -901,9 +901,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     // the student's club world behind the dashboard and as a banner (teachers / parents: Code Cademy)
     if(window.ccWorlds){
       const wid = ccWorlds.fromClub(isStudent() ? currentProfile.club : 'academy'), w = ccWorlds.get(wid);
-      document.getElementById('clubWorld').innerHTML = ccWorlds.svg(wid);
+      document.getElementById('clubWorld').innerHTML = ccWorlds.backdrop(wid, 22);
       const cb = document.getElementById('clubBanner');
-      cb.innerHTML = ccWorlds.svg(wid) + '<div class="cb-t"><b>' + esc(w.icon + ' ' + t(w.en, w.ar)) + '</b><small>' + esc(isStudent() ? t('Your world at Code Cademy', 'عالمك في Code Cademy') : t('Welcome to Code Cademy', 'أهلًا بك في Code Cademy')) + '</small></div>';
+      cb.innerHTML = ccWorlds.backdrop(wid, 6) + '<img class="cb-photo" src="' + ccWorlds.photo(wid) + '" alt="" style="object-position:' + ccWorlds.focus(wid) + '">' + '<div class="cb-t"><b>' + esc(w.icon + ' ' + t(w.en, w.ar)) + '</b><small>' + esc(isStudent() ? t('Your world at Code Cademy', 'عالمك في Code Cademy') : t('Welcome to Code Cademy', 'أهلًا بك في Code Cademy')) + '</small></div>';
       cb.hidden = false;
     }
     ovName.textContent = (currentProfile.full_name || '').split(' ')[0];

@@ -409,5 +409,6 @@ details.item summary{cursor:pointer}
 .err.ok{color:#2e7d32}
 
 /* the course's world (Paris / code lab) softly behind the dashboard */
-.club-world{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;overflow:hidden}
+.club-world{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.3;overflow:hidden}
+.club-world::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,250,244,.5),rgba(255,250,244,.85))}
 .club-world svg{width:100%;height:100%;display:block}
