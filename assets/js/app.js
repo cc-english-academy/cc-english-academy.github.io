@@ -1383,7 +1383,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   // our own video room (room.html) when the teacher has no Zoom
   function newRoomLink(){
     const a = new Uint8Array(9); window.crypto.getRandomValues(a);
-    return location.origin + '/room.html?r=' + Array.prototype.map.call(a, function(b){ return ('0' + b.toString(16)).slice(-2); }).join('');
+    // the room opens in the club's own world (Cinema Club → cinema hall, Reading Club → library…)
+    const club = (document.getElementById('sessClub') || {}).value || '';
+    const w = club.replace(/\s*Club$/i, '').toLowerCase();
+    return location.origin + '/room.html?r=' + Array.prototype.map.call(a, function(b){ return ('0' + b.toString(16)).slice(-2); }).join('') + (w ? '&w=' + encodeURIComponent(w) : '');
   }
   (function(){ const rb = document.getElementById('sessRoom'); if(rb) rb.addEventListener('click', function(){ document.getElementById('sessZoom').value = newRoomLink(); }); })();
   (function(){ const zi = document.getElementById('sessZoom'); if(zi) zi.addEventListener('paste', function(){ setTimeout(function(){ const v = pickMeetingLink(zi.value); if(v) zi.value = v; }, 0); }); })();

@@ -110,7 +110,7 @@
   // our own video room (room.html) when the teacher has no Zoom
   function newRoomLink(){
     const a = new Uint8Array(9); window.crypto.getRandomValues(a);
-    return location.origin + '/room.html?r=' + Array.prototype.map.call(a, function(b){ return ('0' + b.toString(16)).slice(-2); }).join('');
+    return location.origin + '/room.html?r=' + Array.prototype.map.call(a, function(b){ return ('0' + b.toString(16)).slice(-2); }).join('') + '&w=' + (FR ? 'french' : 'tech'); // the course's own world
   }
   document.addEventListener('click', function(e){
     const b = e.target.closest('[data-room]'); if(!b) return;
