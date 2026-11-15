@@ -511,7 +511,7 @@
     if(!WORLDS) return;
     world = WORLDS.get(id).id;
     document.body.dataset.world = world;
-    ['world', 'lobbyWorld'].forEach(function(k){ const el = $(k); if(el) el.innerHTML = WORLDS.svg(world); });
+    ['world', 'lobbyWorld'].forEach(function(k){ const el = $(k); if(el) el.innerHTML = WORLDS.backdrop(world, 5); });
     const tag = $('worldTag'); if(tag) tag.textContent = worldName(world);
     const sel = $('worldSel'); if(sel) sel.value = world;
     if(VB.on && VB.mode === 'world') VB.loadBg();

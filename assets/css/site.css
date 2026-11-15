@@ -2338,3 +2338,16 @@ main>section,body>section:not(.hero){content-visibility:auto;contain-intrinsic-s
 .room-hint{display:block;margin-top:6px;font-size:.76rem;color:#8a6b73}
 @media(max-width:520px){.room-row{flex-direction:column}.room-btn{padding:10px}}
 .auth-note.small-note{font-size:.8rem;opacity:.85;margin-top:10px}
+
+/* the student's club world behind the dashboard (the club's photo, softly blurred) + a photo banner */
+.club-world{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.32;overflow:hidden}
+.club-world::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(250,246,239,.55),rgba(250,246,239,.85))}
+.dashboard-page>.dash-top,.dashboard-page>.dash-body{position:relative;z-index:1}
+.club-banner{position:relative;height:190px;border-radius:24px;overflow:hidden;margin:0 0 24px;box-shadow:0 24px 50px -28px rgba(40,10,20,.7)}
+.club-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,8,16,.25),rgba(28,8,16,.78))}
+html[dir=rtl] .club-banner::after{background:linear-gradient(270deg,rgba(28,8,16,.25),rgba(28,8,16,.78))}
+.club-banner .cb-photo{position:absolute;z-index:1;inset-inline-start:22px;top:16px;height:calc(100% - 32px);aspect-ratio:3/4;object-fit:cover;border-radius:16px;border:3px solid rgba(255,255,255,.85);box-shadow:0 14px 30px -12px rgba(0,0,0,.7)}
+.club-banner .cb-t{position:absolute;z-index:1;inset-inline-end:28px;bottom:26px;color:#fff;text-align:end;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.club-banner .cb-t b{display:block;font:700 1.9rem/1.15 'Fraunces',Georgia,serif}
+.club-banner .cb-t small{opacity:.95;font-weight:600;font-size:.95rem}
+@media(max-width:700px){.club-banner{height:150px}.club-banner .cb-t b{font-size:1.3rem}.club-banner .cb-t{inset-inline-end:18px;bottom:18px}}

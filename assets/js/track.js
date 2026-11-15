@@ -1583,6 +1583,7 @@
 
   // ---------- go ----------
   (async function boot(){
+    if(window.ccWorlds && $('clubWorld')) $('clubWorld').innerHTML = ccWorlds.backdrop(FR ? 'french' : 'tech', 22); // the course's world behind the dashboard
     renderChrome();
     let qs = null; try{ qs = new URLSearchParams(location.search); }catch(e){}
     if(qs && qs.get('verify')) return showVerify(qs.get('verify'));

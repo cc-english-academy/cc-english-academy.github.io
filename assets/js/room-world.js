@@ -113,13 +113,33 @@
     { id: 'tech', en: 'Coco Tech Lab', ar: 'مختبر التقنية', icon: '💻' },
     { id: 'techkids', en: 'Coding for kids', ar: 'برمجة الأطفال', icon: '🤖' }
   ];
+  // the academy's own photos for each club / course (sharper and warmer than drawings)
+  const PHOTO = {
+    academy: 'assets/img/club-speaking.webp', phonics: 'assets/img/club-phonics.webp', reading: 'assets/img/club-reading.webp',
+    writing: 'assets/img/club-writing.webp', grammar: 'assets/img/club-grammar.webp', speaking: 'assets/img/club-speaking.webp',
+    conversation: 'assets/img/club-conversation.webp', cinema: 'assets/img/club-cinema.webp', french: 'assets/img/french-paris-poster.jpg',
+    tech: 'assets/img/tech-class-poster.jpg', techkids: 'assets/img/tech-class-poster.jpg'
+  };
+  // where the people are in each photo (the club titles sit at the top and bottom of the posters)
+  const FOCUS = { french: 'center 40%', tech: 'center 35%', techkids: 'center 35%' };
+  function photo(id){ return PHOTO[id] || PHOTO.academy; }
+  // a soft, blurred photo layer that fills its parent (for page and room backgrounds)
+  function backdrop(id, blur){
+    return '<div style="position:absolute;inset:-' + (blur * 3 + 10) + 'px;background:#1a0d12 url(\'' + photo(id) + '\') ' + (FOCUS[id] || 'center 55%') + '/cover no-repeat;filter:blur(' + blur + 'px) saturate(1.15)"></div>';
+  }
   const cache = {}, imgs = {};
   // gradient ids get the scene's name, so several scenes on one page never borrow each other's colours
   function svg(id){ id = SCENES[id] ? id : 'academy'; return cache[id] || (cache[id] = SCENES[id]().replace(/id="(\w+)"/g, 'id="' + id + '-$1"').replace(/url\(#(\w+)\)/g, 'url(#' + id + '-$1)')); }
   function image(id){
     id = SCENES[id] ? id : 'academy';
     if(imgs[id]) return imgs[id];
-    return (imgs[id] = new Promise(function(res, rej){ const im = new Image(); im.onload = function(){ res(im); }; im.onerror = rej; im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg(id)); }));
+    // canvases (recording, camera background) use the photo; the drawing is the fallback
+    return (imgs[id] = new Promise(function(res, rej){
+      const im = new Image();
+      im.onload = function(){ res(im); };
+      im.onerror = function(){ const d = new Image(); d.onload = function(){ res(d); }; d.onerror = rej; d.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg(id)); };
+      im.src = photo(id);
+    }));
   }
   function fromClub(name){
     const s = String(name || '').toLowerCase();
@@ -127,5 +147,5 @@
     const hit = LIST.find(function(w){ return w.en.toLowerCase() === s || s.indexOf(w.id) === 0; });
     return hit ? hit.id : 'academy';
   }
-  window.ccWorlds = { list: LIST, svg: svg, image: image, fromClub: fromClub, get: function(id){ return LIST.find(function(w){ return w.id === id; }) || LIST[0]; } };
+  window.ccWorlds = { list: LIST, svg: svg, image: image, photo: photo, backdrop: backdrop, focus: function(id){ return FOCUS[id] || 'center 55%'; }, fromClub: fromClub, get: function(id){ return LIST.find(function(w){ return w.id === id; }) || LIST[0]; } };
 })();
