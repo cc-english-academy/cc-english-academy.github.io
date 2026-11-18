@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Code Cademy — English Immersion: live Zoom classes, seven English clubs, level exams with certificates, homework and a parent portal. In Arabic and English.">
+<meta name="description" content="Code Cademy — English Immersion: live Zoom classes, eight English clubs, level exams with certificates, homework and a parent portal. In Arabic and English.">
 <meta name="theme-color" content="#3E0F1B">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
@@ -36,7 +36,7 @@
   if(l === 'ar'){ document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; window.__arFonts(); }
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=1a821dc6">
+<link rel="stylesheet" href="assets/css/site.css?v=e095076c">
 <link rel="stylesheet" href="assets/css/fields.css?v=a8d92bfa">
 </head>
 <body>
@@ -295,7 +295,7 @@
         </div>
         <div class="how-text">
           <h4>Pick your club</h4>
-          <p>Phonics, Reading, Writing, Grammar, Speaking, Conversation or Cinema — seven clubs, one for every goal.</p>
+          <p>Phonics, Reading, Writing, Grammar, Speaking, Conversation, Cinema or Story — eight clubs, one for every goal.</p>
         </div>
       </div>
 
@@ -381,7 +381,7 @@
     <div class="clubs-head reveal">
       <div class="kicker">English Immersion</div>
       <h2>Learn by living it.</h2>
-      <p>Practical learning and real-life language use, built around seven specialized clubs.</p>
+      <p>Practical learning and real-life language use, built around eight specialized clubs.</p>
     </div>
     <div class="clubs-grid">
       <div class="club-card reveal" data-i="0" data-club="Phonics Club">
@@ -472,6 +472,21 @@
         <div class="club-body">
           <p>Watch, discuss and retell English stories through film.</p>
           <div class="club-quote">“What do you think happens next?”</div>
+          <a class="club-app" href="cinema.html" onclick="event.stopPropagation()">🎬 Open the Cinema Club — 100 scenes + real movies</a>
+          <span class="club-view-link">View &amp; upload materials →</span>
+        </div>
+      </div>
+      <div class="club-card reveal" data-i="7" data-club="Story Club">
+        <div class="club-photo">
+          <img src="assets/img/club-story.webp" alt="Story Club" loading="lazy">
+          <span class="club-num">08</span>
+          <span class="club-logo"><img loading="lazy" decoding="async" src="assets/img/logo.jpg" alt="Code Cademy"></span>
+          <h4 class="club-title-on-photo">Story Club</h4>
+        </div>
+        <div class="club-body">
+          <p>100 talking stories from Level 1 to Level 9 — read along, listen and retell.</p>
+          <div class="club-quote">“Once upon a time…”</div>
+          <a class="club-app" href="story.html" onclick="event.stopPropagation()">📖 Open the Story Club — 100 talking stories</a>
           <span class="club-view-link">View &amp; upload materials →</span>
         </div>
       </div>
@@ -757,6 +772,7 @@
             <option value="Speaking Club">Speaking Club</option>
             <option value="Conversation Club">Conversation Club</option>
             <option value="Cinema Club">Cinema Club</option>
+            <option value="Story Club">Story Club</option>
           </select>
         </label>
         <label class="auth-consent"><input type="checkbox" id="suAgree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
@@ -846,6 +862,7 @@
               <option value="Speaking Club">Speaking Club</option>
               <option value="Conversation Club">Conversation Club</option>
               <option value="Cinema Club">Cinema Club</option>
+              <option value="Story Club">Story Club</option>
             </select>
           </div>
           <div>
@@ -882,6 +899,7 @@
           <button class="lib-tab" data-filter="Speaking Club">Speaking</button>
           <button class="lib-tab" data-filter="Conversation Club">Conversation</button>
           <button class="lib-tab" data-filter="Cinema Club">Cinema</button>
+          <button class="lib-tab" data-filter="Story Club">Story</button>
         </div>
 
         <div class="path" id="learnPath" hidden></div>
@@ -968,6 +986,7 @@
               <option value="Speaking Club">Speaking Club</option>
               <option value="Conversation Club">Conversation Club</option>
               <option value="Cinema Club">Cinema Club</option>
+              <option value="Story Club">Story Club</option>
             </select>
           </div>
           <div>
@@ -1093,6 +1112,7 @@
               <option value="Speaking Club">Speaking Club</option>
               <option value="Conversation Club">Conversation Club</option>
               <option value="Cinema Club">Cinema Club</option>
+              <option value="Story Club">Story Club</option>
             </select>
           </div>
           <div>
@@ -1192,6 +1212,12 @@
             <div class="full"><label for="moyPk">Moyasar publishable key</label><input id="moyPk" maxlength="80" dir="ltr" placeholder="pk_test_…" autocomplete="off"></div>
             <button type="submit" class="lib-submit">Save card payment key</button>
           </form>
+          <h4 class="sess-h">🎬 Cinema Club — real movies (YouTube)</h4>
+          <p class="dash-sub">One video per line: Title | YouTube link | Level (optional). They appear in the Cinema Club page under “Real cinema”, with English subtitles.</p>
+          <form class="lib-form" id="cinYtForm">
+            <div class="full"><textarea id="cinYt" rows="6" dir="ltr" placeholder="Ordering at a café | https://www.youtube.com/watch?v=xxxxxxxxxxx | 2"></textarea></div>
+            <button type="submit" class="lib-submit">Save Cinema Club videos</button>
+          </form>
         </div>
         <h4 class="sess-h">Payment links</h4>
         <p class="dash-sub">Paste the Tamara and Visa payment link for each plan. Students are sent there after choosing how to pay. Leave a link blank and students are asked to pay over WhatsApp instead.</p>
@@ -1224,6 +1250,7 @@
               <option value="Speaking Club">Speaking Club</option>
               <option value="Conversation Club">Conversation Club</option>
               <option value="Cinema Club">Cinema Club</option>
+              <option value="Story Club">Story Club</option>
             </select>
           </div>
           <div>
@@ -1308,6 +1335,7 @@
               <option value="Speaking Club">Speaking Club</option>
               <option value="Conversation Club">Conversation Club</option>
               <option value="Cinema Club">Cinema Club</option>
+              <option value="Story Club">Story Club</option>
             </select>
           </div>
           <div>
@@ -1564,13 +1592,13 @@
 </section>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script defer src="assets/js/lang.js?v=82ce1a65"></script>
+<script defer src="assets/js/lang.js?v=43579e2b"></script>
 <script defer src="assets/js/fx.js?v=5c4731ff"></script>
 <script defer src="assets/js/english-games.js?v=aae28252"></script>
-<script defer src="assets/js/room-world.js?v=93165ad9"></script>
+<script defer src="assets/js/room-world.js?v=0cdd0d41"></script>
 <script defer src="assets/js/timetable.js?v=86b3d927"></script>
 <script defer src="assets/js/push.js?v=8d2e9ef3"></script>
 <script defer src="assets/js/pay.js?v=1a2579a0"></script>
-<script defer src="assets/js/app.js?v=8b740a5d"></script>
+<script defer src="assets/js/app.js?v=606bdef5"></script>
 </body>
 </html>

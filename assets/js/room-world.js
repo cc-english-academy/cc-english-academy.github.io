@@ -109,6 +109,7 @@
     { id: 'speaking', en: 'Speaking Club', ar: 'نادي التحدث', icon: '🎤' },
     { id: 'conversation', en: 'Conversation Club', ar: 'نادي المحادثة', icon: '💬' },
     { id: 'cinema', en: 'Cinema Club', ar: 'نادي السينما', icon: '🎬' },
+    { id: 'story', en: 'Story Club', ar: 'نادي القصص', icon: '📖' },
     { id: 'french', en: 'Le Club Français', ar: 'النادي الفرنسي', icon: '🥐' },
     { id: 'tech', en: 'Coco Tech Lab', ar: 'مختبر التقنية', icon: '💻' },
     { id: 'techkids', en: 'Coding for kids', ar: 'برمجة الأطفال', icon: '🤖' }
@@ -117,11 +118,11 @@
   const PHOTO = {
     academy: 'assets/img/club-speaking.webp', phonics: 'assets/img/club-phonics.webp', reading: 'assets/img/club-reading.webp',
     writing: 'assets/img/club-writing.webp', grammar: 'assets/img/club-grammar.webp', speaking: 'assets/img/club-speaking.webp',
-    conversation: 'assets/img/club-conversation.webp', cinema: 'assets/img/club-cinema.webp', french: 'assets/img/french-paris-poster.jpg',
+    conversation: 'assets/img/club-conversation.webp', cinema: 'assets/img/club-cinema.webp', story: 'assets/img/club-story.webp', french: 'assets/img/french-paris-poster.jpg',
     tech: 'assets/img/tech-class-poster.jpg', techkids: 'assets/img/tech-class-poster.jpg'
   };
   // where the people are in each photo (the club titles sit at the top and bottom of the posters)
-  const FOCUS = { french: 'center 40%', tech: 'center 35%', techkids: 'center 35%' };
+  const FOCUS = { story: 'center 60%', french: 'center 40%', tech: 'center 35%', techkids: 'center 35%' };
   function photo(id){ return PHOTO[id] || PHOTO.academy; }
   // a soft, blurred photo layer that fills its parent (for page and room backgrounds)
   function backdrop(id, blur){
