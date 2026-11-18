@@ -11,6 +11,8 @@ const pages = {
   'french-dashboard.html': ['assets/css/track.css', 'assets/css/fields.css', 'assets/js/fx.js', 'assets/js/track.js', 'assets/js/room-world.js', 'assets/js/timetable.js', 'assets/js/push.js', 'assets/js/pay.js'],
   'french-app.html': ['assets/css/fields.css'],
   'tech.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js'],
+  'story.html': ['assets/css/fields.css'],
+  'cinema.html': ['assets/css/fields.css', 'assets/js/cinema-real.js'],
   'room.html': ['assets/js/room.js', 'assets/js/room-world.js'],
   'french.html': ['assets/css/fields.css', 'assets/css/school.css', 'assets/js/fx.js', 'assets/js/school.js', 'assets/css/french-learn.css', 'assets/js/french-learn.js']
 };

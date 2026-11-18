@@ -1176,7 +1176,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
 
     // weekly timetable: the classes this person teaches or booked
     if(window.ccTimetable){
-      const CLUB_C = { 'Phonics Club': '#f5a524', 'Reading Club': '#2f6fed', 'Writing Club': '#9b5de5', 'Grammar Club': '#e5484d', 'Speaking Club': '#22a55b', 'Conversation Club': '#0ea5b7', 'Cinema Club': '#8a1c33' };
+      const CLUB_C = { 'Phonics Club': '#f5a524', 'Reading Club': '#2f6fed', 'Writing Club': '#9b5de5', 'Grammar Club': '#e5484d', 'Speaking Club': '#22a55b', 'Conversation Club': '#0ea5b7', 'Cinema Club': '#8a1c33', 'Story Club': '#e8a126' };
       const evs = all.filter(function(s){ return teacher || mine[s.id]; }).map(function(s){
         return { id: 'en-' + s.id, start: s.starts_at, mins: s.duration_min || 45, title: s.title, sub: s.club + (teacher ? ' · ' + s.booked + '/' + s.capacity : ''), url: links[s.id] ? safeUrl(links[s.id]) : '', color: CLUB_C[s.club] || '#7c5cff' };
       });
@@ -1988,6 +1988,10 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       document.getElementById('bkHolder').value = bankInfo.bank_holder || '';
       document.getElementById('bkIban').value = fmtIban(bankInfo.bank_iban);
       sb.from('academy_settings').select('value').eq('key', 'moyasar_pk').maybeSingle().then(function(r){ document.getElementById('moyPk').value = (r.data && r.data.value) || ''; });
+      sb.from('academy_settings').select('value').eq('key', 'cinema_youtube').maybeSingle().then(function(r){
+        let list = []; try{ list = JSON.parse((r.data && r.data.value) || '[]'); }catch(e){}
+        document.getElementById('cinYt').value = list.map(function(v){ return [v.t, v.url, v.level].filter(function(x){ return x; }).join(' | '); }).join('\n');
+      });
     }
 
     // payment link form
@@ -2059,6 +2063,26 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
       ]);
       setEnNotice(error ? friendlyErrorMessage(error) : t('Bank details saved — students see them when they choose “Bank transfer”.', 'حُفظت بيانات الحساب — سيراها الطلاب عند اختيار «تحويل بنكي».'), !error);
       if(!error) await loadBankInfo();
+    });
+  }
+  // Cinema Club → "Real cinema": the YouTube videos students watch with English subtitles
+  const cinYtForm = document.getElementById('cinYtForm');
+  if(cinYtForm){
+    cinYtForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const bad = [], list = [];
+      document.getElementById('cinYt').value.split('\n').map(function(l){ return l.trim(); }).filter(Boolean).forEach(function(l, i){
+        const parts = l.split('|').map(function(x){ return x.trim(); });
+        const url = parts.find(function(x){ return /youtu\.?be/i.test(x); }) || '';
+        const id = (url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/|live\/)([A-Za-z0-9_-]{11})/) || [])[1];
+        if(!id){ bad.push(i + 1); return; }
+        const title = parts[0] && parts[0] !== url ? parts[0].slice(0, 120) : 'Video ' + (list.length + 1);
+        const level = (parts.find(function(x, k){ return k > 0 && /^\d$/.test(x); }) || '');
+        list.push({ t: title, url: 'https://www.youtube.com/watch?v=' + id, level: level });
+      });
+      if(bad.length){ setEnNotice(t('No YouTube link found on line ', 'لم يُعثر على رابط يوتيوب في السطر ') + bad.join(', ')); return; }
+      const { error } = await sb.from('academy_settings').upsert([{ key: 'cinema_youtube', value: JSON.stringify(list.slice(0, 60)), updated_at: new Date().toISOString() }]);
+      setEnNotice(error ? friendlyErrorMessage(error) : t('Saved ✓ ' + list.length + ' video(s) in the Cinema Club.', 'تم الحفظ ✓ ' + list.length + ' فيديو في نادي السينما.'));
     });
   }
   const moyForm = document.getElementById('moyForm');
@@ -4909,9 +4933,9 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
   }
 
   // ---- Coco as the teacher's assistant: the teacher gives an order, Coco carries it out (no AI needed) ----
-  const COCO_CLUBS = ['Phonics Club', 'Reading Club', 'Writing Club', 'Grammar Club', 'Speaking Club', 'Conversation Club', 'Cinema Club'];
+  const COCO_CLUBS = ['Phonics Club', 'Reading Club', 'Writing Club', 'Grammar Club', 'Speaking Club', 'Conversation Club', 'Cinema Club', 'Story Club'];
   const COCO_CLUB_WORDS = { 'Phonics Club': ['phonics', 'فونكس', 'الصوتيات', 'صوتيات'], 'Reading Club': ['reading', 'القراءة', 'قراءة'], 'Writing Club': ['writing', 'الكتابة', 'كتابة'],
-    'Grammar Club': ['grammar', 'القواعد', 'قواعد', 'جرامر'], 'Speaking Club': ['speaking', 'التحدث', 'تحدث'], 'Conversation Club': ['conversation', 'المحادثة', 'محادثة'], 'Cinema Club': ['cinema', 'السينما', 'سينما'] };
+    'Grammar Club': ['grammar', 'القواعد', 'قواعد', 'جرامر'], 'Speaking Club': ['speaking', 'التحدث', 'تحدث'], 'Conversation Club': ['conversation', 'المحادثة', 'محادثة'], 'Cinema Club': ['cinema', 'السينما', 'سينما'], 'Story Club': ['story', 'القصص', 'قصص', 'ستوري'] };
   // Arabic and English words a teacher might use for each lesson
   const COCO_TOPIC_WORDS = {
     'The verb to be: am / is / are': ['to be', 'am is are', 'فعل يكون', 'verb to be'], 'Present simple: I play / she plays': ['present simple', 'المضارع البسيط'],
@@ -5957,7 +5981,7 @@ if(floaters && window.matchMedia('(pointer:fine)').matches){
     ['#footer', 'Contact us', 'تواصل معنا', 'contact whatsapp instagram phone تواصل واتساب انستجرام']
   ];
   const SEARCH_CLUBS = [['Phonics Club', 'نادي الصوتيات'], ['Reading Club', 'نادي القراءة'], ['Writing Club', 'نادي الكتابة'], ['Grammar Club', 'نادي القواعد'],
-    ['Speaking Club', 'نادي المحادثة'], ['Conversation Club', 'نادي الحوار'], ['Cinema Club', 'نادي السينما']];
+    ['Speaking Club', 'نادي المحادثة'], ['Conversation Club', 'نادي الحوار'], ['Cinema Club', 'نادي السينما'], ['Story Club', 'نادي القصص']];
   async function loadSearchBooks(){
     if(currentProfile && (isStudent() || isTeacher())){
       let q = sb.from('materials').select('*').order('created_at', { ascending: false }).limit(300);

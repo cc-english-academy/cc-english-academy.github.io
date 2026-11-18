@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://ccdemy.com/</loc><lastmod>2026-11-07</lastmod><priority>1.0</priority></url>
   <url><loc>https://ccdemy.com/english.html</loc><lastmod>2026-11-07</lastmod><priority>0.8</priority></url>
+  <url><loc>https://ccdemy.com/story.html</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority></url>
+  <url><loc>https://ccdemy.com/cinema.html</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority></url>
   <url><loc>https://ccdemy.com/french.html</loc><lastmod>2026-11-07</lastmod><priority>0.8</priority></url>
   <url><loc>https://ccdemy.com/french-app.html</loc><lastmod>2026-11-07</lastmod><priority>0.8</priority></url>
   <url><loc>https://ccdemy.com/tech.html</loc><lastmod>2026-11-07</lastmod><priority>0.8</priority></url>
