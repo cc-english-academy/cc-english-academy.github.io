@@ -1,0 +1,4 @@
+(function(){var a=new Audio(),cur=null,run=0;
+function mark(b){document.querySelectorAll('.on').forEach(function(x){x.classList.remove('on')});if(b)b.classList.add('on')}
+function play(b){return new Promise(function(r){a.pause();a.src=b.getAttribute('data-a');mark(b);a.onended=function(){r()};a.onerror=function(){r()};var p=a.play();if(p&&p.catch)p.catch(function(){r()})})}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(b){run++;play(b);return}var g=e.target.closest('.all');if(g){var id=++run;var list=g.parentNode.querySelectorAll('.'+g.getAttribute('data-group')+' [data-a]');(function n(i){if(id!==run||i>=list.length){if(id===run)mark(null);return}play(list[i]).then(function(){setTimeout(function(){n(i+1)},250)})})(0)}});})();
