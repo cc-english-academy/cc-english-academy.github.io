@@ -73,6 +73,7 @@ main{padding:0 16px 130px;margin-top:-40px;position:relative;z-index:1}
 .foot{text-align:center;color:#9a8a8e;font-size:12.5px;margin-top:6px}.foot a{color:var(--m)}
 .lang{display:inline-flex;gap:4px;background:#ffffff1a;border:1px solid #ffffff33;border-radius:99px;padding:3px;margin-top:10px}.lang button{border:0;background:none;color:#fff;font:inherit;font-weight:700;font-size:13px;padding:4px 12px;border-radius:99px;cursor:pointer}.lang button.on{background:var(--g);color:var(--d)}
 [dir=rtl] .sum{text-align:right}[dir=rtl] .phone{direction:ltr}[dir=rtl] .phone input{text-align:left}
+.intro .tag{margin:4px 0 10px;font-weight:800;color:var(--m);font-size:15.5px}
 .fade{animation:fade .3s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -90,6 +91,7 @@ main{padding:0 16px 130px;margin-top:-40px;position:relative;z-index:1}
     <section class="card intro">
       <div class="logo"><img src="../assets/logo.png" alt="CODECADEMY"></div>
       <p class="org" id="org"></p>
+      <p class="tag" id="tag"></p>
       <h2 id="ih"></h2>
       <p id="ip"></p>
     </section>
@@ -105,14 +107,14 @@ main{padding:0 16px 130px;margin-top:-40px;position:relative;z-index:1}
 <script>
 var WA="966538840330",SITE="https://ccdemy.com/";
 var T={
-en:{h1:"Learn English by living it, from home",hp:"Live online classes for kids with English-speaking teachers",badges:["✔ Free level test","✔ Free interactive apps","✔ 9 levels"],org:"CODECADEMY · English Academy for Kids",ih:"Sign up your child in 2 minutes 🇬🇧",ip:"A fun, interactive way to speak English with confidence.<br>Packages start from <b>150 SAR a month</b>.<br>Fill in the form and we'll contact you on WhatsApp.",chat:"Chat with us on WhatsApp",
+en:{h1:"Learn English by living it, from home",hp:"Live online classes for kids with English-speaking teachers",badges:["✔ Free level test","✔ Free interactive apps","✔ 9 levels"],org:"CODECADEMY · English Academy for Kids",ih:"Sign up your child in 2 minutes 🇬🇧",tag:"A fun, interactive way to speak English with confidence.",ip:"Packages start from <b>150 SAR a month</b>.<br>Fill in the form and we'll contact you on WhatsApp.",chat:"Chat with us on WhatsApp",
  step:"Step {a} of {b}",next:"Next →",back:"← Back",send:"Send on WhatsApp 💬",opt:"(optional)",choose:"Choose…",
  err:{phone:"Please enter a valid WhatsApp number.",chips:"Please choose at least one.",age:"Please enter the age (3 to 17).",any:"Please fill in this field."},
  steps:[["Your child","Tell us about the student."],["Goals & timing","Choose what matters most to you."],["Parent's contact","We'll send the details and your free level test on WhatsApp."]],
  f:{child:["Child's name","e.g. Adam"],age:["Child's age","e.g. 8"],grade:["School grade","e.g. Grade 3"],level:["English level now",["Complete beginner","Knows the basics","Intermediate","Advanced","I'm not sure (free level test)"]],goal:["Main goal",["Speak fluently","Phonics & reading","Writing","School English","Travel or exams"]],plan:["Package",["2 classes a week · 8 a month (150 SAR)","3 classes a week · 12 a month (250 SAR)","I need advice"]],days:["Preferred days",["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]],time:["Preferred time",["Morning","Afternoon","Evening","Flexible"]],parent:["Parent's name","Your name"],phone:["WhatsApp number","5X XXX XXXX"],city:["City / country","e.g. Riyadh"],note:["Anything else?","Questions or notes"]},
  thanks:"Thank you, {n}!",tp:"Your sign-up is ready. If WhatsApp didn't open, tap the green button to send it, and our team will reply soon.",sum:["Child","years","Level","Package","WhatsApp"],l2:"Take the free level test 📝",l3:"Visit our website 🌐",
  msg:{hi:"Hello Codecademy 👋\nI'd like to sign up my child.",child:"Child",age:"Age",grade:"Grade",level:"Level",goal:"Goal",plan:"Package",days:"Days",time:"Time",parent:"Parent",phone:"WhatsApp",city:"City",note:"Note"}},
-ar:{h1:"إنجليزي بالمعايشة لطفلك من البيت",hp:"حصص أونلاين مباشرة مع مدرّسين متحدثين بالإنجليزية",badges:["✔ اختبار مستوى مجاني","✔ تطبيقات تفاعلية مجانًا","✔ 9 مستويات"],org:"CODECADEMY · أكاديمية الإنجليزي للأطفال",ih:"سجّل طفلك في دقيقتين 🇬🇧",ip:"طريقة ممتعة وتفاعلية ليتحدث طفلك الإنجليزية بثقة.<br>باقات تبدأ من <b>150 ريال شهريًا</b>.<br>املأ البيانات وسنتواصل معك على الواتساب.",chat:"تواصل معنا على الواتساب",
+ar:{h1:"إنجليزي بالمعايشة لطفلك من البيت",hp:"حصص أونلاين مباشرة مع مدرّسين متحدثين بالإنجليزية",badges:["✔ اختبار مستوى مجاني","✔ تطبيقات تفاعلية مجانًا","✔ 9 مستويات"],org:"CODECADEMY · أكاديمية الإنجليزي للأطفال",ih:"سجّل طفلك في دقيقتين 🇬🇧",tag:"طريقة ممتعة وتفاعلية ليتحدث طفلك الإنجليزية بثقة.",ip:"باقات تبدأ من <b>150 ريال شهريًا</b>.<br>املأ البيانات وسنتواصل معك على الواتساب.",chat:"تواصل معنا على الواتساب",
  step:"الخطوة {a} من {b}",next:"التالي ←",back:"→ رجوع",send:"إرسال على الواتساب 💬",opt:"(اختياري)",choose:"اختر…",
  err:{phone:"من فضلك اكتب رقم واتساب صحيح.",chips:"من فضلك اختر واحدًا على الأقل.",age:"من فضلك اكتب العمر (من 3 إلى 17).",any:"من فضلك املأ هذه الخانة."},
  steps:[["بيانات الطفل","أخبرنا عن الطالب."],["الهدف والمواعيد","اختر ما يناسبك."],["بيانات ولي الأمر","سنرسل لك التفاصيل وموعد اختبار المستوى المجاني على الواتساب."]],
@@ -131,7 +133,7 @@ function tl(){return T[MODE=="ar"?"ar":"en"]}function fl(){return T[MODE=="en"?"
 function $(id){return document.getElementById(id)}
 function applyLang(){var t=tl(),f=fl();document.documentElement.lang=MODE=="en"?"en":"ar";
  document.querySelector(".banner").dir=MODE=="ar"?"rtl":"ltr";$("h1").textContent=t.h1;$("hp").textContent=t.hp;$("badges").innerHTML=t.badges.map(function(b){return "<span>"+b+"</span>"}).join("");
- var intro=document.querySelector(".intro");intro.dir=MODE=="en"?"ltr":"rtl";var it=MODE=="en"?T.en:T.ar;$("org").textContent=it.org;$("ih").innerHTML=it.ih;$("ip").innerHTML=it.ip;$("chat").textContent=f.chat;
+ var intro=document.querySelector(".intro");intro.dir=MODE=="en"?"ltr":"rtl";var it=MODE=="en"?T.en:T.ar,id=MODE=="ar"?T.ar:T.en;$("org").textContent=id.org;$("tag").textContent=id.tag;$("org").dir=$("tag").dir=MODE=="ar"?"rtl":"ltr";$("ih").innerHTML=it.ih;$("ip").innerHTML=it.ip;$("chat").textContent=t.chat;
  var fd=MODE=="en"?"ltr":"rtl";form.dir=fd;document.querySelector(".bottom").dir=fd;
  [].forEach.call(document.querySelectorAll(".lang button"),function(b){b.classList.toggle("on",b.getAttribute("data-l")==MODE)});
  if(!doneShown)render();else done()}
