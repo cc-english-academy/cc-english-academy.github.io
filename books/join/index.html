@@ -1,70 +1,76 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>CODECADEMY · سجّل طفلك</title>
-<meta name="description" content="أجب عن 5 أسئلة سريعة وسيتواصل معك فريق Codecademy لاختيار المستوى والباقة المناسبة لطفلك. اختبار تحديد المستوى مجاني.">
+<title>Sign up · CODECADEMY</title>
+<meta name="description" content="Sign up your child for live online English classes at Codecademy. Free level test. Free interactive apps for every student.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ccdemy.com/books/join/">
-<meta property="og:title" content="ضغطة واحدة تفصل طفلك عن الإنجليزي بثقة 🇬🇧">
-<meta property="og:description" content="أكاديمية Codecademy للأطفال · حصص أونلاين مباشرة · اختبار مستوى مجاني · تطبيقات تفاعلية مجانية">
+<meta property="og:title" content="Sign up your child · Codecademy English 🇬🇧">
+<meta property="og:description" content="Live online English classes for kids · Free level test · Free interactive apps">
 <meta property="og:image" content="https://ccdemy.com/books/join/share.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#6b1d2b">
 <link rel="icon" href="/assets/img/favicon-32.png">
 <style>
-@font-face{font-family:Cairo;font-weight:600;src:url(../assets/fonts/cairo-arabic-600-normal.woff2)}
-@font-face{font-family:Cairo;font-weight:700;src:url(../assets/fonts/cairo-arabic-700-normal.woff2)}
-@font-face{font-family:Cairo;font-weight:900;src:url(../assets/fonts/cairo-arabic-900-normal.woff2)}@font-face{font-family:Cairo;font-weight:600;src:url(../assets/fonts/cairo-latin-600-normal.woff2);unicode-range:U+0000-024F}@font-face{font-family:Cairo;font-weight:700;src:url(../assets/fonts/cairo-latin-700-normal.woff2);unicode-range:U+0000-024F}@font-face{font-family:Cairo;font-weight:900;src:url(../assets/fonts/cairo-latin-900-normal.woff2);unicode-range:U+0000-024F}
-:root{--m:#6b1d2b;--d:#3d0c14;--g:#e2bd62;--c:#fbf0e4;--ink:#2a1015;--line:#ecd3c3;--ok:#25d366}
+@font-face{font-family:Cairo;font-weight:600;src:url(../assets/fonts/cairo-latin-600-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:700;src:url(../assets/fonts/cairo-latin-700-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:900;src:url(../assets/fonts/cairo-latin-900-normal.woff2)}
+:root{--m:#6b1d2b;--d:#3d0c14;--g:#e2bd62;--ink:#2a1015;--line:#ecd3c3;--ok:#25d366;--muted:#7a6a6e}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:#f4ece4;color:var(--ink);font-family:Cairo,"Segoe UI",Tahoma,sans-serif}
-.app{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:linear-gradient(#f9f1e9,#f1e6dc)}
-.banner{background:radial-gradient(circle at 80% 0,#9b3249,transparent 55%),linear-gradient(135deg,#6b1d2b,#3d0c14);color:#fff;padding:20px 18px 100px;text-align:center;position:relative;overflow:hidden}
+html,body{margin:0;background:#f4ece4;color:var(--ink);font-family:Cairo,"Segoe UI",system-ui,sans-serif}
+.app{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;background:linear-gradient(#f9f1e9,#f1e6dc)}
+.banner{background:radial-gradient(circle at 85% 0,#9b3249,transparent 55%),linear-gradient(135deg,#6b1d2b,#3d0c14);color:#fff;padding:20px 18px 100px;text-align:center;position:relative;overflow:hidden}
 .banner::after{content:"";position:absolute;inset:auto -10% -40px;height:80px;background:#f9f1e9;border-radius:50% 50% 0 0}
-.banner small{font-weight:700;letter-spacing:.25em;color:var(--g);font-size:11px;direction:ltr;display:block}
-.banner h1{margin:4px 0 2px;font-size:20px;font-weight:900;line-height:1.4}
-.banner p{margin:0;font-size:13px;color:#f6dfc9}
-.badges{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap}
-.badges span{background:#ffffff1f;border:1px solid #ffffff33;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:700}
-main{flex:1;padding:0 16px 120px;margin-top:-40px;position:relative;z-index:1}
-.card{background:#fff;border-radius:20px;box-shadow:0 6px 24px rgba(61,12,20,.08);padding:18px;margin-bottom:14px}
-.intro{text-align:center;padding-top:52px;position:relative}
-.logo{position:absolute;top:-44px;left:50%;transform:translateX(-50%);width:92px;height:92px;border-radius:50%;background:#fbf0e4;border:4px solid #fff;box-shadow:0 6px 18px rgba(61,12,20,.18);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.banner small{font-weight:700;letter-spacing:.25em;color:var(--g);font-size:11px;display:block}
+.banner h1{margin:6px 0 2px;font-size:24px;font-weight:900;line-height:1.25}
+.banner p{margin:0;font-size:14px;color:#f6dfc9}
+.badges{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.badges span{background:#ffffff1f;border:1px solid #ffffff33;border-radius:99px;padding:3px 11px;font-size:12.5px;font-weight:700}
+main{padding:0 16px 130px;margin-top:-40px;position:relative;z-index:1}
+.card{background:#fff;border-radius:20px;box-shadow:0 6px 24px rgba(61,12,20,.08);padding:20px 18px;margin-bottom:14px}
+.intro{text-align:center;padding-top:54px;position:relative}
+.logo{position:absolute;top:-46px;left:50%;transform:translateX(-50%);width:94px;height:94px;border-radius:50%;background:#fbf0e4;border:4px solid #fff;box-shadow:0 6px 18px rgba(61,12,20,.18);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .logo img{width:78%}
-.intro .org{color:#7a6a6e;font-size:14px;margin:0}
-.intro h2{margin:6px 0;font-size:23px;font-weight:900;line-height:1.45}
-.intro p{margin:6px 0 0;font-size:15px;line-height:1.8}
+.intro .org{color:var(--muted);font-size:14px;margin:0}
+.intro h2{margin:6px 0;font-size:24px;font-weight:900;line-height:1.3}
+.intro p{margin:6px 0 0;font-size:15.5px;line-height:1.7}
 .intro b{color:var(--m)}
-.q h3{margin:0 0 10px;font-size:19px;font-weight:900}
-.q .sub{margin:-6px 0 10px;color:#7a6a6e;font-size:13px}
-.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:none;border:0;border-bottom:1px solid #f0e4da;padding:14px 2px;font:inherit;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer;text-align:right}
-.opt:last-child{border-bottom:0}
-.opt .r{flex:none;width:26px;height:26px;border-radius:50%;border:2.5px solid #9a8a8e;display:grid;place-items:center}
-.opt.on .r{border-color:var(--m);background:var(--m);box-shadow:inset 0 0 0 4px #fff}
-.opt .em{font-size:20px;margin-left:8px}
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.form h3{margin:0 0 4px;font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px}
+.form h3 span{background:var(--m);color:#fff;width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;font-size:15px}
+.form .sub{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;min-width:0}
 .field label{font-weight:700;font-size:15px}
-.field input,.field select{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fffdfb;color:var(--ink);width:100%}
-.field input:focus,.field select:focus{outline:none;border-color:var(--m)}
-.phone{display:flex;gap:8px;direction:ltr}.phone select{width:118px;flex:none}.phone input{flex:1;direction:ltr;text-align:left}
-.err{color:#c0392b;font-size:13px;min-height:18px;margin:-6px 0 6px}
+.field label i{font-style:normal;color:#c0392b}
+.field label small{font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fffdfb;color:var(--ink);width:100%;min-width:0;transition:border-color .2s,box-shadow .2s}
+.field select:invalid{color:#a3959a}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--m);box-shadow:0 0 0 4px #6b1d2b1a}
+.field.bad input,.field.bad select,.field.bad .chips{border-color:#c0392b}
+.field .msg{color:#c0392b;font-size:13px;display:none}.field.bad .msg{display:block}
+.field.good input,.field.good select{border-color:#3fae5a}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phone{display:flex;gap:8px}.phone select{width:118px;flex:none}.phone input{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:#fffdfb;border-radius:99px;padding:8px 14px;font:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--m);border-color:var(--m);color:#fff}
 .bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#fffcf9ee;backdrop-filter:blur(8px);border-top:1px solid #efe2d8;padding:10px 16px calc(12px + env(safe-area-inset-bottom,0px))}
-.bottom .in{max-width:488px;margin:0 auto}
-.steps{display:flex;gap:6px;margin-bottom:10px;direction:rtl}.steps i{flex:1;height:6px;border-radius:99px;background:#ddd2ca;transition:background .3s}.steps i.on{background:var(--m)}
-.cta{width:100%;border:0;border-radius:14px;padding:14px;font:inherit;font-size:18px;font-weight:900;color:#fff;background:var(--m);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.cta[disabled]{background:#c9b8b0;cursor:default}
+.bottom .in{max-width:488px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.prog{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--muted)}
+.prog .bar{flex:1;height:8px;border-radius:99px;background:#e6dbd3;overflow:hidden}.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--m),#a8344c);transition:width .35s}
+.btns{display:flex;gap:10px}
+.cta{flex:1;border:0;border-radius:14px;padding:14px;font:inherit;font-size:17px;font-weight:900;color:#fff;background:var(--m);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.cta.ghost{flex:none;background:#fff;color:var(--m);border:2px solid var(--line);padding:14px 18px}
 .cta.wa{background:var(--ok)}
-.back{background:none;border:0;color:var(--m);font:inherit;font-weight:700;margin:0 0 8px;cursor:pointer;padding:0;font-size:14px}
-.done{text-align:center}
-.done .big{font-size:56px;line-height:1}
-.done h2{margin:6px 0;font-size:22px;font-weight:900;color:var(--m)}
-.done p{margin:6px 0;line-height:1.8}
-.links{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.cta[hidden]{display:none}
+.done{text-align:center}.done .big{font-size:58px;line-height:1}.done h2{margin:6px 0;font-size:24px;font-weight:900;color:var(--m)}.done p{margin:6px 0;line-height:1.7}
+.sum{background:#fbf5ef;border-radius:14px;padding:12px 14px;text-align:left;font-size:14.5px;line-height:1.8;margin:12px 0}
+.sum b{color:var(--m)}
+.links{display:flex;flex-direction:column;gap:10px;margin-top:12px}
 .links a{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:13px;font-weight:900;text-decoration:none;font-size:16px}
 .links .l1{background:var(--ok);color:#fff}.links .l2{background:var(--m);color:#fff}.links .l3{background:#fff;color:var(--m);border:2px solid var(--m)}
-.foot{text-align:center;color:#9a8a8e;font-size:12px;margin-top:6px}.foot a{color:var(--m)}
+.foot{text-align:center;color:#9a8a8e;font-size:12.5px;margin-top:6px}.foot a{color:var(--m)}
 .fade{animation:fade .3s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -73,58 +79,84 @@ main{flex:1;padding:0 16px 120px;margin-top:-40px;position:relative;z-index:1}
 <div class="app">
   <header class="banner">
     <small>CODECADEMY · LEARN BY LIVING IT ♥</small>
-    <h1>إنجليزي بالمعايشة لطفلك من البيت</h1>
-    <p>حصص أونلاين مباشرة مع مدرّسين متحدثين بالإنجليزية</p>
-    <div class="badges"><span>✔ اختبار مستوى مجاني</span><span>✔ تطبيقات تفاعلية مجانًا</span><span>✔ 9 مستويات</span></div>
+    <h1>Learn English by living it, from home</h1>
+    <p>Live online classes for kids with English-speaking teachers</p>
+    <div class="badges"><span>✔ Free level test</span><span>✔ Free interactive apps</span><span>✔ 9 levels</span></div>
   </header>
-  <main id="main"></main>
+  <main>
+    <section class="card intro">
+      <div class="logo"><img src="../assets/logo.png" alt="CODECADEMY"></div>
+      <p class="org">CODECADEMY · English Academy for Kids</p>
+      <h2>Sign up your child in 2 minutes 🇬🇧</h2>
+      <p>A fun, interactive way to speak English with confidence.<br>Packages start from <b>150 SAR a month</b>.<br>Fill in the form and we'll contact you on WhatsApp.</p>
+    </section>
+    <form class="card form fade" id="form" novalidate autocomplete="on"></form>
+    <p class="foot"><a href="https://ccdemy.com/" target="_blank" rel="noopener">ccdemy.com</a> · <a href="https://wa.me/message/SMLAW2VMJXCQE1" target="_blank" rel="noopener">Chat with us on WhatsApp</a></p>
+  </main>
 </div>
-<div class="bottom"><div class="in"><div class="steps" id="steps"></div><button class="cta" id="next" disabled>متابعة</button></div></div>
+<div class="bottom" id="bottom"><div class="in">
+  <div class="prog"><span id="pt">Step 1 of 3</span><div class="bar"><i id="pb"></i></div></div>
+  <div class="btns"><button class="cta ghost" id="back" type="button" hidden>← Back</button><button class="cta" id="next" type="button">Next →</button></div>
+</div></div>
 
 <script>
-var WA="966538840330",WA_LINK="https://wa.me/message/SMLAW2VMJXCQE1",SITE="https://ccdemy.com/";
-var Q=[
- {k:"age",t:"عمر الطفل",o:[["👶","من 4 إلى 6 سنوات"],["🧒","من 7 إلى 9 سنوات"],["👦","من 10 إلى 12 سنة"],["🧑","من 13 إلى 15 سنة"]]},
- {k:"goal",t:"ما هدفك من تعلّم طفلك الإنجليزي؟",o:[["🗣️","التحدث بطلاقة وثقة"],["🔤","التأسيس: الحروف والصوتيات"],["📖","القراءة والكتابة"],["🏫","تحسين مستواه في المدرسة"],["✈️","الاستعداد للسفر أو الاختبارات"]]},
- {k:"level",t:"مستوى الطفل الحالي في الإنجليزي",s:"لا تقلق، نحدد المستوى بدقة باختبار مجاني",o:[["🌱","مبتدئ تمامًا"],["🙂","يعرف الأساسيات"],["⭐","متوسط"],["🚀","متقدم"],["❓","لا أعرف"]]},
- {k:"plan",t:"الباقة المناسبة لك",o:[["📅","حصتان أسبوعيًا (8 حصص شهريًا)"],["🗓️","3 حصص أسبوعيًا (12 حصة شهريًا)"],["💬","أحتاج استشارة لاختيار الباقة"]]},
- {k:"time",t:"الوقت المناسب للحصص",o:[["🌅","صباحًا"],["☀️","بعد الظهر"],["🌆","مساءً"],["🔁","مرن"]]},
- {k:"info",form:1}
+var WA="966538840330",SITE="https://ccdemy.com/";
+var STEPS=[
+ {t:"Your child",s:"Tell us about the student.",f:[
+  {k:"child",l:"Child's name",type:"text",ph:"e.g. Adam",req:1,ac:"off"},
+  {k:"age",l:"Child's age",type:"number",ph:"e.g. 8",req:1,min:3,max:17,half:1},
+  {k:"grade",l:"School grade",type:"text",ph:"e.g. Grade 3",half:1},
+  {k:"level",l:"English level now",type:"select",req:1,o:["Complete beginner","Knows the basics","Intermediate","Advanced","I'm not sure (free level test)"]}]},
+ {t:"Goals & timing",s:"Choose what matters most to you.",f:[
+  {k:"goal",l:"Main goal",type:"chips",req:1,o:["Speak fluently","Phonics & reading","Writing","School English","Travel or exams"]},
+  {k:"plan",l:"Package",type:"select",req:1,o:["2 classes a week · 8 a month (150 SAR)","3 classes a week · 12 a month (250 SAR)","I need advice"]},
+  {k:"days",l:"Preferred days",type:"chips",o:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},
+  {k:"time",l:"Preferred time",type:"select",req:1,o:["Morning","Afternoon","Evening","Flexible"]}]},
+ {t:"Parent's contact",s:"We'll send the details and your free level test on WhatsApp.",f:[
+  {k:"parent",l:"Parent's name",type:"text",ph:"Your name",req:1,ac:"name"},
+  {k:"phone",l:"WhatsApp number",type:"phone",ph:"5X XXX XXXX",req:1},
+  {k:"city",l:"City / country",type:"text",ph:"e.g. Riyadh",ac:"address-level2"},
+  {k:"note",l:"Anything else?",type:"textarea",ph:"Questions or notes"}]}
 ];
-var A={},step=-1;
-try{A=JSON.parse(sessionStorage.getItem("ccjoin")||"{}")}catch(e){}
-var main=document.getElementById("main"),btn=document.getElementById("next"),stepsEl=document.getElementById("steps");
-function save(){try{sessionStorage.setItem("ccjoin",JSON.stringify(A))}catch(e){}}
+var A={},step=0;
+var form=document.getElementById("form"),next=document.getElementById("next"),back=document.getElementById("back");
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function bar(){stepsEl.innerHTML=Q.map(function(_,i){return '<i class="'+(i<=step?"on":"")+'"></i>'}).join("")}
-function intro(){return '<section class="card intro fade"><div class="logo"><img src="../assets/logo.png" alt="CODECADEMY"></div><p class="org">CODECADEMY · أكاديمية الإنجليزي للأطفال</p><h2>ضغطة واحدة تفصل طفلك<br>عن الإنجليزي بثقة 🇬🇧</h2><p>منهج تفاعلي ممتع يتعلم فيه طفلك بالمعايشة<br>باقات تبدأ من <b>150 ريال شهريًا</b><br>أجب عن أسئلة بسيطة، وسيتواصل معك فريق Codecademy على الواتساب</p></section>'}
-function render(){bar();var h=intro();
- if(step>=0&&step<Q.length){var q=Q[step];
-  h=(step>0?'':h)+'<section class="card q fade">'+(step>0?'<button class="back" id="back">→ رجوع</button>':'');
-  if(q.form){h+='<h3>بيانات التواصل</h3><p class="sub">سنرسل لك تفاصيل الباقات وموعد الاختبار المجاني</p>'+
-   '<div class="field"><label for="pn">اسم ولي الأمر</label><input id="pn" autocomplete="name" value="'+esc(A.pn||"")+'" placeholder="مثال: أم أحمد"></div>'+
-   '<div class="field"><label for="cn">اسم الطفل</label><input id="cn" value="'+esc(A.cn||"")+'" placeholder="مثال: أحمد"></div>'+
-   '<div class="field"><label for="ph">رقم الواتساب</label><div class="phone"><select id="cc" aria-label="مفتاح الدولة">'+[["+966","🇸🇦 +966"],["+20","🇪🇬 +20"],["+971","🇦🇪 +971"],["+965","🇰🇼 +965"],["+974","🇶🇦 +974"],["+973","🇧🇭 +973"],["+968","🇴🇲 +968"],["+962","🇯🇴 +962"],["","أخرى"]].map(function(c){return '<option value="'+c[0]+'"'+((A.cc||"+966")==c[0]?" selected":"")+'>'+c[1]+'</option>'}).join("")+'</select><input id="ph" type="tel" inputmode="tel" autocomplete="tel-national" value="'+esc(A.ph||"")+'" placeholder="5XXXXXXXX"></div></div><p class="err" id="err"></p>'}
-  else{h+='<h3>'+q.t+'</h3>'+(q.s?'<p class="sub">'+q.s+'</p>':'')+q.o.map(function(o,i){return '<button class="opt'+(A[q.k]==o[1]?" on":"")+'" data-v="'+esc(o[1])+'"><span><span class="em">'+o[0]+'</span>'+o[1]+'</span><span class="r"></span></button>'}).join("")}
-  h+='</section>'}
- else if(step<0){h+='<section class="card q fade"><h3>'+Q[0].t+'</h3>'+Q[0].o.map(function(o){return '<button class="opt'+(A.age==o[1]?" on":"")+'" data-v="'+esc(o[1])+'"><span><span class="em">'+o[0]+'</span>'+o[1]+'</span><span class="r"></span></button>'}).join("")+'</section>';}
- if(step===Q.length){h='<section class="card done fade"><div class="big">🎉</div><h2>شكرًا لك'+(A.pn?"، "+esc(A.pn):"")+'!</h2><p>تم تجهيز رسالتك. اضغط على الزر لإرسالها لنا على الواتساب، وسنرد عليك في أقرب وقت.</p><div class="links"><a class="l1" id="sendAgain" href="'+waURL()+'" target="_blank" rel="noopener">إرسال على الواتساب 💬</a><a class="l2" href="'+SITE+'english.html#level-test" target="_blank" rel="noopener">ابدأ اختبار المستوى المجاني 📝</a><a class="l3" href="'+SITE+'" target="_blank" rel="noopener">زيارة موقع Codecademy 🌐</a></div></section>';btn.parentNode.parentNode.style.display="none"}
- else btn.parentNode.parentNode.style.display="";
- h+='<p class="foot"><a href="'+SITE+'" target="_blank" rel="noopener">ccdemy.com</a> · <a href="'+WA_LINK+'" target="_blank" rel="noopener">تواصل معنا على الواتساب</a></p>';
- main.innerHTML=h;window.scrollTo({top:0,behavior:"smooth"});
- var cur=step<0?Q[0]:Q[step];
- [].forEach.call(main.querySelectorAll(".opt"),function(b){b.onclick=function(){A[cur.k]=b.getAttribute("data-v");save();[].forEach.call(main.querySelectorAll(".opt"),function(x){x.classList.toggle("on",x===b)});btn.disabled=false;if(step<0)step=0;setTimeout(function(){go(1)},260)}});
- var bk=document.getElementById("back");if(bk)bk.onclick=function(){go(-1)};
- if(cur&&cur.form){btn.textContent="إرسال على الواتساب 💬";btn.classList.add("wa");var chk=function(){A.pn=val("pn");A.cn=val("cn");A.ph=val("ph").replace(/[^0-9]/g,"");A.cc=document.getElementById("cc").value;save();btn.disabled=!(A.pn&&A.ph.length>=7)};["pn","cn","ph","cc"].forEach(function(id){document.getElementById(id).oninput=chk;document.getElementById(id).onchange=chk});chk()}
- else{btn.textContent="متابعة";btn.classList.remove("wa");btn.disabled=!(cur&&A[cur.k])}
+function fieldHTML(f){var lab='<label for="f_'+f.k+'">'+f.l+(f.req?' <i>*</i>':' <small>(optional)</small>')+'</label>',h='';
+ if(f.type=="select")h='<select id="f_'+f.k+'" required><option value="" disabled'+(A[f.k]?'':' selected')+'>Choose…</option>'+f.o.map(function(o){return '<option'+(A[f.k]==o?' selected':'')+'>'+esc(o)+'</option>'}).join("")+'</select>';
+ else if(f.type=="chips")h='<div class="chips" id="f_'+f.k+'">'+f.o.map(function(o){return '<button type="button" class="chip'+((A[f.k]||[]).indexOf(o)>=0?' on':'')+'" data-v="'+esc(o)+'">'+esc(o)+'</button>'}).join("")+'</div>';
+ else if(f.type=="phone")h='<div class="phone"><select id="f_cc" aria-label="Country code">'+[["+966","🇸🇦 +966"],["+20","🇪🇬 +20"],["+971","🇦🇪 +971"],["+965","🇰🇼 +965"],["+974","🇶🇦 +974"],["+973","🇧🇭 +973"],["+968","🇴🇲 +968"],["+962","🇯🇴 +962"],["+44","🇬🇧 +44"],["+1","🇺🇸 +1"]].map(function(c){return '<option value="'+c[0]+'"'+((A.cc||"+966")==c[0]?' selected':'')+'>'+c[1]+'</option>'}).join("")+'</select><input id="f_phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="'+f.ph+'" value="'+esc(A.phone||"")+'"></div>';
+ else if(f.type=="textarea")h='<textarea id="f_'+f.k+'" rows="3" placeholder="'+f.ph+'">'+esc(A[f.k]||"")+'</textarea>';
+ else h='<input id="f_'+f.k+'" type="'+f.type+'" placeholder="'+f.ph+'" value="'+esc(A[f.k]||"")+'"'+(f.min?' min="'+f.min+'" max="'+f.max+'" inputmode="numeric"':'')+(f.ac?' autocomplete="'+f.ac+'"':'')+'>';
+ var m=f.type=="phone"?"Please enter a valid WhatsApp number.":f.type=="chips"?"Please choose at least one.":f.type=="number"?"Please enter the age ("+f.min+" to "+f.max+").":"Please fill in this field.";
+ return '<div class="field" data-k="'+f.k+'">'+lab+h+'<span class="msg">'+m+'</span></div>'}
+function render(){var S=STEPS[step],fs=S.f,h='<h3><span>'+(step+1)+'</span>'+S.t+'</h3><p class="sub">'+S.s+'</p>',i=0;
+ while(i<fs.length){if(fs[i].half&&fs[i+1]&&fs[i+1].half){h+='<div class="row2">'+fieldHTML(fs[i])+fieldHTML(fs[i+1])+'</div>';i+=2}else{h+=fieldHTML(fs[i]);i++}}
+ form.innerHTML=h;form.classList.remove("fade");void form.offsetWidth;form.classList.add("fade");
+ document.getElementById("pt").textContent="Step "+(step+1)+" of "+STEPS.length;document.getElementById("pb").style.width=((step+1)/STEPS.length*100)+"%";
+ back.hidden=step==0;next.textContent=step==STEPS.length-1?"Send on WhatsApp 💬":"Next →";next.classList.toggle("wa",step==STEPS.length-1);
+ fs.forEach(function(f){var el=document.getElementById("f_"+f.k);
+  if(f.type=="chips"){[].forEach.call(el.querySelectorAll(".chip"),function(c){c.onclick=function(){var v=c.getAttribute("data-v"),a=A[f.k]||[],j=a.indexOf(v);if(j>=0)a.splice(j,1);else a.push(v);A[f.k]=a;c.classList.toggle("on",a.indexOf(v)>=0);check(f,true)}})}
+  else{el.oninput=el.onchange=function(){A[f.k]=el.value.trim();check(f,false)};el.onblur=function(){check(f,true)}}});
+ var cc=document.getElementById("f_cc");if(cc)cc.onchange=function(){A.cc=cc.value};
 }
-function val(id){return document.getElementById(id).value.trim()}
-function waURL(){var t="السلام عليكم 👋\nأرغب في تسجيل طفلي في أكاديمية Codecademy\n\n"+
- "👤 ولي الأمر: "+(A.pn||"")+"\n🧒 اسم الطفل: "+(A.cn||"—")+"\n🎂 العمر: "+(A.age||"")+"\n🎯 الهدف: "+(A.goal||"")+"\n📊 المستوى: "+(A.level||"")+"\n📦 الباقة: "+(A.plan||"")+"\n⏰ الوقت المناسب: "+(A.time||"")+"\n📱 الواتساب: "+(A.cc||"")+" "+(A.ph||"");
- return "https://wa.me/"+WA+"?text="+encodeURIComponent(t)}
-function go(d){var cur=step<0?Q[0]:Q[step];if(d>0&&cur&&cur.form){var e=document.getElementById("err");if(!A.pn){e.textContent="من فضلك اكتب الاسم";return}if(!A.ph||A.ph.length<7){e.textContent="من فضلك اكتب رقم واتساب صحيح";return}window.open(waURL(),"_blank");step=Q.length;render();return}
- step=Math.max(0,Math.min(Q.length,step+d));render()}
-btn.onclick=function(){if(step<0)step=0;go(1)};
+function ok(f){var v=A[f.k];if(f.type=="chips")return !f.req||!!(v&&v.length);if(!f.req&&!v)return true;if(!v)return false;
+ if(f.type=="number"){var n=+v;return n>=f.min&&n<=f.max}if(f.type=="phone")return v.replace(/[^0-9]/g,"").length>=7;return true}
+function check(f,show){var box=form.querySelector('.field[data-k="'+f.k+'"]');if(!box)return;var g=ok(f),filled=Array.isArray(A[f.k])?A[f.k].length>0:!!A[f.k];box.classList.toggle("bad",show&&!g);box.classList.toggle("good",g&&filled)}
+function valid(){var all=true,firstBad=null;STEPS[step].f.forEach(function(f){var g=ok(f);check(f,true);if(!g){all=false;firstBad=firstBad||form.querySelector('.field[data-k="'+f.k+'"]')}});if(firstBad)firstBad.scrollIntoView({behavior:"smooth",block:"center"});return all}
+function L(k){var v=A[k];return Array.isArray(v)?(v.join(", ")||"—"):(v||"—")}
+function message(){return "Hello Codecademy 👋\nI'd like to sign up my child.\n\n"+
+ "🧒 Child: "+L("child")+"\n🎂 Age: "+L("age")+(A.grade?"\n🏫 Grade: "+A.grade:"")+"\n📊 Level: "+L("level")+
+ "\n🎯 Goal: "+L("goal")+"\n📦 Package: "+L("plan")+"\n📅 Days: "+L("days")+"\n⏰ Time: "+L("time")+
+ "\n\n👤 Parent: "+L("parent")+"\n📱 WhatsApp: "+(A.cc||"+966")+" "+(A.phone||"")+(A.city?"\n📍 City: "+A.city:"")+(A.note?"\n📝 Note: "+A.note:"")}
+function waURL(){return "https://wa.me/"+WA+"?text="+encodeURIComponent(message())}
+function done(){document.getElementById("bottom").style.display="none";
+ var d=document.createElement("section");d.className="card done fade";
+ d.innerHTML='<div class="big">🎉</div><h2>Thank you, '+esc(A.parent||"")+'!</h2><p>Your sign-up is ready. If WhatsApp didn\'t open, tap the green button to send it, and our team will reply soon.</p>'+
+ '<div class="sum"><b>Child:</b> '+esc(A.child||"")+', '+esc(A.age||"")+' years<br><b>Level:</b> '+esc(A.level||"")+'<br><b>Package:</b> '+esc(A.plan||"")+'<br><b>WhatsApp:</b> '+esc((A.cc||"+966")+" "+(A.phone||""))+'</div>'+
+ '<div class="links"><a class="l1" href="'+waURL()+'" target="_blank" rel="noopener">Send on WhatsApp 💬</a><a class="l2" href="'+SITE+'english.html#level-test" target="_blank" rel="noopener">Take the free level test 📝</a><a class="l3" href="'+SITE+'" target="_blank" rel="noopener">Visit our website 🌐</a></div>';
+ form.replaceWith(d);window.scrollTo({top:0,behavior:"smooth"})}
+next.onclick=function(){if(!valid())return;if(step==STEPS.length-1){window.open(waURL(),"_blank");done();return}step++;render();var f=document.getElementById("form");window.scrollTo({top:f.getBoundingClientRect().top+scrollY-20,behavior:"smooth"})};
+back.onclick=function(){if(step>0){step--;render()}};
 render();
 </script>
 </body>
