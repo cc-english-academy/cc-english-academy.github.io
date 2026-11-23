@@ -125,6 +125,27 @@ ar:{h1:"إنجليزي بالمعايشة لطفلك من البيت",hp:"حصص
 var F=[[{k:"child",type:"text",req:1,ac:"off"},{k:"age",type:"number",req:1,min:3,max:17,half:1},{k:"grade",type:"text",half:1},{k:"level",type:"select",req:1},{k:"goal",type:"chips",req:1}],
  [{k:"parent",type:"text",req:1,ac:"name"},{k:"phone",type:"phone",req:1},{k:"city",type:"text",ac:"address-level2"},{k:"note",type:"textarea"}]];
 var params=new URLSearchParams(location.search),MODE=params.get("lang");if(["en","mix","ar"].indexOf(MODE)<0){MODE="mix"}
+
+var WHO=(/student/.test(location.pathname)||params.get("for")=="student")?"student":"kid";
+if(WHO=="student"){
+ var S={en:{h1:"Learn English by living it, from anywhere",hp:"Live online English classes with English-speaking teachers",badges:["✔ Free level test","✔ Live online classes","✔ Speak with confidence"],org:"CODECADEMY · English Academy",ih:"Sign up in 2 minutes 🇬🇧",ip:"Fill in the form and we'll contact you on WhatsApp.",
+  err:{phone:"Please enter a valid WhatsApp number.",chips:"Please choose at least one.",age:"Please enter your age.",any:"Please fill in this field."},
+  steps:[["About you","Tell us about yourself and your goal."],["Your contact","We'll send the details and your free level test on WhatsApp."]],
+  f:{name:["Full name","e.g. Sara Ahmed"],age:["Age","e.g. 22"],job:["Study / work","e.g. Student"],level:["Your English level",["Complete beginner","Knows the basics","Intermediate","Advanced","I'm not sure (free level test)"]],goal:["Main goal",["Speak fluently","Work & career","IELTS / exams","Study abroad","Travel","Grammar & writing"]]},
+  sum:["Name","years","Level","","WhatsApp"],
+  msg:{hi:"Hello Codecademy 👋\nI'd like to sign up for English classes.",name:"Name",job:"Study/work"}},
+ ar:{h1:"إنجليزي بالمعايشة من أي مكان",hp:"حصص أونلاين مباشرة مع مدرّسين متحدثين بالإنجليزية",badges:["✔ اختبار مستوى مجاني","✔ حصص أونلاين مباشرة","✔ اتكلم بثقة"],org:"CODECADEMY · أكاديمية اللغة الإنجليزية",ih:"سجّل في دقيقتين 🇬🇧",ip:"املأ بياناتك وسنتواصل معك على الواتساب.",
+  err:{phone:"من فضلك اكتب رقم واتساب صحيح.",chips:"من فضلك اختر واحدًا على الأقل.",age:"من فضلك اكتب عمرك.",any:"من فضلك املأ هذه الخانة."},
+  steps:[["بياناتك","أخبرنا عن نفسك وهدفك."],["بيانات التواصل","سنرسل لك التفاصيل وموعد اختبار المستوى المجاني على الواتساب."]],
+  f:{name:["الاسم بالكامل","مثال: سارة أحمد"],age:["العمر","مثال: 22"],job:["الدراسة / العمل","مثال: طالب جامعي"],level:["مستواك في الإنجليزي",["مبتدئ تمامًا","أعرف الأساسيات","متوسط","متقدم","لا أعرف (اختبار مجاني)"]],goal:["الهدف",["التحدث بطلاقة","العمل والوظيفة","آيلتس / اختبارات","الدراسة بالخارج","السفر","القواعد والكتابة"]]},
+  sum:["الاسم","سنة","المستوى","","الواتساب"],
+  msg:{hi:"السلام عليكم 👋\nأرغب في التسجيل في كورسات الإنجليزي بأكاديمية Codecademy",name:"الاسم",job:"الدراسة/العمل"}}};
+ ["en","ar"].forEach(function(l){var o=S[l];["f","msg"].forEach(function(k){o[k]=Object.assign({},T[l][k],o[k])});Object.assign(T[l],o)});
+ F=[[{k:"name",type:"text",req:1,ac:"name"},{k:"age",type:"number",req:1,min:8,max:90,half:1},{k:"job",type:"text",half:1},{k:"level",type:"select",req:1},{k:"goal",type:"chips",req:1}],
+  [{k:"phone",type:"phone",req:1},{k:"city",type:"text",ac:"address-level2"},{k:"note",type:"textarea"}]];
+ document.title="Sign up · CODECADEMY English";
+}
+var EMO={child:"🧒",name:"🙋",age:"🎂",grade:"🏫",job:"💼",level:"📊",goal:"🎯",parent:"👤",city:"📍",note:"📝"};
 var A={},step=0,doneShown=false;
 var form=document.getElementById("form"),next=document.getElementById("next"),back=document.getElementById("back");
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -159,13 +180,12 @@ function ok(f){var v=A[f.k];if(f.type=="chips")return !f.req||!!(v&&v.length);if
 function check(f,show){var box=form.querySelector('.field[data-k="'+f.k+'"]');if(!box)return;var g=ok(f),v=A[f.k],filled=Array.isArray(v)?v.length>0:(v!=null&&v!=="");box.classList.toggle("bad",show&&!g);box.classList.toggle("good",g&&filled)}
 function valid(){var all=true,firstBad=null;F[step].forEach(function(f){var g=ok(f);check(f,true);if(!g){all=false;firstBad=firstBad||form.querySelector('.field[data-k="'+f.k+'"]')}});if(firstBad)firstBad.scrollIntoView({behavior:"smooth",block:"center"});return all}
 function val(k,L){var v=A[k],d=L.f[k];if(v==null||v===""||(Array.isArray(v)&&!v.length))return "—";if(Array.isArray(v))return v.map(function(i){return d[1][i]}).join("، ".replace("، ",L===T.ar?"، ":", "));if(Array.isArray(d[1]))return d[1][v];return v}
-function message(){var L=fl(),M=L.msg;var line=function(e,k){return "\n"+e+" "+M[k]+": "+val(k,L)};
- return M.hi+"\n"+line("🧒","child")+line("🎂","age")+(A.grade?line("🏫","grade"):"")+line("📊","level")+line("🎯","goal")+"\n"+line("👤","parent")+"\n📱 "+M.phone+": "+(A.cc||"+966")+" "+(A.phone||"")+(A.city?line("📍","city"):"")+(A.note?line("📝","note"):"")}
+function message(){var L=fl(),M=L.msg,out=M.hi;F.forEach(function(fs){out+="\n";fs.forEach(function(f){if(f.k=="phone"){out+="\n📱 "+M.phone+": "+(A.cc||"+966")+" "+(A.phone||"");return}var v=A[f.k];if(!f.req&&(v==null||v===""||(Array.isArray(v)&&!v.length)))return;out+="\n"+EMO[f.k]+" "+M[f.k]+": "+val(f.k,L)})});return out}
 function waURL(){return "https://wa.me/"+WA+"?text="+encodeURIComponent(message())}
 function done(){doneShown=true;var L=fl();$("bottom").style.display="none";
  var d=document.createElement("section");d.className="card done fade";d.id="form";d.dir=MODE=="en"?"ltr":"rtl";
- d.innerHTML='<div class="big">🎉</div><h2>'+L.thanks.replace("{n}",esc(A.parent||""))+'</h2><p>'+L.tp+'</p>'+
- '<div class="sum"><b>'+L.sum[0]+':</b> '+esc(A.child||"")+' · '+esc(A.age||"")+' '+L.sum[1]+'<br><b>'+L.sum[2]+':</b> '+esc(val("level",L))+'<br><b>'+L.sum[4]+':</b> <span dir="ltr">'+esc((A.cc||"+966")+" "+(A.phone||""))+'</span></div>'+
+ d.innerHTML='<div class="big">🎉</div><h2>'+L.thanks.replace("{n}",esc(A.parent||A.name||""))+'</h2><p>'+L.tp+'</p>'+
+ '<div class="sum"><b>'+L.sum[0]+':</b> '+esc(A.child||A.name||"")+' · '+esc(A.age||"")+' '+L.sum[1]+'<br><b>'+L.sum[2]+':</b> '+esc(val("level",L))+'<br><b>'+L.sum[4]+':</b> <span dir="ltr">'+esc((A.cc||"+966")+" "+(A.phone||""))+'</span></div>'+
  '<div class="links"><a class="l1" href="'+waURL()+'" target="_blank" rel="noopener">'+L.send+'</a><a class="l2" href="'+SITE+'english.html#level-test" target="_blank" rel="noopener">'+L.l2+'</a><a class="l3" href="'+SITE+'" target="_blank" rel="noopener">'+L.l3+'</a></div>';
  var cur=$("form");cur.replaceWith(d);form=d;window.scrollTo({top:0,behavior:"smooth"})}
 next.onclick=function(){if(!valid())return;if(step==F.length-1){window.open(waURL(),"_blank");done();return}step++;render();window.scrollTo({top:form.getBoundingClientRect().top+scrollY-20,behavior:"smooth"})};

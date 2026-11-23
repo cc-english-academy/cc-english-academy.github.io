@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sign up · CODECADEMY</title>
+<meta name="description" content="Sign up your child for live online English classes at Codecademy. Free level test. Free interactive apps for every student.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ccdemy.com/books/student/">
+<meta property="og:title" content="Sign up for English classes · Codecademy 🇬🇧">
+<meta property="og:description" content="Live online English classes with English-speaking teachers · Free level test">
+<meta property="og:image" content="https://ccdemy.com/books/student/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#6b1d2b">
+<link rel="icon" href="/assets/img/favicon-32.png">
+<style>
+@font-face{font-family:Cairo;font-weight:600;src:url(../assets/fonts/cairo-latin-600-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:700;src:url(../assets/fonts/cairo-latin-700-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:900;src:url(../assets/fonts/cairo-latin-900-normal.woff2)}@font-face{font-family:Cairo;font-weight:600;src:url(../assets/fonts/cairo-arabic-600-normal.woff2);unicode-range:U+0600-06FF,U+FB50-FDFF,U+FE70-FEFF}@font-face{font-family:Cairo;font-weight:700;src:url(../assets/fonts/cairo-arabic-700-normal.woff2);unicode-range:U+0600-06FF,U+FB50-FDFF,U+FE70-FEFF}@font-face{font-family:Cairo;font-weight:900;src:url(../assets/fonts/cairo-arabic-900-normal.woff2);unicode-range:U+0600-06FF,U+FB50-FDFF,U+FE70-FEFF}
+:root{--m:#6b1d2b;--d:#3d0c14;--g:#e2bd62;--ink:#2a1015;--line:#ecd3c3;--ok:#25d366;--muted:#7a6a6e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#f4ece4;color:var(--ink);font-family:Cairo,"Segoe UI",system-ui,sans-serif}
+.app{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;background:linear-gradient(#f9f1e9,#f1e6dc)}
+.banner{background:radial-gradient(circle at 85% 0,#9b3249,transparent 55%),linear-gradient(135deg,#6b1d2b,#3d0c14);color:#fff;padding:20px 18px 100px;text-align:center;position:relative;overflow:hidden}
+.banner::after{content:"";position:absolute;inset:auto -10% -40px;height:80px;background:#f9f1e9;border-radius:50% 50% 0 0}
+.banner small{font-weight:700;letter-spacing:.25em;color:var(--g);font-size:11px;display:block}
+.banner h1{margin:6px 0 2px;font-size:24px;font-weight:900;line-height:1.25}
+.banner p{margin:0;font-size:14px;color:#f6dfc9}
+.badges{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.badges span{background:#ffffff1f;border:1px solid #ffffff33;border-radius:99px;padding:3px 11px;font-size:12.5px;font-weight:700}
+main{padding:0 16px 130px;margin-top:-40px;position:relative;z-index:1}
+.card{background:#fff;border-radius:20px;box-shadow:0 6px 24px rgba(61,12,20,.08);padding:20px 18px;margin-bottom:14px}
+.intro{text-align:center;padding-top:54px;position:relative}
+.logo{position:absolute;top:-46px;left:50%;transform:translateX(-50%);width:94px;height:94px;border-radius:50%;background:#fbf0e4;border:4px solid #fff;box-shadow:0 6px 18px rgba(61,12,20,.18);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo img{width:78%}
+.intro .org{color:var(--muted);font-size:14px;margin:0}
+.intro h2{margin:6px 0;font-size:24px;font-weight:900;line-height:1.3}
+.intro p{margin:6px 0 0;font-size:15.5px;line-height:1.7}
+.intro b{color:var(--m)}
+.form h3{margin:0 0 4px;font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px}
+.form h3 span{background:var(--m);color:#fff;width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;font-size:15px}
+.form .sub{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;min-width:0}
+.field label{font-weight:700;font-size:15px}
+.field label i{font-style:normal;color:#c0392b}
+.field label small{font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fffdfb;color:var(--ink);width:100%;min-width:0;transition:border-color .2s,box-shadow .2s}
+.field select:invalid{color:#a3959a}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--m);box-shadow:0 0 0 4px #6b1d2b1a}
+.field.bad input,.field.bad select,.field.bad .chips{border-color:#c0392b}
+.field .msg{color:#c0392b;font-size:13px;display:none}.field.bad .msg{display:block}
+.field.good input,.field.good select{border-color:#3fae5a}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phone{display:flex;gap:8px}.phone select{width:118px;flex:none}.phone input{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:#fffdfb;border-radius:99px;padding:8px 14px;font:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--m);border-color:var(--m);color:#fff}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#fffcf9ee;backdrop-filter:blur(8px);border-top:1px solid #efe2d8;padding:10px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bottom .in{max-width:488px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.prog{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--muted)}
+.prog .bar{flex:1;height:8px;border-radius:99px;background:#e6dbd3;overflow:hidden}.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--m),#a8344c);transition:width .35s}
+.btns{display:flex;gap:10px}
+.cta{flex:1;border:0;border-radius:14px;padding:14px;font:inherit;font-size:17px;font-weight:900;color:#fff;background:var(--m);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.cta.ghost{flex:none;background:#fff;color:var(--m);border:2px solid var(--line);padding:14px 18px}
+.cta.wa{background:var(--ok)}
+.cta[hidden]{display:none}
+.done{text-align:center}.done .big{font-size:58px;line-height:1}.done h2{margin:6px 0;font-size:24px;font-weight:900;color:var(--m)}.done p{margin:6px 0;line-height:1.7}
+.sum{background:#fbf5ef;border-radius:14px;padding:12px 14px;text-align:left;font-size:14.5px;line-height:1.8;margin:12px 0}
+.sum b{color:var(--m)}
+.links{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.links a{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:13px;font-weight:900;text-decoration:none;font-size:16px}
+.links .l1{background:var(--ok);color:#fff}.links .l2{background:var(--m);color:#fff}.links .l3{background:#fff;color:var(--m);border:2px solid var(--m)}
+.foot{text-align:center;color:#9a8a8e;font-size:12.5px;margin-top:6px}.foot a{color:var(--m)}
+.lang{display:inline-flex;gap:4px;background:#ffffff1a;border:1px solid #ffffff33;border-radius:99px;padding:3px;margin-top:10px}.lang button{border:0;background:none;color:#fff;font:inherit;font-weight:700;font-size:13px;padding:4px 12px;border-radius:99px;cursor:pointer}.lang button.on{background:var(--g);color:var(--d)}
+[dir=rtl] .sum{text-align:right}[dir=rtl] .phone{direction:ltr}[dir=rtl] .phone input{text-align:left}
+.intro .tag{margin:4px 0 10px;font-weight:800;color:var(--m);font-size:15.5px}
+.fade{animation:fade .3s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="banner">
+    <small>CODECADEMY · LEARN BY LIVING IT ♥</small>
+    <div class="lang" role="group" aria-label="Language"><button data-l="en">EN</button><button data-l="mix">EN + عربي</button><button data-l="ar">عربي</button></div>
+    <h1 id="h1">Learn English by living it, from home</h1>
+    <p id="hp">Live online classes for kids with English-speaking teachers</p>
+    <div class="badges" id="badges"></div>
+  </header>
+  <main>
+    <section class="card intro">
+      <div class="logo"><img src="../assets/logo.png" alt="CODECADEMY"></div>
+      <p class="org" id="org"></p>
+      <p class="tag" id="tag"></p>
+      <h2 id="ih"></h2>
+      <p id="ip"></p>
+    </section>
+    <form class="card form fade" id="form" novalidate autocomplete="on"></form>
+    <p class="foot"><a href="https://ccdemy.com/" target="_blank" rel="noopener">ccdemy.com</a> · <a href="https://wa.me/message/SMLAW2VMJXCQE1" target="_blank" rel="noopener" id="chat">Chat with us on WhatsApp</a></p>
+  </main>
+</div>
+<div class="bottom" id="bottom"><div class="in">
+  <div class="prog"><span id="pt">Step 1 of 3</span><div class="bar"><i id="pb"></i></div></div>
+  <div class="btns"><button class="cta ghost" id="back" type="button" hidden>← Back</button><button class="cta" id="next" type="button">Next →</button></div>
+</div></div>
+
+<script>
+var WA="966538840330",SITE="https://ccdemy.com/";
+var T={
+en:{h1:"Learn English by living it, from home",hp:"Live online classes for kids with English-speaking teachers",badges:["✔ Free level test","✔ Free interactive apps","✔ 9 levels"],org:"CODECADEMY · English Academy for Kids",ih:"Sign up your child in 2 minutes 🇬🇧",tag:"A fun, interactive way to speak English with confidence.",ip:"Fill in the form and we'll contact you on WhatsApp.",chat:"Chat with us on WhatsApp",
+ step:"Step {a} of {b}",next:"Next →",back:"← Back",send:"Send on WhatsApp 💬",opt:"(optional)",choose:"Choose…",
+ err:{phone:"Please enter a valid WhatsApp number.",chips:"Please choose at least one.",age:"Please enter the age (3 to 17).",any:"Please fill in this field."},
+ steps:[["Your child","Tell us about the student and the main goal."],["Parent's contact","We'll send the details and your free level test on WhatsApp."]],
+ f:{child:["Child's name","e.g. Adam"],age:["Child's age","e.g. 8"],grade:["School grade","e.g. Grade 3"],level:["English level now",["Complete beginner","Knows the basics","Intermediate","Advanced","I'm not sure (free level test)"]],goal:["Main goal",["Speak fluently","Phonics & reading","Writing","School English","Travel or exams"]],plan:["Package",["2 classes a week · 8 a month (150 SAR)","3 classes a week · 12 a month (250 SAR)","I need advice"]],days:["Preferred days",["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]],time:["Preferred time",["Morning","Afternoon","Evening","Flexible"]],parent:["Parent's name","Your name"],phone:["WhatsApp number","5X XXX XXXX"],city:["City / country","e.g. Riyadh"],note:["Anything else?","Questions or notes"]},
+ thanks:"Thank you, {n}!",tp:"Your sign-up is ready. If WhatsApp didn't open, tap the green button to send it, and our team will reply soon.",sum:["Child","years","Level","Package","WhatsApp"],l2:"Take the free level test 📝",l3:"Visit our website 🌐",
+ msg:{hi:"Hello Codecademy 👋\nI'd like to sign up my child.",child:"Child",age:"Age",grade:"Grade",level:"Level",goal:"Goal",plan:"Package",days:"Days",time:"Time",parent:"Parent",phone:"WhatsApp",city:"City",note:"Note"}},
+ar:{h1:"إنجليزي بالمعايشة لطفلك من البيت",hp:"حصص أونلاين مباشرة مع مدرّسين متحدثين بالإنجليزية",badges:["✔ اختبار مستوى مجاني","✔ تطبيقات تفاعلية مجانًا","✔ 9 مستويات"],org:"CODECADEMY · أكاديمية الإنجليزي للأطفال",ih:"سجّل طفلك في دقيقتين 🇬🇧",tag:"طريقة ممتعة وتفاعلية ليتحدث طفلك الإنجليزية بثقة.",ip:"املأ البيانات وسنتواصل معك على الواتساب.",chat:"تواصل معنا على الواتساب",
+ step:"الخطوة {a} من {b}",next:"التالي ←",back:"→ رجوع",send:"إرسال على الواتساب 💬",opt:"(اختياري)",choose:"اختر…",
+ err:{phone:"من فضلك اكتب رقم واتساب صحيح.",chips:"من فضلك اختر واحدًا على الأقل.",age:"من فضلك اكتب العمر (من 3 إلى 17).",any:"من فضلك املأ هذه الخانة."},
+ steps:[["بيانات الطفل","أخبرنا عن الطالب وهدفه."],["بيانات ولي الأمر","سنرسل لك التفاصيل وموعد اختبار المستوى المجاني على الواتساب."]],
+ f:{child:["اسم الطفل","مثال: آدم"],age:["عمر الطفل","مثال: 8"],grade:["الصف الدراسي","مثال: الصف الثالث"],level:["مستوى الطفل في الإنجليزي",["مبتدئ تمامًا","يعرف الأساسيات","متوسط","متقدم","لا أعرف (اختبار مجاني)"]],goal:["الهدف",["التحدث بطلاقة","الصوتيات والقراءة","الكتابة","تحسين مستواه في المدرسة","السفر أو الاختبارات"]],plan:["الباقة",["حصتان أسبوعيًا · 8 حصص شهريًا (150 ريال)","3 حصص أسبوعيًا · 12 حصة شهريًا (250 ريال)","أحتاج استشارة"]],days:["الأيام المناسبة",["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"]],time:["الوقت المناسب",["صباحًا","بعد الظهر","مساءً","مرن"]],parent:["اسم ولي الأمر","اسمك"],phone:["رقم الواتساب","5X XXX XXXX"],city:["المدينة / الدولة","مثال: الرياض"],note:["ملاحظات","أسئلة أو ملاحظات"]},
+ thanks:"شكرًا لك، {n}!",tp:"تم تجهيز طلب التسجيل. إذا لم يفتح الواتساب، اضغط على الزر الأخضر لإرساله، وسيتواصل معك فريقنا قريبًا.",sum:["الطفل","سنوات","المستوى","الباقة","الواتساب"],l2:"ابدأ اختبار المستوى المجاني 📝",l3:"زيارة موقعنا 🌐",
+ msg:{hi:"السلام عليكم 👋\nأرغب في تسجيل طفلي في أكاديمية Codecademy",child:"اسم الطفل",age:"العمر",grade:"الصف",level:"المستوى",goal:"الهدف",plan:"الباقة",days:"الأيام",time:"الوقت",parent:"ولي الأمر",phone:"الواتساب",city:"المدينة",note:"ملاحظات"}}
+};
+var F=[[{k:"child",type:"text",req:1,ac:"off"},{k:"age",type:"number",req:1,min:3,max:17,half:1},{k:"grade",type:"text",half:1},{k:"level",type:"select",req:1},{k:"goal",type:"chips",req:1}],
+ [{k:"parent",type:"text",req:1,ac:"name"},{k:"phone",type:"phone",req:1},{k:"city",type:"text",ac:"address-level2"},{k:"note",type:"textarea"}]];
+var params=new URLSearchParams(location.search),MODE=params.get("lang");if(["en","mix","ar"].indexOf(MODE)<0){MODE="mix"}
+
+var WHO=(/student/.test(location.pathname)||params.get("for")=="student")?"student":"kid";
+if(WHO=="student"){
+ var S={en:{h1:"Learn English by living it, from anywhere",hp:"Live online English classes with English-speaking teachers",badges:["✔ Free level test","✔ Live online classes","✔ Speak with confidence"],org:"CODECADEMY · English Academy",ih:"Sign up in 2 minutes 🇬🇧",ip:"Fill in the form and we'll contact you on WhatsApp.",
+  err:{phone:"Please enter a valid WhatsApp number.",chips:"Please choose at least one.",age:"Please enter your age.",any:"Please fill in this field."},
+  steps:[["About you","Tell us about yourself and your goal."],["Your contact","We'll send the details and your free level test on WhatsApp."]],
+  f:{name:["Full name","e.g. Sara Ahmed"],age:["Age","e.g. 22"],job:["Study / work","e.g. Student"],level:["Your English level",["Complete beginner","Knows the basics","Intermediate","Advanced","I'm not sure (free level test)"]],goal:["Main goal",["Speak fluently","Work & career","IELTS / exams","Study abroad","Travel","Grammar & writing"]]},
+  sum:["Name","years","Level","","WhatsApp"],
+  msg:{hi:"Hello Codecademy 👋\nI'd like to sign up for English classes.",name:"Name",job:"Study/work"}},
+ ar:{h1:"إنجليزي بالمعايشة من أي مكان",hp:"حصص أونلاين مباشرة مع مدرّسين متحدثين بالإنجليزية",badges:["✔ اختبار مستوى مجاني","✔ حصص أونلاين مباشرة","✔ اتكلم بثقة"],org:"CODECADEMY · أكاديمية اللغة الإنجليزية",ih:"سجّل في دقيقتين 🇬🇧",ip:"املأ بياناتك وسنتواصل معك على الواتساب.",
+  err:{phone:"من فضلك اكتب رقم واتساب صحيح.",chips:"من فضلك اختر واحدًا على الأقل.",age:"من فضلك اكتب عمرك.",any:"من فضلك املأ هذه الخانة."},
+  steps:[["بياناتك","أخبرنا عن نفسك وهدفك."],["بيانات التواصل","سنرسل لك التفاصيل وموعد اختبار المستوى المجاني على الواتساب."]],
+  f:{name:["الاسم بالكامل","مثال: سارة أحمد"],age:["العمر","مثال: 22"],job:["الدراسة / العمل","مثال: طالب جامعي"],level:["مستواك في الإنجليزي",["مبتدئ تمامًا","أعرف الأساسيات","متوسط","متقدم","لا أعرف (اختبار مجاني)"]],goal:["الهدف",["التحدث بطلاقة","العمل والوظيفة","آيلتس / اختبارات","الدراسة بالخارج","السفر","القواعد والكتابة"]]},
+  sum:["الاسم","سنة","المستوى","","الواتساب"],
+  msg:{hi:"السلام عليكم 👋\nأرغب في التسجيل في كورسات الإنجليزي بأكاديمية Codecademy",name:"الاسم",job:"الدراسة/العمل"}}};
+ ["en","ar"].forEach(function(l){var o=S[l];["f","msg"].forEach(function(k){o[k]=Object.assign({},T[l][k],o[k])});Object.assign(T[l],o)});
+ F=[[{k:"name",type:"text",req:1,ac:"name"},{k:"age",type:"number",req:1,min:8,max:90,half:1},{k:"job",type:"text",half:1},{k:"level",type:"select",req:1},{k:"goal",type:"chips",req:1}],
+  [{k:"phone",type:"phone",req:1},{k:"city",type:"text",ac:"address-level2"},{k:"note",type:"textarea"}]];
+ document.title="Sign up · CODECADEMY English";
+}
+var EMO={child:"🧒",name:"🙋",age:"🎂",grade:"🏫",job:"💼",level:"📊",goal:"🎯",parent:"👤",city:"📍",note:"📝"};
+var A={},step=0,doneShown=false;
+var form=document.getElementById("form"),next=document.getElementById("next"),back=document.getElementById("back");
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function tl(){return T[MODE=="ar"?"ar":"en"]}function fl(){return T[MODE=="en"?"en":"ar"]}
+function $(id){return document.getElementById(id)}
+function applyLang(){var t=tl(),f=fl();document.documentElement.lang=MODE=="en"?"en":"ar";
+ document.querySelector(".banner").dir=MODE=="ar"?"rtl":"ltr";$("h1").textContent=t.h1;$("hp").textContent=t.hp;$("badges").innerHTML=t.badges.map(function(b){return "<span>"+b+"</span>"}).join("");
+ var intro=document.querySelector(".intro");intro.dir=MODE=="en"?"ltr":"rtl";var it=MODE=="en"?T.en:T.ar,id=MODE=="ar"?T.ar:T.en;$("org").textContent=id.org;$("tag").textContent=id.tag;$("org").dir=$("tag").dir=MODE=="ar"?"rtl":"ltr";$("ih").innerHTML=it.ih;$("ip").innerHTML=it.ip;$("chat").textContent=t.chat;
+ var fd=MODE=="en"?"ltr":"rtl";form.dir=fd;document.querySelector(".bottom").dir=fd;
+ [].forEach.call(document.querySelectorAll(".lang button"),function(b){b.classList.toggle("on",b.getAttribute("data-l")==MODE)});
+ if(!doneShown)render();else done()}
+function fieldHTML(f){var L=fl(),d=L.f[f.k],lab='<label for="f_'+f.k+'">'+d[0]+(f.req?' <i>*</i>':' <small>'+L.opt+'</small>')+'</label>',h='',o=Array.isArray(d[1])?d[1]:null;
+ if(f.type=="select")h='<select id="f_'+f.k+'" required><option value="" disabled'+(A[f.k]==null?' selected':'')+'>'+L.choose+'</option>'+o.map(function(x,i){return '<option value="'+i+'"'+(A[f.k]==i&&A[f.k]!==null&&A[f.k]!==""?' selected':'')+'>'+esc(x)+'</option>'}).join("")+'</select>';
+ else if(f.type=="chips")h='<div class="chips" id="f_'+f.k+'">'+o.map(function(x,i){return '<button type="button" class="chip'+((A[f.k]||[]).indexOf(i)>=0?' on':'')+'" data-i="'+i+'">'+esc(x)+'</button>'}).join("")+'</div>';
+ else if(f.type=="phone")h='<div class="phone"><select id="f_cc" aria-label="Country code">'+[["+966","🇸🇦 +966"],["+20","🇪🇬 +20"],["+971","🇦🇪 +971"],["+965","🇰🇼 +965"],["+974","🇶🇦 +974"],["+973","🇧🇭 +973"],["+968","🇴🇲 +968"],["+962","🇯🇴 +962"],["+44","🇬🇧 +44"],["+1","🇺🇸 +1"]].map(function(c){return '<option value="'+c[0]+'"'+((A.cc||"+966")==c[0]?' selected':'')+'>'+c[1]+'</option>'}).join("")+'</select><input id="f_phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="'+d[1]+'" value="'+esc(A.phone||"")+'"></div>';
+ else if(f.type=="textarea")h='<textarea id="f_'+f.k+'" rows="3" placeholder="'+d[1]+'">'+esc(A[f.k]||"")+'</textarea>';
+ else h='<input id="f_'+f.k+'" type="'+f.type+'" placeholder="'+d[1]+'" value="'+esc(A[f.k]||"")+'"'+(f.min?' min="'+f.min+'" max="'+f.max+'" inputmode="numeric"':'')+(f.ac?' autocomplete="'+f.ac+'"':'')+'>';
+ var m=f.type=="phone"?L.err.phone:f.type=="chips"?L.err.chips:f.type=="number"?L.err.age:L.err.any;
+ return '<div class="field" data-k="'+f.k+'">'+lab+h+'<span class="msg">'+m+'</span></div>'}
+function render(){var L=fl(),fs=F[step],h='<h3><span>'+(step+1)+'</span>'+L.steps[step][0]+'</h3><p class="sub">'+L.steps[step][1]+'</p>',i=0;
+ while(i<fs.length){if(fs[i].half&&fs[i+1]&&fs[i+1].half){h+='<div class="row2">'+fieldHTML(fs[i])+fieldHTML(fs[i+1])+'</div>';i+=2}else{h+=fieldHTML(fs[i]);i++}}
+ form.innerHTML=h;form.classList.remove("fade");void form.offsetWidth;form.classList.add("fade");
+ $("pt").textContent=L.step.replace("{a}",step+1).replace("{b}",F.length);$("pb").style.width=((step+1)/F.length*100)+"%";
+ back.hidden=step==0;back.textContent=L.back;next.textContent=step==F.length-1?L.send:L.next;next.classList.toggle("wa",step==F.length-1);
+ fs.forEach(function(f){var el=$("f_"+f.k);
+  if(f.type=="chips"){[].forEach.call(el.querySelectorAll(".chip"),function(c){c.onclick=function(){var v=+c.getAttribute("data-i"),a=A[f.k]||[],j=a.indexOf(v);if(j>=0)a.splice(j,1);else a.push(v);A[f.k]=a;c.classList.toggle("on",a.indexOf(v)>=0);check(f,true)}})}
+  else{el.oninput=el.onchange=function(){A[f.k]=el.value.trim();check(f,false)};el.onblur=function(){check(f,true)}}});
+ var cc=$("f_cc");if(cc)cc.onchange=function(){A.cc=cc.value};
+}
+function ok(f){var v=A[f.k];if(f.type=="chips")return !f.req||!!(v&&v.length);if(!f.req&&(v==null||v===""))return true;if(v==null||v==="")return false;
+ if(f.type=="number"){var n=+v;return n>=f.min&&n<=f.max}if(f.type=="phone")return String(v).replace(/[^0-9]/g,"").length>=7;return true}
+function check(f,show){var box=form.querySelector('.field[data-k="'+f.k+'"]');if(!box)return;var g=ok(f),v=A[f.k],filled=Array.isArray(v)?v.length>0:(v!=null&&v!=="");box.classList.toggle("bad",show&&!g);box.classList.toggle("good",g&&filled)}
+function valid(){var all=true,firstBad=null;F[step].forEach(function(f){var g=ok(f);check(f,true);if(!g){all=false;firstBad=firstBad||form.querySelector('.field[data-k="'+f.k+'"]')}});if(firstBad)firstBad.scrollIntoView({behavior:"smooth",block:"center"});return all}
+function val(k,L){var v=A[k],d=L.f[k];if(v==null||v===""||(Array.isArray(v)&&!v.length))return "—";if(Array.isArray(v))return v.map(function(i){return d[1][i]}).join("، ".replace("، ",L===T.ar?"، ":", "));if(Array.isArray(d[1]))return d[1][v];return v}
+function message(){var L=fl(),M=L.msg,out=M.hi;F.forEach(function(fs){out+="\n";fs.forEach(function(f){if(f.k=="phone"){out+="\n📱 "+M.phone+": "+(A.cc||"+966")+" "+(A.phone||"");return}var v=A[f.k];if(!f.req&&(v==null||v===""||(Array.isArray(v)&&!v.length)))return;out+="\n"+EMO[f.k]+" "+M[f.k]+": "+val(f.k,L)})});return out}
+function waURL(){return "https://wa.me/"+WA+"?text="+encodeURIComponent(message())}
+function done(){doneShown=true;var L=fl();$("bottom").style.display="none";
+ var d=document.createElement("section");d.className="card done fade";d.id="form";d.dir=MODE=="en"?"ltr":"rtl";
+ d.innerHTML='<div class="big">🎉</div><h2>'+L.thanks.replace("{n}",esc(A.parent||A.name||""))+'</h2><p>'+L.tp+'</p>'+
+ '<div class="sum"><b>'+L.sum[0]+':</b> '+esc(A.child||A.name||"")+' · '+esc(A.age||"")+' '+L.sum[1]+'<br><b>'+L.sum[2]+':</b> '+esc(val("level",L))+'<br><b>'+L.sum[4]+':</b> <span dir="ltr">'+esc((A.cc||"+966")+" "+(A.phone||""))+'</span></div>'+
+ '<div class="links"><a class="l1" href="'+waURL()+'" target="_blank" rel="noopener">'+L.send+'</a><a class="l2" href="'+SITE+'english.html#level-test" target="_blank" rel="noopener">'+L.l2+'</a><a class="l3" href="'+SITE+'" target="_blank" rel="noopener">'+L.l3+'</a></div>';
+ var cur=$("form");cur.replaceWith(d);form=d;window.scrollTo({top:0,behavior:"smooth"})}
+next.onclick=function(){if(!valid())return;if(step==F.length-1){window.open(waURL(),"_blank");done();return}step++;render();window.scrollTo({top:form.getBoundingClientRect().top+scrollY-20,behavior:"smooth"})};
+back.onclick=function(){if(step>0){step--;render()}};
+[].forEach.call(document.querySelectorAll(".lang button"),function(b){b.onclick=function(){MODE=b.getAttribute("data-l");try{history.replaceState(null,"","?lang="+MODE)}catch(e){}applyLang()}});
+applyLang();
+</script>
+</body>
+</html>
