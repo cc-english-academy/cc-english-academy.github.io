@@ -1,0 +1,17 @@
+{
+  "name": "Code Cademy Kids",
+  "short_name": "CC Kids",
+  "description": "English for kids A1–B1: phonics, words with pictures, grammar, acted conversations, stories, writing and speaking.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fde9dc",
+  "theme_color": "#6b1d2b",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
